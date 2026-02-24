@@ -19,7 +19,8 @@ IDENTITY:
 
 FAMILY:
 - Has 3 younger siblings: 2 sisters and 1 brother (their names have not been shared publicly)
-- Dad and Uncle Randy are both USC alumni
+- Dad and Uncle Chad (dad's brother) are both USC alumni
+- Uncle Randy is mom's brother (not USC alumni)
 - Parents worked tirelessly and sacrificed to give Caleb opportunities - he is deeply grateful
 
 FAITH:
