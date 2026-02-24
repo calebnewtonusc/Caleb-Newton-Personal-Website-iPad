@@ -62,21 +62,24 @@ function TodayCard({ project }: { project: typeof projects[0] }) {
               width: 52,
               height: 52,
               borderRadius: 14,
-              background: (project as { icon?: string }).icon ? "white" : `linear-gradient(145deg, ${project.color}, ${project.color}bb)`,
+              background: "white",
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               flexShrink: 0,
-              boxShadow: `0 3px 12px ${project.color}55`,
+              boxShadow: "0 1px 6px rgba(0,0,0,0.1)",
               overflow: "hidden",
-              border: (project as { icon?: string }).icon ? `1px solid ${project.color}22` : "none",
+              border: "0.5px solid rgba(60,60,67,0.1)",
             }}
           >
             {(project as { icon?: string }).icon ? (
               // eslint-disable-next-line @next/next/no-img-element
               <img src={(project as { icon?: string }).icon} alt={project.title} style={{ width: "80%", height: "80%", objectFit: "contain" }} />
+            ) : project.image ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={project.image} alt={project.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
             ) : (
-              <span style={{ fontSize: 22, fontWeight: 900, color: "white", fontFamily: "-apple-system, sans-serif" }}>
+              <span style={{ fontSize: 22, fontWeight: 900, color: project.color, fontFamily: "-apple-system, sans-serif" }}>
                 {project.title[0]}
               </span>
             )}
@@ -198,24 +201,22 @@ function AppRow({ project, index, expanded, onToggle }: {
             borderRadius: 14,
             overflow: "hidden",
             flexShrink: 0,
-            background: `linear-gradient(145deg, ${project.color}, ${project.color}99)`,
+            background: "white",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            boxShadow: `0 2px 8px ${project.color}44`,
-            position: "relative",
+            boxShadow: "0 1px 6px rgba(0,0,0,0.1)",
+            border: "0.5px solid rgba(60,60,67,0.1)",
           }}
         >
           {project.image ? (
             // eslint-disable-next-line @next/next/no-img-element
             <img src={project.image} alt={project.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
           ) : (
-            <span style={{ fontSize: 22, fontWeight: 900, color: "white", fontFamily: "-apple-system, sans-serif" }}>
+            <span style={{ fontSize: 22, fontWeight: 900, color: project.color, fontFamily: "-apple-system, sans-serif" }}>
               {project.title[0]}
             </span>
           )}
-          {/* shine */}
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(255,255,255,0.25) 0%, transparent 55%)", pointerEvents: "none", borderRadius: "inherit" }} />
         </div>
 
         {/* Text */}

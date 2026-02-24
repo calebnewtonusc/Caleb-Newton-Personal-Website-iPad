@@ -120,12 +120,13 @@ const PROFILE_SECTION = "__profile__";
 
 // Group sections for iOS-style grouped lists
 const SECTION_GROUPS = [
-  ["faith", "film", "runtime"],
+  ["faith", "music", "sports"],
+  ["film", "runtime"],
   ["system", "device"],
 ];
 
 export default function SettingsApp({ onClose, orientation }: Props) {
-  const [selectedSection, setSelectedSection] = useState<string | null>(null);
+  const [selectedSection, setSelectedSection] = useState<string | null>(PROFILE_SECTION);
   const isLandscape = orientation === "landscape";
 
   const section = personalSettings.find((s) => s.icon === selectedSection);
@@ -167,7 +168,7 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                   }}
                 >
                   <div style={{ width: 60, height: 60, borderRadius: "50%", overflow: "hidden", flexShrink: 0, position: "relative" }}>
-                    <Image src={profile.photoAlt} alt="Caleb Newton" fill style={{ objectFit: "cover" }} />
+                    <Image src={profile.photoAlt} alt="Caleb Newton" fill style={{ objectFit: "cover", objectPosition: "center 25%" }} />
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <p style={{ fontSize: 20, fontWeight: 600, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>Caleb Newton</p>
@@ -237,10 +238,10 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                 {/* Profile header */}
                 <div style={{ background: "white", borderRadius: 10, padding: "20px 16px", marginBottom: 8, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
                   <div style={{ width: 80, height: 80, borderRadius: "50%", overflow: "hidden", marginBottom: 12, position: "relative" }}>
-                    <Image src={profile.photoAlt} alt="Caleb Newton" fill style={{ objectFit: "cover" }} />
+                    <Image src={profile.photoAlt} alt="Caleb Newton" fill style={{ objectFit: "cover", objectPosition: "center 25%" }} />
                   </div>
                   <p style={{ fontSize: 22, fontWeight: 700, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif", marginBottom: 3 }}>Caleb Newton</p>
-                  <p style={{ fontSize: 13, color: "#636366", fontFamily: "-apple-system, sans-serif" }}>USC Freshman · CS + Applied Mathematics · Viterbi</p>
+                  <p style={{ fontSize: 13, color: "#636366", fontFamily: "-apple-system, sans-serif" }}>USC Freshman · CS + Applied Mathematics</p>
                 </div>
 
                 {/* Bio */}
@@ -254,7 +255,7 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                 <div style={{ background: "white", borderRadius: 10, overflow: "hidden", marginBottom: 8 }}>
                   {[
                     { label: "Building", value: "Holographic video @ AINA Tech" },
-                    { label: "Studying", value: "CS + Applied Math @ USC Viterbi" },
+                    { label: "Studying", value: "CS + Applied Math @ USC" },
                     { label: "Learning", value: "PyTorch · 4DGS · Guitar" },
                   ].map((item, i) => (
                     <div key={item.label} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "13px 16px", borderTop: i > 0 ? "0.5px solid rgba(60,60,67,0.18)" : "none" }}>

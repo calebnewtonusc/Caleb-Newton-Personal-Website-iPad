@@ -12,7 +12,7 @@ interface Props {
 // Map each education entry to a full-text "note"
 const noteContent: Record<string, { body: string }> = {
   usc: {
-    body: `Aug 2025 - May 2029. Freshman at USC Viterbi studying CS + Applied Mathematics. Taking Multivariable Calculus, Linear Algebra, C++, and Discrete Methods simultaneously - dense, but each course feeds the others.
+    body: `Aug 2025 - May 2029. Freshman at USC studying CS + Applied Mathematics. Taking Multivariable Calculus, Linear Algebra, C++, and Discrete Methods simultaneously - dense, but each course feeds the others.
 
 C++ is making me think about memory in ways Python never did. Linear algebra shows up in every ML paper. Building things here that I couldn't have imagined in high school.`,
   },

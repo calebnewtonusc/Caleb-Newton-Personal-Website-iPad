@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { music } from "@/data/content";
+import { music, social } from "@/data/content";
 
 type Tab = "new" | "old";
 
@@ -17,10 +17,10 @@ export default function SpotifyApp({ onClose: _onClose }: Props) {
   const albums = tab === "new" ? music.favoriteNewAlbums : music.favoriteOldAlbums;
 
   return (
-    <div className="app-window" style={{ background: "#121212" }}>
+    <div className="app-window" style={{ background: "#121212", display: "flex", flexDirection: "column" }}>
       <div
         className="ios-scroll"
-        style={{ flex: 1, overflowY: "auto", padding: "0 0 32px" }}
+        style={{ flex: 1, overflowY: "auto", padding: "0 0 48px", background: "#121212", minHeight: 0 }}
       >
         {/* Header */}
         <motion.div
@@ -95,6 +95,44 @@ export default function SpotifyApp({ onClose: _onClose }: Props) {
             allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"
             style={{ borderRadius: 12, display: "block" }}
           />
+        </motion.div>
+
+        {/* Spotify Profile Link */}
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.08 }}
+          style={{ margin: "14px 16px 0" }}
+        >
+          <a
+            href={social.spotify}
+            target="_blank"
+            rel="noopener noreferrer"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 12,
+              background: "#1DB954",
+              borderRadius: 14,
+              padding: "12px 16px",
+              textDecoration: "none",
+            }}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="white">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.65 14.41c-.19.31-.6.4-.91.21-2.49-1.52-5.63-1.86-9.32-1.02-.36.08-.71-.14-.79-.49-.08-.36.14-.71.49-.79 4.04-.92 7.51-.53 10.32 1.18.3.19.4.6.21.91zm1.24-2.76c-.24.38-.74.5-1.12.27-2.85-1.75-7.19-2.26-10.56-1.24-.44.13-.9-.12-1.03-.55-.13-.44.12-.9.56-1.03 3.84-1.17 8.62-.6 11.89 1.43.38.24.5.74.26 1.12zm.11-2.87c-3.41-2.03-9.04-2.21-12.3-1.22-.52.16-1.07-.14-1.23-.66-.16-.52.14-1.07.66-1.23 3.74-1.14 9.96-.92 13.88 1.41.47.28.62.88.34 1.35-.28.47-.88.62-1.35.35z" />
+            </svg>
+            <div style={{ flex: 1 }}>
+              <p style={{ color: "white", fontSize: 14, fontWeight: 700, fontFamily: "-apple-system, sans-serif" }}>
+                Open My Spotify Profile
+              </p>
+              <p style={{ color: "rgba(255,255,255,0.75)", fontSize: 12, fontFamily: "-apple-system, sans-serif" }}>
+                @cnewt
+              </p>
+            </div>
+            <svg width="8" height="13" viewBox="0 0 8 13" fill="none">
+              <path d="M1 1L7 6.5L1 12" stroke="rgba(255,255,255,0.8)" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+          </a>
         </motion.div>
 
         {/* Tab switcher */}

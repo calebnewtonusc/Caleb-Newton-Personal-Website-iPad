@@ -29,7 +29,7 @@ const INBOX: Email[] = [
     preview: "Hi! I'm actively looking for ML engineering, data engineering, and software internships...",
     body: `Hi there,
 
-I'm Caleb Newton -a CS + Applied Mathematics freshman at USC Viterbi, currently building at the intersection of machine learning and real-world systems.
+I'm Caleb Newton -a CS + Applied Mathematics freshman at USC, currently building at the intersection of machine learning and real-world systems.
 
 I'm actively looking for internships and research positions in:
 • Machine Learning Engineering

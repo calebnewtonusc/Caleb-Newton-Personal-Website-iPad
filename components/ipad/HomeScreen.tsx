@@ -68,8 +68,10 @@ function AppIcon({
           width: size,
           height: size,
           background: app.icon
-            ? "white"
+            ? "rgba(255,255,255,0.18)"
             : `linear-gradient(145deg, ${app.gradient[0]}, ${app.gradient[1]})`,
+          backdropFilter: app.icon ? "blur(18px) saturate(1.8)" : undefined,
+          WebkitBackdropFilter: app.icon ? "blur(18px) saturate(1.8)" : undefined,
           overflow: "hidden",
           flexShrink: 0,
         }}

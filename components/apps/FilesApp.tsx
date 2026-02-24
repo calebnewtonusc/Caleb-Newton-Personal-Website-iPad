@@ -10,9 +10,11 @@ interface Props {
   orientation: string;
 }
 
-const USC_PROFESSIONAL_IDS = ["ktp", "datasc", "maai", "cyborg", "avenues"];
+// USC Professional displayed in user-specified order
+const USC_PROFESSIONAL_IDS = ["avenues", "maai", "cyborg", "ktp", "datasc"];
 const USC_SOCIAL_IDS = ["acts2", "flavors", "boardgames", "scoutfitters"];
-const HS_CLUBS_IDS = ["sgvccc", "impact360"];
+// HS: clubs shown directly (no "Clubs" subfolder), volunteers in one subfolder
+const HS_DIRECT_IDS = ["sgvccc", "impact360"];
 const HS_VOLUNTEER_IDS = ["baseball-coach", "mission-trip", "ambassador"];
 
 type TopFolder = "usc" | "highschool";
@@ -133,9 +135,14 @@ function OrgDetail({ org, onBack, showBack, backLabel = "Back" }: {
   );
 }
 
+// Sort orgs by a given ID order array
+function sortByIds(orgs: typeof organizations, ids: string[]): typeof organizations {
+  return ids.map(id => orgs.find(o => o.id === id)).filter(Boolean) as typeof organizations;
+}
+
 export default function FilesApp({ orientation }: Props) {
   const [topFolder, setTopFolder] = useState<TopFolder | null>(null);
-  const [subfolder, setSubfolder] = useState<string | null>(null);
+  const [subfolder, setSubfolder] = useState<string | null>(null); // "professional"|"social"|"volunteering"
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const isLandscape = orientation === "landscape";
 
@@ -144,111 +151,44 @@ export default function FilesApp({ orientation }: Props) {
     { id: "highschool" as TopFolder, label: "High School", color: "#007AFF" },
   ];
 
-  // Level 2: symmetric subfolders for both top-level folders
-  const level2Defs = topFolder === "usc"
-    ? [
-        { id: "professional", label: "Professional", color: "#6C47FF", count: USC_PROFESSIONAL_IDS.length },
-        { id: "social",       label: "Social",       color: "#FF9500", count: USC_SOCIAL_IDS.length },
-      ]
-    : topFolder === "highschool"
-    ? [
-        { id: "clubs",       label: "Clubs",       color: "#007AFF", count: HS_CLUBS_IDS.length },
-        { id: "volunteering", label: "Volunteering", color: "#34C759", count: HS_VOLUNTEER_IDS.length },
-      ]
-    : [];
-
-  function getCol3Items() {
-    if (topFolder === "usc") {
-      if (subfolder === "professional") return organizations.filter((o) => USC_PROFESSIONAL_IDS.includes(o.id));
-      if (subfolder === "social")       return organizations.filter((o) => USC_SOCIAL_IDS.includes(o.id));
-    }
-    if (topFolder === "highschool") {
-      if (subfolder === "clubs")        return organizations.filter((o) => HS_CLUBS_IDS.includes(o.id));
-      if (subfolder === "volunteering") return organizations.filter((o) => HS_VOLUNTEER_IDS.includes(o.id));
-    }
-    return [];
-  }
-
-  const col3Items = getCol3Items();
-  const selectedOrg = selectedId ? (organizations.find((o) => o.id === selectedId) ?? null) : null;
-
   const handleTopFolder = (folder: TopFolder) => {
     setTopFolder(folder);
     setSubfolder(null);
     setSelectedId(null);
   };
 
-  // Titles for each column header
-  const col2Title = !topFolder ? "Select" : topFolder === "usc" ? "USC" : "High School";
-  const col3Title = !subfolder ? "Select"
-    : subfolder === "professional" ? "Professional"
-    : subfolder === "social"       ? "Social"
-    : subfolder === "clubs"        ? "Clubs"
-    : "Volunteering";
+  // USC subfolders
+  const uscSubfolderDefs = [
+    { id: "professional", label: "Professional", color: "#6C47FF", count: USC_PROFESSIONAL_IDS.length },
+    { id: "social",       label: "Social",       color: "#FF9500", count: USC_SOCIAL_IDS.length },
+  ];
 
-  // Portrait depth: 0 → 1 → 2 → 3
-  const portraitDepth = selectedId ? 3 : subfolder ? 2 : topFolder ? 1 : 0;
-
-  // ─── Shared sub-components ────────────────────────────────────────────────
-
-  function SubfolderList({ compact }: { compact?: boolean }) {
-    const pad = compact ? "9px 10px" : "13px 16px";
-    return (
-      <>
-        {level2Defs.map((sf, i) => (
-          <motion.div
-            key={sf.id}
-            whileTap={{ backgroundColor: "#f2f2f7" }}
-            onClick={() => { setSubfolder(sf.id); setSelectedId(null); }}
-            style={{
-              display: "flex", alignItems: "center", gap: compact ? 8 : 12, padding: pad,
-              cursor: "pointer",
-              borderTop: i > 0 ? "0.5px solid rgba(60,60,67,0.08)" : "none",
-              background: subfolder === sf.id ? "rgba(0,122,255,0.07)" : "transparent",
-            }}
-          >
-            <FolderSVG color={sf.color} size={compact ? 26 : 34} />
-            <div style={{ flex: 1 }}>
-              <p style={{ fontSize: compact ? 12 : 15, fontWeight: subfolder === sf.id ? 600 : 500, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>{sf.label}</p>
-              <p style={{ fontSize: compact ? 10 : 12, color: "#8e8e93" }}>{sf.count} items</p>
-            </div>
-            <svg width="7" height="11" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 5L1 10" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
-          </motion.div>
-        ))}
-      </>
-    );
+  // Get orgs for col 3 (USC subfolder path)
+  function getSubfolderOrgs() {
+    if (topFolder === "usc") {
+      if (subfolder === "professional") return sortByIds(organizations, USC_PROFESSIONAL_IDS);
+      if (subfolder === "social")       return sortByIds(organizations, USC_SOCIAL_IDS);
+    }
+    if (topFolder === "highschool" && subfolder === "volunteering") {
+      return sortByIds(organizations, HS_VOLUNTEER_IDS);
+    }
+    return [];
   }
 
-  function OrgList({ items, compact }: { items: typeof organizations; compact?: boolean }) {
-    const pad = compact ? "9px 10px" : "12px 16px";
-    const iconSize = compact ? 32 : 42;
-    return (
-      <>
-        {items.map((org, i) => (
-          <motion.div
-            key={org.id}
-            whileTap={{ backgroundColor: "#f2f2f7" }}
-            onClick={() => setSelectedId(org.id)}
-            style={{
-              display: "flex", alignItems: "center", gap: compact ? 8 : 12, padding: pad,
-              cursor: "pointer",
-              borderTop: i > 0 ? "0.5px solid rgba(60,60,67,0.08)" : "none",
-              background: selectedId === org.id ? "rgba(0,122,255,0.07)" : "transparent",
-            }}
-          >
-            <OrgIcon org={org} size={iconSize} />
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <p style={{ fontSize: compact ? 12 : 15, fontWeight: selectedId === org.id ? 600 : 400, color: "#1c1c1e", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontFamily: "-apple-system, sans-serif" }}>
-                {org.name}
-              </p>
-              <p style={{ fontSize: compact ? 10 : 12, color: "#8e8e93" }}>{org.role}</p>
-            </div>
-            <svg width="7" height="11" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 5L1 10" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
-          </motion.div>
-        ))}
-      </>
-    );
-  }
+  const subfolderOrgs = getSubfolderOrgs();
+  const selectedOrg = selectedId ? organizations.find(o => o.id === selectedId) ?? null : null;
+
+  // HS direct orgs (clubs)
+  const hsDirectOrgs = sortByIds(organizations, HS_DIRECT_IDS);
+
+  // When a direct HS org is selected (no subfolder intermediate)
+  const isHsDirectOrg = topFolder === "highschool" && selectedId !== null && subfolder === null;
+
+  // Column visibility for landscape
+  const showCol2 = topFolder !== null;
+  const showCol3 = subfolder !== null; // subfolder orgs column
+
+  // ─── Shared mini-components ────────────────────────────────────────────────
 
   function ColHeader({ title }: { title: string }) {
     return (
@@ -267,13 +207,139 @@ export default function FilesApp({ orientation }: Props) {
     );
   }
 
-  // ─── Landscape: 4-column Finder layout ───────────────────────────────────
+  // USC subfolder list
+  function UscSubfolderList({ compact }: { compact?: boolean }) {
+    return (
+      <>
+        {uscSubfolderDefs.map((sf, i) => (
+          <motion.div
+            key={sf.id}
+            whileTap={{ backgroundColor: "#f2f2f7" }}
+            onClick={() => { setSubfolder(sf.id); setSelectedId(null); }}
+            style={{
+              display: "flex", alignItems: "center", gap: compact ? 8 : 12,
+              padding: compact ? "9px 10px" : "13px 16px",
+              cursor: "pointer",
+              borderTop: i > 0 ? "0.5px solid rgba(60,60,67,0.08)" : "none",
+              background: subfolder === sf.id ? "rgba(0,122,255,0.07)" : "transparent",
+            }}
+          >
+            <FolderSVG color={sf.color} size={compact ? 26 : 34} />
+            <div style={{ flex: 1 }}>
+              <p style={{ fontSize: compact ? 12 : 15, fontWeight: subfolder === sf.id ? 600 : 500, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>{sf.label}</p>
+              <p style={{ fontSize: compact ? 10 : 12, color: "#8e8e93" }}>{sf.count} items</p>
+            </div>
+            <svg width="7" height="11" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 5L1 10" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          </motion.div>
+        ))}
+      </>
+    );
+  }
+
+  // HS mixed list: direct clubs + Volunteering folder
+  function HsMixedList({ compact }: { compact?: boolean }) {
+    const pad = compact ? "9px 10px" : "13px 16px";
+    const iconSz = compact ? 32 : 42;
+    return (
+      <>
+        {/* Direct club orgs */}
+        {hsDirectOrgs.map((org, i) => (
+          <motion.div
+            key={org.id}
+            whileTap={{ backgroundColor: "#f2f2f7" }}
+            onClick={() => { setSelectedId(org.id); setSubfolder(null); }}
+            style={{
+              display: "flex", alignItems: "center", gap: compact ? 8 : 12, padding: pad,
+              cursor: "pointer",
+              borderTop: i > 0 ? "0.5px solid rgba(60,60,67,0.08)" : "none",
+              background: selectedId === org.id ? "rgba(0,122,255,0.07)" : "transparent",
+            }}
+          >
+            <OrgIcon org={org} size={iconSz} />
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p style={{ fontSize: compact ? 12 : 15, fontWeight: selectedId === org.id ? 600 : 400, color: "#1c1c1e", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontFamily: "-apple-system, sans-serif" }}>
+                {org.name}
+              </p>
+              <p style={{ fontSize: compact ? 10 : 12, color: "#8e8e93" }}>{org.role}</p>
+            </div>
+            <svg width="7" height="11" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 5L1 10" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          </motion.div>
+        ))}
+
+        {/* Volunteering subfolder */}
+        <motion.div
+          key="volunteering"
+          whileTap={{ backgroundColor: "#f2f2f7" }}
+          onClick={() => { setSubfolder("volunteering"); setSelectedId(null); }}
+          style={{
+            display: "flex", alignItems: "center", gap: compact ? 8 : 12, padding: pad,
+            cursor: "pointer",
+            borderTop: "0.5px solid rgba(60,60,67,0.08)",
+            background: subfolder === "volunteering" ? "rgba(0,122,255,0.07)" : "transparent",
+          }}
+        >
+          <FolderSVG color="#34C759" size={compact ? 26 : 34} />
+          <div style={{ flex: 1 }}>
+            <p style={{ fontSize: compact ? 12 : 15, fontWeight: subfolder === "volunteering" ? 600 : 500, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>Volunteering</p>
+            <p style={{ fontSize: compact ? 10 : 12, color: "#8e8e93" }}>{HS_VOLUNTEER_IDS.length} items</p>
+          </div>
+          <svg width="7" height="11" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 5L1 10" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+        </motion.div>
+      </>
+    );
+  }
+
+  function OrgList({ items, compact }: { items: typeof organizations; compact?: boolean }) {
+    const pad = compact ? "9px 10px" : "12px 16px";
+    const iconSz = compact ? 32 : 42;
+    return (
+      <>
+        {items.map((org, i) => (
+          <motion.div
+            key={org.id}
+            whileTap={{ backgroundColor: "#f2f2f7" }}
+            onClick={() => setSelectedId(org.id)}
+            style={{
+              display: "flex", alignItems: "center", gap: compact ? 8 : 12, padding: pad,
+              cursor: "pointer",
+              borderTop: i > 0 ? "0.5px solid rgba(60,60,67,0.08)" : "none",
+              background: selectedId === org.id ? "rgba(0,122,255,0.07)" : "transparent",
+            }}
+          >
+            <OrgIcon org={org} size={iconSz} />
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <p style={{ fontSize: compact ? 12 : 15, fontWeight: selectedId === org.id ? 600 : 400, color: "#1c1c1e", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontFamily: "-apple-system, sans-serif" }}>
+                {org.name}
+              </p>
+              <p style={{ fontSize: compact ? 10 : 12, color: "#8e8e93" }}>{org.role}</p>
+            </div>
+            <svg width="7" height="11" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 5L1 10" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          </motion.div>
+        ))}
+      </>
+    );
+  }
+
+  // Portrait depth logic
+  const portraitDepth = isHsDirectOrg ? 2
+    : selectedId ? 3
+    : subfolder ? 2
+    : topFolder ? 1
+    : 0;
+
+  // Col 3 header title
+  const col3Title = subfolder === "professional" ? "Professional"
+    : subfolder === "social" ? "Social"
+    : subfolder === "volunteering" ? "Volunteering"
+    : "";
+
+  // ─── Landscape: progressive columns ─────────────────────────────────────────
   if (isLandscape) {
     return (
       <div className="app-window" style={{ background: "#f2f2f7", display: "flex", flexDirection: "row" }}>
 
-        {/* Col 1 — Root folders (118px) */}
-        <div style={{ width: 118, borderRight: "0.5px solid rgba(60,60,67,0.18)", background: "#f7f7f7", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+        {/* Col 1 — Root folders (always visible, 120px) */}
+        <div style={{ width: 120, borderRight: "0.5px solid rgba(60,60,67,0.18)", background: "#f7f7f7", display: "flex", flexDirection: "column", overflow: "hidden", flexShrink: 0 }}>
           <div style={{ padding: "14px 12px 8px" }}>
             <h2 style={{ fontSize: 13, fontWeight: 700, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif", letterSpacing: -0.2 }}>Organizations</h2>
           </div>
@@ -298,34 +364,53 @@ export default function FilesApp({ orientation }: Props) {
           </div>
         </div>
 
-        {/* Col 2 — Subfolders (148px) */}
-        <div style={{ width: 148, borderRight: "0.5px solid rgba(60,60,67,0.18)", background: "white", display: "flex", flexDirection: "column", overflow: "hidden" }}>
-          <ColHeader title={col2Title} />
-          <div className="ios-scroll" style={{ flex: 1, overflowY: "auto" }}>
-            {!topFolder ? (
-              <EmptyColHint label="Select a folder" />
-            ) : (
-              <SubfolderList compact />
-            )}
-          </div>
-        </div>
+        {/* Col 2 — Subfolders/mixed list (appears when top folder selected) */}
+        <AnimatePresence>
+          {showCol2 && (
+            <motion.div
+              key={`col2-${topFolder}`}
+              initial={{ width: 0, opacity: 0 }}
+              animate={{ width: 155, opacity: 1 }}
+              exit={{ width: 0, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 380, damping: 32 }}
+              style={{ borderRight: "0.5px solid rgba(60,60,67,0.18)", background: "white", display: "flex", flexDirection: "column", overflow: "hidden", flexShrink: 0 }}
+            >
+              <div style={{ width: 155 }}>
+                <ColHeader title={topFolder === "usc" ? "USC" : "High School"} />
+              </div>
+              <div className="ios-scroll" style={{ flex: 1, overflowY: "auto", width: 155 }}>
+                {topFolder === "usc" ? <UscSubfolderList compact /> : <HsMixedList compact />}
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        {/* Col 3 — Org list (185px) */}
-        <div style={{ width: 185, borderRight: "0.5px solid rgba(60,60,67,0.18)", background: "white", display: "flex", flexDirection: "column", overflow: "hidden" }}>
-          <ColHeader title={col3Title} />
-          <div className="ios-scroll" style={{ flex: 1, overflowY: "auto" }}>
-            {!subfolder ? (
-              <EmptyColHint label="Select a category" />
-            ) : col3Items.length === 0 ? (
-              <EmptyColHint label="No items" />
-            ) : (
-              <OrgList items={col3Items} compact />
-            )}
-          </div>
-        </div>
+        {/* Col 3 — Org list (appears when subfolder selected) */}
+        <AnimatePresence>
+          {showCol3 && (
+            <motion.div
+              key={`col3-${subfolder}`}
+              initial={{ width: 0, opacity: 0 }}
+              animate={{ width: 190, opacity: 1 }}
+              exit={{ width: 0, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 380, damping: 32 }}
+              style={{ borderRight: "0.5px solid rgba(60,60,67,0.18)", background: "white", display: "flex", flexDirection: "column", overflow: "hidden", flexShrink: 0 }}
+            >
+              <div style={{ width: 190 }}>
+                <ColHeader title={col3Title} />
+              </div>
+              <div className="ios-scroll" style={{ flex: 1, overflowY: "auto", width: 190 }}>
+                {subfolderOrgs.length === 0
+                  ? <EmptyColHint label="No items" />
+                  : <OrgList items={subfolderOrgs} compact />
+                }
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
-        {/* Col 4 — Detail (flex 1) */}
-        <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", background: "#f7f7f7" }}>
+        {/* Col 4 — Detail (flex 1, always) */}
+        <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", background: "#f7f7f7", minWidth: 0 }}>
           <AnimatePresence mode="wait">
             {selectedOrg ? (
               <motion.div key={selectedOrg.id} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} style={{ height: "100%" }}>
@@ -344,7 +429,7 @@ export default function FilesApp({ orientation }: Props) {
     );
   }
 
-  // ─── Portrait: stacked push-nav (4 depths) ───────────────────────────────
+  // ─── Portrait: stacked push-nav ──────────────────────────────────────────────
   return (
     <div className="app-window" style={{ background: "#f2f2f7" }}>
       <AnimatePresence mode="wait">
@@ -372,7 +457,7 @@ export default function FilesApp({ orientation }: Props) {
           </motion.div>
         )}
 
-        {/* Depth 1 — Subfolders */}
+        {/* Depth 1 — Subfolders / HS mixed list */}
         {portraitDepth === 1 && (
           <motion.div key={`p1-${topFolder}`} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} style={{ display: "flex", flexDirection: "column", height: "100%" }}>
             <div style={{ padding: "14px 16px 8px", flexShrink: 0 }}>
@@ -386,36 +471,49 @@ export default function FilesApp({ orientation }: Props) {
                 {topFolder === "usc" ? "USC" : "High School"}
               </h1>
               <div style={{ background: "white", borderRadius: 12, overflow: "hidden" }}>
-                <SubfolderList />
+                {topFolder === "usc" ? <UscSubfolderList /> : <HsMixedList />}
               </div>
             </div>
           </motion.div>
         )}
 
-        {/* Depth 2 — Org list */}
+        {/* Depth 2 — Org list (USC subfolder) OR direct HS org detail */}
         {portraitDepth === 2 && (
-          <motion.div key={`p2-${subfolder}`} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-            <div style={{ padding: "14px 16px 8px", flexShrink: 0 }}>
-              <button
-                onClick={() => { setSubfolder(null); setSelectedId(null); }}
-                style={{ display: "flex", alignItems: "center", gap: 5, color: "#007aff", fontSize: 16, background: "none", border: "none", cursor: "pointer", padding: 0, fontFamily: "-apple-system, sans-serif" }}
-              >
-                <svg width="8" height="13" viewBox="0 0 8 13" fill="none"><path d="M7 1L1 6.5L7 12" stroke="#007aff" strokeWidth="1.8" strokeLinecap="round" /></svg>
-                {topFolder === "usc" ? "USC" : "High School"}
-              </button>
-            </div>
-            <div className="ios-scroll" style={{ flex: 1, overflowY: "auto", padding: "0 16px 32px" }}>
-              <h1 style={{ fontSize: 28, fontWeight: 700, color: "#1c1c1e", marginBottom: 16, fontFamily: "-apple-system, sans-serif", letterSpacing: -0.4 }}>
-                {col3Title}
-              </h1>
-              <div style={{ background: "white", borderRadius: 12, overflow: "hidden" }}>
-                <OrgList items={col3Items} />
-              </div>
-            </div>
+          <motion.div key={`p2-${subfolder ?? selectedId}`} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+            {isHsDirectOrg && selectedOrg ? (
+              /* Direct HS org — show detail directly at depth 2 */
+              <OrgDetail
+                org={selectedOrg}
+                onBack={() => setSelectedId(null)}
+                showBack
+                backLabel={topFolder === "highschool" ? "High School" : "Back"}
+              />
+            ) : (
+              /* Subfolder org list */
+              <>
+                <div style={{ padding: "14px 16px 8px", flexShrink: 0 }}>
+                  <button
+                    onClick={() => { setSubfolder(null); setSelectedId(null); }}
+                    style={{ display: "flex", alignItems: "center", gap: 5, color: "#007aff", fontSize: 16, background: "none", border: "none", cursor: "pointer", padding: 0, fontFamily: "-apple-system, sans-serif" }}
+                  >
+                    <svg width="8" height="13" viewBox="0 0 8 13" fill="none"><path d="M7 1L1 6.5L7 12" stroke="#007aff" strokeWidth="1.8" strokeLinecap="round" /></svg>
+                    {topFolder === "usc" ? "USC" : "High School"}
+                  </button>
+                </div>
+                <div className="ios-scroll" style={{ flex: 1, overflowY: "auto", padding: "0 16px 32px" }}>
+                  <h1 style={{ fontSize: 28, fontWeight: 700, color: "#1c1c1e", marginBottom: 16, fontFamily: "-apple-system, sans-serif", letterSpacing: -0.4 }}>
+                    {col3Title}
+                  </h1>
+                  <div style={{ background: "white", borderRadius: 12, overflow: "hidden" }}>
+                    <OrgList items={subfolderOrgs} />
+                  </div>
+                </div>
+              </>
+            )}
           </motion.div>
         )}
 
-        {/* Depth 3 — Org detail */}
+        {/* Depth 3 — Org detail (from subfolder path) */}
         {portraitDepth === 3 && selectedOrg && (
           <motion.div key={`p3-${selectedOrg.id}`} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} style={{ height: "100%" }}>
             <OrgDetail
