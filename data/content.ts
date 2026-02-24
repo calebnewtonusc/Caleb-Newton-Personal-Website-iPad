@@ -494,19 +494,19 @@ export const music = {
   currentlyPlaying: {
     title: "Praise",
     artist: "Various Artists",
-    spotifyUrl: "https://open.spotify.com/track/",
+    spotifyEmbed: "https://open.spotify.com/embed/track/7Ee6XgP8EHKDhTMYLIndu9?utm_source=generator",
   },
   favoriteNewAlbums: [
-    { artist: "Little Simz", album: "Drop 7", image: null },
-    { artist: "The Hellp", album: "Latest", image: null },
-    { artist: "Will Reagan", album: "Latest", image: null },
-    { artist: "Quadeca", album: "From Bird's Eye View", image: null },
+    { artist: "Little Simz",  album: "Drop 7",                  embedUrl: "https://open.spotify.com/embed/album/4nOym5RKE8Opauf3rMxPAW?utm_source=generator" },
+    { artist: "The Hellp",    album: "Latest",                   embedUrl: "https://open.spotify.com/embed/album/7r0oaJO4WR0KLgg1rZu6kg?utm_source=generator" },
+    { artist: "Will Reagan",  album: "Latest",                   embedUrl: "https://open.spotify.com/embed/album/06BotF7CerCXpcm5Km2uX7?utm_source=generator" },
+    { artist: "Quadeca",      album: "From Bird's Eye View",     embedUrl: "https://open.spotify.com/embed/album/6o6VAIetIFOsaOa0qt7w9u?utm_source=generator" },
   ],
   favoriteOldAlbums: [
-    { artist: "Stevie Wonder", album: "Songs in the Key of Life", image: null },
-    { artist: "Parliament", album: "Mothership Connection", image: null },
-    { artist: "Lauryn Hill", album: "The Miseducation of Lauryn Hill", image: null },
-    { artist: "John Coltrane", album: "A Love Supreme", image: null },
+    { artist: "Stevie Wonder", album: "Songs in the Key of Life",          embedUrl: "https://open.spotify.com/embed/album/6YUCc2RiXcEKS9ibuZxjt0?utm_source=generator" },
+    { artist: "Parliament",    album: "Mothership Connection",              embedUrl: "https://open.spotify.com/embed/album/4q1HNSka8CzuLvC8ydcsD2?utm_source=generator" },
+    { artist: "Lauryn Hill",   album: "The Miseducation of Lauryn Hill",   embedUrl: "https://open.spotify.com/embed/album/1BZoqf8Zje5nGdwZhOjAtD?utm_source=generator" },
+    { artist: "John Coltrane", album: "A Love Supreme",                    embedUrl: "https://open.spotify.com/embed/album/3JRgE1OqN7A8wrYqFxDfJO?utm_source=generator" },
   ],
 };
 
@@ -556,4 +556,4 @@ export const apps: AppDef[] = [
   { id: "rateyourmusic",name: "RYM",         emoji: "🎼", icon: "/assets/icons/rym.svg",         gradient: ["#ED1C24", "#A8001B"], external: "https://rateyourmusic.com/~cnewt" },
 ];
 
-export const dockApps: AppId[] = ["contact", "linkedin", "github", "youtube"];
+export const dockApps: AppId[] = ["linkedin", "github", "youtube", "spotify", "letterboxd", "rateyourmusic"];

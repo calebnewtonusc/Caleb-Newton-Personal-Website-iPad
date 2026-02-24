@@ -145,28 +145,14 @@ export default function HomeScreen({ orientation, onOpenApp }: Props) {
         overflow: "hidden",
       }}
     >
-      {/* ─── Wallpaper ─── */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
-        src="/assets/CalebAtBeachUSCHoodie.jpg"
-        alt=""
-        style={{
-          position: "absolute",
-          inset: 0,
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          objectPosition: "center top",
-          zIndex: 0,
-        }}
-      />
+      {/* ─── Wallpaper: dark gradient ─── */}
       <div
         style={{
           position: "absolute",
           inset: 0,
-          background: "rgba(0,0,0,0.22)",
-          zIndex: 1,
-          pointerEvents: "none",
+          background:
+            "linear-gradient(145deg, #0d0d1a 0%, #121230 30%, #0a1e38 60%, #18083a 100%)",
+          zIndex: 0,
         }}
       />
 
@@ -406,7 +392,7 @@ export default function HomeScreen({ orientation, onOpenApp }: Props) {
         {/* ─── Dock ─── */}
         <div
           style={{
-            padding: isLandscape ? "0 20px 8px" : "0 14px 10px",
+            padding: isLandscape ? "0 16px 8px" : "0 10px 10px",
             flexShrink: 0,
           }}
         >
@@ -416,15 +402,15 @@ export default function HomeScreen({ orientation, onOpenApp }: Props) {
               display: "flex",
               justifyContent: "space-around",
               alignItems: "center",
-              padding: isLandscape ? "8px 24px" : "10px 20px",
-              gap: 8,
+              padding: isLandscape ? "7px 16px" : "8px 12px",
+              gap: 4,
             }}
           >
             {dockAppDefs.map((app) => (
               <AppIcon
                 key={app.id}
                 app={app}
-                size={isLandscape ? 54 : 58}
+                size={isLandscape ? 46 : 50}
                 onTap={() => handleOpen(app)}
               />
             ))}

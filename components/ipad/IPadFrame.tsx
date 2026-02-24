@@ -2,7 +2,6 @@
 
 import { ReactNode } from "react";
 import StatusBar from "./StatusBar";
-import DynamicIsland from "./DynamicIsland";
 
 interface Props {
   orientation: "landscape" | "portrait";
@@ -99,15 +98,12 @@ export default function IPadFrame({ orientation, children }: Props) {
           height: screenH,
           borderRadius: isLandscape ? 16 : 22,
           overflow: "hidden",
-          background: "#f2f2f7",
+          background: "#0d0d1a",
           boxShadow: "0 0 0 1.5px rgba(0,0,0,0.6) inset",
         }}
       >
         {/* Status bar */}
         <StatusBar orientation={orientation} />
-
-        {/* Dynamic Island */}
-        <DynamicIsland />
 
         {/* App content area */}
         <div
@@ -118,7 +114,7 @@ export default function IPadFrame({ orientation, children }: Props) {
             right: 0,
             bottom: 0,
             overflow: "hidden",
-            background: "#f2f2f7",
+            background: "#0d0d1a",
           }}
         >
           {children}
