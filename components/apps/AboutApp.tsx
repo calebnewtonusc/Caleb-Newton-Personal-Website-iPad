@@ -18,32 +18,6 @@ const fadeUp = (delay = 0) => ({
 export default function AboutApp({ onClose }: Props) {
   return (
     <div className="app-window" style={{ background: "#f2f2f7" }}>
-      {/* Nav Bar */}
-      <div className="ios-nav-bar">
-        <button
-          onClick={onClose}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 4,
-            color: "#007aff",
-            fontSize: 17,
-            fontWeight: 400,
-          }}
-        >
-          <svg width="10" height="17" viewBox="0 0 10 17" fill="none">
-            <path
-              d="M8.5 1L1 8.5L8.5 16"
-              stroke="#007aff"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
-      </div>
-
-      {/* Content */}
       <div
         className="ios-scroll"
         style={{ flex: 1, overflowY: "auto", padding: "20px 16px 32px" }}

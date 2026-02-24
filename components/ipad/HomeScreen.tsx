@@ -322,7 +322,7 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.25, ease: "easeOut" }}
             style={{
               display: "grid",
               gridTemplateColumns: `repeat(${cols}, 1fr)`,
@@ -331,15 +331,8 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
               alignContent: "start",
             }}
           >
-            {apps.map((app, i) => (
-              <motion.div
-                key={app.id}
-                initial={{ opacity: 0, scale: 0.5, y: 20 }}
-                animate={{ opacity: 1, scale: 1, y: 0 }}
-                transition={{ delay: i * 0.025, type: "spring", stiffness: 400, damping: 25 }}
-              >
-                <AppIcon app={app} size={iconSize} onTap={() => handleOpen(app)} />
-              </motion.div>
+            {apps.filter((app) => !dockApps.includes(app.id)).map((app) => (
+              <AppIcon key={app.id} app={app} size={iconSize} onTap={() => handleOpen(app)} />
             ))}
           </motion.div>
         </div>

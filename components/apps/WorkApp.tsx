@@ -142,6 +142,35 @@ const WorkCard = memo(function WorkCard({
                 </div>
               )}
 
+              {exp.photos && exp.photos.length > 0 && (
+                <div
+                  style={{
+                    display: "flex",
+                    gap: 8,
+                    marginTop: 14,
+                    overflowX: "auto",
+                    paddingBottom: 4,
+                  }}
+                >
+                  {exp.photos.map((src, pi) => (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      key={pi}
+                      src={src}
+                      alt=""
+                      style={{
+                        height: 100,
+                        width: "auto",
+                        borderRadius: 10,
+                        objectFit: "cover",
+                        flexShrink: 0,
+                        boxShadow: "0 1px 6px rgba(0,0,0,0.12)",
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
+
               {exp.website && (
                 <a
                   href={exp.website}
@@ -176,15 +205,6 @@ export default function WorkApp({ onClose }: Props) {
 
   return (
     <div className="app-window" style={{ background: "#f2f2f7" }}>
-      {/* Nav Bar */}
-      <div className="ios-nav-bar">
-        <button onClick={onClose} style={{ display: "flex", alignItems: "center", gap: 4, color: "#007aff", fontSize: 17 }}>
-          <svg width="10" height="17" viewBox="0 0 10 17" fill="none">
-            <path d="M8.5 1L1 8.5L8.5 16" stroke="#007aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
-      </div>
-
       <div className="ios-scroll" style={{ flex: 1, overflowY: "auto", padding: "0 0 32px" }}>
         {/* Title */}
         <motion.div

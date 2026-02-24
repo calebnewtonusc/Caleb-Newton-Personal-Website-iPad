@@ -85,39 +85,6 @@ export default function CalebGPTApp({ onClose }: Props) {
 
   return (
     <div className="app-window" style={{ background: "#f2f2f7", display: "flex", flexDirection: "column" }}>
-      {/* Nav bar */}
-      <div className="ios-nav-bar" style={{ flexShrink: 0 }}>
-        <button
-          onClick={onClose}
-          style={{ display: "flex", alignItems: "center", gap: 4, color: "#007aff", fontSize: 17 }}
-        >
-          <svg width="10" height="17" viewBox="0 0 10 17" fill="none">
-            <path d="M8.5 1L1 8.5L8.5 16" stroke="#007aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </button>
-        {/* Center header */}
-        <div
-          style={{
-            position: "absolute",
-            left: "50%",
-            transform: "translateX(-50%)",
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-            gap: 2,
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-            <div style={{ width: 28, height: 28, borderRadius: "50%", overflow: "hidden", border: "1.5px solid #34c759", flexShrink: 0, position: "relative" }}>
-              <Image src={profile.photo} alt="Caleb" fill style={{ objectFit: "cover" }} />
-            </div>
-            <span style={{ fontSize: 16, fontWeight: 700, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>
-              CalebGPT
-            </span>
-          </div>
-        </div>
-      </div>
-
       {/* Messages area */}
       <div
         className="ios-scroll"

@@ -17,18 +17,6 @@ export default function PhotosApp({ onClose, orientation }: Props) {
 
   return (
     <div className="app-window" style={{ background: "#f2f2f7" }}>
-      <div className="ios-nav-bar">
-        <button
-          onClick={selected !== null ? () => setSelected(null) : onClose}
-          style={{ display: "flex", alignItems: "center", gap: 4, color: "#007aff", fontSize: 17 }}
-        >
-          <svg width="10" height="17" viewBox="0 0 10 17" fill="none">
-            <path d="M8.5 1L1 8.5L8.5 16" stroke="#007aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-          {selected !== null ? "Photos" : ""}
-        </button>
-      </div>
-
       <div className="ios-scroll" style={{ flex: 1, overflowY: "auto" }}>
         <AnimatePresence mode="wait">
           {selected === null ? (

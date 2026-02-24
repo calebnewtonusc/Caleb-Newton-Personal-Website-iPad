@@ -82,21 +82,20 @@ export default function IPadPage() {
         }}
       >
         <IPadFrame orientation={orientation}>
-          <AnimatePresence mode="wait">
-            {openApp ? (
+          {/* HomeScreen is always mounted — never remounts when app closes */}
+          <HomeScreen
+            orientation={orientation}
+            onOpenApp={setOpenApp}
+            locked={locked}
+            onUnlock={() => setLocked(false)}
+          />
+          <AnimatePresence>
+            {openApp && (
               <AppWindow
                 key={openApp}
                 appId={openApp}
                 onClose={() => setOpenApp(null)}
                 orientation={orientation}
-              />
-            ) : (
-              <HomeScreen
-                key="home"
-                orientation={orientation}
-                onOpenApp={setOpenApp}
-                locked={locked}
-                onUnlock={() => setLocked(false)}
               />
             )}
           </AnimatePresence>
