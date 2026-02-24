@@ -52,7 +52,7 @@ export const experience = [
     year: "2026",
     logo: "/assets/logos/pallas.png",
     color: "#5856D6",
-    website: "",
+    website: "https://www.pallas.care/",
     description:
       "KTP client engagement: built a full data analytics dashboard for a premium LA home care agency -financial visibility, workforce quality metrics, and strategic growth recommendations benchmarked against LA County industry data.",
     achievements: [
@@ -71,7 +71,7 @@ export const experience = [
     year: "2026",
     logo: "/assets/logos/inovient.png",
     color: "#007AFF",
-    website: "",
+    website: "https://www.inovient.io/",
     description:
       "KTP client engagement: delivered market research, competitor analysis, ROI modeling, tiered pricing strategy, and GTM recommendations for Inovient's Morpheus AI platform -B2B competitive intelligence and media mix modeling.",
     achievements: [
@@ -90,7 +90,7 @@ export const experience = [
     year: "2026",
     logo: "/assets/logos/immuny.png",
     color: "#FF3B30",
-    website: "",
+    website: "https://www.immuny.ai/",
     description:
       "KTP client engagement: redesigned Immuny's allergy emergency app UX -a low-cognitive-load interface for life-threatening scenarios. Focused on speed, accessibility, and minimal friction for emergency response, medical ID, ER lookup, and allergen detection.",
     achievements: [
