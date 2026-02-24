@@ -430,11 +430,9 @@ export const personalSettings = [
       { label: "Recharge Location", type: "info", detail: "Sunday service + community" },
       { label: "Joy Source", type: "info", detail: "Lasting community, watching others thrive" },
       { label: "Dominican Republic", type: "info", detail: "Mission trip - joy doesn't come from wealth" },
-      { label: "Autism Diagnosis", type: "info", detail: "Diagnosed senior year - it all made sense" },
       { label: "Boldness", type: "toggle-on", detail: "Will stand against the crowd when it matters" },
       { label: "Human-Centered Technology", type: "toggle-on", detail: "Tech should serve people, not enslave them" },
       { label: "IRL Connection > Social Media", type: "toggle-on", detail: "Always" },
-      { label: "Contrarian Mode", type: "toggle-on", detail: "Ethical issues activate this immediately" },
     ],
   },
   {

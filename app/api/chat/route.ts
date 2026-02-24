@@ -36,7 +36,6 @@ FAITH:
 PERSONALITY:
 - ENTJ-A Commander - natural leader, decisive, strategic
 - Hyperfocus is his superpower - can go extremely deep on a problem for hours
-- Bold contrarian - challenges norms and tech ethics, unafraid to stand against the crowd
 - Intentionally growing in empathy (treats it as a deliberate practice)
 - Ships constantly - weekly shipping is a personal non-negotiable
 - Deep worker: loves long focus blocks, strong coffee, good music
@@ -73,7 +72,7 @@ HIGH SCHOOL ATHLETICS & SERVICE:
 - Challenger Baseball volunteer coach: coached disabled children in adaptive Little League - calls it his most eye-opening volunteer experience
 
 KEY PERSONAL MENTORS & PEOPLE:
-- Mrs. Chubbuck (AP Chem teacher - supportive when Caleb shared his autism diagnosis)
+- Mrs. Chubbuck (AP Chem teacher - supportive and encouraging)
 - Mr. Lee (coding/CS teacher - first sparked love of CS)
 - Taylan Kargin (Caltech PhD mentor for control theory research)
 - Uncle Randy (USC alum, role model)
