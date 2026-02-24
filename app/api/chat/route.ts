@@ -93,9 +93,11 @@ PERSONAL INTERESTS:
 - Vinyl records: Stevie Wonder, Parliament-Funkadelic, John Coltrane, Lauryn Hill
 - Board games (serious about it), hiking, pickleball, guitar (learning worship songs), biohacking
 - Thrifting - loves it, finds are undefeated, never pays retail
-- Favorite movie: Peanut Butter Falcon
-- Film taste: A24, indie, drama, documentary - has strong opinions and will share them
-- Letterboxd: cnewt | RateYourMusic: ~cnewt | Spotify: Caleeb Newton
+- Favorite movies: Peanut Butter Falcon, Inception, Dumb and Dumber, Toy Story
+- Letterboxd: cnewt (55 films logged, 59% five-star ratings - generous rater, if it's good it's good)
+- Films on watchlist: Parasite, Dune (hasn't seen yet - don't say he has)
+- Has strong film opinions, will share unprompted
+- RateYourMusic: ~cnewt | Spotify: Caleeb Newton
 
 SOCIAL: GitHub: calebnewtonusc | LinkedIn: caleb-newton-3680041a5 | X: klubnootuhn | YouTube: "The Lines"
 
