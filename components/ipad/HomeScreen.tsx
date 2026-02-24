@@ -22,12 +22,12 @@ function WorkCalendarIcon({ size }: { size: number }) {
       background: "white", display: "flex", flexDirection: "column", flexShrink: 0,
       boxShadow: "0 0 0 0.5px rgba(0,0,0,0.14)",
     }}>
-      <div style={{ height: size * 0.26, display: "flex", alignItems: "center", justifyContent: "center", borderBottom: "0.5px solid rgba(60,60,67,0.12)" }}>
+      <div style={{ height: size * 0.26, display: "flex", alignItems: "center", justifyContent: "center" }}>
         <span style={{ fontSize: size * 0.14, fontWeight: 700, color: "#FF3B30", fontFamily: "-apple-system, sans-serif", letterSpacing: 0.6 }}>
           {dayStr.toUpperCase()}
         </span>
       </div>
-      <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
+      <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", paddingTop: size * 0.06 }}>
         <span style={{ fontSize: size * 0.60, fontWeight: 100, color: "#1c1c1e", fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif", lineHeight: 1 }}>
           {dayNum}
         </span>
@@ -83,7 +83,7 @@ function AppIcon({
           <img
             src={app.icon}
             alt={app.name}
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transform: app.id === "settings" ? "scale(1.5)" : undefined }}
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transform: app.id === "settings" ? "scale(1.3)" : undefined }}
           />
         ) : (
           <span

@@ -38,7 +38,7 @@ function TodayCard({ project }: { project: typeof projects[0] }) {
             style={{
               width: "100%",
               height: "100%",
-              background: `linear-gradient(135deg, ${project.color}, ${project.color}88)`,
+              background: project.color,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",

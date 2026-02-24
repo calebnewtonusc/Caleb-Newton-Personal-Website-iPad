@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import IPadFrame from "./ipad/IPadFrame";
 import HomeScreen from "./ipad/HomeScreen";
 import AppWindow from "./apps/AppWindow";
+import SpotifyApp from "./apps/SpotifyApp";
 import type { AppId } from "@/data/content";
 
 const IPAD_LANDSCAPE = { w: 900, h: 630 };
@@ -89,8 +90,35 @@ export default function IPadPage() {
             locked={locked}
             onUnlock={() => setLocked(false)}
           />
+          {/* Persistently mounted Spotify - iframes cached so reopening is instant */}
+          <motion.div
+            animate={
+              openApp === "spotify"
+                ? { scale: 1, opacity: 1, pointerEvents: "auto" as const }
+                : { scale: 0.08, opacity: 0, pointerEvents: "none" as const }
+            }
+            initial={{ scale: 0.08, opacity: 0, pointerEvents: "none" as const }}
+            transition={{ type: "spring", stiffness: 480, damping: 36 }}
+            style={{ position: "absolute", inset: 0, zIndex: 10, borderRadius: "inherit", overflow: "hidden" }}
+          >
+            <div style={{ position: "absolute", inset: 0 }}>
+              <SpotifyApp onClose={() => setOpenApp(null)} orientation={orientation} />
+            </div>
+            <motion.div
+              onClick={() => setOpenApp(null)}
+              style={{
+                position: "absolute", bottom: 0, left: 0, right: 0, height: 28,
+                display: "flex", alignItems: "center", justifyContent: "center",
+                cursor: "pointer", zIndex: 20, paddingBottom: 4,
+              }}
+              whileTap={{ scale: 0.96 }}
+            >
+              <div style={{ width: 120, height: 5, borderRadius: 3, background: "rgba(150,150,150,0.45)" }} />
+            </motion.div>
+          </motion.div>
+
           <AnimatePresence>
-            {openApp && (
+            {openApp && openApp !== "spotify" && (
               <AppWindow
                 key={openApp}
                 appId={openApp}

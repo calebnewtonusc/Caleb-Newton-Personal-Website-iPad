@@ -328,11 +328,6 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                   ))}
                 </div>
 
-                {section.items.some((i) => i.type === "toggle-on") && (
-                  <p style={{ fontSize: 13, color: "#8e8e93", textAlign: "center", marginTop: 8, lineHeight: 1.5, fontFamily: "-apple-system, sans-serif" }}>
-                    These are locked ON. They&apos;re not preferences -they&apos;re facts.
-                  </p>
-                )}
               </div>
             </motion.div>
           )}

@@ -24,6 +24,45 @@ const SUGGESTIONS = [
   "What are your career goals?",
 ];
 
+// ── Lightweight markdown renderer ────────────────────────────────────────────
+function renderInline(text: string): React.ReactNode {
+  const parts = text.split(/(\*\*[^*]+\*\*)/g);
+  return parts.map((part, i) =>
+    part.startsWith("**") && part.endsWith("**")
+      ? <strong key={i} style={{ fontWeight: 600 }}>{part.slice(2, -2)}</strong>
+      : part
+  );
+}
+
+function renderMarkdown(text: string): React.ReactNode {
+  const lines = text.split("\n");
+  const elements: React.ReactNode[] = [];
+  let i = 0;
+  while (i < lines.length) {
+    const line = lines[i];
+    if (/^[\*\-] /.test(line)) {
+      const bullets: string[] = [];
+      while (i < lines.length && /^[\*\-] /.test(lines[i])) {
+        bullets.push(lines[i].replace(/^[\*\-] /, ""));
+        i++;
+      }
+      elements.push(
+        <ul key={`ul-${i}`} style={{ margin: "4px 0", paddingLeft: 16, listStyleType: "disc" }}>
+          {bullets.map((b, j) => <li key={j} style={{ marginBottom: 2 }}>{renderInline(b)}</li>)}
+        </ul>
+      );
+    } else if (line.trim() === "") {
+      if (elements.length > 0) elements.push(<div key={`sp-${i}`} style={{ height: 6 }} />);
+      i++;
+    } else {
+      elements.push(<span key={`ln-${i}`}>{renderInline(line)}<br /></span>);
+      i++;
+    }
+  }
+  return <>{elements}</>;
+}
+// ─────────────────────────────────────────────────────────────────────────────
+
 function TypingDots() {
   return (
     <div style={{ display: "flex", gap: 4, alignItems: "center", padding: "2px 0" }}>
@@ -157,7 +196,7 @@ export default function CalebGPTApp({ onClose: _onClose }: Props) {
                   flex: 1, fontSize: 15, color: "#1c1c1e", lineHeight: 1.65,
                   fontFamily: "-apple-system, sans-serif", paddingTop: 3,
                 }}>
-                  {msg.content}
+                  {renderMarkdown(msg.content)}
                 </div>
               </div>
             )}

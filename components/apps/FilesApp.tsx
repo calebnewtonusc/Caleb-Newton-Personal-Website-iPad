@@ -42,7 +42,7 @@ function OrgIcon({ org, size = 40 }: { org: typeof organizations[0]; size?: numb
     <div
       style={{
         width: size, height: size, borderRadius: size * 0.22,
-        background: org.logo ? "white" : `linear-gradient(145deg, ${org.color}dd, ${org.color})`,
+        background: org.logo ? "white" : org.color,
         display: "flex", alignItems: "center", justifyContent: "center",
         border: org.logo ? `1px solid ${org.color}22` : "none",
         overflow: "hidden", flexShrink: 0, position: "relative",
