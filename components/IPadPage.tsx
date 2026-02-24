@@ -18,9 +18,9 @@ export default function IPadPage() {
 
   const updateScale = useCallback((orient: "landscape" | "portrait") => {
     const ipad = orient === "landscape" ? IPAD_LANDSCAPE : IPAD_PORTRAIT;
-    const scaleW = (window.innerWidth * 0.95) / ipad.w;
-    const scaleH = (window.innerHeight * 0.92) / ipad.h;
-    setScale(Math.min(scaleW, scaleH, 1));
+    const scaleW = (window.innerWidth * 0.92) / ipad.w;
+    const scaleH = (window.innerHeight * 0.88) / ipad.h;
+    setScale(Math.min(scaleW, scaleH)); // no cap at 1 — allow downscale on small screens
   }, []);
 
   const handleOrientationChange = useCallback(
@@ -68,15 +68,16 @@ export default function IPadPage() {
         <div className="page-label-right">iPad</div>
       </div>
 
-      {/* iPad */}
+      {/* iPad — scale via Framer Motion to avoid transform conflict */}
       <motion.div
-        animate={{ opacity: visible ? 1 : 0, scale: visible ? 1 : 0.96 }}
-        transition={{ duration: 0.2, ease: "easeInOut" }}
+        animate={{ opacity: visible ? 1 : 0, scale: visible ? scale : scale * 0.97 }}
+        initial={{ opacity: 0, scale: scale * 0.97 }}
+        transition={{ duration: 0.25, ease: "easeInOut" }}
         style={{
-          transform: `scale(${scale})`,
           transformOrigin: "center center",
           position: "relative",
           zIndex: 10,
+          flexShrink: 0,
         }}
       >
         <IPadFrame orientation={orientation}>

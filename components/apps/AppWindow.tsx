@@ -39,13 +39,53 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
 
   return (
     <motion.div
-      className="app-window"
-      initial={{ scale: 0.85, opacity: 0 }}
-      animate={{ scale: 1, opacity: 1 }}
-      exit={{ scale: 0.85, opacity: 0 }}
-      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+      style={{
+        position: "absolute",
+        inset: 0,
+        display: "flex",
+        flexDirection: "column",
+        borderRadius: "inherit",
+        overflow: "hidden",
+      }}
+      initial={{ scale: 0.88, opacity: 0, y: 20 }}
+      animate={{ scale: 1, opacity: 1, y: 0 }}
+      exit={{ scale: 0.88, opacity: 0, y: 20 }}
+      transition={{ type: "spring", stiffness: 420, damping: 32 }}
     >
-      <AppComponent onClose={onClose} orientation={orientation} />
+      {/* App content — takes all available space above home indicator */}
+      <div style={{ flex: 1, overflow: "hidden", position: "relative" }}>
+        <AppComponent onClose={onClose} orientation={orientation} />
+      </div>
+
+      {/* ── Home Indicator — tap/swipe to go home ── */}
+      <motion.div
+        onClick={onClose}
+        style={{
+          height: 20,
+          flexShrink: 0,
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          cursor: "pointer",
+          background: "rgba(242,242,247,0.95)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
+          borderTop: "0.5px solid rgba(60,60,67,0.12)",
+        }}
+        whileTap={{ scale: 0.96 }}
+      >
+        <motion.div
+          whileHover={{ scaleX: 1.15, background: "rgba(0,0,0,0.35)" }}
+          transition={{ type: "spring", stiffness: 400, damping: 30 }}
+          style={{
+            width: 120,
+            height: 5,
+            borderRadius: 3,
+            background: "rgba(0,0,0,0.2)",
+            transition: "background 0.2s",
+          }}
+        />
+      </motion.div>
     </motion.div>
   );
 }

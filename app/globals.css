@@ -276,13 +276,20 @@ body {
   pointer-events: none;
 }
 
-/* ─── Dock ─── */
+/* ─── Liquid Glass Dock (iPadOS 26 style) ─── */
 .dock {
-  background: rgba(255, 255, 255, 0.35);
-  backdrop-filter: blur(30px) saturate(1.8);
-  -webkit-backdrop-filter: blur(30px) saturate(1.8);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(40px) saturate(2) brightness(1.15);
+  -webkit-backdrop-filter: blur(40px) saturate(2) brightness(1.15);
+  border: 1px solid rgba(255, 255, 255, 0.45);
   border-radius: 28px;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.55),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.08),
+    inset 1px 0 0 rgba(255, 255, 255, 0.25),
+    inset -1px 0 0 rgba(255, 255, 255, 0.25),
+    0 8px 32px rgba(0, 0, 0, 0.32),
+    0 2px 8px rgba(0, 0, 0, 0.18);
 }
 
 /* ─── App Window (full screen inside iPad) ─── */
@@ -296,12 +303,13 @@ body {
   flex-direction: column;
 }
 
-/* ─── Navigation Bar ─── */
+/* ─── Navigation Bar (liquid glass) ─── */
 .ios-nav-bar {
-  background: rgba(242, 242, 247, 0.85);
-  backdrop-filter: blur(20px) saturate(1.8);
-  -webkit-backdrop-filter: blur(20px) saturate(1.8);
-  border-bottom: 0.5px solid var(--ios-separator);
+  background: rgba(248, 248, 252, 0.78);
+  backdrop-filter: blur(28px) saturate(1.9) brightness(1.05);
+  -webkit-backdrop-filter: blur(28px) saturate(1.9) brightness(1.05);
+  border-bottom: 0.5px solid rgba(60, 60, 67, 0.2);
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6) inset;
   padding: 0 16px;
   height: 52px;
   display: flex;
@@ -317,6 +325,19 @@ body {
   border-radius: 16px;
   overflow: hidden;
   box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* ─── Performance: GPU-accelerate animated layers ─── */
+.app-window,
+.dock,
+.ios-nav-bar {
+  will-change: transform;
+}
+
+/* Pre-composited layers for framer-motion animated elements */
+[data-framer-component-type],
+.motion-div {
+  will-change: transform, opacity;
 }
 
 /* ─── Smooth transitions ─── */

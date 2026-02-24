@@ -28,6 +28,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {/* Preload critical above-the-fold assets */}
+        <link rel="preload" href="/assets/CalebAtBeachUSCHoodie.jpg" as="image" />
+        <link rel="preload" href="/assets/icons/contacts_ios.png" as="image" />
+        <link rel="preload" href="/assets/icons/appstore_ios.png" as="image" />
+        <link rel="preload" href="/assets/icons/applemusic_ios.png" as="image" />
+        <link rel="preload" href="/assets/icons/settings_ios.png" as="image" />
+        <link rel="preload" href="/assets/icons/photos_ios.png" as="image" />
+        <link rel="preload" href="/assets/icons/spotify.png" as="image" />
+        <link rel="preload" href="/assets/icons/github.webp" as="image" />
+        <link rel="preload" href="/assets/icons/linkedin.jpg" as="image" />
+      </head>
       <body>{children}</body>
     </html>
   );

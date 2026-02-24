@@ -539,21 +539,21 @@ export interface AppDef {
 }
 
 export const apps: AppDef[] = [
-  { id: "about",        name: "About",       emoji: "👤", icon: "/assets/icons/contacts.png",    gradient: ["#007AFF", "#0051D5"] },
-  { id: "work",         name: "Work",        emoji: "💼", icon: "/assets/icons/experience.webp", gradient: ["#AF52DE", "#7B2D8B"] },
-  { id: "projects",     name: "Projects",    emoji: "💻", icon: "/assets/icons/appstore.png",    gradient: ["#FF9500", "#FF5E00"] },
-  { id: "education",    name: "Education",   emoji: "🎓", icon: "/assets/icons/notes.png",       gradient: ["#FF3B30", "#C0392B"] },
-  { id: "skills",       name: "Skills",      emoji: "⚡", icon: "/assets/icons/findmy.webp",     gradient: ["#FFCC00", "#FF9500"] },
-  { id: "music",        name: "Music",       emoji: "🎵", icon: "/assets/icons/music.svg",       gradient: ["#FF2D55", "#D60030"] },
-  { id: "photos",       name: "Photos",      emoji: "📷", icon: "/assets/icons/photos.webp",     gradient: ["#34C759", "#248A3D"] },
-  { id: "contact",      name: "Contact",     emoji: "💬", icon: "/assets/icons/messages.svg",    gradient: ["#5AC8FA", "#007AFF"] },
-  { id: "settings",     name: "Settings",    emoji: "⚙️", icon: "/assets/icons/settings.svg",    gradient: ["#8E8E93", "#636366"] },
-  { id: "youtube",      name: "YouTube",     emoji: "▶️", icon: "/assets/icons/youtube.svg",     gradient: ["#FF0000", "#C0392B"], external: "https://www.youtube.com/playlist?list=PLWhbpQ2inj_p13rmaV6mOdpLu3kTIi8XF" },
-  { id: "github",       name: "GitHub",      emoji: "🐙", icon: "/assets/icons/github.webp",     gradient: ["#24292E", "#000000"], external: "https://github.com/calebnewtonusc" },
-  { id: "linkedin",     name: "LinkedIn",    emoji: "in", icon: "/assets/icons/linkedin.jpg",    gradient: ["#0A66C2", "#004182"], external: "https://www.linkedin.com/in/caleb-newton-3680041a5/" },
-  { id: "spotify",      name: "Spotify",     emoji: "🎧", icon: "/assets/icons/spotify.svg",     gradient: ["#1DB954", "#157A37"], external: "https://open.spotify.com" },
-  { id: "letterboxd",   name: "Letterboxd",  emoji: "🎬", icon: "/assets/icons/letterboxd.svg",  gradient: ["#FF8000", "#E55C00"], external: "https://letterboxd.com/cnewt/" },
-  { id: "rateyourmusic",name: "RYM",         emoji: "🎼", icon: "/assets/icons/rym.svg",         gradient: ["#ED1C24", "#A8001B"], external: "https://rateyourmusic.com/~cnewt" },
+  { id: "about",        name: "About",       emoji: "A", icon: "/assets/icons/contacts_ios.png",  gradient: ["#007AFF", "#0051D5"] },
+  { id: "work",         name: "Work",        emoji: "W", icon: "/assets/icons/calendar_ios.png",  gradient: ["#AF52DE", "#7B2D8B"] },
+  { id: "projects",     name: "Projects",    emoji: "P", icon: "/assets/icons/appstore_ios.png",  gradient: ["#FF9500", "#FF5E00"] },
+  { id: "education",    name: "Education",   emoji: "E", icon: "/assets/icons/notes_ios.png",     gradient: ["#FF3B30", "#C0392B"] },
+  { id: "skills",       name: "Skills",      emoji: "S", icon: "/assets/icons/safari_ios.png",    gradient: ["#FFCC00", "#FF9500"] },
+  { id: "music",        name: "Music",       emoji: "M", icon: "/assets/icons/applemusic_ios.png",gradient: ["#FF2D55", "#D60030"] },
+  { id: "photos",       name: "Photos",      emoji: "P", icon: "/assets/icons/photos_ios.png",    gradient: ["#34C759", "#248A3D"] },
+  { id: "contact",      name: "Contact",     emoji: "C", icon: "/assets/icons/mail_ios.png",      gradient: ["#5AC8FA", "#007AFF"] },
+  { id: "settings",     name: "Settings",    emoji: "S", icon: "/assets/icons/settings_ios.png",  gradient: ["#8E8E93", "#636366"] },
+  { id: "youtube",      name: "YouTube",     emoji: "Y", icon: "/assets/icons/youtube_ios.png",   gradient: ["#FF0000", "#C0392B"], external: "https://www.youtube.com/playlist?list=PLWhbpQ2inj_p13rmaV6mOdpLu3kTIi8XF" },
+  { id: "github",       name: "GitHub",      emoji: "G", icon: "/assets/icons/github.webp",       gradient: ["#24292E", "#000000"], external: "https://github.com/calebnewtonusc" },
+  { id: "linkedin",     name: "LinkedIn",    emoji: "L", icon: "/assets/icons/linkedin.jpg",      gradient: ["#0A66C2", "#004182"], external: "https://www.linkedin.com/in/caleb-newton-3680041a5/" },
+  { id: "spotify",      name: "Spotify",     emoji: "S", icon: "/assets/icons/spotify.png",       gradient: ["#1DB954", "#157A37"], external: "https://open.spotify.com" },
+  { id: "letterboxd",   name: "Letterboxd",  emoji: "L", icon: "/assets/icons/letterboxd.png",    gradient: ["#FF8000", "#E55C00"], external: "https://letterboxd.com/cnewt/" },
+  { id: "rateyourmusic",name: "RYM",         emoji: "R", icon: "/assets/icons/rym.png",           gradient: ["#ED1C24", "#A8001B"], external: "https://rateyourmusic.com/~cnewt" },
 ];
 
 export const dockApps: AppId[] = ["linkedin", "github", "youtube", "spotify", "letterboxd", "rateyourmusic"];
