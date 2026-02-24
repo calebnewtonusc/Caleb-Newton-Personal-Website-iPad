@@ -34,7 +34,7 @@ export const experience = [
     company: "AINA Tech",
     period: "Sept 2025 – Present",
     year: "2026",
-    logo: "/assets/logos/aina.png",
+    logo: "",
     color: "#007AFF",
     website: "https://www.ainatech.ai/",
     description:
@@ -46,7 +46,7 @@ export const experience = [
       "Supporting 75-camera volumetric rig operations including setup, calibration, synchronization, and AWS cloud deployment",
     ],
     skills: ["Computer Vision", "Neural Radiance Fields", "Gaussian Splatting", "Python", "React"],
-    photos: ["/assets/AinatechImages/aina_rig.jpg", "/assets/AinatechImages/aina_team.jpg"],
+    photos: ["/assets/AinatechImages/Ainatechsetup.jpg", "/assets/AinatechImages/Ainatechgoats.jpg"],
   },
   {
     id: "usc-research",
@@ -270,7 +270,7 @@ export const education = [
     degree: "High School Diploma",
     period: "Aug 2021 – June 2025",
     status: "Graduated · GPA 4.0+",
-    logo: "/assets/logos/smhs.png",
+    logo: "/assets/education/smhs.png",
     color: "#007AFF",
     website: "https://www.sanmarinohs.org",
     description: "AP Scholar with Distinction. National Merit Commended Student.",

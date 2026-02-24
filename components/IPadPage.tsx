@@ -7,12 +7,17 @@ import HomeScreen from "./ipad/HomeScreen";
 import AppWindow from "./apps/AppWindow";
 import type { AppId } from "@/data/content";
 
+// iPad dimensions (landscape: 900×630, portrait: 630×900)
+const IPAD_LANDSCAPE = { w: 900, h: 630 };
+const IPAD_PORTRAIT = { w: 630, h: 900 };
+
 export default function IPadPage() {
   const [orientation, setOrientation] = useState<"landscape" | "portrait">(
     "landscape"
   );
   const [isRotating, setIsRotating] = useState(false);
   const [openApp, setOpenApp] = useState<AppId | null>(null);
+  const [scale, setScale] = useState(1);
   const controls = useAnimation();
 
   const handleOrientationChange = useCallback(
@@ -47,6 +52,14 @@ export default function IPadPage() {
     [isRotating, controls]
   );
 
+  // Compute scale to fit iPad in viewport with 5% padding
+  const updateScale = useCallback((orient: "landscape" | "portrait") => {
+    const ipad = orient === "landscape" ? IPAD_LANDSCAPE : IPAD_PORTRAIT;
+    const scaleW = (window.innerWidth * 0.95) / ipad.w;
+    const scaleH = (window.innerHeight * 0.92) / ipad.h;
+    setScale(Math.min(scaleW, scaleH, 1));
+  }, []);
+
   useEffect(() => {
     const checkOrientation = () => {
       const newOrientation =
@@ -59,13 +72,14 @@ export default function IPadPage() {
     // Initial check
     const initial = window.innerWidth < 960 ? "portrait" : "landscape";
     setOrientation(initial);
+    updateScale(initial);
 
     window.addEventListener("resize", checkOrientation);
     return () => window.removeEventListener("resize", checkOrientation);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // Watch orientation changes from resize
+  // Watch orientation changes from resize + update scale
   useEffect(() => {
     const checkOrientation = () => {
       const newOrientation =
@@ -73,10 +87,16 @@ export default function IPadPage() {
       if (newOrientation !== orientation && !isRotating) {
         handleOrientationChange(newOrientation);
       }
+      updateScale(orientation);
     };
     window.addEventListener("resize", checkOrientation);
     return () => window.removeEventListener("resize", checkOrientation);
-  }, [orientation, isRotating, handleOrientationChange]);
+  }, [orientation, isRotating, handleOrientationChange, updateScale]);
+
+  // Update scale when orientation changes
+  useEffect(() => {
+    updateScale(orientation);
+  }, [orientation, updateScale]);
 
   // Watermark items
   const watermarkRows = Array.from({ length: 50 }, (_, i) => i);
@@ -91,6 +111,7 @@ export default function IPadPage() {
       </div>
 
       {/* ─── iPad ─── */}
+      <div style={{ transform: `scale(${scale})`, transformOrigin: "center center" }}>
       <motion.div
         animate={controls}
         style={{ originX: "50%", originY: "50%" }}
@@ -115,6 +136,7 @@ export default function IPadPage() {
           </AnimatePresence>
         </IPadFrame>
       </motion.div>
+      </div>
 
       {/* ─── Orientation hint on very small screens ─── */}
       <AnimatePresence>

@@ -110,23 +110,27 @@ export default function HomeScreen({ orientation, onOpenApp }: Props) {
       }}
     >
       {/* ─── Wallpaper ─── */}
-      <div
+      {/* Photo wallpaper */}
+      {/* eslint-disable-next-line @next/next/no-img-element */}
+      <img
+        src="/assets/CalebAtBeachUSCHoodie.jpg"
+        alt=""
         style={{
           position: "absolute",
           inset: 0,
-          background: isLandscape
-            ? "linear-gradient(135deg, #0f1f0f 0%, #1a2e1a 30%, #0e2818 60%, #162412 100%)"
-            : "linear-gradient(160deg, #0f1f0f 0%, #1a2e1a 35%, #0e2818 70%, #162412 100%)",
+          width: "100%",
+          height: "100%",
+          objectFit: "cover",
+          objectPosition: "center top",
           zIndex: 0,
         }}
       />
-      {/* Wallpaper subtle radial glow */}
+      {/* Subtle dark overlay for icon readability */}
       <div
         style={{
           position: "absolute",
           inset: 0,
-          background:
-            "radial-gradient(ellipse at 50% 30%, rgba(52,199,89,0.18) 0%, transparent 60%)",
+          background: "rgba(0,0,0,0.18)",
           zIndex: 1,
           pointerEvents: "none",
         }}
