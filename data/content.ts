@@ -717,13 +717,13 @@ export interface AppDef {
 }
 
 export const apps: AppDef[] = [
-  { id: "work",         name: "Work",        emoji: "W", icon: "/assets/icons/calendar_ios.png",   gradient: ["#AF52DE", "#7B2D8B"] },
+  { id: "work",         name: "Work",        emoji: "W",                                        gradient: ["#AF52DE", "#7B2D8B"] },
   { id: "projects",     name: "Projects",    emoji: "P", icon: "/assets/icons/appstore.png",       gradient: ["#FF9500", "#FF5E00"] },
   { id: "education",    name: "Education",   emoji: "E", icon: "/assets/icons/notes.png",           gradient: ["#FF3B30", "#C0392B"] },
   { id: "files",        name: "Organizations", emoji: "F", icon: "/assets/icons/organizations.png", gradient: ["#007AFF", "#5AC8FA"] },
   { id: "photos",       name: "Photos",      emoji: "P", icon: "/assets/icons/photos.webp",         gradient: ["#34C759", "#248A3D"] },
-  { id: "contact",      name: "Contact",     emoji: "C", icon: "/assets/icons/mail_ios.png",       gradient: ["#5AC8FA", "#007AFF"] },
-  { id: "settings",     name: "Settings",    emoji: "S", icon: "/assets/icons/settings_alt.png",   gradient: ["#8E8E93", "#636366"] },
+  { id: "contact",      name: "Contact",     emoji: "C", icon: "/assets/icons/messages.svg",        gradient: ["#5AC8FA", "#007AFF"] },
+  { id: "settings",     name: "Settings",    emoji: "S", icon: "/assets/icons/settings.svg",        gradient: ["#8E8E93", "#636366"] },
   { id: "youtube",      name: "YouTube",     emoji: "Y", icon: "/assets/icons/youtube.png",         gradient: ["#FF0000", "#C0392B"], external: "https://www.youtube.com/playlist?list=PLWhbpQ2inj_p13rmaV6mOdpLu3kTIi8XF" },
   { id: "github",       name: "GitHub",      emoji: "G", icon: "/assets/icons/github.webp",        gradient: ["#24292E", "#000000"], external: "https://github.com/calebnewtonusc" },
   { id: "linkedin",     name: "LinkedIn",    emoji: "L", icon: "/assets/icons/linkedin.jpg",       gradient: ["#0A66C2", "#004182"], external: "https://www.linkedin.com/in/caleb-newton-3680041a5/" },
