@@ -13,6 +13,7 @@ import ContactApp from "./ContactApp";
 import SettingsApp from "./SettingsApp";
 import CalebGPTApp from "./CalebGPTApp";
 import SpotifyApp from "./SpotifyApp";
+import BibleApp from "./BibleApp";
 
 interface Props {
   appId: AppId;
@@ -30,6 +31,7 @@ const appMap: Record<string, React.ComponentType<{ onClose: () => void; orientat
   settings: SettingsApp,
   calebgpt: CalebGPTApp,
   spotify: SpotifyApp,
+  bible: BibleApp,
 };
 
 export default function AppWindow({ appId, onClose, orientation }: Props) {

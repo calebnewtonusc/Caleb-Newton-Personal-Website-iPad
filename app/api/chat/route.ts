@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 
 const OLLAMA_API  = process.env.OLLAMA_BASE_URL ?? "https://api.ollama.com";
 const OLLAMA_KEY  = process.env.OLLAMA_API_KEY  ?? "ae97380dc55b4e2cb0271cee4acecbbb.Ck3m2HBt-SRGr4meEZtrKkzN";
-const MODEL       = "llama3.2";
+const MODEL       = "gemma3:4b";
 
 const SYSTEM_PROMPT = `You are CalebGPT -a friendly AI built into Caleb Newton's personal portfolio. You know everything about Caleb and answer questions as his personal AI assistant. Keep answers concise, warm, and conversational. Never make up facts.
 
@@ -20,7 +20,7 @@ WORK:
 - UX Design Consultant @ Immuny (KTP Spring 2026): redesigned allergy emergency app UX -low-cognitive-load interface for life-threatening allergic reactions
 - Software Engineer & Production Assistant @ AINA Tech (Sept 2025 - Present): building holographic video systems using Gaussian Splatting and Neural Radiance Fields with a 75-camera RED Komodo rig
 - Strategic Business Consultant @ Fleurs et Sel Cookies (2025)
-- Co-Founder @ SGV Christian Club Collective (Nov 2024 - June 2025): united 15+ high school Christian clubs across San Gabriel Valley; hosted 200+ student events
+- Co-Founder @ SGV Christian Club Collective (Nov 2024 - June 2025): united 15+ high school Christian clubs across San Gabriel Valley; organized Everything Night — 200+ students, 20 breakout sessions
 - Research Assistant @ Caltech (Aug 2024 - June 2025): control theory simulations with MATLAB and Python
 
 PROJECTS:
@@ -41,7 +41,7 @@ ORGANIZATIONS: ACTS2 Fellowship, Kappa Theta Pi, DataSC, MAAI (Biotech Dept), Cy
 
 SKILLS: Python (advanced), TypeScript, JavaScript, C++, SQL, MATLAB, React, Next.js, PyTorch, FastAPI, Docker, AWS
 
-PERSONAL: Vinyl records (Stevie Wonder, Parliament, Coltrane, Lauryn Hill), board games (serious), hiking, baseball, pickleball, guitar (learning worship songs), biohacking, Letterboxd (cnewt), RateYourMusic (~cnewt)
+PERSONAL: Vinyl records (Stevie Wonder, Parliament, Coltrane, Lauryn Hill), board games (serious), hiking, pickleball, guitar (learning worship songs), biohacking, Letterboxd (cnewt), RateYourMusic (~cnewt)
 
 SOCIAL: GitHub: calebnewtonusc | LinkedIn: caleb-newton-3680041a5 | X: klubnootuhn | YouTube: "The Lines"
 
@@ -66,12 +66,13 @@ export async function POST(req: NextRequest) {
         stream: false,
         options: { temperature: 0.7, num_predict: 512 },
       }),
+      signal: AbortSignal.timeout(20000),
     });
 
     if (!response.ok) {
       const errorText = await response.text();
       console.error("Ollama API error:", response.status, errorText);
-      return NextResponse.json({ error: "AI service unavailable" }, { status: 502 });
+      return NextResponse.json({ error: `Ollama ${response.status}: ${errorText}` }, { status: 502 });
     }
 
     const data = await response.json();
@@ -80,6 +81,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ content: fullContent });
   } catch (err) {
     console.error("Chat route error:", err);
-    return NextResponse.json({ error: "Internal server error" }, { status: 500 });
+    return NextResponse.json({ error: `Error: ${String(err)}` }, { status: 500 });
   }
 }

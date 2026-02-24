@@ -83,7 +83,7 @@ function AppIcon({
           <img
             src={app.icon}
             alt={app.name}
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transform: app.id === "settings" ? "scale(1.5)" : undefined }}
           />
         ) : (
           <span

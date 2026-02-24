@@ -126,7 +126,7 @@ export default function SpotifyApp({ onClose: _onClose }: Props) {
                 Open My Spotify Profile
               </p>
               <p style={{ color: "rgba(255,255,255,0.75)", fontSize: 12, fontFamily: "-apple-system, sans-serif" }}>
-                @cnewt
+                Caleeb Newton
               </p>
             </div>
             <svg width="8" height="13" viewBox="0 0 8 13" fill="none">

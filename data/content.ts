@@ -22,7 +22,7 @@ export const social = {
   github: "https://github.com/calebnewtonusc",
   linkedin: "https://www.linkedin.com/in/caleb-newton-3680041a5/",
   youtube: "https://www.youtube.com/playlist?list=PLWhbpQ2inj_p13rmaV6mOdpLu3kTIi8XF",
-  spotify: "https://open.spotify.com/user/cnewt",
+  spotify: "https://open.spotify.com/user/rbfdtme07mst8eft5f4j8k2ll",
   letterboxd: "https://letterboxd.com/cnewt/",
   rateyourmusic: "https://rateyourmusic.com/~cnewt",
   x: "https://x.com/klubnootuhn",
@@ -152,9 +152,10 @@ export const experience = [
     description:
       "Co-founded a cross-school Christian collective uniting 15+ high school clubs across the San Gabriel Valley into one movement. Also served as President of ACTS Christian Club at San Marino High School - where the vision first took root.",
     achievements: [
-      "United 15+ independent Christian clubs across the San Gabriel Valley",
-      "Hosted 200+ student events: worship nights, retreats, speaker panels, and outreach",
-      "Built a cross-school leadership pipeline that outlasted any single event",
+      "Spearheaded formation of a coalition uniting 15+ high school Christian clubs across the San Gabriel Valley",
+      "Conceived and executed Everything Night — a first-of-its-kind regional event attracting 200+ students to 20 breakout sessions",
+      "Exercised visionary leadership by filtering and curating the strongest student-led ideas into a cohesive program that maximized impact",
+      "Pioneered a scalable framework for multi-school collaboration, media, and fundraising that created a replicable model for regional impact",
     ],
     skills: ["Leadership", "Community Building", "Event Coordination", "Faith"],
     photos: [
@@ -414,9 +415,19 @@ export const personalSettings = [
     section: "Faith & Identity",
     icon: "faith",
     items: [
-      { label: "Follower of Jesus", type: "info", detail: "Non-negotiable" },
-      { label: "Human-Centered Technology", type: "info", detail: "Core design philosophy" },
-      { label: "IRL Connection > Social Media", type: "info", detail: "Always" },
+      { label: "Follower of Jesus", type: "toggle-on", detail: "Non-negotiable" },
+      { label: "Favorite Verse", type: "info", detail: "1 Thessalonians 5:17" },
+      { label: "Church", type: "info", detail: "ACTS2 Fellowship @ USC" },
+      { label: "Ministry", type: "info", detail: "President, ACTS · Co-Founder, SGV Christian Club Collective" },
+      { label: "Recharge Location", type: "info", detail: "Sunday service + community" },
+      { label: "Joy Source", type: "info", detail: "Lasting community, watching others thrive" },
+      { label: "Dominican Republic", type: "info", detail: "Mission trip — joy doesn't come from wealth" },
+      { label: "Autism Diagnosis", type: "info", detail: "Diagnosed senior year — it all made sense" },
+      { label: "Neurodiversity", type: "info", detail: "Hyperfocus · Pattern thinking · Deep curiosity" },
+      { label: "Boldness", type: "toggle-on", detail: "Will stand against the crowd when it matters" },
+      { label: "Human-Centered Technology", type: "toggle-on", detail: "Tech should serve people, not enslave them" },
+      { label: "IRL Connection > Social Media", type: "toggle-on", detail: "Always" },
+      { label: "Contrarian Mode", type: "toggle-on", detail: "Ethical issues activate this immediately" },
     ],
   },
   {
@@ -435,11 +446,11 @@ export const personalSettings = [
     section: "Sports & Activities",
     icon: "sports",
     items: [
-      { label: "Baseball", type: "info", detail: "Pitcher · San Marino HS" },
-      { label: "Hiking", type: "info", detail: "Hollywood Hills & beyond" },
-      { label: "Board Games", type: "info", detail: "Serious about this" },
-      { label: "Spikeball", type: "info", detail: "& Pickleball" },
-      { label: "Wrestling", type: "info", detail: "High school" },
+      { label: "Baseball", type: "toggle-off", detail: "Retired · Pitcher · San Marino HS" },
+      { label: "Wrestling", type: "toggle-off", detail: "Retired · San Marino HS" },
+      { label: "Hiking", type: "toggle-on", detail: "Hollywood Hills, mountains, anywhere" },
+      { label: "Board Games", type: "toggle-on", detail: "Serious about this" },
+      { label: "Spikeball & Pickleball", type: "toggle-on", detail: "Active" },
     ],
   },
   {
@@ -485,10 +496,8 @@ export const personalSettings = [
       { label: "Location", type: "info", detail: "San Marino, CA → USC" },
       { label: "Software Version", type: "info", detail: "USC Freshman OS 25.1.0" },
       { label: "Serial Number", type: "info", detail: "calebnew@usc.edu" },
-      { label: "System Settings", type: "info", detail: "Runs optimally with tech + music + baseball" },
-      { label: "Primary Passion", type: "info", detail: "Technology, philosophy, baseball discipline" },
+      { label: "Optimal State", type: "info", detail: "Deep work + good music + strong coffee" },
       { label: "Social Mode", type: "info", detail: "Meaningful conversations > small talk" },
-      { label: "Optimal Input", type: "info", detail: "Direct communication - always results in system update" },
       { label: "Background Process", type: "info", detail: "Head-bobbing may occur during vinyl sessions" },
       { label: "Battery", type: "info", detail: "Charged by faith & coffee" },
       { label: "Storage", type: "info", detail: "∞ Curiosity · 20TB Work Ethic" },
@@ -682,11 +691,10 @@ export const organizations = [
     color: "#34C759",
     description: "Co-founded a coalition uniting 15+ high school Christian clubs across the San Gabriel Valley - launched from a vision to break down walls between isolated campus ministries. Also served as President of ACTS Christian Club at San Marino High School, where this vision first took root. Built real community between students who never would have met otherwise.",
     achievements: [
-      "United 15+ independent Christian clubs across the San Gabriel Valley into one collective",
-      "Hosted 200+ student events spanning worship nights, retreats, speaker panels, and outreach",
-      "Built a cross-school leadership pipeline that outlasted any single event",
-      "Created a shared identity and community brand that unified diverse campus ministries",
-      "Coordinated logistics across 15+ schools with different leadership styles, schedules, and visions",
+      "Spearheaded formation of a coalition uniting 15+ high school Christian clubs across the San Gabriel Valley",
+      "Conceived and executed Everything Night — a first-of-its-kind regional event attracting 200+ students to 20 breakout sessions",
+      "Exercised visionary leadership by filtering and curating the strongest student-led ideas into a cohesive program that maximized impact",
+      "Pioneered a scalable framework for multi-school collaboration, media, and fundraising that created a replicable model for regional impact",
     ],
     photos: [
       "/assets/EverythingNightImages/everything_night_main.jpg",
@@ -800,7 +808,8 @@ export type AppId =
   | "rateyourmusic"
   | "x"
   | "substack"
-  | "calebgpt";
+  | "calebgpt"
+  | "bible";
 
 export interface AppDef {
   id: AppId;
@@ -820,6 +829,7 @@ export const apps: AppDef[] = [
   { id: "photos",       name: "Photos",      emoji: "P", icon: "/assets/icons/photos.webp",         gradient: ["#34C759", "#248A3D"] },
   { id: "contact",      name: "Mail",        emoji: "C", icon: "/assets/icons/mailapp.png",         gradient: ["#5AC8FA", "#007AFF"] },
   { id: "spotify",      name: "Spotify",     emoji: "S", icon: "/assets/icons/spotify.png",         gradient: ["#1DB954", "#157A37"] },
+  { id: "bible",        name: "Bible",       emoji: "B", icon: "/assets/icons/bibleapp.png",        gradient: ["#D4A017", "#A0770F"] },
   { id: "calebgpt",     name: "CalebGPT",    emoji: "C", icon: "/assets/icons/chatgpt.png",         gradient: ["#10A37F", "#1A7F64"] },
   { id: "youtube",      name: "YouTube",     emoji: "Y", icon: "/assets/icons/youtubeapplogo.png",  gradient: ["#FF0000", "#C0392B"], external: "https://www.youtube.com/@caleebnewtown" },
   { id: "github",       name: "GitHub",      emoji: "G", icon: "/assets/icons/github.webp",         gradient: ["#24292E", "#000000"], external: "https://github.com/calebnewtonusc" },
