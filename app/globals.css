@@ -1,0 +1,321 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap");
+@import "tailwindcss";
+
+:root {
+  --ipad-green: #2d7a3a;
+  --ipad-green-light: #3d9a4d;
+  --ipad-green-dark: #1a4d22;
+  --ipad-green-highlight: #5ab868;
+  --ios-green: #34c759;
+  --ios-blue: #007aff;
+  --ios-red: #ff3b30;
+  --ios-orange: #ff9500;
+  --ios-yellow: #ffcc00;
+  --ios-purple: #af52de;
+  --ios-pink: #ff2d55;
+  --ios-teal: #5ac8fa;
+  --ios-gray: #8e8e93;
+  --ios-gray2: #aeaeb2;
+  --ios-bg: #f2f2f7;
+  --ios-bg2: #ffffff;
+  --ios-separator: rgba(60, 60, 67, 0.29);
+  --font-sf: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text",
+    "Helvetica Neue", Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  font-family: var(--font-sf);
+  background: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Watermark Background ─── */
+.watermark-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  user-select: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  gap: 0;
+}
+
+.watermark-bg span {
+  display: block;
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 900;
+  color: rgba(0, 0, 0, 0.042);
+  letter-spacing: -0.03em;
+  white-space: nowrap;
+  transform: rotate(-15deg);
+  line-height: 1.2;
+  padding: 0 1.5rem;
+}
+
+/* ─── Viewport ─── */
+.ipad-viewport {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* ─── Custom Scrollbar inside apps ─── */
+.ios-scroll::-webkit-scrollbar {
+  width: 4px;
+}
+.ios-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+.ios-scroll::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+}
+
+/* ─── iOS Typography ─── */
+.ios-large-title {
+  font-size: 34px;
+  font-weight: 700;
+  letter-spacing: 0.37px;
+  line-height: 1.2;
+}
+.ios-title1 {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 0.36px;
+}
+.ios-title2 {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.35px;
+}
+.ios-title3 {
+  font-size: 20px;
+  font-weight: 600;
+  letter-spacing: 0.38px;
+}
+.ios-headline {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.41px;
+}
+.ios-body {
+  font-size: 17px;
+  font-weight: 400;
+  letter-spacing: -0.41px;
+}
+.ios-callout {
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: -0.31px;
+}
+.ios-subhead {
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: -0.24px;
+}
+.ios-footnote {
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: -0.08px;
+}
+.ios-caption1 {
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.ios-caption2 {
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.06px;
+}
+
+/* ─── Grouped List (iOS Settings style) ─── */
+.ios-grouped-list {
+  background: var(--ios-bg);
+  padding: 0 16px;
+}
+.ios-section-header {
+  font-size: 13px;
+  font-weight: 400;
+  color: var(--ios-gray);
+  letter-spacing: -0.08px;
+  padding: 8px 0 6px 0;
+  text-transform: uppercase;
+}
+.ios-row {
+  display: flex;
+  align-items: center;
+  background: white;
+  padding: 11px 16px;
+  min-height: 44px;
+  border-bottom: 0.5px solid var(--ios-separator);
+  gap: 12px;
+}
+.ios-row:first-child {
+  border-radius: 10px 10px 0 0;
+}
+.ios-row:last-child {
+  border-radius: 0 0 10px 10px;
+  border-bottom: none;
+}
+.ios-row:only-child {
+  border-radius: 10px;
+  border-bottom: none;
+}
+.ios-row-group {
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
+  margin-bottom: 0;
+}
+
+/* ─── iOS Toggle ─── */
+.ios-toggle {
+  position: relative;
+  width: 51px;
+  height: 31px;
+  flex-shrink: 0;
+}
+.ios-toggle input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+}
+.ios-toggle-track {
+  position: absolute;
+  inset: 0;
+  border-radius: 15.5px;
+  background: #e5e5ea;
+  transition: background 0.2s;
+  cursor: not-allowed;
+}
+.ios-toggle-track::after {
+  content: "";
+  position: absolute;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  background: white;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.15), 0 1px 1px rgba(0, 0, 0, 0.16),
+    0 3px 1px rgba(0, 0, 0, 0.1);
+}
+.ios-toggle.on .ios-toggle-track {
+  background: var(--ios-green);
+}
+.ios-toggle.on .ios-toggle-track::after {
+  transform: translateX(20px);
+}
+
+/* ─── App Icon ─── */
+.app-icon {
+  border-radius: 22.5%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25),
+    0 0 0 0.5px rgba(255, 255, 255, 0.15) inset;
+}
+.app-icon::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.25) 0%,
+    rgba(255, 255, 255, 0) 60%
+  );
+  z-index: 1;
+  border-radius: inherit;
+  pointer-events: none;
+}
+
+/* ─── Dock ─── */
+.dock {
+  background: rgba(255, 255, 255, 0.35);
+  backdrop-filter: blur(30px) saturate(1.8);
+  -webkit-backdrop-filter: blur(30px) saturate(1.8);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 28px;
+}
+
+/* ─── App Window (full screen inside iPad) ─── */
+.app-window {
+  position: absolute;
+  inset: 0;
+  background: var(--ios-bg);
+  border-radius: inherit;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── Navigation Bar ─── */
+.ios-nav-bar {
+  background: rgba(242, 242, 247, 0.85);
+  backdrop-filter: blur(20px) saturate(1.8);
+  -webkit-backdrop-filter: blur(20px) saturate(1.8);
+  border-bottom: 0.5px solid var(--ios-separator);
+  padding: 0 16px;
+  height: 52px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+  z-index: 10;
+}
+
+/* ─── Card ─── */
+.ios-card {
+  background: white;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* ─── Smooth transitions ─── */
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  text-decoration: none;
+  color: var(--ios-blue);
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+.font-poppins {
+  font-family: "Poppins", var(--font-sf);
+}
