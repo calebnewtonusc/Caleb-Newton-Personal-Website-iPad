@@ -293,6 +293,12 @@ export default function AboutApp({ onClose }: Props) {
                 url: social.rateyourmusic,
                 color: "#ed1c24",
               },
+              {
+                label: "X",
+                value: "@klubnootuhn",
+                url: social.x,
+                color: "#000000",
+              },
             ].map((link, i, arr) => (
               <a
                 key={link.label}

@@ -12,6 +12,7 @@ import FilesApp from "./FilesApp";
 import PhotosApp from "./PhotosApp";
 import ContactApp from "./ContactApp";
 import SettingsApp from "./SettingsApp";
+import CalebGPTApp from "./CalebGPTApp";
 
 interface Props {
   appId: AppId;
@@ -28,6 +29,7 @@ const appMap: Record<string, React.ComponentType<{ onClose: () => void; orientat
   photos: PhotosApp,
   contact: ContactApp,
   settings: SettingsApp,
+  calebgpt: CalebGPTApp,
 };
 
 export default function AppWindow({ appId, onClose, orientation }: Props) {

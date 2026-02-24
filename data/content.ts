@@ -25,6 +25,7 @@ export const social = {
   spotify: "https://open.spotify.com",
   letterboxd: "https://letterboxd.com/cnewt/",
   rateyourmusic: "https://rateyourmusic.com/~cnewt",
+  x: "https://x.com/klubnootuhn",
 };
 
 export const experience = [
@@ -504,7 +505,7 @@ export const organizations = [
     logo: "/assets/logos/ktp.png",
     color: "#6C47FF",
     description: "Professional technology fraternity. Currently working on client projects in AI and data analytics.",
-    link: "https://ktp-hub.vercel.app",
+    link: "https://ktp-website-2026.vercel.app/",
     category: "Professional",
   },
   {
@@ -576,7 +577,7 @@ export const organizations = [
     logo: "",
     color: "#FF9500",
     description: "USC food culture club celebrating cuisine, community, and culinary exploration.",
-    link: "",
+    link: "https://www.uscflavors.com/",
     category: "Social",
   },
   {
@@ -588,7 +589,7 @@ export const organizations = [
     logo: "",
     color: "#30B050",
     description: "USC outdoor adventure club. Hiking, camping, and exploring Southern California.",
-    link: "",
+    link: "https://www.scoutfitters.org/",
     category: "Social",
   },
   {
@@ -653,7 +654,9 @@ export type AppId =
   | "linkedin"
   | "spotify"
   | "letterboxd"
-  | "rateyourmusic";
+  | "rateyourmusic"
+  | "x"
+  | "calebgpt";
 
 export interface AppDef {
   id: AppId;
@@ -679,6 +682,8 @@ export const apps: AppDef[] = [
   { id: "spotify",      name: "Spotify",     emoji: "S", icon: "/assets/icons/spotify.png",       gradient: ["#1DB954", "#157A37"], external: "https://open.spotify.com" },
   { id: "letterboxd",   name: "Letterboxd",  emoji: "L", icon: "/assets/icons/letterboxd.png",    gradient: ["#FF8000", "#E55C00"], external: "https://letterboxd.com/cnewt/" },
   { id: "rateyourmusic",name: "RYM",         emoji: "R", icon: "/assets/icons/rym.png",           gradient: ["#ED1C24", "#A8001B"], external: "https://rateyourmusic.com/~cnewt" },
+  { id: "x",            name: "X",           emoji: "X", icon: "/assets/icons/x.jpg",              gradient: ["#000000", "#14171A"], external: "https://x.com/klubnootuhn" },
+  { id: "calebgpt",     name: "CalebGPT",    emoji: "C", icon: "/assets/icons/chatgpt.png",         gradient: ["#10A37F", "#1A7F64"] },
 ];
 
 export const dockApps: AppId[] = ["linkedin", "github", "youtube", "spotify", "letterboxd", "rateyourmusic"];
