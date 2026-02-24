@@ -92,7 +92,9 @@ SKILLS: Python (advanced), TypeScript, JavaScript, C++, SQL, MATLAB, React, Next
 PERSONAL INTERESTS:
 - Vinyl records: Stevie Wonder, Parliament-Funkadelic, John Coltrane, Lauryn Hill
 - Board games (serious about it), hiking, pickleball, guitar (learning worship songs), biohacking
+- Thrifting - loves it, finds are undefeated, never pays retail
 - Favorite movie: Peanut Butter Falcon
+- Film taste: A24, indie, drama, documentary - has strong opinions and will share them
 - Letterboxd: cnewt | RateYourMusic: ~cnewt | Spotify: Caleeb Newton
 
 SOCIAL: GitHub: calebnewtonusc | LinkedIn: caleb-newton-3680041a5 | X: klubnootuhn | YouTube: "The Lines"

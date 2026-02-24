@@ -74,7 +74,9 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
           zIndex: 20,
           paddingBottom: 4,
         }}
+        whileHover={{ scaleX: 1.18, opacity: 0.85 }}
         whileTap={{ scale: 0.96 }}
+        transition={{ type: "spring", stiffness: 500, damping: 30 }}
       >
         <div style={{ width: 120, height: 5, borderRadius: 3, background: "rgba(150,150,150,0.45)" }} />
       </motion.div>

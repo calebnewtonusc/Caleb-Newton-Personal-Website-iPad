@@ -462,9 +462,14 @@ export const personalSettings = [
     section: "Film & Culture",
     icon: "film",
     items: [
-      { label: "Letterboxd Active", type: "info", detail: "cnewt" },
-      { label: "RateYourMusic Active", type: "info", detail: "~cnewt" },
-      { label: "Has Opinions About Movies", type: "info", detail: "Strong ones" },
+      { label: "Letterboxd", type: "info", detail: "cnewt · always logging" },
+      { label: "Favorite Film", type: "info", detail: "Peanut Butter Falcon" },
+      { label: "Film Opinions", type: "info", detail: "Strong ones - will share unprompted" },
+      { label: "Genres", type: "info", detail: "A24 · Indie · Drama · Documentary" },
+      { label: "RateYourMusic", type: "info", detail: "~cnewt · jazz & hip-hop deep cuts" },
+      { label: "Thrifting", type: "toggle-on", detail: "Finds are undefeated" },
+      { label: "Style", type: "info", detail: "Clean fits, thrifted - never paying retail" },
+      { label: "Reading", type: "info", detail: "Non-fiction · theology · AI alignment" },
     ],
   },
   {
