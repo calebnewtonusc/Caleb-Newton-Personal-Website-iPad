@@ -248,6 +248,57 @@ export default function FilesApp({ onClose }: Props) {
                 <p style={{ fontSize: 15, color: "#3a3a3c", lineHeight: 1.65 }}>{selectedOrg.description}</p>
               </motion.div>
 
+              {/* Achievements */}
+              {"achievements" in selectedOrg && Array.isArray(selectedOrg.achievements) && selectedOrg.achievements.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 12 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.11 }}
+                  style={{
+                    background: "white",
+                    borderRadius: 16,
+                    padding: "16px 20px",
+                    marginBottom: 12,
+                    boxShadow: "0 1px 8px rgba(0,0,0,0.06)",
+                  }}
+                >
+                  <p style={{ fontSize: 12, color: "#8e8e93", marginBottom: 10, fontWeight: 600, letterSpacing: 0.5 }}>IMPACT</p>
+                  {(selectedOrg.achievements as string[]).map((a: string, i: number) => (
+                    <div key={i} style={{ display: "flex", gap: 10, marginBottom: 9 }}>
+                      <span style={{ color: selectedOrg.color, fontWeight: 700, flexShrink: 0, fontSize: 16, lineHeight: 1.4 }}>·</span>
+                      <p style={{ fontSize: 14, color: "#3a3a3c", lineHeight: 1.55 }}>{a}</p>
+                    </div>
+                  ))}
+                </motion.div>
+              )}
+
+              {/* Photos */}
+              {"photos" in selectedOrg && Array.isArray(selectedOrg.photos) && selectedOrg.photos.length > 0 && (
+                <motion.div
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.13 }}
+                  style={{ display: "flex", gap: 8, marginBottom: 12, overflowX: "auto", paddingBottom: 4 }}
+                >
+                  {(selectedOrg.photos as string[]).map((src: string, pi: number) => (
+                    // eslint-disable-next-line @next/next/no-img-element
+                    <img
+                      key={pi}
+                      src={src}
+                      alt=""
+                      style={{
+                        height: 120,
+                        width: "auto",
+                        borderRadius: 14,
+                        objectFit: "cover",
+                        flexShrink: 0,
+                        boxShadow: "0 2px 10px rgba(0,0,0,0.12)",
+                      }}
+                    />
+                  ))}
+                </motion.div>
+              )}
+
               {/* Link */}
               {selectedOrg.link && (
                 <motion.a
