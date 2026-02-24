@@ -32,10 +32,7 @@ export default function ContactApp({ onClose }: Props) {
           <svg width="10" height="17" viewBox="0 0 10 17" fill="none">
             <path d="M8.5 1L1 8.5L8.5 16" stroke="#007aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          Home
         </button>
-        <span className="ios-headline" style={{ color: "#1c1c1e" }}>Contact</span>
-        <div style={{ width: 60 }} />
       </div>
 
       <div className="ios-scroll" style={{ flex: 1, overflowY: "auto", padding: "16px 16px 32px" }}>
@@ -68,7 +65,7 @@ export default function ContactApp({ onClose }: Props) {
               Let&apos;s connect!
             </p>
             <p style={{ fontSize: 14, opacity: 0.9, lineHeight: 1.5 }}>
-              Whether it&apos;s ML research, internships, collaborations, or just to say hi — my inbox is open.
+              Whether it&apos;s ML research, internships, collaborations, or just to say hi - my inbox is open.
             </p>
           </div>
 
@@ -86,8 +83,11 @@ export default function ContactApp({ onClose }: Props) {
               marginBottom: 10,
             }}
           >
-            <div style={{ width: 40, height: 40, borderRadius: 12, background: "#007aff", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18 }}>
-              ✉️
+            <div style={{ width: 40, height: 40, borderRadius: 12, background: "#007aff", display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg width="20" height="16" viewBox="0 0 20 16" fill="none">
+                <rect x="0.5" y="0.5" width="19" height="15" rx="3.5" stroke="white" strokeOpacity="0.8"/>
+                <path d="M1 2L10 9L19 2" stroke="white" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
             </div>
             <div>
               <p style={{ fontSize: 15, fontWeight: 600, color: "#1c1c1e" }}>Email</p>
@@ -208,7 +208,7 @@ export default function ContactApp({ onClose }: Props) {
                 fontFamily: "var(--font-sf)",
               }}
             >
-              {sent ? "✓ Message Sent!" : "Send Message"}
+              {sent ? "Message Sent!" : "Send Message"}
             </motion.button>
           </form>
         </motion.div>

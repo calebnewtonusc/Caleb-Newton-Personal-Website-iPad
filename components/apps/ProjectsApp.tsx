@@ -80,7 +80,7 @@ function TodayCard({ project }: { project: typeof projects[0] }) {
             <div style={{ fontSize: 11, fontWeight: 700, color: "#007aff", letterSpacing: 0.2, marginBottom: 2 }}>
               TODAY&apos;S APP
             </div>
-            <div style={{ fontSize: 10, color: "#8e8e93" }}>TODAY · {todayStr}</div>
+            <div style={{ fontSize: 10, color: "#8e8e93" }}>TODAY &middot; {todayStr}</div>
           </div>
         </div>
 
@@ -151,7 +151,7 @@ function TodayCard({ project }: { project: typeof projects[0] }) {
                 fontFamily: "-apple-system, sans-serif",
               }}
             >
-              GitHub ↗
+              GitHub {"\u2197"}
             </a>
           )}
           <span style={{ marginLeft: "auto", fontSize: 12, color: "#8e8e93", fontWeight: 500 }}>{project.category}</span>
@@ -300,7 +300,7 @@ function AppRow({ project, index, expanded, onToggle }: {
                     rel="noopener noreferrer"
                     style={{ background: project.color, color: "white", borderRadius: 10, padding: "8px 16px", fontSize: 13, fontWeight: 600, textDecoration: "none" }}
                   >
-                    Live Demo ↗
+                    Live Demo {"\u2197"}
                   </a>
                 )}
                 {project.github && (
@@ -310,7 +310,7 @@ function AppRow({ project, index, expanded, onToggle }: {
                     rel="noopener noreferrer"
                     style={{ background: "#f2f2f7", color: "#1c1c1e", border: "1px solid #e5e5ea", borderRadius: 10, padding: "8px 16px", fontSize: 13, fontWeight: 600, textDecoration: "none" }}
                   >
-                    GitHub ↗
+                    GitHub {"\u2197"}
                   </a>
                 )}
               </div>
@@ -335,10 +335,7 @@ export default function ProjectsApp({ onClose }: Props) {
           <svg width="10" height="17" viewBox="0 0 10 17" fill="none">
             <path d="M8.5 1L1 8.5L8.5 16" stroke="#007aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          Home
         </button>
-        <span className="ios-headline" style={{ color: "#1c1c1e" }}>Caleb&apos;s Projects</span>
-        <div style={{ width: 60 }} />
       </div>
 
       <div className="ios-scroll" style={{ flex: 1, overflowY: "auto", padding: "16px 0 32px" }}>

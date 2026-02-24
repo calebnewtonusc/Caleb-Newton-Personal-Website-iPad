@@ -12,36 +12,36 @@ interface Props {
 // Map each education entry to a full-text "note"
 const noteContent: Record<string, { body: string }> = {
   usc: {
-    body: `I'm a freshman at the University of Southern California studying Computer Science and Applied Mathematics in the Viterbi School of Engineering. USC is where everything is clicking together — the theory I learned in high school is now becoming real systems I can build.
+    body: `I'm a freshman at the University of Southern California studying Computer Science and Applied Mathematics in the Viterbi School of Engineering. USC is where everything is clicking together - the theory I learned in high school is now becoming real systems I can build.
 
 This semester I'm taking Multivariable Calculus, Linear Algebra, C++, and Discrete Methods simultaneously. It's dense, but I love how each course feeds the others. Linear algebra shows up in every ML paper I read. Calculus is the backbone of optimization. C++ is making me think about memory and performance in a way Python never did.
 
-Outside class, I joined Alpha Gamma Omega — a Christian fraternity — which has been one of the best decisions I've made. Building brotherhood with guys who share my faith while being serious about academics and building things is exactly what I was hoping for at USC.
+Outside class, I've found community through faith groups and meeting people who are serious about both their faith and their work. Building friendships with people who share my values while being serious about academics and building things is exactly what I was hoping for at USC.
 
 My goal isn't just to graduate. I want to leave USC having built things that matter, contributed to real research, and grown into an engineer who solves hard problems.`,
   },
   smhs: {
-    body: `San Marino High School shaped me more than I realized at the time. I graduated with a 4.0+ GPA, was named AP Scholar with Distinction, and received the Promethean Award — the highest honor for a graduating student.
+    body: `San Marino High School shaped me more than I realized at the time. I graduated with a 4.0+ GPA, was named AP Scholar with Distinction, and received the Promethean Award - the highest honor for a graduating student.
 
-But the numbers aren't what I remember most. I remember building ACTS Christian Club from a small group into something that connected students across the whole San Gabriel Valley. I remember baseball — pitching under pressure, learning to compete with composure. I remember wrestling, which taught me that the only way out is through.
+But the numbers aren't what I remember most. I remember building ACTS Christian Club from a small group into something that connected students across the whole San Gabriel Valley. I remember baseball - pitching under pressure, learning to compete with composure. I remember wrestling, which taught me that the only way out is through.
 
 SMHS gave me the academic foundation (AP Calculus, AP Computer Science, AP Physics) and the character development (leadership, faith, teamwork) that I'm drawing on every day at USC.
 
 If I could go back and tell my freshman self anything: stay curious, invest in people, and don't wait to start building things.`,
   },
   berkeley: {
-    body: `In June 2024, I attended UC Berkeley's Summer Computer Science Academy — an intensive program grounded in the Beauty and Joy of Computing (BJC) curriculum.
+    body: `In June 2024, I attended UC Berkeley's Summer Computer Science Academy - an intensive program grounded in the Beauty and Joy of Computing (BJC) curriculum.
 
 The course covered abstraction, recursion, and algorithms through Snap! before transitioning into Python. There was also an introductory machine learning module that genuinely lit a spark in me. Seeing how you could train a model to recognize patterns in data felt like discovering a superpower.
 
 Berkeley's campus is electric. The energy of being surrounded by people obsessed with building and understanding things pushed me to think bigger about what I wanted to study and build.
 
-This program confirmed that CS was my path — and that machine learning was the specific frontier I wanted to explore.`,
+This program confirmed that CS was my path - and that machine learning was the specific frontier I wanted to explore.`,
   },
   cnsi: {
     body: `In July 2023, I spent two weeks at the California Nanosystems Institute at UCLA for their Nanotechnology + Entrepreneurship Summer Program.
 
-Our team built AquaShield — a hydrophobic water bottle that repels bacteria and self-cleans. We went from concept to prototype to investor pitch in two weeks. I handled MATLAB analysis for surface contact angle measurements and helped design the pitch deck.
+Our team built AquaShield - a hydrophobic water bottle that repels bacteria and self-cleans. We went from concept to prototype to investor pitch in two weeks. I handled MATLAB analysis for surface contact angle measurements and helped design the pitch deck.
 
 The investor pitch was terrifying and exhilarating. Standing up and defending a technical product to people who could fund or kill it in 60 seconds forces you to know your material cold. It also taught me that the best technical ideas die without clear communication.
 
@@ -50,7 +50,7 @@ The program planted a seed: technology is most powerful when it solves a real pr
   stjohns: {
     body: `St. John's Nursery School, August 2010 to June 2011. Where it all began.
 
-I tested gravity extensively using block towers of increasing height. My research consistently confirmed Newton's law — blocks do, in fact, fall. I submitted multiple informal peer reviews on the topic to my fellow students, primarily through demonstrations.
+I tested gravity extensively using block towers of increasing height. My research consistently confirmed Newton's law - blocks do, in fact, fall. I submitted multiple informal peer reviews on the topic to my fellow students, primarily through demonstrations.
 
 I also competed in the Tricycle Racing League (informal, no official standings), participated in the Story Time Enthusiasts collective, and graduated with full honors in the Fundamentals of Sharing and Naptime Negotiation curriculum.
 
@@ -82,7 +82,7 @@ export default function EducationApp({ onClose }: Props) {
     <div className="app-window" style={{ background: "#f2f2f7" }}>
       <AnimatePresence mode="wait">
         {!selected ? (
-          /* ── LIST VIEW ── */
+          /* LIST VIEW */
           <motion.div
             key="list"
             initial={{ opacity: 0 }}
@@ -99,10 +99,7 @@ export default function EducationApp({ onClose }: Props) {
                 <svg width="10" height="17" viewBox="0 0 10 17" fill="none">
                   <path d="M8.5 1L1 8.5L8.5 16" stroke="#007aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-                Home
               </button>
-              <span className="ios-headline" style={{ color: "#1c1c1e" }}>Notes</span>
-              <div style={{ width: 60 }} />
             </div>
 
             <div className="ios-scroll" style={{ flex: 1, overflowY: "auto", padding: "16px 0 32px" }}>
@@ -285,7 +282,7 @@ export default function EducationApp({ onClose }: Props) {
             </div>
           </motion.div>
         ) : (
-          /* ── DETAIL VIEW ── */
+          /* DETAIL VIEW */
           <motion.div
             key={`detail-${selected}`}
             initial={{ opacity: 0, x: 40 }}
@@ -294,7 +291,7 @@ export default function EducationApp({ onClose }: Props) {
             transition={{ type: "spring", stiffness: 380, damping: 32 }}
             style={{ display: "flex", flexDirection: "column", height: "100%", background: "white" }}
           >
-            {/* Back button — no nav bar, just floating */}
+            {/* Back button - floating */}
             <div style={{ padding: "14px 16px 4px", flexShrink: 0 }}>
               <button
                 onClick={() => setSelected(null)}
@@ -377,7 +374,7 @@ export default function EducationApp({ onClose }: Props) {
                     </p>
                     {selectedEd.highlights.map((h, i) => (
                       <p key={i} style={{ fontSize: 14, color: "#3a3a3c", lineHeight: 1.55, marginBottom: 6 }}>
-                        · {h}
+                        &middot; {h}
                       </p>
                     ))}
                   </div>

@@ -8,8 +8,7 @@ import AboutApp from "./AboutApp";
 import WorkApp from "./WorkApp";
 import ProjectsApp from "./ProjectsApp";
 import EducationApp from "./EducationApp";
-import SkillsApp from "./SkillsApp";
-import MusicApp from "./MusicApp";
+import FilesApp from "./FilesApp";
 import PhotosApp from "./PhotosApp";
 import ContactApp from "./ContactApp";
 import SettingsApp from "./SettingsApp";
@@ -25,8 +24,7 @@ const appMap: Record<string, React.ComponentType<{ onClose: () => void; orientat
   work: WorkApp,
   projects: ProjectsApp,
   education: EducationApp,
-  skills: SkillsApp,
-  music: MusicApp,
+  files: FilesApp,
   photos: PhotosApp,
   contact: ContactApp,
   settings: SettingsApp,
@@ -47,10 +45,10 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
         borderRadius: "inherit",
         overflow: "hidden",
       }}
-      initial={{ scale: 0.88, opacity: 0, y: 20 }}
-      animate={{ scale: 1, opacity: 1, y: 0 }}
-      exit={{ scale: 0.88, opacity: 0, y: 20 }}
-      transition={{ type: "spring", stiffness: 420, damping: 32 }}
+      initial={{ scale: 0.08, opacity: 0 }}
+      animate={{ scale: 1, opacity: 1 }}
+      exit={{ scale: 0.08, opacity: 0 }}
+      transition={{ type: "spring", stiffness: 480, damping: 36 }}
     >
       {/* App content — takes all available space above home indicator */}
       <div style={{ flex: 1, overflow: "hidden", position: "relative" }}>

@@ -25,10 +25,8 @@ export default function PhotosApp({ onClose, orientation }: Props) {
           <svg width="10" height="17" viewBox="0 0 10 17" fill="none">
             <path d="M8.5 1L1 8.5L8.5 16" stroke="#007aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          {selected !== null ? "Photos" : "Home"}
+          {selected !== null ? "Photos" : ""}
         </button>
-        <span className="ios-headline" style={{ color: "#1c1c1e" }}>Photos</span>
-        <div style={{ width: 60 }} />
       </div>
 
       <div className="ios-scroll" style={{ flex: 1, overflowY: "auto" }}>
@@ -90,7 +88,7 @@ export default function PhotosApp({ onClose, orientation }: Props) {
               exit={{ opacity: 0 }}
               style={{ padding: "0 0 32px" }}
             >
-              {/* Full photo with Laolu-inspired flip card feel */}
+              {/* Full photo */}
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -125,7 +123,7 @@ export default function PhotosApp({ onClose, orientation }: Props) {
                     {photos[selected].caption}
                   </p>
                   <p style={{ color: "rgba(255,255,255,0.7)", fontSize: 13 }}>
-                    {photos[selected].date} · {photos[selected].location}
+                    {photos[selected].date} &middot; {photos[selected].location}
                   </p>
                 </div>
               </motion.div>
@@ -146,7 +144,7 @@ export default function PhotosApp({ onClose, orientation }: Props) {
                     gap: 4,
                   }}
                 >
-                  ← Previous
+                  {"\u2190"} Previous
                 </button>
                 <span style={{ fontSize: 13, color: "#8e8e93" }}>
                   {selected + 1} / {photos.length}
@@ -165,7 +163,7 @@ export default function PhotosApp({ onClose, orientation }: Props) {
                     gap: 4,
                   }}
                 >
-                  Next →
+                  Next {"\u2192"}
                 </button>
               </div>
 

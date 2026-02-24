@@ -33,11 +33,14 @@ function AlbumCard({ artist, album, color, delay }: { artist: string; album: str
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontSize: 22,
+          fontSize: 20,
+          fontWeight: 700,
+          color: "white",
+          fontFamily: "-apple-system, sans-serif",
           flexShrink: 0,
         }}
       >
-        🎵
+        {artist[0]}
       </div>
       <div>
         <p style={{ fontSize: 14, fontWeight: 600, color: "#1c1c1e", marginBottom: 2 }}>{artist}</p>
@@ -57,10 +60,7 @@ export default function MusicApp({ onClose }: Props) {
           <svg width="10" height="17" viewBox="0 0 10 17" fill="none">
             <path d="M8.5 1L1 8.5L8.5 16" stroke="#007aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          Home
         </button>
-        <span className="ios-headline" style={{ color: "#1c1c1e" }}>Music</span>
-        <div style={{ width: 60 }} />
       </div>
 
       <div className="ios-scroll" style={{ flex: 1, overflowY: "auto", padding: "16px 16px 32px" }}>
@@ -83,14 +83,16 @@ export default function MusicApp({ onClose }: Props) {
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 10 }}>
-            <span style={{ fontSize: 32 }}>🎶</span>
+            <div style={{ width: 40, height: 40, borderRadius: 10, background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, fontWeight: 700, color: "white", fontFamily: "-apple-system, sans-serif" }}>
+              V
+            </div>
             <div>
               <p className="font-poppins" style={{ fontSize: 18, fontWeight: 700 }}>Vinyl Collector</p>
-              <p style={{ fontSize: 13, opacity: 0.85 }}>Jazz → Hip-Hop → Gospel → R&B → Indie</p>
+              <p style={{ fontSize: 13, opacity: 0.85 }}>Jazz - Hip-Hop - Gospel - R&B - Indie</p>
             </div>
           </div>
           <p style={{ fontSize: 13, lineHeight: 1.5, opacity: 0.9 }}>
-            Music isn&apos;t just background noise — it&apos;s how I process the world. Collecting vinyl since high school.
+            Music isn&apos;t just background noise - it&apos;s how I process the world. Collecting vinyl since high school.
           </p>
         </motion.div>
 
@@ -111,7 +113,9 @@ export default function MusicApp({ onClose }: Props) {
               boxShadow: "0 4px 20px rgba(29,185,84,0.35)",
             }}
           >
-            <span style={{ fontSize: 28 }}>🎧</span>
+            <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 700, color: "white", fontFamily: "-apple-system, sans-serif" }}>
+              S
+            </div>
             <div>
               <p style={{ fontSize: 15, fontWeight: 700, color: "white" }}>Listen on Spotify</p>
               <p style={{ fontSize: 12, color: "rgba(255,255,255,0.8)" }}>Follow along</p>
@@ -139,10 +143,12 @@ export default function MusicApp({ onClose }: Props) {
               boxShadow: "0 4px 20px rgba(237,28,36,0.3)",
             }}
           >
-            <span style={{ fontSize: 28 }}>🎼</span>
+            <div style={{ width: 32, height: 32, borderRadius: 8, background: "rgba(255,255,255,0.2)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 700, color: "white", fontFamily: "-apple-system, sans-serif" }}>
+              R
+            </div>
             <div>
               <p style={{ fontSize: 15, fontWeight: 700, color: "white" }}>RateYourMusic</p>
-              <p style={{ fontSize: 12, color: "rgba(255,255,255,0.8)" }}>~cnewt · ratings & reviews</p>
+              <p style={{ fontSize: 12, color: "rgba(255,255,255,0.8)" }}>~cnewt &middot; ratings & reviews</p>
             </div>
             <svg style={{ marginLeft: "auto" }} width="8" height="13" viewBox="0 0 8 13" fill="none">
               <path d="M1 1L7 6.5L1 12" stroke="rgba(255,255,255,0.8)" strokeWidth="2" strokeLinecap="round" />

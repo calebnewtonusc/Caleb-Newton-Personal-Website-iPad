@@ -42,10 +42,7 @@ export default function SkillsApp({ onClose }: Props) {
           <svg width="10" height="17" viewBox="0 0 10 17" fill="none">
             <path d="M8.5 1L1 8.5L8.5 16" stroke="#007aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          Home
         </button>
-        <span className="ios-headline" style={{ color: "#1c1c1e" }}>Skills</span>
-        <div style={{ width: 60 }} />
       </div>
 
       <div className="ios-scroll" style={{ flex: 1, overflowY: "auto", padding: "16px 16px 32px" }}>

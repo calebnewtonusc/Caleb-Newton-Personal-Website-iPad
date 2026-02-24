@@ -1,7 +1,6 @@
 "use client";
 
 import { ReactNode } from "react";
-import StatusBar from "./StatusBar";
 
 interface Props {
   orientation: "landscape" | "portrait";
@@ -107,17 +106,11 @@ export default function IPadFrame({ orientation, children }: Props) {
           boxShadow: "0 0 0 1px rgba(0,0,0,0.9) inset",
         }}
       >
-        {/* Status bar sits above content */}
-        <StatusBar orientation={orientation} />
-
-        {/* App content — below status bar */}
+        {/* Full-screen content — edge to edge */}
         <div
           style={{
             position: "absolute",
-            top: 44,
-            left: 0,
-            right: 0,
-            bottom: 0,
+            inset: 0,
             overflow: "hidden",
           }}
         >

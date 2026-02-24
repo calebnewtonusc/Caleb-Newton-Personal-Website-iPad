@@ -40,12 +40,7 @@ export default function AboutApp({ onClose }: Props) {
               strokeLinejoin="round"
             />
           </svg>
-          Home
         </button>
-        <span className="ios-headline" style={{ color: "#1c1c1e" }}>
-          About
-        </span>
-        <div style={{ width: 60 }} />
       </div>
 
       {/* Content */}
@@ -244,7 +239,7 @@ export default function AboutApp({ onClose }: Props) {
                 }}
               >
                 <span style={{ color: "#34c759", fontSize: 14, marginTop: 1 }}>
-                  →
+                  {"\u2192"}
                 </span>
                 <span style={{ fontSize: 14, color: "#3a3a3c", lineHeight: 1.5 }}>
                   {item}

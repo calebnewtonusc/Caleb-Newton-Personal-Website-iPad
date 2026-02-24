@@ -18,6 +18,22 @@ function IOSToggle({ on }: { on: boolean }) {
   );
 }
 
+function SectionIcon({ icon }: { icon: string }) {
+  const iconMap: Record<string, { bg: string; label: string }> = {
+    faith:  { bg: "#5856D6", label: "F" },
+    music:  { bg: "#FF2D55", label: "M" },
+    sports: { bg: "#34C759", label: "S" },
+    film:   { bg: "#FF9500", label: "F" },
+    device: { bg: "#8E8E93", label: "i" },
+  };
+  const config = iconMap[icon] ?? { bg: "#8e8e93", label: icon[0] ?? "?" };
+  return (
+    <div style={{ width: 28, height: 28, borderRadius: 8, background: config.bg, display: "flex", alignItems: "center", justifyContent: "center", fontSize: 14, fontWeight: 700, color: "white", fontFamily: "-apple-system, sans-serif", flexShrink: 0 }}>
+      {config.label}
+    </div>
+  );
+}
+
 export default function SettingsApp({ onClose, orientation }: Props) {
   const [selectedSection, setSelectedSection] = useState<string | null>(null);
   const isLandscape = orientation === "landscape";
@@ -34,17 +50,13 @@ export default function SettingsApp({ onClose, orientation }: Props) {
           <svg width="10" height="17" viewBox="0 0 10 17" fill="none">
             <path d="M8.5 1L1 8.5L8.5 16" stroke="#007aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
           </svg>
-          {selectedSection ? "Settings" : "Home"}
+          {selectedSection ? "Settings" : ""}
         </button>
-        <span className="ios-headline" style={{ color: "#1c1c1e" }}>
-          {selectedSection || "Settings"}
-        </span>
-        <div style={{ width: 60 }} />
       </div>
 
       {/* Two-pane in landscape, single pane in portrait */}
       <div style={{ flex: 1, display: "flex", overflow: "hidden" }}>
-        {/* ─── Sidebar (always visible in landscape, only when no selection in portrait) ─── */}
+        {/* Sidebar (always visible in landscape, only when no selection in portrait) */}
         <AnimatePresence mode="wait" initial={false}>
           {(isLandscape || !selectedSection) && (
             <motion.div
@@ -61,7 +73,7 @@ export default function SettingsApp({ onClose, orientation }: Props) {
               }}
             >
               <div className="ios-scroll" style={{ overflowY: "auto", padding: "16px 16px 32px" }}>
-                {/* Profile header (Laolu-inspired) */}
+                {/* Profile header */}
                 <motion.div
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -92,7 +104,7 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                     <p className="font-poppins" style={{ fontSize: 16, fontWeight: 700, color: "#1c1c1e" }}>
                       Caleb Newton
                     </p>
-                    <p style={{ fontSize: 13, color: "#636366" }}>USC Freshman · CS + Applied Math</p>
+                    <p style={{ fontSize: 13, color: "#636366" }}>USC Freshman &middot; CS + Applied Math</p>
                     <p style={{ fontSize: 12, color: "#34c759", marginTop: 2 }}>calebnew@usc.edu</p>
                   </div>
                 </motion.div>
@@ -126,7 +138,7 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                           background: selectedSection === sec.section ? "rgba(0,122,255,0.06)" : "transparent",
                         }}
                       >
-                        <span style={{ fontSize: 22 }}>{sec.icon}</span>
+                        <SectionIcon icon={sec.icon} />
                         <span className="font-poppins" style={{ fontSize: 16, fontWeight: 600, color: "#1c1c1e", flex: 1 }}>
                           {sec.section}
                         </span>
@@ -147,7 +159,7 @@ export default function SettingsApp({ onClose, orientation }: Props) {
           )}
         </AnimatePresence>
 
-        {/* ─── Detail pane ─── */}
+        {/* Detail pane */}
         <AnimatePresence mode="wait">
           {selectedSection && (
             <motion.div
@@ -165,13 +177,13 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                     animate={{ opacity: 1, y: 0 }}
                     style={{ marginBottom: 20, display: "flex", alignItems: "center", gap: 12 }}
                   >
-                    <span style={{ fontSize: 36 }}>{section.icon}</span>
+                    <SectionIcon icon={section.icon} />
                     <div>
                       <h2 className="font-poppins" style={{ fontSize: 22, fontWeight: 700, color: "#1c1c1e" }}>
                         {section.section}
                       </h2>
                       <p style={{ fontSize: 13, color: "#636366" }}>
-                        {section.items.length} preferences · {section.items.filter((i) => i.type === "toggle-on").length} active
+                        {section.items.length} preferences &middot; {section.items.filter((i) => i.type === "toggle-on").length} active
                       </p>
                     </div>
                   </motion.div>
@@ -221,7 +233,7 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                         lineHeight: 1.5,
                       }}
                     >
-                      These settings are locked ON. They&apos;re not preferences — they&apos;re facts. 🔒
+                      These settings are locked ON. They&apos;re not preferences - they&apos;re facts.
                     </motion.p>
                   )}
                 </div>
@@ -243,7 +255,9 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                 gap: 12,
               }}
             >
-              <span style={{ fontSize: 48 }}>⚙️</span>
+              <div style={{ width: 56, height: 56, borderRadius: 16, background: "#e5e5ea", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 24, fontWeight: 700, color: "#8e8e93", fontFamily: "-apple-system, sans-serif" }}>
+                S
+              </div>
               <p style={{ fontSize: 16, color: "#636366" }}>Select a category</p>
             </motion.div>
           )}

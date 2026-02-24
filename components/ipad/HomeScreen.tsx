@@ -8,6 +8,8 @@ import { apps, dockApps } from "@/data/content";
 interface Props {
   orientation: "landscape" | "portrait";
   onOpenApp: (id: AppId) => void;
+  locked: boolean;
+  onUnlock: () => void;
 }
 
 function AppIcon({
@@ -24,7 +26,7 @@ function AppIcon({
   return (
     <motion.div
       whileTap={{ scale: 0.85 }}
-      whileHover={{ scale: 1.1 }}
+      whileHover={{ scale: 1.08 }}
       transition={{ type: "spring", stiffness: 500, damping: 28 }}
       onClick={onTap}
       style={{
@@ -33,10 +35,9 @@ function AppIcon({
         alignItems: "center",
         gap: 5,
         cursor: "pointer",
-        width: size + 16,
+        width: size + 20,
       }}
     >
-      {/* Icon */}
       <div
         className="app-icon"
         style={{
@@ -57,7 +58,6 @@ function AppIcon({
             style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
           />
         ) : (
-          // Fallback: first letter of app name, no emoji
           <span
             style={{
               position: "relative",
@@ -73,17 +73,16 @@ function AppIcon({
         )}
       </div>
 
-      {/* Label */}
       {showLabel && (
         <span
           style={{
-            fontSize: 10,
+            fontSize: 11,
             color: "white",
             textAlign: "center",
             fontWeight: 500,
             letterSpacing: -0.1,
             textShadow: "0 1px 6px rgba(0,0,0,0.8), 0 0 12px rgba(0,0,0,0.5)",
-            maxWidth: size + 12,
+            maxWidth: size + 16,
             overflow: "hidden",
             textOverflow: "ellipsis",
             whiteSpace: "nowrap",
@@ -97,12 +96,10 @@ function AppIcon({
   );
 }
 
-export default function HomeScreen({ orientation, onOpenApp }: Props) {
+export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }: Props) {
   const isLandscape = orientation === "landscape";
-  const [page, setPage] = useState(0);
-  const [locked, setLocked] = useState(true);
-  const [time, setTime] = useState(new Date());
 
+  const [time, setTime] = useState(new Date());
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
@@ -119,17 +116,11 @@ export default function HomeScreen({ orientation, onOpenApp }: Props) {
     day: "numeric",
   });
 
-  const cols = isLandscape ? 6 : 4;
-  const rows = isLandscape ? 3 : 4;
-  const iconsPerPage = cols * rows;
-  const iconSize = isLandscape ? 60 : 66;
+  // Grid layout
+  const cols = isLandscape ? 5 : 4;
+  const iconSize = isLandscape ? 68 : 72;
 
-  const pages: AppDef[][] = [];
-  for (let i = 0; i < apps.length; i += iconsPerPage) {
-    pages.push(apps.slice(i, i + iconsPerPage));
-  }
-
-  const dockAppDefs = dockApps.map((id) => apps.find((a) => a.id === id)!);
+  const dockAppDefs = dockApps.map((id) => apps.find((a) => a.id === id)!).filter(Boolean);
 
   const handleOpen = (app: AppDef) => {
     if (app.external) {
@@ -150,7 +141,7 @@ export default function HomeScreen({ orientation, onOpenApp }: Props) {
         overflow: "hidden",
       }}
     >
-      {/* ─── Wallpaper: beach photo ─── */}
+      {/* Wallpaper */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
       <img
         src="/assets/CalebAtBeachUSCHoodie.jpg"
@@ -165,24 +156,24 @@ export default function HomeScreen({ orientation, onOpenApp }: Props) {
           zIndex: 0,
         }}
       />
-      {/* Subtle scrim for icon readability */}
+      {/* Scrim */}
       <div
         style={{
           position: "absolute",
           inset: 0,
-          background: "rgba(0,0,0,0.18)",
+          background: "rgba(0,0,0,0.15)",
           zIndex: 1,
         }}
       />
 
-      {/* ─── Lock Screen ─── */}
+      {/* Lock Screen */}
       <AnimatePresence>
         {locked && (
           <motion.div
             initial={{ y: 0 }}
             exit={{ y: "-100%" }}
             transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
-            onClick={() => setLocked(false)}
+            onClick={onUnlock}
             style={{
               position: "absolute",
               inset: 0,
@@ -210,7 +201,6 @@ export default function HomeScreen({ orientation, onOpenApp }: Props) {
                 objectPosition: "center top",
               }}
             />
-            {/* Frosted overlay */}
             <div
               style={{
                 position: "absolute",
@@ -268,7 +258,7 @@ export default function HomeScreen({ orientation, onOpenApp }: Props) {
                 Caleb Newton
               </div>
               <div style={{ fontSize: 13, color: "rgba(255,255,255,0.65)", marginTop: 4, letterSpacing: 0.1 }}>
-                USC · CS + Applied Math
+                USC &middot; CS + Applied Math
               </div>
             </div>
 
@@ -280,7 +270,7 @@ export default function HomeScreen({ orientation, onOpenApp }: Props) {
                 textAlign: "center",
                 color: "rgba(255,255,255,0.55)",
                 fontSize: 12,
-                fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif",
+                fontFamily: "-apple-system, sans-serif",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -308,7 +298,7 @@ export default function HomeScreen({ orientation, onOpenApp }: Props) {
         )}
       </AnimatePresence>
 
-      {/* ─── Home Screen Content ─── */}
+      {/* Home Screen Content */}
       <div
         style={{
           position: "absolute",
@@ -324,66 +314,52 @@ export default function HomeScreen({ orientation, onOpenApp }: Props) {
             flex: 1,
             display: "flex",
             flexDirection: "column",
-            padding: isLandscape ? "12px 16px 4px" : "16px 12px 4px",
+            justifyContent: "center",
+            padding: isLandscape ? "16px 20px 8px" : "20px 16px 8px",
             overflow: "hidden",
           }}
         >
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={page}
-              initial={{ opacity: 0, x: 40 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -40 }}
-              transition={{ type: "spring", stiffness: 350, damping: 35 }}
-              style={{
-                display: "grid",
-                gridTemplateColumns: `repeat(${cols}, 1fr)`,
-                gridTemplateRows: `repeat(${rows}, 1fr)`,
-                flex: 1,
-                gap: isLandscape ? "4px 0" : "8px 0",
-                placeItems: "center",
-              }}
-            >
-              {(pages[page] || []).map((app, i) => (
-                <motion.div
-                  key={app.id}
-                  initial={{ opacity: 0, scale: 0.5, y: 20 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  transition={{ delay: i * 0.03, type: "spring", stiffness: 400, damping: 25 }}
-                >
-                  <AppIcon app={app} size={iconSize} onTap={() => handleOpen(app)} />
-                </motion.div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
-
-          {/* Page dots */}
-          {pages.length > 1 && (
-            <div style={{ display: "flex", justifyContent: "center", gap: 6, paddingBottom: 4 }}>
-              {pages.map((_, i) => (
-                <motion.div
-                  key={i}
-                  animate={{
-                    width: i === page ? 18 : 6,
-                    background: i === page ? "rgba(255,255,255,0.9)" : "rgba(255,255,255,0.35)",
-                  }}
-                  style={{ height: 6, borderRadius: 3, cursor: "pointer" }}
-                  onClick={() => setPage(i)}
-                  transition={{ type: "spring", stiffness: 400, damping: 30 }}
-                />
-              ))}
-            </div>
-          )}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3 }}
+            style={{
+              display: "grid",
+              gridTemplateColumns: `repeat(${cols}, 1fr)`,
+              gap: isLandscape ? "18px 8px" : "20px 4px",
+              justifyItems: "center",
+              alignContent: "start",
+            }}
+          >
+            {apps.map((app, i) => (
+              <motion.div
+                key={app.id}
+                initial={{ opacity: 0, scale: 0.5, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ delay: i * 0.025, type: "spring", stiffness: 400, damping: 25 }}
+              >
+                <AppIcon app={app} size={iconSize} onTap={() => handleOpen(app)} />
+              </motion.div>
+            ))}
+          </motion.div>
         </div>
 
-        {/* ─── Liquid Glass Dock ─── */}
-        <div style={{ padding: isLandscape ? "0 14px 6px" : "0 10px 8px", flexShrink: 0 }}>
-          <div className="dock" style={{ display: "flex", justifyContent: "space-around", alignItems: "center", padding: isLandscape ? "6px 14px" : "7px 10px", gap: 2 }}>
+        {/* Liquid Glass Dock */}
+        <div style={{ padding: isLandscape ? "0 20px 8px" : "0 14px 10px", flexShrink: 0 }}>
+          <div
+            className="dock"
+            style={{
+              display: "flex",
+              justifyContent: "space-around",
+              alignItems: "center",
+              padding: isLandscape ? "8px 16px" : "9px 12px",
+            }}
+          >
             {dockAppDefs.map((app) => (
               <AppIcon
                 key={app.id}
                 app={app}
-                size={isLandscape ? 44 : 48}
+                size={isLandscape ? 48 : 52}
                 onTap={() => handleOpen(app)}
                 showLabel={false}
               />
@@ -391,9 +367,25 @@ export default function HomeScreen({ orientation, onOpenApp }: Props) {
           </div>
         </div>
 
-        {/* ─── Home indicator ─── */}
-        <div style={{ height: 10, display: "flex", alignItems: "center", justifyContent: "center", paddingBottom: 4, flexShrink: 0 }}>
-          <div style={{ width: 120, height: 4, borderRadius: 2, background: "rgba(255,255,255,0.5)" }} />
+        {/* Home indicator */}
+        <div
+          style={{
+            height: 12,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            paddingBottom: 4,
+            flexShrink: 0,
+          }}
+        >
+          <div
+            style={{
+              width: 120,
+              height: 4,
+              borderRadius: 2,
+              background: "rgba(255,255,255,0.5)",
+            }}
+          />
         </div>
       </div>
     </div>

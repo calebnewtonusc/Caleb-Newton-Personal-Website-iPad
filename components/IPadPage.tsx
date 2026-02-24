@@ -15,12 +15,13 @@ export default function IPadPage() {
   const [openApp, setOpenApp] = useState<AppId | null>(null);
   const [scale, setScale] = useState(1);
   const [visible, setVisible] = useState(true);
+  const [locked, setLocked] = useState(true);
 
   const updateScale = useCallback((orient: "landscape" | "portrait") => {
     const ipad = orient === "landscape" ? IPAD_LANDSCAPE : IPAD_PORTRAIT;
     const scaleW = (window.innerWidth * 0.92) / ipad.w;
     const scaleH = (window.innerHeight * 0.88) / ipad.h;
-    setScale(Math.min(scaleW, scaleH)); // no cap at 1 — allow downscale on small screens
+    setScale(Math.min(scaleW, scaleH));
   }, []);
 
   const handleOrientationChange = useCallback(
@@ -68,7 +69,7 @@ export default function IPadPage() {
         <div className="page-label-right">iPad</div>
       </div>
 
-      {/* iPad — scale via Framer Motion to avoid transform conflict */}
+      {/* iPad */}
       <motion.div
         animate={{ opacity: visible ? 1 : 0, scale: visible ? scale : scale * 0.97 }}
         initial={{ opacity: 0, scale: scale * 0.97 }}
@@ -94,6 +95,8 @@ export default function IPadPage() {
                 key="home"
                 orientation={orientation}
                 onOpenApp={setOpenApp}
+                locked={locked}
+                onUnlock={() => setLocked(false)}
               />
             )}
           </AnimatePresence>
