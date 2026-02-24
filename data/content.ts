@@ -12,7 +12,7 @@ export const profile = {
   roles: [
     "Follower of Jesus",
     "Aspiring ML Engineer",
-    "Data Engineer",
+    "Aspiring Data Engineer",
     "USC Student",
     "CS + Applied Mathematics",
   ],
