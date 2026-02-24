@@ -98,16 +98,12 @@ export default function IPadPage() {
     updateScale(orientation);
   }, [orientation, updateScale]);
 
-  // Watermark items
-  const watermarkRows = Array.from({ length: 50 }, (_, i) => i);
-
   return (
     <div className="ipad-viewport">
-      {/* ─── White background with "Caleb Newton" watermark ─── */}
-      <div className="watermark-bg" aria-hidden="true">
-        {watermarkRows.map((i) => (
-          <span key={i}>Caleb Newton</span>
-        ))}
+      {/* ─── Background: clean gradient + side labels ─── */}
+      <div className="page-bg" aria-hidden="true">
+        <div className="page-label-left">Caleb&apos;s</div>
+        <div className="page-label-right">iPad</div>
       </div>
 
       {/* ─── iPad ─── */}

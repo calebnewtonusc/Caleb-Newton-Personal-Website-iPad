@@ -42,31 +42,45 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ─── Watermark Background ─── */
-.watermark-bg {
+/* ─── Page Background ─── */
+.page-bg {
   position: fixed;
   inset: 0;
   z-index: 0;
-  overflow: hidden;
   pointer-events: none;
   user-select: none;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  align-content: center;
-  gap: 0;
+  background: linear-gradient(160deg, #f5f5f5 0%, #ebebeb 50%, #f0f0f0 100%);
+  overflow: hidden;
 }
 
-.watermark-bg span {
-  display: block;
-  font-size: clamp(3rem, 8vw, 7rem);
+/* Side labels: "Caleb's" left, "iPad" right */
+.page-label-left,
+.page-label-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  font-size: clamp(4rem, 10vh, 9rem);
   font-weight: 900;
-  color: rgba(0, 0, 0, 0.042);
-  letter-spacing: -0.03em;
+  color: rgba(0, 0, 0, 0.04);
+  letter-spacing: -0.04em;
   white-space: nowrap;
-  transform: rotate(-15deg);
-  line-height: 1.2;
-  padding: 0 1.5rem;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
+  line-height: 1;
+}
+
+.page-label-left {
+  left: 0;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  padding-bottom: 0.5rem;
+}
+
+.page-label-right {
+  right: 0;
+  writing-mode: vertical-rl;
+  padding-top: 0.5rem;
 }
 
 /* ─── Viewport ─── */
@@ -239,8 +253,14 @@ body {
   justify-content: center;
   position: relative;
   overflow: hidden;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.25),
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.28),
     0 0 0 0.5px rgba(255, 255, 255, 0.15) inset;
+  transition: box-shadow 0.2s ease;
+}
+.app-icon:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3),
+    0 0 0 0.5px rgba(255, 255, 255, 0.2) inset,
+    0 0 18px 5px rgba(255, 255, 255, 0.18);
 }
 .app-icon::before {
   content: "";
@@ -248,8 +268,8 @@ body {
   inset: 0;
   background: linear-gradient(
     180deg,
-    rgba(255, 255, 255, 0.25) 0%,
-    rgba(255, 255, 255, 0) 60%
+    rgba(255, 255, 255, 0.22) 0%,
+    rgba(255, 255, 255, 0) 55%
   );
   z-index: 1;
   border-radius: inherit;
