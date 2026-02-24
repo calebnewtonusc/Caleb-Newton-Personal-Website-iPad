@@ -142,17 +142,49 @@ export default function WorkApp({ onClose: _onClose }: Props) {
           </p>
         </motion.div>
 
-        <div style={{ padding: "0 16px", display: "flex", flexDirection: "column", gap: 10 }}>
-          {experience.map((exp, i) => (
-            <motion.div
-              key={exp.id}
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.05 + i * 0.04, type: "spring", stiffness: 340, damping: 28 }}
-            >
-              <WorkCard exp={exp} expanded={expanded === exp.id} onToggle={() => toggle(exp.id)} />
-            </motion.div>
-          ))}
+        {/* Timeline */}
+        <div style={{ padding: "0 16px 32px", position: "relative" }}>
+          {/* Vertical connector line */}
+          <div style={{
+            position: "absolute",
+            left: 22,
+            top: 24,
+            bottom: 48,
+            width: 2,
+            background: "linear-gradient(to bottom, #e5e5ea, #d1d1d6)",
+            borderRadius: 1,
+            zIndex: 0,
+          }} />
+
+          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
+            {experience.map((exp, i) => (
+              <motion.div
+                key={exp.id}
+                initial={{ opacity: 0, x: -12 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.05 + i * 0.04, type: "spring", stiffness: 340, damping: 28 }}
+                style={{ display: "flex", gap: 12, alignItems: "flex-start" }}
+              >
+                {/* Timeline dot */}
+                <div style={{
+                  width: 12,
+                  height: 12,
+                  borderRadius: "50%",
+                  background: exp.color,
+                  flexShrink: 0,
+                  marginTop: 18,
+                  position: "relative",
+                  zIndex: 1,
+                  boxShadow: `0 0 0 3px white, 0 0 0 5px ${exp.color}44`,
+                }} />
+
+                {/* Card */}
+                <div style={{ flex: 1, minWidth: 0 }}>
+                  <WorkCard exp={exp} expanded={expanded === exp.id} onToggle={() => toggle(exp.id)} />
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </div>
     </div>

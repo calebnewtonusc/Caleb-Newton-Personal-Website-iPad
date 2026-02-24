@@ -122,6 +122,19 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
 
   const dockAppDefs = dockApps.map((id) => apps.find((a) => a.id === id)!).filter(Boolean);
 
+  const nonDockApps = apps.filter((app) => !dockApps.includes(app.id));
+  // In landscape (5 cols), insert null spacers at center column (col 3) to avoid Caleb's face
+  const gridItems: (AppDef | null)[] = isLandscape
+    ? (() => {
+        const result: (AppDef | null)[] = [];
+        for (const app of nonDockApps) {
+          if (result.length % 5 === 2) result.push(null);
+          result.push(app);
+        }
+        return result;
+      })()
+    : nonDockApps;
+
   const handleOpen = (app: AppDef) => {
     if (app.external) {
       window.open(app.external, "_blank", "noopener,noreferrer");
@@ -331,9 +344,13 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
               alignContent: "start",
             }}
           >
-            {apps.filter((app) => !dockApps.includes(app.id)).map((app) => (
-              <AppIcon key={app.id} app={app} size={iconSize} onTap={() => handleOpen(app)} />
-            ))}
+            {gridItems.map((app, i) =>
+              app === null ? (
+                <div key={`spacer-${i}`} style={{ width: iconSize + 20, height: iconSize + 24, visibility: "hidden" }} />
+              ) : (
+                <AppIcon key={app.id} app={app} size={iconSize} onTap={() => handleOpen(app)} />
+              )
+            )}
           </motion.div>
         </div>
 

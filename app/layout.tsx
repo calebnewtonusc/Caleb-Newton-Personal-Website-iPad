@@ -7,6 +7,10 @@ export const metadata: Metadata = {
     "Caleb Newton — CS + Applied Mathematics @ USC. Machine Learning, Data Engineering, Computer Vision.",
   keywords: ["Caleb Newton", "USC", "Machine Learning", "Computer Science", "Portfolio"],
   authors: [{ name: "Caleb Newton" }],
+  icons: {
+    icon: "/assets/CalebAtBeachUSCHoodie.jpg",
+    apple: "/assets/CalebAtBeachUSCHoodie.jpg",
+  },
   openGraph: {
     title: "Caleb Newton",
     description: "CS + Applied Mathematics @ USC. Building AI systems that serve people.",
@@ -29,6 +33,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
+        {/* Favicon */}
+        <link rel="icon" href="/assets/CalebAtBeachUSCHoodie.jpg" type="image/jpeg" />
+        <link rel="shortcut icon" href="/assets/CalebAtBeachUSCHoodie.jpg" type="image/jpeg" />
+        <link rel="apple-touch-icon" href="/assets/CalebAtBeachUSCHoodie.jpg" />
         {/* Preload critical above-the-fold assets */}
         <link rel="preload" href="/assets/CalebAtBeachUSCHoodie.jpg" as="image" />
         <link rel="preload" href="/assets/icons/contacts_ios.png" as="image" />

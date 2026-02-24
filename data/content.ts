@@ -159,25 +159,6 @@ export const experience = [
     skills: ["Python", "Control Theory", "Simulations", "MATLAB", "Data Visualization"],
     photos: ["/assets/caltech_research.jpg"],
   },
-  {
-    id: "impact360",
-    title: "Leadership Development",
-    company: "Impact 360 Institute",
-    period: "June 2022 - July 2023",
-    year: "2022-23",
-    logo: "/assets/logos/impact360.png",
-    color: "#AF52DE",
-    website: "https://impact360institute.org",
-    description:
-      "Two summers of Christian leadership training focused on character, servant leadership, and communication.",
-    achievements: [
-      "Strengthened collaborative decision-making and communication skills",
-      "Mission trip in Dominican Republic",
-      "Servant leadership and character development",
-    ],
-    skills: ["Leadership", "Communication", "Teamwork", "Public Speaking"],
-    photos: ["/assets/impact360_leadership.jpg", "/assets/dominican_republic.jpg"],
-  },
 ];
 
 export const projects = [
@@ -655,6 +636,25 @@ export const organizations = [
     category: "Social",
   },
   {
+    id: "impact360",
+    name: "Impact 360 Institute",
+    shortName: "Impact 360",
+    role: "Leadership Participant",
+    period: "June 2022 – July 2023",
+    logo: "/assets/logos/impact360.png",
+    color: "#AF52DE",
+    description:
+      "Two summers of Christian leadership development training — character formation, servant leadership, and communication. Includes a mission trip to the Dominican Republic.",
+    achievements: [
+      "Mission trip in Dominican Republic — hands-on international service",
+      "Strengthened collaborative decision-making and communication skills",
+      "Deep servant leadership and character development curriculum",
+    ],
+    photos: ["/assets/impact360_leadership.jpg", "/assets/dominican_republic.jpg"],
+    link: "https://impact360institute.org",
+    category: "Faith",
+  },
+  {
     id: "sgvccc",
     name: "SGV Christian Club Collective",
     shortName: "SGV CCC",
@@ -725,13 +725,13 @@ export interface AppDef {
 }
 
 export const apps: AppDef[] = [
-  { id: "work",         name: "Work",        emoji: "W",                                        gradient: ["#AF52DE", "#7B2D8B"] },
+  { id: "work",         name: "Work",        emoji: "W", icon: "/assets/icons/calendar_ios.png",    gradient: ["#AF52DE", "#7B2D8B"] },
   { id: "projects",     name: "Projects",    emoji: "P", icon: "/assets/icons/appstore.png",       gradient: ["#FF9500", "#FF5E00"] },
   { id: "education",    name: "Education",   emoji: "E", icon: "/assets/icons/notes.png",           gradient: ["#FF3B30", "#C0392B"] },
   { id: "files",        name: "Organizations", emoji: "F", icon: "/assets/icons/organizations.png", gradient: ["#007AFF", "#5AC8FA"] },
   { id: "photos",       name: "Photos",      emoji: "P", icon: "/assets/icons/photos.webp",         gradient: ["#34C759", "#248A3D"] },
-  { id: "contact",      name: "Contact",     emoji: "C", icon: "/assets/icons/messages.svg",        gradient: ["#5AC8FA", "#007AFF"] },
-  { id: "settings",     name: "Settings",    emoji: "S", icon: "/assets/icons/settings.svg",        gradient: ["#8E8E93", "#636366"] },
+  { id: "contact",      name: "Mail",        emoji: "C", icon: "/assets/icons/mail_ios.png",        gradient: ["#5AC8FA", "#007AFF"] },
+  { id: "settings",     name: "Settings",    emoji: "S", icon: "/assets/icons/settings_ios.png",    gradient: ["#8E8E93", "#636366"] },
   { id: "youtube",      name: "YouTube",     emoji: "Y", icon: "/assets/icons/youtube.png",         gradient: ["#FF0000", "#C0392B"], external: "https://www.youtube.com/playlist?list=PLWhbpQ2inj_p13rmaV6mOdpLu3kTIi8XF" },
   { id: "github",       name: "GitHub",      emoji: "G", icon: "/assets/icons/github.webp",        gradient: ["#24292E", "#000000"], external: "https://github.com/calebnewtonusc" },
   { id: "linkedin",     name: "LinkedIn",    emoji: "L", icon: "/assets/icons/linkedin.jpg",       gradient: ["#0A66C2", "#004182"], external: "https://www.linkedin.com/in/caleb-newton-3680041a5/" },

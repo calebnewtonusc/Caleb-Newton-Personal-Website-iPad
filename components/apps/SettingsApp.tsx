@@ -36,7 +36,7 @@ function SectionIcon({ icon }: { icon: string }) {
       display: "flex", alignItems: "center", justifyContent: "center",
       fontSize: 15, flexShrink: 0,
     }}>
-      {icon[0]}
+      {icon}
     </div>
   );
 }

@@ -76,6 +76,24 @@ export default function PhotosApp({ onClose, orientation }: Props) {
               exit={{ opacity: 0 }}
               style={{ padding: "0 0 32px" }}
             >
+              {/* Back button */}
+              <div style={{ padding: "12px 16px 0" }}>
+                <button
+                  onClick={() => setSelected(null)}
+                  style={{
+                    display: "flex", alignItems: "center", gap: 4,
+                    color: "#007aff", fontSize: 16, background: "none",
+                    border: "none", cursor: "pointer", padding: 0,
+                    fontFamily: "-apple-system, sans-serif",
+                  }}
+                >
+                  <svg width="8" height="13" viewBox="0 0 10 17" fill="none">
+                    <path d="M8.5 1L1 8.5L8.5 16" stroke="#007aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  Photos
+                </button>
+              </div>
+
               {/* Full photo */}
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
