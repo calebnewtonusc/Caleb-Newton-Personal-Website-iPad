@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
     unoptimized: true,
   },
 
-  // Aggressive caching for static assets — icons and images load once then serve from cache
+  // Aggressive caching for static assets - icons and images load once then serve from cache
   async headers() {
     return [
       {

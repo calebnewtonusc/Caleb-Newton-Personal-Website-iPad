@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { personalSettings, profile, social } from "@/data/content";
+import { personalSettings, profile } from "@/data/content";
 
 interface Props {
   onClose: () => void;
@@ -12,55 +12,126 @@ interface Props {
 
 function IOSToggle({ on }: { on: boolean }) {
   return (
-    <div className={`ios-toggle ${on ? "on" : ""}`}>
-      <div className="ios-toggle-track" />
+    <div
+      style={{
+        width: 51, height: 31, borderRadius: 15.5,
+        background: on ? "#34C759" : "#e5e5ea",
+        position: "relative", flexShrink: 0,
+        transition: "background 0.2s",
+      }}
+    >
+      <div style={{
+        position: "absolute",
+        top: 2, left: on ? 22 : 2,
+        width: 27, height: 27, borderRadius: "50%",
+        background: "white",
+        boxShadow: "0 1px 4px rgba(0,0,0,0.25)",
+        transition: "left 0.2s",
+      }} />
     </div>
   );
 }
 
-function SectionIcon({ icon }: { icon: string }) {
-  const fallbackColors: Record<string, string> = {
-    "✝️": "#5856D6",
-    "🎵": "#FF2D55",
-    "⚾": "#34C759",
-    "🎬": "#FF9500",
-    "📱": "#8E8E93",
-    "⚡": "#FFD60A",
-    "⚙️": "#636366",
-  };
-  const bg = fallbackColors[icon] ?? "#8e8e93";
+const SECTION_ICONS: Record<string, { bg: string; render: () => React.ReactNode }> = {
+  faith: {
+    bg: "#5856D6",
+    render: () => (
+      <svg width="14" height="17" viewBox="0 0 14 18" fill="white">
+        <rect x="5.5" y="0" width="3" height="18" rx="1.5" />
+        <rect x="0" y="4.5" width="14" height="3" rx="1.5" />
+      </svg>
+    ),
+  },
+  music: {
+    bg: "#FF2D55",
+    render: () => (
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
+        <path d="M5.5 13V4.5l8-1.5v6" stroke="white" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="3.5" cy="13" r="2.5" fill="white" />
+        <circle cx="11.5" cy="10" r="2.5" fill="white" />
+      </svg>
+    ),
+  },
+  sports: {
+    bg: "#34C759",
+    render: () => (
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <circle cx="8" cy="8" r="7" stroke="white" strokeWidth="1.4" />
+        <path d="M5 2.5C6.5 4.5 6.5 11.5 5 13.5M11 2.5C9.5 4.5 9.5 11.5 11 13.5" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  film: {
+    bg: "#FF9500",
+    render: () => (
+      <svg width="15" height="13" viewBox="0 0 15 13" fill="none">
+        <rect x="0.75" y="3.25" width="13.5" height="9" rx="1.5" stroke="white" strokeWidth="1.4" />
+        <path d="M0.75 7.25h13.5" stroke="white" strokeWidth="1.4" />
+        <path d="M3.5 3.25V1M7.5 3.25V1M11.5 3.25V1" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
+        <path d="M1 3L3.5 1M5 3L7.5 1M9 3L11.5 1" stroke="white" strokeWidth="1.3" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  runtime: {
+    bg: "#FFD60A",
+    render: () => (
+      <svg width="11" height="17" viewBox="0 0 11 17" fill="#1c1c1e">
+        <path d="M6.5 0L0 9.5h5.5L4.5 17 11 7H5.5z" />
+      </svg>
+    ),
+  },
+  system: {
+    bg: "#636366",
+    render: () => (
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <circle cx="8" cy="8" r="2.5" stroke="white" strokeWidth="1.4" />
+        <path d="M8 1v2M8 13v2M1 8h2M13 8h2M2.9 2.9l1.4 1.4M11.7 11.7l1.4 1.4M2.9 13.1l1.4-1.4M11.7 4.3l1.4-1.4" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+  device: {
+    bg: "#8E8E93",
+    render: () => (
+      <svg width="11" height="17" viewBox="0 0 11 17" fill="none">
+        <rect x="0.75" y="0.75" width="9.5" height="15.5" rx="1.75" stroke="white" strokeWidth="1.4" />
+        <circle cx="5.5" cy="13.5" r="1" fill="white" />
+        <path d="M4 0.75h3" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
+      </svg>
+    ),
+  },
+};
+
+function SectionIcon({ iconId }: { iconId: string }) {
+  const def = SECTION_ICONS[iconId];
+  if (!def) return null;
   return (
     <div style={{
-      width: 28, height: 28, borderRadius: 8,
-      background: bg,
+      width: 29, height: 29, borderRadius: 7,
+      background: def.bg,
       display: "flex", alignItems: "center", justifyContent: "center",
-      fontSize: 15, flexShrink: 0,
+      flexShrink: 0,
     }}>
-      {icon}
+      {def.render()}
     </div>
   );
 }
 
 const PROFILE_SECTION = "__profile__";
 
+// Group sections for iOS-style grouped lists
+const SECTION_GROUPS = [
+  ["faith", "film", "runtime"],
+  ["system", "device"],
+];
+
 export default function SettingsApp({ onClose, orientation }: Props) {
   const [selectedSection, setSelectedSection] = useState<string | null>(null);
   const isLandscape = orientation === "landscape";
 
-  const section = personalSettings.find((s) => s.section === selectedSection);
-
-  const socialLinks = [
-    { label: "GitHub", value: "calebnewtonusc", url: social.github, color: "#1c1c1e" },
-    { label: "LinkedIn", value: "caleb-newton", url: social.linkedin, color: "#0A66C2" },
-    { label: "X / Twitter", value: "@klubnootuhn", url: social.x, color: "#000000" },
-    { label: "Email", value: "calebnew@usc.edu", url: `mailto:${profile.email}`, color: "#007AFF" },
-    { label: "Letterboxd", value: "cnewt", url: social.letterboxd, color: "#FF8000" },
-    { label: "RateYourMusic", value: "~cnewt", url: social.rateyourmusic, color: "#ED1C24" },
-  ];
+  const section = personalSettings.find((s) => s.icon === selectedSection);
 
   return (
     <div className="app-window" style={{ background: "#f2f2f7" }}>
-      {/* Two-pane in landscape, single pane in portrait */}
       <div style={{ flex: 1, display: "flex", overflow: "hidden" }}>
 
         {/* ── Sidebar ── */}
@@ -68,108 +139,81 @@ export default function SettingsApp({ onClose, orientation }: Props) {
           {(isLandscape || !selectedSection) && (
             <motion.div
               key="sidebar"
-              initial={isLandscape ? false : { x: -30, opacity: 0 }}
+              initial={isLandscape ? false : { x: -20, opacity: 0 }}
               animate={{ x: 0, opacity: 1 }}
-              exit={{ x: -30, opacity: 0 }}
+              exit={{ x: -20, opacity: 0 }}
               style={{
-                width: isLandscape ? 280 : "100%",
-                borderRight: isLandscape ? "0.5px solid rgba(60,60,67,0.2)" : "none",
-                display: "flex",
-                flexDirection: "column",
-                overflow: "hidden",
+                width: isLandscape ? 320 : "100%",
+                borderRight: isLandscape ? "0.5px solid rgba(60,60,67,0.18)" : "none",
+                display: "flex", flexDirection: "column", overflow: "hidden",
               }}
             >
-              <div className="ios-scroll" style={{ overflowY: "auto", padding: "16px 16px 32px" }}>
+              <div className="ios-scroll" style={{ overflowY: "auto", padding: "20px 16px 32px" }}>
 
-                {/* ── Clickable Profile Header ── */}
-                <motion.div
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  whileTap={{ scale: 0.98 }}
+                {/* Large title */}
+                <h1 style={{ fontSize: 34, fontWeight: 700, color: "#1c1c1e", marginBottom: 20, fontFamily: "-apple-system, sans-serif", letterSpacing: -0.5 }}>
+                  Settings
+                </h1>
+
+                {/* Profile card */}
+                <div
                   onClick={() => setSelectedSection(PROFILE_SECTION)}
                   style={{
-                    background: "white",
-                    borderRadius: 20,
-                    padding: "16px 18px",
-                    marginBottom: 20,
-                    display: "flex",
-                    gap: 14,
-                    alignItems: "center",
-                    boxShadow: selectedSection === PROFILE_SECTION
-                      ? "0 2px 16px rgba(0,122,255,0.18)"
-                      : "0 2px 16px rgba(0,0,0,0.07)",
+                    background: "white", borderRadius: 10,
+                    padding: "14px 16px", marginBottom: 8,
+                    display: "flex", gap: 14, alignItems: "center",
                     cursor: "pointer",
-                    border: selectedSection === PROFILE_SECTION
-                      ? "1.5px solid rgba(0,122,255,0.25)"
-                      : "1.5px solid transparent",
-                    transition: "all 0.2s",
+                    boxShadow: "0 0.5px 0 rgba(60,60,67,0.18)",
                   }}
                 >
-                  <div style={{
-                    width: 60, height: 60, borderRadius: "50%",
-                    overflow: "hidden", flexShrink: 0,
-                    border: "2.5px solid #34c759",
-                    position: "relative",
-                  }}>
+                  <div style={{ width: 60, height: 60, borderRadius: "50%", overflow: "hidden", flexShrink: 0, position: "relative" }}>
                     <Image src={profile.photo} alt="Caleb Newton" fill style={{ objectFit: "cover" }} />
                   </div>
                   <div style={{ flex: 1, minWidth: 0 }}>
-                    <p className="font-poppins" style={{ fontSize: 16, fontWeight: 700, color: "#1c1c1e" }}>
-                      Caleb Newton
+                    <p style={{ fontSize: 20, fontWeight: 600, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>Caleb Newton</p>
+                    <p style={{ fontSize: 13, color: "#636366", fontFamily: "-apple-system, sans-serif", marginTop: 1 }}>
+                      USC · CS + Applied Math
                     </p>
-                    <p style={{ fontSize: 13, color: "#636366" }}>USC Freshman &middot; CS + Applied Math</p>
-                    <p style={{ fontSize: 12, color: "#34c759", marginTop: 2 }}>calebnew@usc.edu</p>
                   </div>
-                  <svg width="8" height="13" viewBox="0 0 8 13" fill="none">
-                    <path d="M1 1L7 6.5L1 12" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" />
+                  <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
+                    <path d="M1 1l5 5L1 11" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                   </svg>
-                </motion.div>
+                </div>
 
-                {/* ── Settings Sections ── */}
-                {personalSettings.map((sec, gi) => (
-                  <motion.div
-                    key={sec.section}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: gi * 0.04 }}
-                    style={{ marginBottom: 12 }}
-                  >
-                    <div
-                      style={{
-                        background: "white",
-                        borderRadius: 16,
-                        overflow: "hidden",
-                        boxShadow: "0 2px 12px rgba(0,0,0,0.06)",
-                        cursor: "pointer",
-                        border: selectedSection === sec.section
-                          ? "1.5px solid rgba(0,122,255,0.2)"
-                          : "1.5px solid transparent",
-                      }}
-                      onClick={() => setSelectedSection(sec.section)}
-                    >
-                      <div style={{
-                        display: "flex",
-                        alignItems: "center",
-                        padding: "13px 16px",
-                        gap: 12,
-                        background: selectedSection === sec.section ? "rgba(0,122,255,0.05)" : "transparent",
-                      }}>
-                        <SectionIcon icon={sec.icon} />
-                        <span className="font-poppins" style={{ fontSize: 15, fontWeight: 600, color: "#1c1c1e", flex: 1 }}>
-                          {sec.section}
-                        </span>
-                        <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                          <span style={{ fontSize: 12, color: "#8e8e93" }}>
-                            {sec.items.filter((i) => i.type === "toggle-on").length} ON
+                {/* Grouped settings sections */}
+                {SECTION_GROUPS.map((group, gi) => {
+                  const groupSections = group.map(id => personalSettings.find(s => s.icon === id)).filter(Boolean) as typeof personalSettings;
+                  if (groupSections.length === 0) return null;
+                  return (
+                    <div key={gi} style={{ background: "white", borderRadius: 10, overflow: "hidden", marginBottom: 8, boxShadow: "0 0.5px 0 rgba(60,60,67,0.18)" }}>
+                      {groupSections.map((sec, i) => (
+                        <motion.div
+                          key={sec.section}
+                          onClick={() => setSelectedSection(sec.icon)}
+                          whileTap={{ backgroundColor: "#ebebeb" }}
+                          style={{
+                            display: "flex", alignItems: "center",
+                            padding: "11px 16px", gap: 14,
+                            borderTop: i > 0 ? "0.5px solid rgba(60,60,67,0.18)" : "none",
+                            cursor: "pointer",
+                            background: selectedSection === sec.icon ? "rgba(0,122,255,0.06)" : "white",
+                          }}
+                        >
+                          <SectionIcon iconId={sec.icon} />
+                          <span style={{ fontSize: 17, color: "#1c1c1e", flex: 1, fontFamily: "-apple-system, sans-serif" }}>
+                            {sec.section}
                           </span>
-                          <svg width="8" height="13" viewBox="0 0 8 13" fill="none">
-                            <path d="M1 1L7 6.5L1 12" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" />
+                          <span style={{ fontSize: 14, color: "#8e8e93", fontFamily: "-apple-system, sans-serif", marginRight: 6 }}>
+                            {sec.items.filter((item) => item.type === "toggle-on").length} on
+                          </span>
+                          <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
+                            <path d="M1 1l5 5L1 11" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
-                        </div>
-                      </div>
+                        </motion.div>
+                      ))}
                     </div>
-                  </motion.div>
-                ))}
+                  );
+                })}
               </div>
             </motion.div>
           )}
@@ -180,138 +224,57 @@ export default function SettingsApp({ onClose, orientation }: Props) {
           {selectedSection === PROFILE_SECTION && (
             <motion.div
               key="profile-detail"
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 30 }}
+              exit={{ opacity: 0, x: 20 }}
               style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}
             >
               <div className="ios-scroll" style={{ overflowY: "auto", padding: "16px 16px 32px" }}>
-                {/* Back button in portrait */}
                 {!isLandscape && (
-                  <button
-                    onClick={() => setSelectedSection(null)}
-                    style={{
-                      display: "flex", alignItems: "center", gap: 4,
-                      color: "#007aff", fontSize: 15, background: "none",
-                      border: "none", cursor: "pointer", marginBottom: 12, padding: 0,
-                      fontFamily: "-apple-system, sans-serif",
-                    }}
-                  >
-                    <svg width="8" height="13" viewBox="0 0 10 17" fill="none">
-                      <path d="M8.5 1L1 8.5L8.5 16" stroke="#007aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                  <button onClick={() => setSelectedSection(null)} style={{ display: "flex", alignItems: "center", gap: 5, color: "#007aff", fontSize: 17, background: "none", border: "none", cursor: "pointer", marginBottom: 16, padding: 0, fontFamily: "-apple-system, sans-serif" }}>
+                    <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M7 1L1 7l6 6" stroke="#007aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
                     Settings
                   </button>
                 )}
 
-                {/* Hero */}
-                <motion.div
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  style={{
-                    background: "white", borderRadius: 20, padding: "20px",
-                    marginBottom: 14, boxShadow: "0 2px 20px rgba(0,0,0,0.08)",
-                    display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center",
-                  }}
-                >
-                  <div style={{
-                    width: 80, height: 80, borderRadius: "50%",
-                    overflow: "hidden", border: "3px solid #34c759",
-                    marginBottom: 12, position: "relative",
-                    boxShadow: "0 4px 16px rgba(52,199,89,0.25)",
-                  }}>
+                {/* Profile header */}
+                <div style={{ background: "white", borderRadius: 10, padding: "20px 16px", marginBottom: 8, display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center" }}>
+                  <div style={{ width: 80, height: 80, borderRadius: "50%", overflow: "hidden", marginBottom: 12, position: "relative" }}>
                     <Image src={profile.photo} alt="Caleb Newton" fill style={{ objectFit: "cover" }} />
                   </div>
-                  <h2 className="font-poppins" style={{ fontSize: 22, fontWeight: 800, color: "#1c1c1e", marginBottom: 4 }}>
-                    Caleb Newton
-                  </h2>
-                  <p style={{ fontSize: 13, color: "#636366", marginBottom: 8 }}>
-                    USC Freshman &middot; CS + Applied Mathematics &middot; Viterbi
-                  </p>
-                  <div style={{ display: "flex", flexWrap: "wrap", gap: 6, justifyContent: "center" }}>
-                    {["Follower of Jesus", "Aspiring ML Engineer", "USC &apos;29"].map((role) => (
-                      <span key={role} style={{
-                        fontSize: 11, fontWeight: 600, color: "#007AFF",
-                        background: "rgba(0,122,255,0.1)", borderRadius: 8, padding: "3px 10px",
-                      }} dangerouslySetInnerHTML={{ __html: role }} />
-                    ))}
-                  </div>
-                </motion.div>
+                  <p style={{ fontSize: 22, fontWeight: 700, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif", marginBottom: 3 }}>Caleb Newton</p>
+                  <p style={{ fontSize: 13, color: "#636366", fontFamily: "-apple-system, sans-serif" }}>USC Freshman · CS + Applied Mathematics · Viterbi</p>
+                </div>
 
                 {/* Bio */}
-                <motion.div
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.06 }}
-                  style={{
-                    background: "white", borderRadius: 16, padding: "16px 18px",
-                    marginBottom: 14, boxShadow: "0 1px 8px rgba(0,0,0,0.06)",
-                  }}
-                >
-                  <p style={{ fontSize: 11, color: "#8e8e93", fontWeight: 700, letterSpacing: 0.6, marginBottom: 8 }}>ABOUT</p>
-                  <p style={{ fontSize: 14, color: "#3a3a3c", lineHeight: 1.65 }}>
-                    {profile.bio}
-                  </p>
-                </motion.div>
+                <p style={{ fontSize: 13, color: "#6e6e73", fontFamily: "-apple-system, sans-serif", fontWeight: 500, letterSpacing: 0.3, marginBottom: 6, marginLeft: 16, textTransform: "uppercase" }}>About</p>
+                <div style={{ background: "white", borderRadius: 10, padding: "14px 16px", marginBottom: 8 }}>
+                  <p style={{ fontSize: 15, color: "#3a3a3c", lineHeight: 1.6, fontFamily: "-apple-system, sans-serif" }}>{profile.bio}</p>
+                </div>
 
                 {/* Currently */}
-                <motion.div
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.1 }}
-                  style={{
-                    background: "white", borderRadius: 16, padding: "16px 18px",
-                    marginBottom: 14, boxShadow: "0 1px 8px rgba(0,0,0,0.06)",
-                  }}
-                >
-                  <p style={{ fontSize: 11, color: "#8e8e93", fontWeight: 700, letterSpacing: 0.6, marginBottom: 10 }}>CURRENTLY</p>
+                <p style={{ fontSize: 13, color: "#6e6e73", fontFamily: "-apple-system, sans-serif", fontWeight: 500, letterSpacing: 0.3, marginBottom: 6, marginLeft: 16, textTransform: "uppercase" }}>Currently</p>
+                <div style={{ background: "white", borderRadius: 10, overflow: "hidden", marginBottom: 8 }}>
                   {[
-                    { label: "Building", value: "Holographic video systems @ AINA Tech" },
+                    { label: "Building", value: "Holographic video @ AINA Tech" },
                     { label: "Studying", value: "CS + Applied Math @ USC Viterbi" },
-                    { label: "Researching", value: "ML Research @ USC" },
-                    { label: "Learning", value: "PyTorch · 4DGS · COLMAP · Guitar" },
-                  ].map((item, i, arr) => (
-                    <div key={item.label} style={{
-                      display: "flex", justifyContent: "space-between", alignItems: "baseline",
-                      paddingBottom: i < arr.length - 1 ? 8 : 0,
-                      borderBottom: i < arr.length - 1 ? "0.5px solid rgba(60,60,67,0.1)" : "none",
-                      marginBottom: i < arr.length - 1 ? 8 : 0,
-                    }}>
-                      <span style={{ fontSize: 14, fontWeight: 600, color: "#1c1c1e" }}>{item.label}</span>
-                      <span style={{ fontSize: 13, color: "#636366", textAlign: "right", maxWidth: "60%" }}>{item.value}</span>
+                    { label: "Learning", value: "PyTorch · 4DGS · Guitar" },
+                  ].map((item, i) => (
+                    <div key={item.label} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "13px 16px", borderTop: i > 0 ? "0.5px solid rgba(60,60,67,0.18)" : "none" }}>
+                      <span style={{ fontSize: 17, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>{item.label}</span>
+                      <span style={{ fontSize: 15, color: "#636366", fontFamily: "-apple-system, sans-serif", textAlign: "right", maxWidth: "60%" }}>{item.value}</span>
                     </div>
                   ))}
-                </motion.div>
+                </div>
 
-                {/* Social Links */}
-                <motion.div
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.14 }}
-                  style={{
-                    background: "white", borderRadius: 16, overflow: "hidden",
-                    boxShadow: "0 1px 8px rgba(0,0,0,0.06)",
-                  }}
-                >
-                  <p style={{ fontSize: 11, color: "#8e8e93", fontWeight: 700, letterSpacing: 0.6, padding: "14px 18px 8px" }}>FIND ME</p>
-                  {socialLinks.map((link, i) => (
-                    <a
-                      key={link.label}
-                      href={link.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      style={{
-                        display: "flex", alignItems: "center", justifyContent: "space-between",
-                        padding: "11px 18px",
-                        borderTop: i === 0 ? "none" : "0.5px solid rgba(60,60,67,0.1)",
-                        textDecoration: "none",
-                      }}
-                    >
-                      <span style={{ fontSize: 14, color: "#1c1c1e", fontWeight: 500 }}>{link.label}</span>
-                      <span style={{ fontSize: 13, color: link.color, fontWeight: 500 }}>{link.value}</span>
-                    </a>
+                {/* Roles */}
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 8, padding: "0 4px" }}>
+                  {profile.roles.map((role) => (
+                    <span key={role} style={{ fontSize: 13, fontWeight: 500, color: "#007AFF", background: "rgba(0,122,255,0.1)", borderRadius: 20, padding: "4px 12px", fontFamily: "-apple-system, sans-serif" }}>
+                      {role}
+                    </span>
                   ))}
-                </motion.div>
+                </div>
               </div>
             </motion.div>
           )}
@@ -319,100 +282,64 @@ export default function SettingsApp({ onClose, orientation }: Props) {
           {selectedSection && selectedSection !== PROFILE_SECTION && section && (
             <motion.div
               key={selectedSection}
-              initial={{ opacity: 0, x: 30 }}
+              initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: 30 }}
+              exit={{ opacity: 0, x: 20 }}
               style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden" }}
             >
               <div className="ios-scroll" style={{ overflowY: "auto", padding: "16px 16px 32px" }}>
-                {/* Back button in portrait */}
                 {!isLandscape && (
-                  <button
-                    onClick={() => setSelectedSection(null)}
-                    style={{
-                      display: "flex", alignItems: "center", gap: 4,
-                      color: "#007aff", fontSize: 15, background: "none",
-                      border: "none", cursor: "pointer", marginBottom: 12, padding: 0,
-                      fontFamily: "-apple-system, sans-serif",
-                    }}
-                  >
-                    <svg width="8" height="13" viewBox="0 0 10 17" fill="none">
-                      <path d="M8.5 1L1 8.5L8.5 16" stroke="#007aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                    </svg>
+                  <button onClick={() => setSelectedSection(null)} style={{ display: "flex", alignItems: "center", gap: 5, color: "#007aff", fontSize: 17, background: "none", border: "none", cursor: "pointer", marginBottom: 16, padding: 0, fontFamily: "-apple-system, sans-serif" }}>
+                    <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M7 1L1 7l6 6" stroke="#007aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
                     Settings
                   </button>
                 )}
 
                 {/* Section header */}
-                <motion.div
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  style={{ marginBottom: 20, display: "flex", alignItems: "center", gap: 12 }}
-                >
-                  <SectionIcon icon={section.icon} />
+                <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 20 }}>
+                  <SectionIcon iconId={section.icon} />
                   <div>
-                    <h2 className="font-poppins" style={{ fontSize: 22, fontWeight: 700, color: "#1c1c1e" }}>
-                      {section.section}
-                    </h2>
-                    <p style={{ fontSize: 13, color: "#636366" }}>
-                      {section.items.length} preferences &middot; {section.items.filter((i) => i.type === "toggle-on").length} active
+                    <h2 style={{ fontSize: 22, fontWeight: 700, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>{section.section}</h2>
+                    <p style={{ fontSize: 13, color: "#636366", fontFamily: "-apple-system, sans-serif" }}>
+                      {section.items.filter((i) => i.type === "toggle-on").length} active · {section.items.length} total
                     </p>
                   </div>
-                </motion.div>
+                </div>
 
-                {/* Settings rows */}
-                <div style={{ background: "white", borderRadius: 16, overflow: "hidden", boxShadow: "0 2px 16px rgba(0,0,0,0.06)" }}>
+                {/* Settings rows -iOS grouped style */}
+                <div style={{ background: "white", borderRadius: 10, overflow: "hidden", marginBottom: 8 }}>
                   {section.items.map((item, i, arr) => (
-                    <motion.div
+                    <div
                       key={item.label}
-                      initial={{ opacity: 0, x: 20 }}
-                      animate={{ opacity: 1, x: 0 }}
-                      transition={{ delay: i * 0.04 }}
                       style={{
-                        display: "flex",
-                        alignItems: "center",
-                        padding: "13px 18px",
-                        gap: 12,
-                        borderBottom: i < arr.length - 1 ? "0.5px solid rgba(60,60,67,0.12)" : "none",
+                        display: "flex", alignItems: "center",
+                        padding: "12px 16px", gap: 12,
+                        borderTop: i > 0 ? "0.5px solid rgba(60,60,67,0.18)" : "none",
+                        minHeight: 44,
                       }}
                     >
                       <div style={{ flex: 1 }}>
-                        <p style={{ fontSize: 15, fontWeight: 500, color: "#1c1c1e" }}>{item.label}</p>
+                        <p style={{ fontSize: 17, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>{item.label}</p>
                         {item.type !== "toggle-on" && item.type !== "toggle-off" && (
-                          <p style={{ fontSize: 12, color: "#8e8e93", marginTop: 1 }}>{item.detail}</p>
+                          <p style={{ fontSize: 13, color: "#8e8e93", fontFamily: "-apple-system, sans-serif", marginTop: 1 }}>{item.detail}</p>
                         )}
                       </div>
-                      {item.type === "toggle-on" ? (
+                      {(item.type === "toggle-on" || item.type === "toggle-off") ? (
                         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 2 }}>
-                          <IOSToggle on={true} />
-                          <span style={{ fontSize: 11, color: "#8e8e93" }}>{item.detail}</span>
-                        </div>
-                      ) : item.type === "toggle-off" ? (
-                        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 2 }}>
-                          <IOSToggle on={false} />
-                          <span style={{ fontSize: 11, color: "#8e8e93" }}>{item.detail}</span>
+                          <IOSToggle on={item.type === "toggle-on"} />
+                          <span style={{ fontSize: 11, color: "#8e8e93", fontFamily: "-apple-system, sans-serif" }}>{item.detail}</span>
                         </div>
                       ) : (
-                        <span style={{ fontSize: 14, color: "#8e8e93", maxWidth: 150, textAlign: "right" }}>
-                          {item.detail}
-                        </span>
+                        <span style={{ fontSize: 15, color: "#8e8e93", fontFamily: "-apple-system, sans-serif", maxWidth: 160, textAlign: "right" }}>{item.detail}</span>
                       )}
-                    </motion.div>
+                    </div>
                   ))}
                 </div>
 
                 {section.items.some((i) => i.type === "toggle-on") && (
-                  <motion.p
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.4 }}
-                    style={{
-                      fontSize: 12, color: "#8e8e93", textAlign: "center",
-                      marginTop: 14, lineHeight: 1.5,
-                    }}
-                  >
-                    These settings are locked ON. They&apos;re not preferences — they&apos;re facts.
-                  </motion.p>
+                  <p style={{ fontSize: 13, color: "#8e8e93", textAlign: "center", marginTop: 8, lineHeight: 1.5, fontFamily: "-apple-system, sans-serif" }}>
+                    These are locked ON. They&apos;re not preferences -they&apos;re facts.
+                  </p>
                 )}
               </div>
             </motion.div>
@@ -423,19 +350,12 @@ export default function SettingsApp({ onClose, orientation }: Props) {
               key="empty"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              style={{
-                flex: 1, display: "flex", alignItems: "center",
-                justifyContent: "center", flexDirection: "column", gap: 12,
-              }}
+              style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", gap: 8 }}
             >
-              <div style={{
-                width: 56, height: 56, borderRadius: 16, background: "#e5e5ea",
-                display: "flex", alignItems: "center", justifyContent: "center",
-                fontSize: 24, color: "#8e8e93", fontFamily: "-apple-system, sans-serif",
-              }}>
-                ⚙️
+              <div style={{ width: 48, height: 48, borderRadius: 12, background: "#e5e5ea", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <SectionIcon iconId="system" />
               </div>
-              <p style={{ fontSize: 16, color: "#636366" }}>Select a category</p>
+              <p style={{ fontSize: 15, color: "#8e8e93", fontFamily: "-apple-system, sans-serif" }}>Select a section</p>
             </motion.div>
           )}
         </AnimatePresence>

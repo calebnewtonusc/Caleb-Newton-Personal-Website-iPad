@@ -1,6 +1,7 @@
 "use client";
 
 import { memo, useState } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { experience } from "@/data/content";
 
@@ -40,6 +41,23 @@ const WorkCard = memo(function WorkCard({
           gap: 10,
         }}
       >
+        {/* Company logo */}
+        <div style={{
+          width: 40, height: 40, borderRadius: 10, flexShrink: 0,
+          background: exp.logo ? "white" : exp.color,
+          display: "flex", alignItems: "center", justifyContent: "center",
+          boxShadow: `0 2px 8px ${exp.color}30`,
+          border: exp.logo ? "0.5px solid rgba(0,0,0,0.08)" : "none",
+          overflow: "hidden", marginTop: 1,
+        }}>
+          {exp.logo ? (
+            <div style={{ position: "relative", width: 28, height: 28 }}>
+              <Image src={exp.logo} alt={exp.company} fill style={{ objectFit: "contain" }} />
+            </div>
+          ) : (
+            <span style={{ fontSize: 15, fontWeight: 800, color: "white", fontFamily: "-apple-system, sans-serif" }}>{exp.company[0]}</span>
+          )}
+        </div>
         <div style={{ flex: 1, minWidth: 0 }}>
           <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 8, marginBottom: 3 }}>
             <span style={{ fontSize: 16, fontWeight: 700, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif", lineHeight: 1.2 }}>
@@ -142,49 +160,35 @@ export default function WorkApp({ onClose: _onClose }: Props) {
           </p>
         </motion.div>
 
-        {/* Timeline */}
-        <div style={{ padding: "0 16px 32px", position: "relative" }}>
-          {/* Vertical connector line */}
-          <div style={{
-            position: "absolute",
-            left: 22,
-            top: 24,
-            bottom: 48,
-            width: 2,
-            background: "linear-gradient(to bottom, #e5e5ea, #d1d1d6)",
-            borderRadius: 1,
-            zIndex: 0,
-          }} />
-
-          <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-            {experience.map((exp, i) => (
-              <motion.div
-                key={exp.id}
-                initial={{ opacity: 0, x: -12 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: 0.05 + i * 0.04, type: "spring", stiffness: 340, damping: 28 }}
-                style={{ display: "flex", gap: 12, alignItems: "flex-start" }}
-              >
-                {/* Timeline dot */}
-                <div style={{
-                  width: 12,
-                  height: 12,
-                  borderRadius: "50%",
-                  background: exp.color,
-                  flexShrink: 0,
-                  marginTop: 18,
-                  position: "relative",
-                  zIndex: 1,
-                  boxShadow: `0 0 0 3px white, 0 0 0 5px ${exp.color}44`,
-                }} />
-
-                {/* Card */}
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <WorkCard exp={exp} expanded={expanded === exp.id} onToggle={() => toggle(exp.id)} />
-                </div>
-              </motion.div>
-            ))}
-          </div>
+        {/* Year groups */}
+        <div style={{ padding: "0 16px 32px" }}>
+          {[
+            { label: "2026", items: experience.filter((e) => e.year === "2026") },
+            { label: "2025", items: experience.filter((e) => e.year === "2025") },
+            { label: "2024", items: experience.filter((e) => e.year === "2024") },
+          ].filter((g) => g.items.length > 0).map((group, gi) => (
+            <div key={group.label} style={{ marginBottom: 22 }}>
+              <p style={{
+                fontSize: 13, color: "#6e6e73", fontWeight: 600, letterSpacing: 0.5,
+                marginBottom: 10, textTransform: "uppercase",
+                fontFamily: "-apple-system, sans-serif",
+              }}>
+                {group.label}
+              </p>
+              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+                {group.items.map((exp, i) => (
+                  <motion.div
+                    key={exp.id}
+                    initial={{ opacity: 0, y: 8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: gi * 0.06 + i * 0.04, type: "spring", stiffness: 340, damping: 28 }}
+                  >
+                    <WorkCard exp={exp} expanded={expanded === exp.id} onToggle={() => toggle(exp.id)} />
+                  </motion.div>
+                ))}
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </div>

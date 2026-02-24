@@ -22,7 +22,7 @@ export default function AboutApp({ onClose }: Props) {
         className="ios-scroll"
         style={{ flex: 1, overflowY: "auto", padding: "20px 16px 32px" }}
       >
-        {/* Profile hero — Laolu-inspired */}
+        {/* Profile hero - Laolu-inspired */}
         <motion.div {...fadeUp(0)} style={{ marginBottom: 24 }}>
           <div
             style={{

@@ -43,50 +43,38 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
         position: "absolute",
         inset: 0,
         zIndex: 10,
-        display: "flex",
-        flexDirection: "column",
         borderRadius: "inherit",
         overflow: "hidden",
-        background: "#f2f2f7",
       }}
       initial={{ scale: 0.08, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.08, opacity: 0 }}
       transition={{ type: "spring", stiffness: 480, damping: 36 }}
     >
-      {/* App content — takes all available space above home indicator */}
-      <div style={{ flex: 1, overflow: "hidden", position: "relative" }}>
+      {/* App content -fills full AppWindow area */}
+      <div style={{ position: "absolute", inset: 0 }}>
         <AppComponent onClose={onClose} orientation={orientation} />
       </div>
 
-      {/* ── Home Indicator — tap/swipe to go home ── */}
+      {/* ── Home Indicator -overlays app at bottom, no white strip ── */}
       <motion.div
         onClick={onClose}
         style={{
-          height: 20,
-          flexShrink: 0,
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: 28,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           cursor: "pointer",
-          background: "rgba(242,242,247,0.95)",
-          backdropFilter: "blur(10px)",
-          WebkitBackdropFilter: "blur(10px)",
-          borderTop: "0.5px solid rgba(60,60,67,0.12)",
+          zIndex: 20,
+          paddingBottom: 4,
         }}
         whileTap={{ scale: 0.96 }}
       >
-        <motion.div
-          whileHover={{ scaleX: 1.15, background: "rgba(0,0,0,0.35)" }}
-          transition={{ type: "spring", stiffness: 400, damping: 30 }}
-          style={{
-            width: 120,
-            height: 5,
-            borderRadius: 3,
-            background: "rgba(0,0,0,0.2)",
-            transition: "background 0.2s",
-          }}
-        />
+        <div style={{ width: 120, height: 5, borderRadius: 3, background: "rgba(150,150,150,0.45)" }} />
       </motion.div>
     </motion.div>
   );

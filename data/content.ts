@@ -35,11 +35,11 @@ export const experience = [
     company: "Blue Modern Advisory",
     period: "2025 - Present",
     year: "2025",
-    logo: "",
+    logo: "/assets/logos/bluemodern.png",
     color: "#0A66C2",
     website: "https://bluemodernadvisory.com/",
     description:
-      "Engineering a digital health network for Amber — connecting patients and providers through intelligent, data-driven software.",
+      "Engineering a digital health network for Amber -connecting patients and providers through intelligent, data-driven software.",
     achievements: [],
     skills: ["Digital Health", "Software Engineering", "Health Tech", "TypeScript"],
     photos: [],
@@ -50,11 +50,11 @@ export const experience = [
     company: "Pallas Care",
     period: "Spring 2026",
     year: "2026",
-    logo: "",
+    logo: "/assets/logos/pallas.png",
     color: "#5856D6",
     website: "",
     description:
-      "KTP client engagement: built a full data analytics dashboard for a premium LA home care agency — financial visibility, workforce quality metrics, and strategic growth recommendations benchmarked against LA County industry data.",
+      "KTP client engagement: built a full data analytics dashboard for a premium LA home care agency -financial visibility, workforce quality metrics, and strategic growth recommendations benchmarked against LA County industry data.",
     achievements: [
       "Delivered Executive Overview, Financial Analytics, Workforce Quality, Client Analytics, Operations, and Strategic Insights modules",
       "Surfaced caregiver retention trends, scheduling efficiency, and geographic coverage gaps",
@@ -69,11 +69,11 @@ export const experience = [
     company: "Inovient",
     period: "Spring 2026",
     year: "2026",
-    logo: "",
+    logo: "/assets/logos/inovient.png",
     color: "#007AFF",
     website: "",
     description:
-      "KTP client engagement: delivered market research, competitor analysis, ROI modeling, tiered pricing strategy, and GTM recommendations for Inovient's Morpheus AI platform — B2B competitive intelligence and media mix modeling.",
+      "KTP client engagement: delivered market research, competitor analysis, ROI modeling, tiered pricing strategy, and GTM recommendations for Inovient's Morpheus AI platform -B2B competitive intelligence and media mix modeling.",
     achievements: [
       "Built TAM/SAM/SOM analysis and competitor positioning landscape",
       "Modeled ROI projections and designed tiered pricing structure",
@@ -88,11 +88,11 @@ export const experience = [
     company: "Immuny",
     period: "Spring 2026",
     year: "2026",
-    logo: "",
+    logo: "/assets/logos/immuny.png",
     color: "#FF3B30",
     website: "",
     description:
-      "KTP client engagement: redesigned Immuny's allergy emergency app UX — a low-cognitive-load interface for life-threatening scenarios. Focused on speed, accessibility, and minimal friction for emergency response, medical ID, ER lookup, and allergen detection.",
+      "KTP client engagement: redesigned Immuny's allergy emergency app UX -a low-cognitive-load interface for life-threatening scenarios. Focused on speed, accessibility, and minimal friction for emergency response, medical ID, ER lookup, and allergen detection.",
     achievements: [
       "Designed and built interactive mobile prototype using Next.js + Framer Motion",
       "Applied low-cognitive-load principles: high-contrast, minimal decisions, one-tap emergency access",
@@ -276,10 +276,10 @@ export const education = [
     description:
       "Currently taking Multivariable Calculus, Linear Algebra, C++, and Discrete Methods.",
     highlights: [
-      "CSCI 103 — Introduction to Programming (C++)",
-      "CSCI 170 — Discrete Methods",
-      "MATH 226 — Multivariable Calculus",
-      "MATH 225 — Linear Algebra",
+      "CSCI 103 -Introduction to Programming (C++)",
+      "CSCI 170 -Discrete Methods",
+      "MATH 226 -Multivariable Calculus",
+      "MATH 225 -Linear Algebra",
     ],
   },
   {
@@ -294,7 +294,7 @@ export const education = [
     website: "https://www.sanmarinohs.org",
     description: "AP Scholar with Distinction. National Merit Commended Student.",
     highlights: [
-      "Promethean Award — Highest honor for graduating student",
+      "Promethean Award -Highest honor for graduating student",
       "AP Scholar with Distinction",
       "National Merit Commended Student",
       "ACTS Christian Club President (12th grade)",
@@ -305,7 +305,7 @@ export const education = [
     id: "berkeley",
     school: "UC Berkeley",
     subtitle: "College of Engineering",
-    degree: "Summer Program — Computer Science",
+    degree: "Summer Program -Computer Science",
     period: "June 2024",
     status: "Completed",
     logo: "/assets/education/berkeley.png",
@@ -319,7 +319,7 @@ export const education = [
     id: "cnsi",
     school: "California Nanosystems Institute at UCLA",
     subtitle: "",
-    degree: "Summer Program — Nanotechnology & Entrepreneurship",
+    degree: "Summer Program -Nanotechnology & Entrepreneurship",
     period: "July 2023",
     status: "Completed",
     logo: "/assets/education/ucla_logo.png",
@@ -388,7 +388,7 @@ export const skills = {
 export const personalSettings = [
   {
     section: "Faith & Identity",
-    icon: "✝️",
+    icon: "faith",
     items: [
       { label: "Follower of Jesus", type: "toggle-on", detail: "Non-negotiable" },
       { label: "Human-Centered Technology", type: "toggle-on", detail: "Core design philosophy" },
@@ -397,7 +397,7 @@ export const personalSettings = [
   },
   {
     section: "Music",
-    icon: "🎵",
+    icon: "music",
     items: [
       { label: "Vinyl Collector", type: "toggle-on", detail: "Growing steadily" },
       { label: "Concert-Goer", type: "toggle-on", detail: "LA has good venues" },
@@ -409,7 +409,7 @@ export const personalSettings = [
   },
   {
     section: "Sports & Activities",
-    icon: "⚾",
+    icon: "sports",
     items: [
       { label: "Baseball", type: "toggle-on", detail: "Pitcher · San Marino HS" },
       { label: "Hiking", type: "toggle-on", detail: "Hollywood Hills & beyond" },
@@ -420,7 +420,7 @@ export const personalSettings = [
   },
   {
     section: "Film & Culture",
-    icon: "🎬",
+    icon: "film",
     items: [
       { label: "Letterboxd Active", type: "toggle-on", detail: "cnewt" },
       { label: "RateYourMusic Active", type: "toggle-on", detail: "~cnewt" },
@@ -429,7 +429,7 @@ export const personalSettings = [
   },
   {
     section: "Daily Runtime",
-    icon: "⚡",
+    icon: "runtime",
     items: [
       { label: "Sleep Schedule", type: "toggle-on", detail: "Cooked" },
       { label: "Coffee Dependency", type: "toggle-on", detail: "Critical" },
@@ -442,7 +442,7 @@ export const personalSettings = [
   },
   {
     section: "System Preferences",
-    icon: "⚙️",
+    icon: "system",
     items: [
       { label: "Dark Mode", type: "toggle-on", detail: "Always" },
       { label: "Do Not Disturb", type: "toggle-off", detail: "People keep texting" },
@@ -454,7 +454,7 @@ export const personalSettings = [
   },
   {
     section: "About This Device",
-    icon: "📱",
+    icon: "device",
     items: [
       { label: "Name", type: "info", detail: "Caleb Newton" },
       { label: "Location", type: "info", detail: "San Marino, CA → USC" },
@@ -477,7 +477,7 @@ export const photos = [
   },
   {
     src: "/assets/baseball_pitching.jpg",
-    caption: "Pitched in high school — loved the competition and strategy",
+    caption: "Pitched in high school -loved the competition and strategy",
     date: "May 2025",
     location: "San Marino, CA",
     rotation: 2,
@@ -512,14 +512,14 @@ export const photos = [
   },
   {
     src: "/assets/guitar.jpg",
-    caption: "Recently bought guitar — learning worship songs",
+    caption: "Recently bought guitar -learning worship songs",
     date: "December 2025",
     location: "Los Angeles, CA",
     rotation: 2,
   },
   {
     src: "/assets/premed_friends.jpg",
-    caption: "Premed friends at dinner — one of the few times we're not studying lol",
+    caption: "Premed friends at dinner -one of the few times we're not studying lol",
     date: "Fall 2025",
     location: "Los Angeles, CA",
     rotation: -1,
@@ -556,7 +556,7 @@ export const organizations = [
     name: "DataSC",
     shortName: "DataSC",
     role: "Member",
-    period: "Fall 2025 - Present",
+    period: "Spring 2026 - Present",
     logo: "",
     color: "#007AFF",
     description: "USC data science club exploring ML, analytics, and data-driven projects.",
@@ -568,10 +568,10 @@ export const organizations = [
     name: "Marshall AI Association",
     shortName: "MAAI",
     role: "Member",
-    period: "Fall 2025 - Present",
+    period: "Spring 2026 - Present",
     logo: "",
     color: "#FF6B35",
-    description: "USC Marshall AI association bridging business and AI. Member of the Biotech department — exploring ML applications in life sciences.",
+    description: "USC Marshall AI association bridging business and AI. Member of the Biotech department -exploring ML applications in life sciences.",
     link: "https://www.uscmaia.com/",
     category: "Academic",
   },
@@ -604,7 +604,7 @@ export const organizations = [
     name: "Flavors",
     shortName: "Flavors",
     role: "Member",
-    period: "Fall 2025 - Present",
+    period: "Spring 2026 - Present",
     logo: "",
     color: "#FF9500",
     description: "USC food culture club celebrating cuisine, community, and culinary exploration.",
@@ -612,23 +612,11 @@ export const organizations = [
     category: "Social",
   },
   {
-    id: "scoutfitters",
-    name: "SC Outfitters",
-    shortName: "SC",
-    role: "Member",
-    period: "Fall 2025 - Present",
-    logo: "",
-    color: "#30B050",
-    description: "USC outdoor adventure club. Hiking, camping, and exploring Southern California.",
-    link: "https://www.scoutfitters.org/",
-    category: "Social",
-  },
-  {
     id: "boardgames",
     name: "Trojan Board Games",
     shortName: "TBG",
     role: "Member",
-    period: "Fall 2025 - Present",
+    period: "Spring 2026 - Present",
     logo: "",
     color: "#990000",
     description: "USC board game club. Strategy games, tabletop RPGs, and game nights on campus.",
@@ -644,9 +632,9 @@ export const organizations = [
     logo: "/assets/logos/impact360.png",
     color: "#AF52DE",
     description:
-      "Two summers of Christian leadership development training — character formation, servant leadership, and communication. Includes a mission trip to the Dominican Republic.",
+      "Two summers of Christian leadership development training -character formation, servant leadership, and communication. Includes a mission trip to the Dominican Republic.",
     achievements: [
-      "Mission trip in Dominican Republic — hands-on international service",
+      "Mission trip in Dominican Republic -hands-on international service",
       "Strengthened collaborative decision-making and communication skills",
       "Deep servant leadership and character development curriculum",
     ],
@@ -670,7 +658,16 @@ export const organizations = [
       "Created a shared identity and community brand that unified diverse campus ministries",
       "Coordinated logistics across 15+ schools with different leadership styles, schedules, and visions",
     ],
-    photos: ["/assets/sgv.png"],
+    photos: [
+      "/assets/EverythingNightImages/everything_night_main.jpg",
+      "/assets/EverythingNightImages/everything_night_band.jpg",
+      "/assets/EverythingNightImages/everything_night_crowd.jpg",
+      "/assets/EverythingNightImages/everything_night_dinner.jpg",
+      "/assets/EverythingNightImages/everything_night_dodgeball.jpg",
+      "/assets/EverythingNightImages/everything_night_picnic.jpg",
+      "/assets/EverythingNightImages/chosen_team.jpg",
+      "/assets/EverythingNightImages/chosen_dab.jpg",
+    ],
     link: "",
     category: "Faith",
   },
@@ -725,21 +722,21 @@ export interface AppDef {
 }
 
 export const apps: AppDef[] = [
-  { id: "work",         name: "Work",        emoji: "W", icon: "/assets/icons/calendar_ios.png",    gradient: ["#AF52DE", "#7B2D8B"] },
-  { id: "projects",     name: "Projects",    emoji: "P", icon: "/assets/icons/appstore.png",       gradient: ["#FF9500", "#FF5E00"] },
+  { id: "settings",     name: "Settings",    emoji: "S", icon: "/assets/icons/settings.svg",        gradient: ["#8E8E93", "#636366"] },
+  { id: "work",         name: "Work",        emoji: "W",                                            gradient: ["#AF52DE", "#7B2D8B"] },
+  { id: "projects",     name: "Projects",    emoji: "P", icon: "/assets/icons/appstore.png",        gradient: ["#FF9500", "#FF5E00"] },
   { id: "education",    name: "Education",   emoji: "E", icon: "/assets/icons/notes.png",           gradient: ["#FF3B30", "#C0392B"] },
   { id: "files",        name: "Organizations", emoji: "F", icon: "/assets/icons/organizations.png", gradient: ["#007AFF", "#5AC8FA"] },
   { id: "photos",       name: "Photos",      emoji: "P", icon: "/assets/icons/photos.webp",         gradient: ["#34C759", "#248A3D"] },
-  { id: "contact",      name: "Mail",        emoji: "C", icon: "/assets/icons/mail_ios.png",        gradient: ["#5AC8FA", "#007AFF"] },
-  { id: "settings",     name: "Settings",    emoji: "S", icon: "/assets/icons/settings_ios.png",    gradient: ["#8E8E93", "#636366"] },
-  { id: "youtube",      name: "YouTube",     emoji: "Y", icon: "/assets/icons/youtube.png",         gradient: ["#FF0000", "#C0392B"], external: "https://www.youtube.com/playlist?list=PLWhbpQ2inj_p13rmaV6mOdpLu3kTIi8XF" },
-  { id: "github",       name: "GitHub",      emoji: "G", icon: "/assets/icons/github.webp",        gradient: ["#24292E", "#000000"], external: "https://github.com/calebnewtonusc" },
-  { id: "linkedin",     name: "LinkedIn",    emoji: "L", icon: "/assets/icons/linkedin.jpg",       gradient: ["#0A66C2", "#004182"], external: "https://www.linkedin.com/in/caleb-newton-3680041a5/" },
-  { id: "spotify",      name: "Spotify",     emoji: "S", icon: "/assets/icons/spotify.png",        gradient: ["#1DB954", "#157A37"] },
-  { id: "letterboxd",   name: "Letterboxd",  emoji: "L", icon: "/assets/icons/letterboxd.png",     gradient: ["#FF8000", "#E55C00"], external: "https://letterboxd.com/cnewt/" },
-  { id: "rateyourmusic",name: "RYM",         emoji: "R", icon: "/assets/icons/rym.png",            gradient: ["#ED1C24", "#A8001B"], external: "https://rateyourmusic.com/~cnewt" },
-  { id: "x",            name: "X",           emoji: "X", icon: "/assets/icons/x.jpg",              gradient: ["#000000", "#14171A"], external: "https://x.com/klubnootuhn" },
-  { id: "calebgpt",     name: "CalebGPT",    emoji: "C", icon: "/assets/icons/chatgpt.png",        gradient: ["#10A37F", "#1A7F64"] },
+  { id: "contact",      name: "Mail",        emoji: "C", icon: "/assets/icons/messages.svg",        gradient: ["#5AC8FA", "#007AFF"] },
+  { id: "spotify",      name: "Spotify",     emoji: "S", icon: "/assets/icons/spotify.png",         gradient: ["#1DB954", "#157A37"] },
+  { id: "calebgpt",     name: "CalebGPT",    emoji: "C", icon: "/assets/icons/chatgpt.png",         gradient: ["#10A37F", "#1A7F64"] },
+  { id: "youtube",      name: "YouTube",     emoji: "Y", icon: "/assets/icons/youtube.svg",         gradient: ["#FF0000", "#C0392B"], external: "https://www.youtube.com/@caleebnewtown" },
+  { id: "github",       name: "GitHub",      emoji: "G", icon: "/assets/icons/github.webp",         gradient: ["#24292E", "#000000"], external: "https://github.com/calebnewtonusc" },
+  { id: "linkedin",     name: "LinkedIn",    emoji: "L", icon: "/assets/icons/linkedin.jpg",        gradient: ["#0A66C2", "#004182"], external: "https://www.linkedin.com/in/caleb-newton-3680041a5/" },
+  { id: "letterboxd",   name: "Letterboxd",  emoji: "L", icon: "/assets/icons/letterboxd.png",      gradient: ["#FF8000", "#E55C00"], external: "https://letterboxd.com/cnewt/" },
+  { id: "rateyourmusic",name: "RYM",         emoji: "R", icon: "/assets/icons/rym.png",             gradient: ["#ED1C24", "#A8001B"], external: "https://rateyourmusic.com/~cnewt" },
+  { id: "x",            name: "X",           emoji: "X", icon: "/assets/icons/x.jpg",               gradient: ["#000000", "#14171A"], external: "https://x.com/klubnootuhn" },
 ];
 
 export const dockApps: AppId[] = ["linkedin", "github", "youtube", "x", "letterboxd", "rateyourmusic"];

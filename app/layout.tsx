@@ -4,7 +4,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "Caleb Newton",
   description:
-    "Caleb Newton — CS + Applied Mathematics @ USC. Machine Learning, Data Engineering, Computer Vision.",
+    "Caleb Newton - CS + Applied Mathematics @ USC. Machine Learning, Data Engineering, Computer Vision.",
   keywords: ["Caleb Newton", "USC", "Machine Learning", "Computer Science", "Portfolio"],
   authors: [{ name: "Caleb Newton" }],
   icons: {

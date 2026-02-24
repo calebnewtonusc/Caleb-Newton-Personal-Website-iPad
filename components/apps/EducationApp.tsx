@@ -12,49 +12,29 @@ interface Props {
 // Map each education entry to a full-text "note"
 const noteContent: Record<string, { body: string }> = {
   usc: {
-    body: `I'm a freshman at the University of Southern California studying Computer Science and Applied Mathematics in the Viterbi School of Engineering. USC is where everything is clicking together - the theory I learned in high school is now becoming real systems I can build.
+    body: `Freshman at USC Viterbi studying CS + Applied Mathematics. Taking Multivariable Calculus, Linear Algebra, C++, and Discrete Methods simultaneously - dense, but each course feeds the others.
 
-This semester I'm taking Multivariable Calculus, Linear Algebra, C++, and Discrete Methods simultaneously. It's dense, but I love how each course feeds the others. Linear algebra shows up in every ML paper I read. Calculus is the backbone of optimization. C++ is making me think about memory and performance in a way Python never did.
-
-Outside class, I've found community through faith groups and meeting people who are serious about both their faith and their work. Building friendships with people who share my values while being serious about academics and building things is exactly what I was hoping for at USC.
-
-My goal isn't just to graduate. I want to leave USC having built things that matter, contributed to real research, and grown into an engineer who solves hard problems.`,
+C++ is making me think about memory in ways Python never did. Linear algebra shows up in every ML paper. Building things here that I couldn't have imagined in high school.`,
   },
   smhs: {
-    body: `San Marino High School shaped me more than I realized at the time. I graduated with a 4.0+ GPA, was named AP Scholar with Distinction, and received the Promethean Award - the highest honor for a graduating student.
+    body: `Graduated with 4.0+ GPA, AP Scholar with Distinction, and the Promethean Award - highest honor for a graduating student.
 
-But the numbers aren't what I remember most. I remember building ACTS Christian Club from a small group into something that connected students across the whole San Gabriel Valley. I remember baseball - pitching under pressure, learning to compete with composure. I remember wrestling, which taught me that the only way out is through.
-
-SMHS gave me the academic foundation (AP Calculus, AP Computer Science, AP Physics) and the character development (leadership, faith, teamwork) that I'm drawing on every day at USC.
-
-If I could go back and tell my freshman self anything: stay curious, invest in people, and don't wait to start building things.`,
+Led ACTS Christian Club, pitched for the baseball team, and wrestled. The academics gave me the foundation; everything else gave me the character.`,
   },
   berkeley: {
-    body: `In June 2024, I attended UC Berkeley's Summer Computer Science Academy - an intensive program grounded in the Beauty and Joy of Computing (BJC) curriculum.
+    body: `Summer CS Academy at UC Berkeley, June 2024. Covered abstraction, recursion, and algorithms through Snap! and Python.
 
-The course covered abstraction, recursion, and algorithms through Snap! before transitioning into Python. There was also an introductory machine learning module that genuinely lit a spark in me. Seeing how you could train a model to recognize patterns in data felt like discovering a superpower.
-
-Berkeley's campus is electric. The energy of being surrounded by people obsessed with building and understanding things pushed me to think bigger about what I wanted to study and build.
-
-This program confirmed that CS was my path - and that machine learning was the specific frontier I wanted to explore.`,
+The intro ML module lit a spark - seeing how a model learns patterns from data felt like discovering a superpower. Confirmed CS was my path.`,
   },
   cnsi: {
-    body: `In July 2023, I spent two weeks at the California Nanosystems Institute at UCLA for their Nanotechnology + Entrepreneurship Summer Program.
+    body: `Two-week nanotechnology + entrepreneurship program at UCLA's CNSI in July 2023. Our team built AquaShield, a hydrophobic self-cleaning water bottle.
 
-Our team built AquaShield - a hydrophobic water bottle that repels bacteria and self-cleans. We went from concept to prototype to investor pitch in two weeks. I handled MATLAB analysis for surface contact angle measurements and helped design the pitch deck.
-
-The investor pitch was terrifying and exhilarating. Standing up and defending a technical product to people who could fund or kill it in 60 seconds forces you to know your material cold. It also taught me that the best technical ideas die without clear communication.
-
-The program planted a seed: technology is most powerful when it solves a real problem, and the best engineers learn to pitch as well as they code.`,
+Handled MATLAB contact angle analysis and pitched to investors. Learned that great technical ideas die without clear communication.`,
   },
   stjohns: {
-    body: `St. John's Nursery School, August 2010 to June 2011. Where it all began.
+    body: `August 2010 to June 2011. Where it all began.
 
-I tested gravity extensively using block towers of increasing height. My research consistently confirmed Newton's law - blocks do, in fact, fall. I submitted multiple informal peer reviews on the topic to my fellow students, primarily through demonstrations.
-
-I also competed in the Tricycle Racing League (informal, no official standings), participated in the Story Time Enthusiasts collective, and graduated with full honors in the Fundamentals of Sharing and Naptime Negotiation curriculum.
-
-The seeds of my love for building things, testing hypotheses, and collaborating with others were planted in sandbox form right here. I've come a long way from block towers, but the curiosity is the same.`,
+I tested gravity with block towers, competed in the Tricycle Racing League, and graduated with honors in Naptime Negotiation. The curiosity hasn't changed - just the tools.`,
   },
 };
 

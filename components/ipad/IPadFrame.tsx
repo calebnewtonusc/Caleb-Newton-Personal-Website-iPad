@@ -7,7 +7,7 @@ interface Props {
   children: ReactNode;
 }
 
-// iPad Pro 11" (M4) Space Gray — realistic proportions
+// iPad Pro 11" (M4) Space Gray -realistic proportions
 // Portrait:  630 × 900  outer frame
 // Landscape: 900 × 630  outer frame
 
@@ -106,7 +106,7 @@ export default function IPadFrame({ orientation, children }: Props) {
           boxShadow: "0 0 0 1px rgba(0,0,0,0.9) inset",
         }}
       >
-        {/* Full-screen content — edge to edge */}
+        {/* Full-screen content -edge to edge */}
         <div
           style={{
             position: "absolute",

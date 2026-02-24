@@ -82,7 +82,7 @@ export default function IPadPage() {
         }}
       >
         <IPadFrame orientation={orientation}>
-          {/* HomeScreen is always mounted — never remounts when app closes */}
+          {/* HomeScreen is always mounted - never remounts when app closes */}
           <HomeScreen
             orientation={orientation}
             onOpenApp={setOpenApp}

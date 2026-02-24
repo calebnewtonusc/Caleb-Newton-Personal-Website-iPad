@@ -12,6 +12,26 @@ interface Props {
   onUnlock: () => void;
 }
 
+function WorkCalendarIcon({ size }: { size: number }) {
+  const now = new Date();
+  const dayStr = now.toLocaleDateString("en-US", { weekday: "short" }).toUpperCase();
+  const dayNum = now.getDate();
+  return (
+    <div style={{ width: size, height: size, borderRadius: size * 0.2255, overflow: "hidden", background: "white", display: "flex", flexDirection: "column", flexShrink: 0 }}>
+      <div style={{ background: "#FF3B30", height: size * 0.32, display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <span style={{ fontSize: size * 0.165, fontWeight: 600, color: "white", fontFamily: "-apple-system, sans-serif", letterSpacing: 0.5 }}>
+          {dayStr}
+        </span>
+      </div>
+      <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <span style={{ fontSize: size * 0.42, fontWeight: 300, color: "#1c1c1e", fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif", lineHeight: 1 }}>
+          {dayNum}
+        </span>
+      </div>
+    </div>
+  );
+}
+
 function AppIcon({
   app,
   size,
@@ -50,7 +70,9 @@ function AppIcon({
           flexShrink: 0,
         }}
       >
-        {app.icon ? (
+        {app.id === "work" ? (
+          <WorkCalendarIcon size={size} />
+        ) : app.icon ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={app.icon}
@@ -133,7 +155,16 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
         }
         return result;
       })()
-    : nonDockApps;
+    : (() => {
+        // Portrait: skip middle 2 cols so apps flank Caleb's face
+        const result: (AppDef | null)[] = [];
+        for (const app of nonDockApps) {
+          const col = result.length % 4;
+          if (col === 1) { result.push(null); result.push(null); }
+          result.push(app);
+        }
+        return result;
+      })();
 
   const handleOpen = (app: AppDef) => {
     if (app.external) {

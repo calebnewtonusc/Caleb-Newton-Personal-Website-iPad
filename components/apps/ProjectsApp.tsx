@@ -9,10 +9,8 @@ interface Props {
   orientation: string;
 }
 
-// Today's App hero — the featured project at the top
+// Today's App hero - the featured project at the top
 function TodayCard({ project }: { project: typeof projects[0] }) {
-  const todayStr = new Date().toLocaleDateString("en-US", { month: "long", day: "numeric" }).toUpperCase();
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -77,10 +75,9 @@ function TodayCard({ project }: { project: typeof projects[0] }) {
             </span>
           </div>
           <div>
-            <div style={{ fontSize: 11, fontWeight: 700, color: "#007aff", letterSpacing: 0.2, marginBottom: 2 }}>
+            <div style={{ fontSize: 11, fontWeight: 700, color: "#007aff", letterSpacing: 0.2 }}>
               TODAY&apos;S APP
             </div>
-            <div style={{ fontSize: 10, color: "#8e8e93" }}>TODAY &middot; {todayStr}</div>
           </div>
         </div>
 
@@ -224,9 +221,8 @@ function AppRow({ project, index, expanded, onToggle }: {
           </div>
         </div>
 
-        {/* Right: GET + year + chevron */}
+        {/* Right: GET + chevron */}
         <div style={{ display: "flex", alignItems: "center", gap: 8, flexShrink: 0 }}>
-          <span style={{ fontSize: 10, color: "#8e8e93", fontWeight: 500 }}>{project.year}</span>
           {project.live && (
             <a
               href={project.live}
@@ -336,12 +332,9 @@ export default function ProjectsApp({ onClose }: Props) {
           animate={{ opacity: 1, y: 0 }}
           style={{ padding: "4px 16px 16px" }}
         >
-          <h1 className="ios-large-title font-poppins" style={{ color: "#1c1c1e", marginBottom: 2 }}>
+          <h1 className="ios-large-title font-poppins" style={{ color: "#1c1c1e" }}>
             Caleb&apos;s Projects
           </h1>
-          <p style={{ fontSize: 13, color: "#007aff", fontWeight: 600, letterSpacing: 0.1 }}>
-            TODAY &bull; {new Date().toLocaleDateString("en-US", { month: "long", day: "numeric" }).toUpperCase()}
-          </p>
         </motion.div>
 
         {/* Featured "Today's App" */}
