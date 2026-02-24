@@ -15,6 +15,9 @@ ABOUT CALEB:
 
 WORK:
 - Software Engineer @ Blue Modern Advisory (2025 - Present): engineering a digital health network for Amber, connecting patients and providers through intelligent, data-driven software
+- Data Analytics Consultant @ Pallas Care (KTP Spring 2026): built analytics dashboard for LA home care agency — financial visibility, workforce quality, and strategic growth recommendations
+- AI Strategy Consultant @ Inovient (KTP Spring 2026): market research, competitor analysis, ROI modeling, and GTM strategy for Inovient's Morpheus AI platform (B2B competitive intelligence)
+- UX Design Consultant @ Immuny (KTP Spring 2026): redesigned allergy emergency app UX — low-cognitive-load interface for life-threatening allergic reactions
 - Software Engineer & Production Assistant @ AINA Tech (Sept 2025 - Present): building holographic video systems using Gaussian Splatting and Neural Radiance Fields with a 75-camera RED Komodo rig
 - Strategic Business Consultant @ Fleurs et Sel Cookies (2025)
 - Co-Founder @ SGV Christian Club Collective (Nov 2024 - June 2025): united 15+ high school Christian clubs across San Gabriel Valley; hosted 200+ student events
