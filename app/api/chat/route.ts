@@ -63,7 +63,7 @@ export async function POST(req: NextRequest) {
           { role: "system", content: SYSTEM_PROMPT },
           ...messages.slice(-16),
         ],
-        stream: true,
+        stream: false,
         options: { temperature: 0.7, num_predict: 512 },
       }),
     });
@@ -74,25 +74,10 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "AI service unavailable" }, { status: 502 });
     }
 
-    // Collect the full streamed response, return as single JSON
-    const reader = response.body!.getReader();
-    const decoder = new TextDecoder();
-    let fullContent = "";
+    const data = await response.json();
+    const fullContent = data.message?.content ?? "Sorry, I couldn't generate a response.";
 
-    while (true) {
-      const { done, value } = await reader.read();
-      if (done) break;
-      const chunk = decoder.decode(value, { stream: true });
-      for (const line of chunk.split("\n")) {
-        if (!line.trim()) continue;
-        try {
-          const parsed = JSON.parse(line);
-          if (parsed.message?.content) fullContent += parsed.message.content;
-        } catch { /* skip malformed lines */ }
-      }
-    }
-
-    return NextResponse.json({ content: fullContent || "Sorry, I couldn't generate a response." });
+    return NextResponse.json({ content: fullContent });
   } catch (err) {
     console.error("Chat route error:", err);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });

@@ -165,6 +165,7 @@ export const projects = [
   {
     id: "modellab",
     title: "ModelLab",
+    icon: "/assets/icons/modellab.png",
     subtitle: "ML Experiment Tracking Platform",
     description:
       "Built production ML experiment tracking platform with dataset versioning (SHA-256 checksums), git commit tracking, and reproducibility ZIP exports. Engineered comprehensive Python EvalHarness computing ROC-AUC, PR-AUC, calibration metrics, and bootstrap confidence intervals.",
@@ -390,79 +391,83 @@ export const personalSettings = [
     section: "Faith & Identity",
     icon: "faith",
     items: [
-      { label: "Follower of Jesus", type: "toggle-on", detail: "Non-negotiable" },
-      { label: "Human-Centered Technology", type: "toggle-on", detail: "Core design philosophy" },
-      { label: "IRL Connection > Social Media", type: "toggle-on", detail: "Always" },
+      { label: "Follower of Jesus", type: "info", detail: "Non-negotiable" },
+      { label: "Human-Centered Technology", type: "info", detail: "Core design philosophy" },
+      { label: "IRL Connection > Social Media", type: "info", detail: "Always" },
     ],
   },
   {
     section: "Music",
     icon: "music",
     items: [
-      { label: "Vinyl Collector", type: "toggle-on", detail: "Growing steadily" },
-      { label: "Concert-Goer", type: "toggle-on", detail: "LA has good venues" },
+      { label: "Vinyl Collector", type: "info", detail: "Growing steadily" },
+      { label: "Concert-Goer", type: "info", detail: "LA has good venues" },
       { label: "Genres", type: "info", detail: "Jazz · Hip-Hop · Gospel · R&B · Indie" },
       { label: "All-Time Favorite", type: "info", detail: "Stevie Wonder" },
       { label: "Current Rotation", type: "info", detail: "Little Simz, Quadeca, Will Reagan" },
-      { label: "Plays Guitar", type: "toggle-on", detail: "Learning worship songs" },
+      { label: "Plays Guitar", type: "info", detail: "Learning worship songs" },
     ],
   },
   {
     section: "Sports & Activities",
     icon: "sports",
     items: [
-      { label: "Baseball", type: "toggle-on", detail: "Pitcher · San Marino HS" },
-      { label: "Hiking", type: "toggle-on", detail: "Hollywood Hills & beyond" },
-      { label: "Board Games", type: "toggle-on", detail: "Serious about this" },
-      { label: "Spikeball", type: "toggle-on", detail: "& Pickleball" },
-      { label: "Wrestling", type: "toggle-on", detail: "High school" },
+      { label: "Baseball", type: "info", detail: "Pitcher · San Marino HS" },
+      { label: "Hiking", type: "info", detail: "Hollywood Hills & beyond" },
+      { label: "Board Games", type: "info", detail: "Serious about this" },
+      { label: "Spikeball", type: "info", detail: "& Pickleball" },
+      { label: "Wrestling", type: "info", detail: "High school" },
     ],
   },
   {
     section: "Film & Culture",
     icon: "film",
     items: [
-      { label: "Letterboxd Active", type: "toggle-on", detail: "cnewt" },
-      { label: "RateYourMusic Active", type: "toggle-on", detail: "~cnewt" },
-      { label: "Has Opinions About Movies", type: "toggle-on", detail: "Strong ones" },
+      { label: "Letterboxd Active", type: "info", detail: "cnewt" },
+      { label: "RateYourMusic Active", type: "info", detail: "~cnewt" },
+      { label: "Has Opinions About Movies", type: "info", detail: "Strong ones" },
     ],
   },
   {
     section: "Daily Runtime",
     icon: "runtime",
     items: [
-      { label: "Sleep Schedule", type: "toggle-on", detail: "Cooked" },
-      { label: "Coffee Dependency", type: "toggle-on", detail: "Critical" },
+      { label: "Sleep Schedule", type: "info", detail: "Cooked" },
+      { label: "Coffee Dependency", type: "info", detail: "Critical" },
       { label: "Peak Coding Hours", type: "info", detail: "11 PM – 3 AM" },
       { label: "Meal Prep", type: "toggle-off", detail: "Dining hall (for now)" },
       { label: "Social Battery", type: "info", detail: "Recharges at church" },
       { label: "Reply Time (iMessage)", type: "info", detail: "Eventually" },
-      { label: "Biohacking Protocol", type: "toggle-on", detail: "Active" },
+      { label: "Biohacking Protocol", type: "info", detail: "Active" },
     ],
   },
   {
     section: "System Preferences",
     icon: "system",
     items: [
-      { label: "Dark Mode", type: "toggle-on", detail: "Always" },
+      { label: "Dark Mode", type: "info", detail: "Always" },
       { label: "Do Not Disturb", type: "toggle-off", detail: "People keep texting" },
       { label: "Autocorrect", type: "toggle-off", detail: "Gets me every time" },
-      { label: "Location", type: "info", detail: "USC Village (usually)" },
-      { label: "Brain Backup", type: "toggle-on", detail: "Notion" },
-      { label: "Privacy", type: "toggle-on", detail: "Public GitHub, private thoughts" },
+      { label: "Location", type: "info", detail: "Leavey Library" },
+      { label: "Brain Backup", type: "info", detail: "GitHub + Todoist + Poke Agent" },
+      { label: "Privacy", type: "info", detail: "Public GitHub, private thoughts" },
     ],
   },
   {
     section: "About This Device",
     icon: "device",
     items: [
-      { label: "Name", type: "info", detail: "Caleb Newton" },
+      { label: "Edition", type: "info", detail: "2006 (Caleb Newton)" },
       { label: "Location", type: "info", detail: "San Marino, CA → USC" },
       { label: "Software Version", type: "info", detail: "USC Freshman OS 25.1.0" },
-      { label: "Storage", type: "info", detail: "∞ Curiosity · 20TB Work Ethic" },
-      { label: "Battery", type: "info", detail: "Charged by faith & coffee" },
       { label: "Serial Number", type: "info", detail: "calebnew@usc.edu" },
-      { label: "Model", type: "info", detail: "Human (Caleb Edition)" },
+      { label: "System Settings", type: "info", detail: "Runs optimally with tech + music + baseball" },
+      { label: "Primary Passion", type: "info", detail: "Technology, philosophy, baseball discipline" },
+      { label: "Social Mode", type: "info", detail: "Meaningful conversations > small talk" },
+      { label: "Optimal Input", type: "info", detail: "Direct communication - always results in system update" },
+      { label: "Background Process", type: "info", detail: "Head-bobbing may occur during vinyl sessions" },
+      { label: "Battery", type: "info", detail: "Charged by faith & coffee" },
+      { label: "Storage", type: "info", detail: "∞ Curiosity · 20TB Work Ethic" },
     ],
   },
 ];
@@ -593,7 +598,7 @@ export const organizations = [
     shortName: "Avenues",
     role: "Member",
     period: "Spring 2026 - Present",
-    logo: "",
+    logo: "/assets/logos/avenues.png",
     color: "#0A66C2",
     description: "USC student-run consulting club delivering real strategy projects to real clients.",
     link: "https://www.uscavenues.org/",
@@ -660,12 +665,15 @@ export const organizations = [
     ],
     photos: [
       "/assets/EverythingNightImages/everything_night_main.jpg",
+      "/assets/EverythingNightImages/everything_night_poster.jpg",
       "/assets/EverythingNightImages/everything_night_band.jpg",
       "/assets/EverythingNightImages/everything_night_crowd.jpg",
       "/assets/EverythingNightImages/everything_night_dinner.jpg",
       "/assets/EverythingNightImages/everything_night_dodgeball.jpg",
       "/assets/EverythingNightImages/everything_night_picnic.jpg",
+      "/assets/EverythingNightImages/everythingnightplanning.jpg",
       "/assets/EverythingNightImages/chosen_team.jpg",
+      "/assets/EverythingNightImages/chosen_crowd.jpg",
       "/assets/EverythingNightImages/chosen_dab.jpg",
     ],
     link: "",
@@ -752,6 +760,7 @@ export type AppId =
   | "letterboxd"
   | "rateyourmusic"
   | "x"
+  | "substack"
   | "calebgpt";
 
 export interface AppDef {
@@ -779,6 +788,7 @@ export const apps: AppDef[] = [
   { id: "letterboxd",   name: "Letterboxd",  emoji: "L", icon: "/assets/icons/letterboxd.png",      gradient: ["#FF8000", "#E55C00"], external: "https://letterboxd.com/cnewt/" },
   { id: "rateyourmusic",name: "RYM",         emoji: "R", icon: "/assets/icons/rym.png",             gradient: ["#ED1C24", "#A8001B"], external: "https://rateyourmusic.com/~cnewt" },
   { id: "x",            name: "X",           emoji: "X", icon: "/assets/icons/x.jpg",               gradient: ["#000000", "#14171A"], external: "https://x.com/klubnootuhn" },
+  { id: "substack",     name: "Substack",    emoji: "S",                                            gradient: ["#FF6719", "#E05C0A"], external: "https://substack.com/@calebnewton" },
 ];
 
-export const dockApps: AppId[] = ["linkedin", "github", "youtube", "x", "letterboxd", "rateyourmusic"];
+export const dockApps: AppId[] = ["linkedin", "github", "youtube", "substack", "x", "letterboxd", "rateyourmusic"];

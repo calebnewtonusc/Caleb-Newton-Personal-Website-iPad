@@ -94,7 +94,7 @@ const SOCIALS = [
   { label: "Letterboxd", value: "cnewt", href: social.letterboxd, color: "#FF8000" },
 ];
 
-type Folder = "inbox" | "reach-out" | "social";
+type Folder = "inbox" | "reach-out";
 
 function MailboxIcon({ name, color }: { name: string; color: string }) {
   return (
@@ -163,7 +163,6 @@ export default function ContactApp({ onClose: _onClose }: Props) {
                 {[
                   { id: "inbox" as Folder, label: "Inbox", count: 1, color: "#007AFF" },
                   { id: "reach-out" as Folder, label: "Reach Out", count: 0, color: "#34C759" },
-                  { id: "social" as Folder, label: "Socials", count: 0, color: "#FF9500" },
                 ].map((folder, i) => (
                   <motion.div
                     key={folder.id}
@@ -237,38 +236,6 @@ export default function ContactApp({ onClose: _onClose }: Props) {
                 </>
               )}
 
-              {activeFolder === "social" && (
-                <>
-                  <p style={{ fontSize: 13, fontWeight: 500, color: "#6e6e73", letterSpacing: 0.3, marginBottom: 8, marginTop: 16, textTransform: "uppercase" }}>Links</p>
-                  <div style={{ background: "white", borderRadius: 10, overflow: "hidden" }}>
-                    {SOCIALS.map((s, i) => (
-                      <a
-                        key={s.label}
-                        href={s.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{
-                          display: "flex", alignItems: "center", gap: 12,
-                          padding: "13px 16px",
-                          borderTop: i > 0 ? "0.5px solid rgba(60,60,67,0.18)" : "none",
-                          textDecoration: "none",
-                        }}
-                      >
-                        <div style={{ width: 32, height: 32, borderRadius: 8, background: s.color, display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0 }}>
-                          <span style={{ fontSize: 12, fontWeight: 800, color: "white" }}>{s.label[0]}</span>
-                        </div>
-                        <div style={{ flex: 1 }}>
-                          <p style={{ fontSize: 15, fontWeight: 600, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>{s.label}</p>
-                          <p style={{ fontSize: 12, color: "#8e8e93" }}>{s.value}</p>
-                        </div>
-                        <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
-                          <path d="M1 1l5 5L1 11" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
-                        </svg>
-                      </a>
-                    ))}
-                  </div>
-                </>
-              )}
             </div>
           </motion.div>
         )}

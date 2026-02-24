@@ -10,11 +10,13 @@ interface Props {
   orientation: string;
 }
 
-const USC_IDS = ["acts2", "ktp", "datasc", "maai", "cyborg", "avenues", "flavors", "boardgames"];
+const USC_PROFESSIONAL_IDS = ["ktp", "datasc", "maai", "cyborg", "avenues"];
+const USC_SOCIAL_IDS = ["acts2", "flavors", "boardgames"];
 const HS_IDS = ["sgvccc", "impact360"];
 const VOLUNTEER_IDS = ["baseball-coach", "mission-trip", "ambassador"];
 
 type TopFolder = "usc" | "highschool";
+type UscSubfolder = "professional" | "social";
 
 const categoryColors: Record<string, string> = {
   Faith: "#5856D6",
@@ -129,13 +131,18 @@ function OrgDetail({ org, onBack, showBack }: { org: typeof organizations[0]; on
 
 export default function FilesApp({ orientation }: Props) {
   const [topFolder, setTopFolder] = useState<TopFolder | null>(null);
+  const [uscSubfolder, setUscSubfolder] = useState<UscSubfolder | null>(null);
   const [inVolunteering, setInVolunteering] = useState(false);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const isLandscape = orientation === "landscape";
 
   function getMiddleItems() {
     if (!topFolder) return [];
-    if (topFolder === "usc") return organizations.filter((o) => USC_IDS.includes(o.id));
+    if (topFolder === "usc") {
+      if (uscSubfolder === "professional") return organizations.filter((o) => USC_PROFESSIONAL_IDS.includes(o.id));
+      if (uscSubfolder === "social") return organizations.filter((o) => USC_SOCIAL_IDS.includes(o.id));
+      return [];
+    }
     if (inVolunteering) return organizations.filter((o) => VOLUNTEER_IDS.includes(o.id));
     return organizations.filter((o) => HS_IDS.includes(o.id));
   }
@@ -145,6 +152,7 @@ export default function FilesApp({ orientation }: Props) {
 
   const handleTopFolder = (folder: TopFolder) => {
     setTopFolder(folder);
+    setUscSubfolder(null);
     setInVolunteering(false);
     setSelectedId(null);
   };
@@ -154,12 +162,62 @@ export default function FilesApp({ orientation }: Props) {
     { id: "highschool" as TopFolder, label: "High School", color: "#007AFF" },
   ];
 
-  const middleTitle = !topFolder ? "Select a folder"
-    : inVolunteering ? "Volunteering"
+  const uscSubfolderDefs = [
+    { id: "professional" as UscSubfolder, label: "Professional", color: "#6C47FF", count: USC_PROFESSIONAL_IDS.length },
+    { id: "social" as UscSubfolder, label: "Social", color: "#FF9500", count: USC_SOCIAL_IDS.length },
+  ];
+
+  // Header title for col2
+  const col2Title = !topFolder ? "Select a folder"
+    : topFolder === "usc" && uscSubfolder === "professional" ? "Professional"
+    : topFolder === "usc" && uscSubfolder === "social" ? "Social"
     : topFolder === "usc" ? "USC"
+    : inVolunteering ? "Volunteering"
     : "High School";
 
-  // Shared middle list content
+  // Parent breadcrumb
+  const col2Parent = (topFolder === "usc" && uscSubfolder !== null) ? "USC"
+    : (topFolder === "highschool" && inVolunteering) ? "High School"
+    : null;
+
+  const handleCol2Back = () => {
+    if (topFolder === "usc" && uscSubfolder !== null) {
+      setUscSubfolder(null);
+      setSelectedId(null);
+    } else if (inVolunteering) {
+      setInVolunteering(false);
+      setSelectedId(null);
+    }
+  };
+
+  function UscSubfolderList({ compact }: { compact?: boolean }) {
+    const pad = compact ? "9px 12px" : "13px 16px";
+    return (
+      <>
+        {uscSubfolderDefs.map((sf, i) => (
+          <motion.div
+            key={sf.id}
+            whileTap={{ backgroundColor: "#f2f2f7" }}
+            onClick={() => { setUscSubfolder(sf.id); setSelectedId(null); }}
+            style={{
+              display: "flex", alignItems: "center", gap: compact ? 9 : 12, padding: pad,
+              cursor: "pointer",
+              borderTop: i > 0 ? "0.5px solid rgba(60,60,67,0.08)" : "none",
+              background: uscSubfolder === sf.id ? "rgba(0,122,255,0.07)" : "transparent",
+            }}
+          >
+            <FolderSVG color={sf.color} size={compact ? 28 : 34} />
+            <div style={{ flex: 1 }}>
+              <p style={{ fontSize: compact ? 13 : 15, fontWeight: uscSubfolder === sf.id ? 600 : 500, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>{sf.label}</p>
+              <p style={{ fontSize: compact ? 10 : 12, color: "#8e8e93" }}>{sf.count} organizations</p>
+            </div>
+            <svg width="7" height="11" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 5L1 10" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+          </motion.div>
+        ))}
+      </>
+    );
+  }
+
   function MiddleList({ compact }: { compact?: boolean }) {
     const pad = compact ? "9px 12px" : "12px 16px";
     const iconSize = compact ? 34 : 42;
@@ -174,7 +232,7 @@ export default function FilesApp({ orientation }: Props) {
             <FolderSVG color="#34C759" size={compact ? 28 : 34} />
             <div style={{ flex: 1 }}>
               <p style={{ fontSize: compact ? 13 : 15, fontWeight: 500, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>Volunteering</p>
-              <p style={{ fontSize: compact ? 11 : 12, color: "#8e8e93" }}>3 items</p>
+              <p style={{ fontSize: compact ? 10 : 12, color: "#8e8e93" }}>3 items</p>
             </div>
             <svg width="7" height="11" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 5L1 10" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
           </motion.div>
@@ -196,7 +254,7 @@ export default function FilesApp({ orientation }: Props) {
               <p style={{ fontSize: compact ? 13 : 15, fontWeight: selectedId === org.id ? 600 : 400, color: "#1c1c1e", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontFamily: "-apple-system, sans-serif" }}>
                 {org.name}
               </p>
-              <p style={{ fontSize: compact ? 11 : 12, color: "#8e8e93" }}>{org.role}</p>
+              <p style={{ fontSize: compact ? 10 : 12, color: "#8e8e93" }}>{org.role}</p>
             </div>
             <svg width="7" height="11" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 5L1 10" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
           </motion.div>
@@ -234,28 +292,34 @@ export default function FilesApp({ orientation }: Props) {
           </div>
         </div>
 
-        {/* Column 2: Middle items */}
-        <div style={{ width: 200, borderRight: "0.5px solid rgba(60,60,67,0.18)", display: "flex", flexDirection: "column", overflow: "hidden", background: "white" }}>
-          <div style={{ padding: "16px 14px 10px", borderBottom: "0.5px solid rgba(60,60,67,0.1)", flexShrink: 0 }}>
-            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
-              {inVolunteering && (
+        {/* Column 2: Subfolders / Items */}
+        <div style={{ width: 210, borderRight: "0.5px solid rgba(60,60,67,0.18)", display: "flex", flexDirection: "column", overflow: "hidden", background: "white" }}>
+          {/* Header with breadcrumb nav */}
+          <div style={{ padding: "10px 14px 8px", borderBottom: "0.5px solid rgba(60,60,67,0.1)", flexShrink: 0 }}>
+            {col2Parent && (
+              <div style={{ display: "flex", alignItems: "center", gap: 3, marginBottom: 3 }}>
                 <button
-                  onClick={() => { setInVolunteering(false); setSelectedId(null); }}
-                  style={{ background: "none", border: "none", cursor: "pointer", padding: "0 4px 0 0", display: "flex", alignItems: "center", color: "#007aff" }}
+                  onClick={handleCol2Back}
+                  style={{ background: "none", border: "none", cursor: "pointer", padding: 0, display: "flex", alignItems: "center", gap: 3, color: "#007aff" }}
                 >
-                  <svg width="7" height="12" viewBox="0 0 7 12" fill="none"><path d="M6 1L1 6l5 5" stroke="#007aff" strokeWidth="1.8" strokeLinecap="round" /></svg>
+                  <svg width="6" height="10" viewBox="0 0 6 10" fill="none"><path d="M5 1L1 5l4 4" stroke="#007aff" strokeWidth="1.6" strokeLinecap="round" /></svg>
+                  <span style={{ fontSize: 11, fontWeight: 500, color: "#007aff" }}>{col2Parent}</span>
                 </button>
-              )}
-              <h2 style={{ fontSize: 14, fontWeight: 600, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>
-                {middleTitle}
-              </h2>
-            </div>
+                <svg width="4" height="7" viewBox="0 0 4 7" fill="none"><path d="M1 1L3.5 3.5L1 6" stroke="#8e8e93" strokeWidth="1.2" strokeLinecap="round" /></svg>
+                <span style={{ fontSize: 11, color: "#8e8e93" }}>{col2Title}</span>
+              </div>
+            )}
+            <h2 style={{ fontSize: 14, fontWeight: 600, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>
+              {col2Title}
+            </h2>
           </div>
           <div className="ios-scroll" style={{ flex: 1, overflowY: "auto" }}>
             {!topFolder ? (
               <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%" }}>
                 <p style={{ fontSize: 12, color: "#8e8e93", fontFamily: "-apple-system, sans-serif" }}>Select a folder</p>
               </div>
+            ) : topFolder === "usc" && uscSubfolder === null ? (
+              <UscSubfolderList compact />
             ) : (
               <MiddleList compact />
             )}
@@ -282,7 +346,29 @@ export default function FilesApp({ orientation }: Props) {
   }
 
   // Portrait: stack navigation
-  const portraitDepth = selectedId ? 2 : topFolder ? 1 : 0;
+  // Depth 0: Root (USC, HS)
+  // Depth 1: USC subfolders | HS orgs + Volunteering folder
+  // Depth 2: USC subfolder orgs | Volunteering orgs
+  // Depth 3: Org detail
+  const portraitDepth = selectedId ? 3
+    : topFolder === "usc" && uscSubfolder !== null ? 2
+    : topFolder === "highschool" && inVolunteering ? 2
+    : topFolder !== null ? 1
+    : 0;
+
+  function PortraitNavBar({ title, onBack, backLabel }: { title: string; onBack: () => void; backLabel: string }) {
+    return (
+      <div style={{ padding: "14px 16px 8px", flexShrink: 0 }}>
+        <button
+          onClick={onBack}
+          style={{ display: "flex", alignItems: "center", gap: 5, color: "#007aff", fontSize: 16, background: "none", border: "none", cursor: "pointer", padding: 0, fontFamily: "-apple-system, sans-serif" }}
+        >
+          <svg width="8" height="13" viewBox="0 0 8 13" fill="none"><path d="M7 1L1 6.5L7 12" stroke="#007aff" strokeWidth="1.8" strokeLinecap="round" /></svg>
+          {backLabel}
+        </button>
+      </div>
+    );
+  }
 
   return (
     <div className="app-window" style={{ background: "#f2f2f7" }}>
@@ -310,18 +396,41 @@ export default function FilesApp({ orientation }: Props) {
         )}
 
         {portraitDepth === 1 && (
-          <motion.div key={`l1-${topFolder}-${inVolunteering}`} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-            <div style={{ padding: "14px 16px 8px", flexShrink: 0 }}>
-              <button
-                onClick={() => { if (inVolunteering) { setInVolunteering(false); } else { setTopFolder(null); } }}
-                style={{ display: "flex", alignItems: "center", gap: 5, color: "#007aff", fontSize: 16, background: "none", border: "none", cursor: "pointer", padding: 0, fontFamily: "-apple-system, sans-serif" }}
-              >
-                <svg width="8" height="13" viewBox="0 0 8 13" fill="none"><path d="M7 1L1 6.5L7 12" stroke="#007aff" strokeWidth="1.8" strokeLinecap="round" /></svg>
-                {inVolunteering ? "High School" : "Organizations"}
-              </button>
-            </div>
+          <motion.div key={`l1-${topFolder}`} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+            <PortraitNavBar
+              title={topFolder === "usc" ? "USC" : "High School"}
+              onBack={() => { setTopFolder(null); }}
+              backLabel="Organizations"
+            />
             <div className="ios-scroll" style={{ flex: 1, overflowY: "auto", padding: "0 16px 32px" }}>
-              <h1 style={{ fontSize: 28, fontWeight: 700, color: "#1c1c1e", marginBottom: 16, fontFamily: "-apple-system, sans-serif", letterSpacing: -0.4 }}>{middleTitle}</h1>
+              <h1 style={{ fontSize: 28, fontWeight: 700, color: "#1c1c1e", marginBottom: 16, fontFamily: "-apple-system, sans-serif", letterSpacing: -0.4 }}>
+                {topFolder === "usc" ? "USC" : "High School"}
+              </h1>
+              <div style={{ background: "white", borderRadius: 12, overflow: "hidden" }}>
+                {topFolder === "usc" ? (
+                  <UscSubfolderList />
+                ) : (
+                  <MiddleList />
+                )}
+              </div>
+            </div>
+          </motion.div>
+        )}
+
+        {portraitDepth === 2 && (
+          <motion.div key={`l2-${uscSubfolder ?? "vol"}`} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+            <PortraitNavBar
+              title={uscSubfolder === "professional" ? "Professional" : uscSubfolder === "social" ? "Social" : "Volunteering"}
+              onBack={() => {
+                if (topFolder === "usc") { setUscSubfolder(null); setSelectedId(null); }
+                else { setInVolunteering(false); setSelectedId(null); }
+              }}
+              backLabel={topFolder === "usc" ? "USC" : "High School"}
+            />
+            <div className="ios-scroll" style={{ flex: 1, overflowY: "auto", padding: "0 16px 32px" }}>
+              <h1 style={{ fontSize: 28, fontWeight: 700, color: "#1c1c1e", marginBottom: 16, fontFamily: "-apple-system, sans-serif", letterSpacing: -0.4 }}>
+                {uscSubfolder === "professional" ? "Professional" : uscSubfolder === "social" ? "Social" : "Volunteering"}
+              </h1>
               <div style={{ background: "white", borderRadius: 12, overflow: "hidden" }}>
                 <MiddleList />
               </div>
@@ -329,7 +438,7 @@ export default function FilesApp({ orientation }: Props) {
           </motion.div>
         )}
 
-        {portraitDepth === 2 && selectedOrg && (
+        {portraitDepth === 3 && selectedOrg && (
           <motion.div key={`detail-${selectedOrg.id}`} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} style={{ height: "100%" }}>
             <OrgDetail org={selectedOrg} onBack={() => setSelectedId(null)} showBack={true} />
           </motion.div>

@@ -62,17 +62,24 @@ function TodayCard({ project }: { project: typeof projects[0] }) {
               width: 52,
               height: 52,
               borderRadius: 14,
-              background: `linear-gradient(145deg, ${project.color}, ${project.color}bb)`,
+              background: (project as { icon?: string }).icon ? "white" : `linear-gradient(145deg, ${project.color}, ${project.color}bb)`,
               display: "flex",
               alignItems: "center",
               justifyContent: "center",
               flexShrink: 0,
               boxShadow: `0 3px 12px ${project.color}55`,
+              overflow: "hidden",
+              border: (project as { icon?: string }).icon ? `1px solid ${project.color}22` : "none",
             }}
           >
-            <span style={{ fontSize: 22, fontWeight: 900, color: "white", fontFamily: "-apple-system, sans-serif" }}>
-              {project.title[0]}
-            </span>
+            {(project as { icon?: string }).icon ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={(project as { icon?: string }).icon} alt={project.title} style={{ width: "80%", height: "80%", objectFit: "contain" }} />
+            ) : (
+              <span style={{ fontSize: 22, fontWeight: 900, color: "white", fontFamily: "-apple-system, sans-serif" }}>
+                {project.title[0]}
+              </span>
+            )}
           </div>
           <div>
             <div style={{ fontSize: 11, fontWeight: 700, color: "#007aff", letterSpacing: 0.2 }}>
