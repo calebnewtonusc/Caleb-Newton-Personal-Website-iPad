@@ -45,7 +45,7 @@ const WorkCard = memo(function WorkCard({
           width: 40, height: 40, borderRadius: 10, flexShrink: 0,
           background: exp.logo ? "white" : exp.color,
           display: "flex", alignItems: "center", justifyContent: "center",
-          boxShadow: `0 2px 8px ${exp.color}30`,
+          boxShadow: "0 1px 4px rgba(0,0,0,0.1)",
           border: exp.logo ? "0.5px solid rgba(0,0,0,0.08)" : "none",
           overflow: "hidden", marginTop: 1,
         }}>
@@ -66,7 +66,7 @@ const WorkCard = memo(function WorkCard({
               {exp.period}
             </span>
           </div>
-          <span style={{ fontSize: 13, fontWeight: 500, color: exp.color, fontFamily: "-apple-system, sans-serif" }}>
+          <span style={{ fontSize: 13, fontWeight: 500, color: "#636366", fontFamily: "-apple-system, sans-serif" }}>
             {exp.title}
           </span>
         </div>
@@ -103,7 +103,7 @@ const WorkCard = memo(function WorkCard({
                 <div style={{ marginBottom: exp.skills.length > 0 ? 12 : 0 }}>
                   {exp.achievements.map((a, i) => (
                     <div key={i} style={{ display: "flex", gap: 8, marginBottom: 7 }}>
-                      <span style={{ color: exp.color, fontWeight: 700, flexShrink: 0, fontSize: 14, marginTop: 1 }}>·</span>
+                      <span style={{ color: "#8e8e93", fontWeight: 700, flexShrink: 0, fontSize: 14, marginTop: 1 }}>·</span>
                       <p style={{ fontSize: 13, color: "#3a3a3c", lineHeight: 1.55, fontFamily: "-apple-system, sans-serif" }}>{a}</p>
                     </div>
                   ))}
@@ -113,7 +113,7 @@ const WorkCard = memo(function WorkCard({
               {exp.skills.length > 0 && (
                 <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginBottom: exp.photos && exp.photos.length > 0 ? 12 : 0 }}>
                   {exp.skills.map((s) => (
-                    <span key={s} style={{ fontSize: 11, fontWeight: 600, color: exp.color, background: `${exp.color}15`, border: `1px solid ${exp.color}28`, borderRadius: 8, padding: "3px 8px" }}>
+                    <span key={s} style={{ fontSize: 11, fontWeight: 600, color: "#636366", background: "rgba(0,0,0,0.05)", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 8, padding: "3px 8px" }}>
                       {s}
                     </span>
                   ))}
@@ -124,7 +124,7 @@ const WorkCard = memo(function WorkCard({
                 <div style={{ display: "flex", gap: 8, marginTop: 4, overflowX: "auto", paddingBottom: 4 }}>
                   {exp.photos.map((src, pi) => (
                     // eslint-disable-next-line @next/next/no-img-element
-                    <img key={pi} src={src} alt="" style={{ height: 100, width: "auto", borderRadius: 10, objectFit: "cover", flexShrink: 0, boxShadow: "0 1px 6px rgba(0,0,0,0.12)" }} />
+                    <img key={pi} src={src} alt="" style={{ height: 100, width: 160, borderRadius: 10, objectFit: "cover", flexShrink: 0, boxShadow: "0 1px 6px rgba(0,0,0,0.12)" }} />
                   ))}
                 </div>
               )}

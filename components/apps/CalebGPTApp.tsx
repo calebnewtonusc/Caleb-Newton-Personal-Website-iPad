@@ -155,7 +155,7 @@ export default function CalebGPTApp({ onClose: _onClose }: Props) {
             animate={{ opacity: 1, y: 0 }}
             style={{ display: "flex", flexDirection: "column", alignItems: "center", textAlign: "center", marginTop: 28, marginBottom: 12 }}
           >
-            <div style={{ width: 60, height: 60, borderRadius: 30, overflow: "hidden", marginBottom: 14, border: "2px solid #10a37f", position: "relative" }}>
+            <div style={{ width: 60, height: 60, borderRadius: 30, overflow: "hidden", marginBottom: 14, position: "relative" }}>
               <Image src={profile.photo} alt="Caleb" fill style={{ objectFit: "cover" }} />
             </div>
             <h2 style={{ fontSize: 19, fontWeight: 600, color: "#1c1c1e", marginBottom: 6, fontFamily: "-apple-system, sans-serif" }}>
@@ -189,7 +189,7 @@ export default function CalebGPTApp({ onClose: _onClose }: Props) {
               </div>
             ) : (
               <div style={{ display: "flex", alignItems: "flex-start", gap: 10 }}>
-                <div style={{ width: 28, height: 28, borderRadius: 14, overflow: "hidden", flexShrink: 0, border: "1.5px solid #10a37f", position: "relative" }}>
+                <div style={{ width: 28, height: 28, borderRadius: 14, overflow: "hidden", flexShrink: 0, position: "relative" }}>
                   <Image src={profile.photo} alt="Caleb" fill style={{ objectFit: "cover" }} />
                 </div>
                 <div style={{
@@ -212,7 +212,7 @@ export default function CalebGPTApp({ onClose: _onClose }: Props) {
               exit={{ opacity: 0, y: 6 }}
               style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 16 }}
             >
-              <div style={{ width: 28, height: 28, borderRadius: 14, overflow: "hidden", flexShrink: 0, border: "1.5px solid #10a37f", position: "relative" }}>
+              <div style={{ width: 28, height: 28, borderRadius: 14, overflow: "hidden", flexShrink: 0, position: "relative" }}>
                 <Image src={profile.photo} alt="Caleb" fill style={{ objectFit: "cover" }} />
               </div>
               <div style={{ padding: "10px 14px", borderRadius: "4px 18px 18px 18px", background: "#f2f2f7", display: "inline-block" }}>

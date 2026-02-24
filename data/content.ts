@@ -160,8 +160,16 @@ export const experience = [
     skills: ["Leadership", "Community Building", "Event Coordination", "Faith"],
     photos: [
       "/assets/EverythingNightImages/everything_night_main.jpg",
-      "/assets/EverythingNightImages/everything_night_crowd.jpg",
+      "/assets/EverythingNightImages/everything_night_poster.jpg",
       "/assets/EverythingNightImages/everything_night_band.jpg",
+      "/assets/EverythingNightImages/everything_night_crowd.jpg",
+      "/assets/EverythingNightImages/everything_night_dinner.jpg",
+      "/assets/EverythingNightImages/everything_night_dodgeball.jpg",
+      "/assets/EverythingNightImages/everything_night_picnic.jpg",
+      "/assets/EverythingNightImages/everythingnightplanning.jpg",
+      "/assets/EverythingNightImages/chosen_team.jpg",
+      "/assets/EverythingNightImages/chosen_crowd.jpg",
+      "/assets/EverythingNightImages/chosen_dab.jpg",
     ],
   },
   {

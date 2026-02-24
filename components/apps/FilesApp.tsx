@@ -44,9 +44,9 @@ function OrgIcon({ org, size = 40 }: { org: typeof organizations[0]; size?: numb
         width: size, height: size, borderRadius: size * 0.22,
         background: org.logo ? "white" : org.color,
         display: "flex", alignItems: "center", justifyContent: "center",
-        border: org.logo ? `1px solid ${org.color}22` : "none",
+        border: org.logo ? "1px solid rgba(0,0,0,0.08)" : "none",
         overflow: "hidden", flexShrink: 0, position: "relative",
-        boxShadow: `0 2px 8px ${org.color}28`,
+        boxShadow: "0 1px 4px rgba(0,0,0,0.1)",
       }}
     >
       {org.logo ? (
@@ -90,7 +90,7 @@ function OrgDetail({ org, onBack, showBack, backLabel = "Back" }: {
           <div style={{ flex: 1, minWidth: 0 }}>
             <h2 style={{ fontSize: 17, fontWeight: 700, color: "#1c1c1e", lineHeight: 1.2, marginBottom: 4, fontFamily: "-apple-system, sans-serif" }}>{org.name}</h2>
             <p style={{ fontSize: 12, color: "#636366", marginBottom: 6 }}>{org.role} · {org.period}</p>
-            <span style={{ fontSize: 11, fontWeight: 600, color: categoryColors[org.category] ?? "#8e8e93", background: `${categoryColors[org.category] ?? "#8e8e93"}18`, borderRadius: 6, padding: "2px 8px" }}>
+            <span style={{ fontSize: 11, fontWeight: 500, color: "#8e8e93", fontFamily: "-apple-system, sans-serif" }}>
               {org.category}
             </span>
           </div>
@@ -106,7 +106,7 @@ function OrgDetail({ org, onBack, showBack, backLabel = "Back" }: {
             <p style={{ fontSize: 11, color: "#8e8e93", fontWeight: 600, letterSpacing: 0.5, marginBottom: 8, textTransform: "uppercase" }}>Impact</p>
             {(org.achievements as string[]).map((a, i) => (
               <div key={i} style={{ display: "flex", gap: 8, marginBottom: 7 }}>
-                <span style={{ color: org.color, fontWeight: 700, flexShrink: 0, fontSize: 14 }}>·</span>
+                <span style={{ color: "#8e8e93", fontWeight: 700, flexShrink: 0, fontSize: 14 }}>·</span>
                 <p style={{ fontSize: 13, color: "#3a3a3c", lineHeight: 1.55 }}>{a}</p>
               </div>
             ))}
@@ -125,7 +125,7 @@ function OrgDetail({ org, onBack, showBack, backLabel = "Back" }: {
         {org.link && (
           <a
             href={org.link} target="_blank" rel="noopener noreferrer"
-            style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, background: org.color, color: "white", borderRadius: 14, padding: "13px", fontSize: 15, fontWeight: 600, textDecoration: "none" }}
+            style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: 8, background: "#1c1c1e", color: "white", borderRadius: 14, padding: "13px", fontSize: 15, fontWeight: 600, textDecoration: "none" }}
           >
             Visit {org.name} {"\u2197"}
           </a>
