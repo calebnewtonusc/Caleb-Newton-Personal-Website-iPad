@@ -11,12 +11,11 @@ interface Props {
 }
 
 const USC_PROFESSIONAL_IDS = ["ktp", "datasc", "maai", "cyborg", "avenues"];
-const USC_SOCIAL_IDS = ["acts2", "flavors", "boardgames"];
-const HS_IDS = ["sgvccc", "impact360"];
-const VOLUNTEER_IDS = ["baseball-coach", "mission-trip", "ambassador"];
+const USC_SOCIAL_IDS = ["acts2", "flavors", "boardgames", "scoutfitters"];
+const HS_CLUBS_IDS = ["sgvccc", "impact360"];
+const HS_VOLUNTEER_IDS = ["baseball-coach", "mission-trip", "ambassador"];
 
 type TopFolder = "usc" | "highschool";
-type UscSubfolder = "professional" | "social";
 
 const categoryColors: Record<string, string> = {
   Faith: "#5856D6",
@@ -61,7 +60,12 @@ function OrgIcon({ org, size = 40 }: { org: typeof organizations[0]; size?: numb
   );
 }
 
-function OrgDetail({ org, onBack, showBack }: { org: typeof organizations[0]; onBack: () => void; showBack: boolean }) {
+function OrgDetail({ org, onBack, showBack, backLabel = "Back" }: {
+  org: typeof organizations[0];
+  onBack: () => void;
+  showBack: boolean;
+  backLabel?: string;
+}) {
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100%" }}>
       {showBack && (
@@ -73,7 +77,7 @@ function OrgDetail({ org, onBack, showBack }: { org: typeof organizations[0]; on
             <svg width="8" height="13" viewBox="0 0 8 13" fill="none">
               <path d="M7 1L1 6.5L7 12" stroke="#007aff" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            Back
+            {backLabel}
           </button>
         </div>
       )}
@@ -131,85 +135,82 @@ function OrgDetail({ org, onBack, showBack }: { org: typeof organizations[0]; on
 
 export default function FilesApp({ orientation }: Props) {
   const [topFolder, setTopFolder] = useState<TopFolder | null>(null);
-  const [uscSubfolder, setUscSubfolder] = useState<UscSubfolder | null>(null);
-  const [inVolunteering, setInVolunteering] = useState(false);
+  const [subfolder, setSubfolder] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const isLandscape = orientation === "landscape";
-
-  function getMiddleItems() {
-    if (!topFolder) return [];
-    if (topFolder === "usc") {
-      if (uscSubfolder === "professional") return organizations.filter((o) => USC_PROFESSIONAL_IDS.includes(o.id));
-      if (uscSubfolder === "social") return organizations.filter((o) => USC_SOCIAL_IDS.includes(o.id));
-      return [];
-    }
-    if (inVolunteering) return organizations.filter((o) => VOLUNTEER_IDS.includes(o.id));
-    return organizations.filter((o) => HS_IDS.includes(o.id));
-  }
-
-  const middleItems = getMiddleItems();
-  const selectedOrg = selectedId ? (organizations.find((o) => o.id === selectedId) ?? null) : null;
-
-  const handleTopFolder = (folder: TopFolder) => {
-    setTopFolder(folder);
-    setUscSubfolder(null);
-    setInVolunteering(false);
-    setSelectedId(null);
-  };
 
   const topFolderDefs = [
     { id: "usc" as TopFolder, label: "USC", color: "#990000" },
     { id: "highschool" as TopFolder, label: "High School", color: "#007AFF" },
   ];
 
-  const uscSubfolderDefs = [
-    { id: "professional" as UscSubfolder, label: "Professional", color: "#6C47FF", count: USC_PROFESSIONAL_IDS.length },
-    { id: "social" as UscSubfolder, label: "Social", color: "#FF9500", count: USC_SOCIAL_IDS.length },
-  ];
+  // Level 2: symmetric subfolders for both top-level folders
+  const level2Defs = topFolder === "usc"
+    ? [
+        { id: "professional", label: "Professional", color: "#6C47FF", count: USC_PROFESSIONAL_IDS.length },
+        { id: "social",       label: "Social",       color: "#FF9500", count: USC_SOCIAL_IDS.length },
+      ]
+    : topFolder === "highschool"
+    ? [
+        { id: "clubs",       label: "Clubs",       color: "#007AFF", count: HS_CLUBS_IDS.length },
+        { id: "volunteering", label: "Volunteering", color: "#34C759", count: HS_VOLUNTEER_IDS.length },
+      ]
+    : [];
 
-  // Header title for col2
-  const col2Title = !topFolder ? "Select a folder"
-    : topFolder === "usc" && uscSubfolder === "professional" ? "Professional"
-    : topFolder === "usc" && uscSubfolder === "social" ? "Social"
-    : topFolder === "usc" ? "USC"
-    : inVolunteering ? "Volunteering"
-    : "High School";
-
-  // Parent breadcrumb
-  const col2Parent = (topFolder === "usc" && uscSubfolder !== null) ? "USC"
-    : (topFolder === "highschool" && inVolunteering) ? "High School"
-    : null;
-
-  const handleCol2Back = () => {
-    if (topFolder === "usc" && uscSubfolder !== null) {
-      setUscSubfolder(null);
-      setSelectedId(null);
-    } else if (inVolunteering) {
-      setInVolunteering(false);
-      setSelectedId(null);
+  function getCol3Items() {
+    if (topFolder === "usc") {
+      if (subfolder === "professional") return organizations.filter((o) => USC_PROFESSIONAL_IDS.includes(o.id));
+      if (subfolder === "social")       return organizations.filter((o) => USC_SOCIAL_IDS.includes(o.id));
     }
+    if (topFolder === "highschool") {
+      if (subfolder === "clubs")        return organizations.filter((o) => HS_CLUBS_IDS.includes(o.id));
+      if (subfolder === "volunteering") return organizations.filter((o) => HS_VOLUNTEER_IDS.includes(o.id));
+    }
+    return [];
+  }
+
+  const col3Items = getCol3Items();
+  const selectedOrg = selectedId ? (organizations.find((o) => o.id === selectedId) ?? null) : null;
+
+  const handleTopFolder = (folder: TopFolder) => {
+    setTopFolder(folder);
+    setSubfolder(null);
+    setSelectedId(null);
   };
 
-  function UscSubfolderList({ compact }: { compact?: boolean }) {
-    const pad = compact ? "9px 12px" : "13px 16px";
+  // Titles for each column header
+  const col2Title = !topFolder ? "Select" : topFolder === "usc" ? "USC" : "High School";
+  const col3Title = !subfolder ? "Select"
+    : subfolder === "professional" ? "Professional"
+    : subfolder === "social"       ? "Social"
+    : subfolder === "clubs"        ? "Clubs"
+    : "Volunteering";
+
+  // Portrait depth: 0 → 1 → 2 → 3
+  const portraitDepth = selectedId ? 3 : subfolder ? 2 : topFolder ? 1 : 0;
+
+  // ─── Shared sub-components ────────────────────────────────────────────────
+
+  function SubfolderList({ compact }: { compact?: boolean }) {
+    const pad = compact ? "9px 10px" : "13px 16px";
     return (
       <>
-        {uscSubfolderDefs.map((sf, i) => (
+        {level2Defs.map((sf, i) => (
           <motion.div
             key={sf.id}
             whileTap={{ backgroundColor: "#f2f2f7" }}
-            onClick={() => { setUscSubfolder(sf.id); setSelectedId(null); }}
+            onClick={() => { setSubfolder(sf.id); setSelectedId(null); }}
             style={{
-              display: "flex", alignItems: "center", gap: compact ? 9 : 12, padding: pad,
+              display: "flex", alignItems: "center", gap: compact ? 8 : 12, padding: pad,
               cursor: "pointer",
               borderTop: i > 0 ? "0.5px solid rgba(60,60,67,0.08)" : "none",
-              background: uscSubfolder === sf.id ? "rgba(0,122,255,0.07)" : "transparent",
+              background: subfolder === sf.id ? "rgba(0,122,255,0.07)" : "transparent",
             }}
           >
-            <FolderSVG color={sf.color} size={compact ? 28 : 34} />
+            <FolderSVG color={sf.color} size={compact ? 26 : 34} />
             <div style={{ flex: 1 }}>
-              <p style={{ fontSize: compact ? 13 : 15, fontWeight: uscSubfolder === sf.id ? 600 : 500, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>{sf.label}</p>
-              <p style={{ fontSize: compact ? 10 : 12, color: "#8e8e93" }}>{sf.count} organizations</p>
+              <p style={{ fontSize: compact ? 12 : 15, fontWeight: subfolder === sf.id ? 600 : 500, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>{sf.label}</p>
+              <p style={{ fontSize: compact ? 10 : 12, color: "#8e8e93" }}>{sf.count} items</p>
             </div>
             <svg width="7" height="11" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 5L1 10" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
           </motion.div>
@@ -218,40 +219,26 @@ export default function FilesApp({ orientation }: Props) {
     );
   }
 
-  function MiddleList({ compact }: { compact?: boolean }) {
-    const pad = compact ? "9px 12px" : "12px 16px";
-    const iconSize = compact ? 34 : 42;
+  function OrgList({ items, compact }: { items: typeof organizations; compact?: boolean }) {
+    const pad = compact ? "9px 10px" : "12px 16px";
+    const iconSize = compact ? 32 : 42;
     return (
       <>
-        {topFolder === "highschool" && !inVolunteering && (
-          <motion.div
-            whileTap={{ backgroundColor: "#f2f2f7" }}
-            onClick={() => { setInVolunteering(true); setSelectedId(null); }}
-            style={{ display: "flex", alignItems: "center", gap: compact ? 9 : 12, padding: pad, cursor: "pointer", borderBottom: "0.5px solid rgba(60,60,67,0.1)" }}
-          >
-            <FolderSVG color="#34C759" size={compact ? 28 : 34} />
-            <div style={{ flex: 1 }}>
-              <p style={{ fontSize: compact ? 13 : 15, fontWeight: 500, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>Volunteering</p>
-              <p style={{ fontSize: compact ? 10 : 12, color: "#8e8e93" }}>3 items</p>
-            </div>
-            <svg width="7" height="11" viewBox="0 0 7 11" fill="none"><path d="M1 1l5 5L1 10" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
-          </motion.div>
-        )}
-        {middleItems.map((org, i) => (
+        {items.map((org, i) => (
           <motion.div
             key={org.id}
             whileTap={{ backgroundColor: "#f2f2f7" }}
             onClick={() => setSelectedId(org.id)}
             style={{
-              display: "flex", alignItems: "center", gap: compact ? 9 : 12, padding: pad,
+              display: "flex", alignItems: "center", gap: compact ? 8 : 12, padding: pad,
               cursor: "pointer",
-              borderTop: (i === 0 && !(topFolder === "highschool" && !inVolunteering)) ? "none" : "0.5px solid rgba(60,60,67,0.08)",
+              borderTop: i > 0 ? "0.5px solid rgba(60,60,67,0.08)" : "none",
               background: selectedId === org.id ? "rgba(0,122,255,0.07)" : "transparent",
             }}
           >
             <OrgIcon org={org} size={iconSize} />
             <div style={{ flex: 1, minWidth: 0 }}>
-              <p style={{ fontSize: compact ? 13 : 15, fontWeight: selectedId === org.id ? 600 : 400, color: "#1c1c1e", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontFamily: "-apple-system, sans-serif" }}>
+              <p style={{ fontSize: compact ? 12 : 15, fontWeight: selectedId === org.id ? 600 : 400, color: "#1c1c1e", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontFamily: "-apple-system, sans-serif" }}>
                 {org.name}
               </p>
               <p style={{ fontSize: compact ? 10 : 12, color: "#8e8e93" }}>{org.role}</p>
@@ -263,28 +250,47 @@ export default function FilesApp({ orientation }: Props) {
     );
   }
 
+  function ColHeader({ title }: { title: string }) {
+    return (
+      <div style={{ padding: "10px 12px 8px", borderBottom: "0.5px solid rgba(60,60,67,0.1)", flexShrink: 0 }}>
+        <h3 style={{ fontSize: 13, fontWeight: 600, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>{title}</h3>
+      </div>
+    );
+  }
+
+  function EmptyColHint({ label }: { label: string }) {
+    return (
+      <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8, height: "100%" }}>
+        <FolderSVG color="#d1d1d6" size={34} />
+        <p style={{ fontSize: 11, color: "#c7c7cc", fontFamily: "-apple-system, sans-serif", textAlign: "center" }}>{label}</p>
+      </div>
+    );
+  }
+
+  // ─── Landscape: 4-column Finder layout ───────────────────────────────────
   if (isLandscape) {
     return (
       <div className="app-window" style={{ background: "#f2f2f7", display: "flex", flexDirection: "row" }}>
-        {/* Column 1: Top-level folders */}
-        <div style={{ width: 170, borderRight: "0.5px solid rgba(60,60,67,0.18)", display: "flex", flexDirection: "column", overflow: "hidden", background: "#f7f7f7" }}>
-          <div style={{ padding: "16px 14px 10px" }}>
-            <h2 style={{ fontSize: 15, fontWeight: 700, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif", letterSpacing: -0.2 }}>Organizations</h2>
+
+        {/* Col 1 — Root folders (118px) */}
+        <div style={{ width: 118, borderRight: "0.5px solid rgba(60,60,67,0.18)", background: "#f7f7f7", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+          <div style={{ padding: "14px 12px 8px" }}>
+            <h2 style={{ fontSize: 13, fontWeight: 700, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif", letterSpacing: -0.2 }}>Organizations</h2>
           </div>
-          <div className="ios-scroll" style={{ flex: 1, overflowY: "auto", padding: "4px 8px 16px" }}>
+          <div className="ios-scroll" style={{ flex: 1, overflowY: "auto", padding: "0 6px 16px" }}>
             {topFolderDefs.map((folder) => (
               <motion.div
                 key={folder.id}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => handleTopFolder(folder.id)}
                 style={{
-                  display: "flex", alignItems: "center", gap: 10, padding: "8px 8px",
-                  borderRadius: 8, cursor: "pointer", marginBottom: 2,
+                  display: "flex", alignItems: "center", gap: 7, padding: "7px 7px",
+                  borderRadius: 7, cursor: "pointer", marginBottom: 2,
                   background: topFolder === folder.id ? "rgba(0,122,255,0.12)" : "transparent",
                 }}
               >
-                <FolderSVG color={folder.color} size={28} />
-                <span style={{ fontSize: 13, fontWeight: topFolder === folder.id ? 600 : 400, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>
+                <FolderSVG color={folder.color} size={24} />
+                <span style={{ fontSize: 12, fontWeight: topFolder === folder.id ? 600 : 400, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>
                   {folder.label}
                 </span>
               </motion.div>
@@ -292,41 +298,33 @@ export default function FilesApp({ orientation }: Props) {
           </div>
         </div>
 
-        {/* Column 2: Subfolders / Items */}
-        <div style={{ width: 210, borderRight: "0.5px solid rgba(60,60,67,0.18)", display: "flex", flexDirection: "column", overflow: "hidden", background: "white" }}>
-          {/* Header with breadcrumb nav */}
-          <div style={{ padding: "10px 14px 8px", borderBottom: "0.5px solid rgba(60,60,67,0.1)", flexShrink: 0 }}>
-            {col2Parent && (
-              <div style={{ display: "flex", alignItems: "center", gap: 3, marginBottom: 3 }}>
-                <button
-                  onClick={handleCol2Back}
-                  style={{ background: "none", border: "none", cursor: "pointer", padding: 0, display: "flex", alignItems: "center", gap: 3, color: "#007aff" }}
-                >
-                  <svg width="6" height="10" viewBox="0 0 6 10" fill="none"><path d="M5 1L1 5l4 4" stroke="#007aff" strokeWidth="1.6" strokeLinecap="round" /></svg>
-                  <span style={{ fontSize: 11, fontWeight: 500, color: "#007aff" }}>{col2Parent}</span>
-                </button>
-                <svg width="4" height="7" viewBox="0 0 4 7" fill="none"><path d="M1 1L3.5 3.5L1 6" stroke="#8e8e93" strokeWidth="1.2" strokeLinecap="round" /></svg>
-                <span style={{ fontSize: 11, color: "#8e8e93" }}>{col2Title}</span>
-              </div>
-            )}
-            <h2 style={{ fontSize: 14, fontWeight: 600, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>
-              {col2Title}
-            </h2>
-          </div>
+        {/* Col 2 — Subfolders (148px) */}
+        <div style={{ width: 148, borderRight: "0.5px solid rgba(60,60,67,0.18)", background: "white", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+          <ColHeader title={col2Title} />
           <div className="ios-scroll" style={{ flex: 1, overflowY: "auto" }}>
             {!topFolder ? (
-              <div style={{ display: "flex", alignItems: "center", justifyContent: "center", height: "100%" }}>
-                <p style={{ fontSize: 12, color: "#8e8e93", fontFamily: "-apple-system, sans-serif" }}>Select a folder</p>
-              </div>
-            ) : topFolder === "usc" && uscSubfolder === null ? (
-              <UscSubfolderList compact />
+              <EmptyColHint label="Select a folder" />
             ) : (
-              <MiddleList compact />
+              <SubfolderList compact />
             )}
           </div>
         </div>
 
-        {/* Column 3: Detail */}
+        {/* Col 3 — Org list (185px) */}
+        <div style={{ width: 185, borderRight: "0.5px solid rgba(60,60,67,0.18)", background: "white", display: "flex", flexDirection: "column", overflow: "hidden" }}>
+          <ColHeader title={col3Title} />
+          <div className="ios-scroll" style={{ flex: 1, overflowY: "auto" }}>
+            {!subfolder ? (
+              <EmptyColHint label="Select a category" />
+            ) : col3Items.length === 0 ? (
+              <EmptyColHint label="No items" />
+            ) : (
+              <OrgList items={col3Items} compact />
+            )}
+          </div>
+        </div>
+
+        {/* Col 4 — Detail (flex 1) */}
         <div style={{ flex: 1, display: "flex", flexDirection: "column", overflow: "hidden", background: "#f7f7f7" }}>
           <AnimatePresence mode="wait">
             {selectedOrg ? (
@@ -334,47 +332,26 @@ export default function FilesApp({ orientation }: Props) {
                 <OrgDetail org={selectedOrg} onBack={() => setSelectedId(null)} showBack={false} />
               </motion.div>
             ) : (
-              <motion.div key="empty" initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 10, height: "100%" }}>
-                <FolderSVG color="#c7c7cc" size={52} />
-                <p style={{ fontSize: 13, color: "#8e8e93", fontFamily: "-apple-system, sans-serif" }}>Select an organization</p>
+              <motion.div key="empty-detail" initial={{ opacity: 0 }} animate={{ opacity: 1 }} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 10, height: "100%" }}>
+                <FolderSVG color="#c7c7cc" size={48} />
+                <p style={{ fontSize: 12, color: "#8e8e93", fontFamily: "-apple-system, sans-serif" }}>Select an organization</p>
               </motion.div>
             )}
           </AnimatePresence>
         </div>
+
       </div>
     );
   }
 
-  // Portrait: stack navigation
-  // Depth 0: Root (USC, HS)
-  // Depth 1: USC subfolders | HS orgs + Volunteering folder
-  // Depth 2: USC subfolder orgs | Volunteering orgs
-  // Depth 3: Org detail
-  const portraitDepth = selectedId ? 3
-    : topFolder === "usc" && uscSubfolder !== null ? 2
-    : topFolder === "highschool" && inVolunteering ? 2
-    : topFolder !== null ? 1
-    : 0;
-
-  function PortraitNavBar({ title, onBack, backLabel }: { title: string; onBack: () => void; backLabel: string }) {
-    return (
-      <div style={{ padding: "14px 16px 8px", flexShrink: 0 }}>
-        <button
-          onClick={onBack}
-          style={{ display: "flex", alignItems: "center", gap: 5, color: "#007aff", fontSize: 16, background: "none", border: "none", cursor: "pointer", padding: 0, fontFamily: "-apple-system, sans-serif" }}
-        >
-          <svg width="8" height="13" viewBox="0 0 8 13" fill="none"><path d="M7 1L1 6.5L7 12" stroke="#007aff" strokeWidth="1.8" strokeLinecap="round" /></svg>
-          {backLabel}
-        </button>
-      </div>
-    );
-  }
-
+  // ─── Portrait: stacked push-nav (4 depths) ───────────────────────────────
   return (
     <div className="app-window" style={{ background: "#f2f2f7" }}>
       <AnimatePresence mode="wait">
+
+        {/* Depth 0 — Root */}
         {portraitDepth === 0 && (
-          <motion.div key="l0" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+          <motion.div key="p0" initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} style={{ display: "flex", flexDirection: "column", height: "100%" }}>
             <div className="ios-scroll" style={{ flex: 1, overflowY: "auto", padding: "16px 16px 32px" }}>
               <h1 style={{ fontSize: 34, fontWeight: 700, color: "#1c1c1e", marginBottom: 20, fontFamily: "-apple-system, sans-serif", letterSpacing: -0.5 }}>Organizations</h1>
               <div style={{ background: "white", borderRadius: 12, overflow: "hidden" }}>
@@ -395,54 +372,61 @@ export default function FilesApp({ orientation }: Props) {
           </motion.div>
         )}
 
+        {/* Depth 1 — Subfolders */}
         {portraitDepth === 1 && (
-          <motion.div key={`l1-${topFolder}`} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-            <PortraitNavBar
-              title={topFolder === "usc" ? "USC" : "High School"}
-              onBack={() => { setTopFolder(null); }}
-              backLabel="Organizations"
-            />
+          <motion.div key={`p1-${topFolder}`} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+            <div style={{ padding: "14px 16px 8px", flexShrink: 0 }}>
+              <button onClick={() => setTopFolder(null)} style={{ display: "flex", alignItems: "center", gap: 5, color: "#007aff", fontSize: 16, background: "none", border: "none", cursor: "pointer", padding: 0, fontFamily: "-apple-system, sans-serif" }}>
+                <svg width="8" height="13" viewBox="0 0 8 13" fill="none"><path d="M7 1L1 6.5L7 12" stroke="#007aff" strokeWidth="1.8" strokeLinecap="round" /></svg>
+                Organizations
+              </button>
+            </div>
             <div className="ios-scroll" style={{ flex: 1, overflowY: "auto", padding: "0 16px 32px" }}>
               <h1 style={{ fontSize: 28, fontWeight: 700, color: "#1c1c1e", marginBottom: 16, fontFamily: "-apple-system, sans-serif", letterSpacing: -0.4 }}>
                 {topFolder === "usc" ? "USC" : "High School"}
               </h1>
               <div style={{ background: "white", borderRadius: 12, overflow: "hidden" }}>
-                {topFolder === "usc" ? (
-                  <UscSubfolderList />
-                ) : (
-                  <MiddleList />
-                )}
+                <SubfolderList />
               </div>
             </div>
           </motion.div>
         )}
 
+        {/* Depth 2 — Org list */}
         {portraitDepth === 2 && (
-          <motion.div key={`l2-${uscSubfolder ?? "vol"}`} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} style={{ display: "flex", flexDirection: "column", height: "100%" }}>
-            <PortraitNavBar
-              title={uscSubfolder === "professional" ? "Professional" : uscSubfolder === "social" ? "Social" : "Volunteering"}
-              onBack={() => {
-                if (topFolder === "usc") { setUscSubfolder(null); setSelectedId(null); }
-                else { setInVolunteering(false); setSelectedId(null); }
-              }}
-              backLabel={topFolder === "usc" ? "USC" : "High School"}
-            />
+          <motion.div key={`p2-${subfolder}`} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} style={{ display: "flex", flexDirection: "column", height: "100%" }}>
+            <div style={{ padding: "14px 16px 8px", flexShrink: 0 }}>
+              <button
+                onClick={() => { setSubfolder(null); setSelectedId(null); }}
+                style={{ display: "flex", alignItems: "center", gap: 5, color: "#007aff", fontSize: 16, background: "none", border: "none", cursor: "pointer", padding: 0, fontFamily: "-apple-system, sans-serif" }}
+              >
+                <svg width="8" height="13" viewBox="0 0 8 13" fill="none"><path d="M7 1L1 6.5L7 12" stroke="#007aff" strokeWidth="1.8" strokeLinecap="round" /></svg>
+                {topFolder === "usc" ? "USC" : "High School"}
+              </button>
+            </div>
             <div className="ios-scroll" style={{ flex: 1, overflowY: "auto", padding: "0 16px 32px" }}>
               <h1 style={{ fontSize: 28, fontWeight: 700, color: "#1c1c1e", marginBottom: 16, fontFamily: "-apple-system, sans-serif", letterSpacing: -0.4 }}>
-                {uscSubfolder === "professional" ? "Professional" : uscSubfolder === "social" ? "Social" : "Volunteering"}
+                {col3Title}
               </h1>
               <div style={{ background: "white", borderRadius: 12, overflow: "hidden" }}>
-                <MiddleList />
+                <OrgList items={col3Items} />
               </div>
             </div>
           </motion.div>
         )}
 
+        {/* Depth 3 — Org detail */}
         {portraitDepth === 3 && selectedOrg && (
-          <motion.div key={`detail-${selectedOrg.id}`} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} style={{ height: "100%" }}>
-            <OrgDetail org={selectedOrg} onBack={() => setSelectedId(null)} showBack={true} />
+          <motion.div key={`p3-${selectedOrg.id}`} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 20 }} style={{ height: "100%" }}>
+            <OrgDetail
+              org={selectedOrg}
+              onBack={() => setSelectedId(null)}
+              showBack
+              backLabel={col3Title}
+            />
           </motion.div>
         )}
+
       </AnimatePresence>
     </div>
   );

@@ -63,11 +63,11 @@ export default function SkillsApp({ onClose }: Props) {
                 transition={{ delay: 0.1 + i * 0.04 }}
                 style={{
                   fontSize: 13,
-                  fontWeight: 600,
-                  color: "#34c759",
-                  background: "rgba(52,199,89,0.12)",
-                  border: "1px solid rgba(52,199,89,0.25)",
-                  borderRadius: 12,
+                  fontWeight: 500,
+                  color: "#1c1c1e",
+                  background: "white",
+                  border: "0.5px solid rgba(60,60,67,0.2)",
+                  borderRadius: 20,
                   padding: "6px 14px",
                 }}
               >

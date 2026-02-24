@@ -129,8 +129,8 @@ function TodayCard({ project }: { project: typeof projects[0] }) {
               target="_blank"
               rel="noopener noreferrer"
               style={{
-                background: "#f2f2f7",
-                color: "#1c1c1e",
+                background: "#007AFF",
+                color: "white",
                 borderRadius: 20,
                 padding: "9px 20px",
                 fontSize: 14,
@@ -237,8 +237,8 @@ function AppRow({ project, index, expanded, onToggle }: {
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
               style={{
-                background: "#f2f2f7",
-                color: "#1c1c1e",
+                background: "#007AFF",
+                color: "white",
                 borderRadius: 20,
                 padding: "5px 14px",
                 fontSize: 13,

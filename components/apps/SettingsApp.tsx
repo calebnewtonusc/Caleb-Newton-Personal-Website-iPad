@@ -203,9 +203,6 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                           <span style={{ fontSize: 17, color: "#1c1c1e", flex: 1, fontFamily: "-apple-system, sans-serif" }}>
                             {sec.section}
                           </span>
-                          <span style={{ fontSize: 14, color: "#8e8e93", fontFamily: "-apple-system, sans-serif", marginRight: 6 }}>
-                            {sec.items.filter((item) => item.type === "toggle-on").length} on
-                          </span>
                           <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
                             <path d="M1 1l5 5L1 11" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                           </svg>
@@ -300,9 +297,6 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                   <SectionIcon iconId={section.icon} />
                   <div>
                     <h2 style={{ fontSize: 22, fontWeight: 700, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>{section.section}</h2>
-                    <p style={{ fontSize: 13, color: "#636366", fontFamily: "-apple-system, sans-serif" }}>
-                      {section.items.filter((i) => i.type === "toggle-on").length} active · {section.items.length} total
-                    </p>
                   </div>
                 </div>
 
@@ -320,9 +314,6 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                     >
                       <div style={{ flex: 1 }}>
                         <p style={{ fontSize: 17, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>{item.label}</p>
-                        {item.type !== "toggle-on" && item.type !== "toggle-off" && (
-                          <p style={{ fontSize: 13, color: "#8e8e93", fontFamily: "-apple-system, sans-serif", marginTop: 1 }}>{item.detail}</p>
-                        )}
                       </div>
                       {(item.type === "toggle-on" || item.type === "toggle-off") ? (
                         <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", gap: 2 }}>

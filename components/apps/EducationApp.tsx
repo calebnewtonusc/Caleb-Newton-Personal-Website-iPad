@@ -89,29 +89,15 @@ export default function EducationApp({ onClose }: Props) {
               >
                 <div
                   style={{
-                    background: "#fffde8",
-                    border: "1px solid rgba(255,196,0,0.35)",
+                    background: "white",
                     borderRadius: 18,
                     padding: 18,
-                    boxShadow: "0 2px 16px rgba(255,196,0,0.12)",
+                    boxShadow: "0 1px 8px rgba(0,0,0,0.07)",
                   }}
                 >
                   {/* Label */}
-                  <div style={{ marginBottom: 12 }}>
-                    <span
-                      style={{
-                        display: "inline-flex",
-                        alignItems: "center",
-                        gap: 6,
-                        background: "rgba(255,196,0,0.2)",
-                        borderRadius: 20,
-                        padding: "4px 10px",
-                        fontSize: 12,
-                        fontWeight: 600,
-                        color: "#b8860b",
-                      }}
-                    >
-                      <span style={{ width: 7, height: 7, borderRadius: "50%", background: "#c8960b", flexShrink: 0, display: "block" }} />
+                  <div style={{ marginBottom: 10 }}>
+                    <span style={{ fontSize: 12, fontWeight: 600, color: "#8e8e93", letterSpacing: 0.2 }}>
                       Recent Note
                     </span>
                   </div>
@@ -326,24 +312,17 @@ export default function EducationApp({ onClose }: Props) {
                   ))}
                 </div>
 
-                {/* Highlights as inline bullets */}
+                {/* Highlights */}
                 {selectedEd.highlights.length > 0 && (
-                  <div
-                    style={{
-                      background: `${selectedEd.color}0d`,
-                      borderLeft: `3px solid ${selectedEd.color}`,
-                      borderRadius: 4,
-                      padding: "12px 16px",
-                      marginTop: 8,
-                    }}
-                  >
-                    <p style={{ fontSize: 12, fontWeight: 700, color: selectedEd.color, marginBottom: 8, textTransform: "uppercase", letterSpacing: 0.5 }}>
+                  <div style={{ marginTop: 8 }}>
+                    <p style={{ fontSize: 20, fontWeight: 700, color: "#1c1c1e", marginBottom: 10, fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" }}>
                       Highlights
                     </p>
                     {selectedEd.highlights.map((h, i) => (
-                      <p key={i} style={{ fontSize: 14, color: "#3a3a3c", lineHeight: 1.55, marginBottom: 6 }}>
-                        &middot; {h}
-                      </p>
+                      <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 10 }}>
+                        <span style={{ fontSize: 20, lineHeight: "1.55", color: "#1c1c1e", flexShrink: 0, marginTop: -1 }}>•</span>
+                        <p style={{ fontSize: 16, color: "#1c1c1e", lineHeight: 1.55, margin: 0 }}>{h}</p>
+                      </div>
                     ))}
                   </div>
                 )}

@@ -42,9 +42,7 @@ export default function AboutApp({ onClose }: Props) {
                 borderRadius: "50%",
                 overflow: "hidden",
                 flexShrink: 0,
-                border: "3px solid #34c759",
-                boxShadow: "0 0 0 4px rgba(52,199,89,0.2)",
-              }}
+                }}
             >
               <Image
                 src={profile.photo}
