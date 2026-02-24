@@ -14,17 +14,21 @@ interface Props {
 
 function WorkCalendarIcon({ size }: { size: number }) {
   const now = new Date();
-  const dayStr = now.toLocaleDateString("en-US", { weekday: "short" }).toUpperCase();
+  const dayStr = now.toLocaleDateString("en-US", { weekday: "short" });
   const dayNum = now.getDate();
   return (
-    <div style={{ width: size, height: size, borderRadius: size * 0.2255, overflow: "hidden", background: "white", display: "flex", flexDirection: "column", flexShrink: 0 }}>
-      <div style={{ background: "#FF3B30", height: size * 0.32, display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <span style={{ fontSize: size * 0.165, fontWeight: 600, color: "white", fontFamily: "-apple-system, sans-serif", letterSpacing: 0.5 }}>
-          {dayStr}
+    <div style={{
+      width: size, height: size, borderRadius: size * 0.2255, overflow: "hidden",
+      background: "white", display: "flex", flexDirection: "column", flexShrink: 0,
+      boxShadow: "0 0 0 0.5px rgba(0,0,0,0.14)",
+    }}>
+      <div style={{ height: size * 0.33, display: "flex", alignItems: "center", justifyContent: "center", borderBottom: "0.5px solid rgba(60,60,67,0.1)" }}>
+        <span style={{ fontSize: size * 0.17, fontWeight: 600, color: "#FF3B30", fontFamily: "-apple-system, sans-serif", letterSpacing: 0.3 }}>
+          {dayStr.toUpperCase()}
         </span>
       </div>
       <div style={{ flex: 1, display: "flex", alignItems: "center", justifyContent: "center" }}>
-        <span style={{ fontSize: size * 0.42, fontWeight: 300, color: "#1c1c1e", fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif", lineHeight: 1 }}>
+        <span style={{ fontSize: size * 0.52, fontWeight: 200, color: "#1c1c1e", fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif", lineHeight: 1 }}>
           {dayNum}
         </span>
       </div>
