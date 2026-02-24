@@ -30,6 +30,21 @@ export const social = {
 
 export const experience = [
   {
+    id: "blue-modern",
+    title: "Software Engineer",
+    company: "Blue Modern Advisory",
+    period: "2025 - Present",
+    year: "2025",
+    logo: "",
+    color: "#0A66C2",
+    website: "https://bluemodernadvisory.com/",
+    description:
+      "Engineering a digital health network for Amber — connecting patients and providers through intelligent, data-driven software.",
+    achievements: [],
+    skills: ["Digital Health", "Software Engineering", "Health Tech", "TypeScript"],
+    photos: [],
+  },
+  {
     id: "aina",
     title: "Software Engineer & Immersive Studio Production Assistant",
     company: "AINA Tech",
@@ -48,35 +63,6 @@ export const experience = [
     ],
     skills: ["Computer Vision", "Neural Radiance Fields", "Gaussian Splatting", "Python", "React"],
     photos: ["/assets/AinatechImages/Ainatechsetup.jpg", "/assets/AinatechImages/Ainatechgoats.jpg"],
-  },
-  {
-    id: "usc-research",
-    title: "Research Assistant",
-    company: "USC",
-    period: "2026 – Present",
-    year: "2026",
-    logo: "/assets/logos/usc.png",
-    color: "#990000",
-    website: "https://www.usc.edu",
-    description: "Machine Learning Research Assistant — coming soon.",
-    achievements: [],
-    skills: ["Machine Learning", "Research"],
-    photos: ["/assets/usc_research.jpg"],
-  },
-  {
-    id: "blue-modern",
-    title: "Software Engineer",
-    company: "Blue Modern Advisory",
-    period: "2025 - Present",
-    year: "2025",
-    logo: "",
-    color: "#0A66C2",
-    website: "https://bluemodernadvisory.com/",
-    description:
-      "Engineering a digital health network for Amber — connecting patients and providers through intelligent, data-driven software.",
-    achievements: [],
-    skills: ["Digital Health", "Software Engineering", "Health Tech", "TypeScript"],
-    photos: [],
   },
   {
     id: "fleurs",
@@ -648,7 +634,6 @@ export const music = {
 // ─── App Definitions ─────────────────────────────────────────────────────────
 
 export type AppId =
-  | "about"
   | "work"
   | "projects"
   | "education"
@@ -675,7 +660,6 @@ export interface AppDef {
 }
 
 export const apps: AppDef[] = [
-  { id: "about",        name: "About",       emoji: "A", icon: "/assets/Newton_Caleb_Photo.png",   gradient: ["#007AFF", "#0051D5"] },
   { id: "work",         name: "Work",        emoji: "W", icon: "/assets/icons/calendar_ios.png",   gradient: ["#AF52DE", "#7B2D8B"] },
   { id: "projects",     name: "Projects",    emoji: "P", icon: "/assets/icons/appstore.png",       gradient: ["#FF9500", "#FF5E00"] },
   { id: "education",    name: "Education",   emoji: "E", icon: "/assets/icons/notes.png",           gradient: ["#FF3B30", "#C0392B"] },
@@ -693,4 +677,4 @@ export const apps: AppDef[] = [
   { id: "calebgpt",     name: "CalebGPT",    emoji: "C", icon: "/assets/icons/chatgpt.png",        gradient: ["#10A37F", "#1A7F64"] },
 ];
 
-export const dockApps: AppId[] = ["linkedin", "github", "youtube", "spotify", "letterboxd", "rateyourmusic"];
+export const dockApps: AppId[] = ["linkedin", "github", "youtube", "x", "letterboxd", "rateyourmusic"];

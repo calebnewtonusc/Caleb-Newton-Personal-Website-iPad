@@ -14,9 +14,8 @@ ABOUT CALEB:
 - Follower of Jesus — faith is central to who he is
 
 WORK:
-- Software Engineer & Production Assistant @ AINA Tech (Sept 2025 - Present): building holographic video systems using Gaussian Splatting and Neural Radiance Fields with a 75-camera RED Komodo rig
 - Software Engineer @ Blue Modern Advisory (2025 - Present): engineering a digital health network for Amber, connecting patients and providers through intelligent, data-driven software
-- Research Assistant @ USC (2026 - Present): ML research
+- Software Engineer & Production Assistant @ AINA Tech (Sept 2025 - Present): building holographic video systems using Gaussian Splatting and Neural Radiance Fields with a 75-camera RED Komodo rig
 - Strategic Business Consultant @ Fleurs et Sel Cookies (2025)
 - Co-Founder @ SGV Christian Club Collective (Nov 2024 - June 2025): united 15+ high school Christian clubs across San Gabriel Valley; hosted 200+ student events
 - Research Assistant @ Caltech (Aug 2024 - June 2025): control theory simulations with MATLAB and Python

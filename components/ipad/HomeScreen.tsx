@@ -314,7 +314,7 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
             flex: 1,
             display: "flex",
             flexDirection: "column",
-            justifyContent: "center",
+            justifyContent: "flex-start",
             padding: isLandscape ? "16px 20px 8px" : "20px 16px 8px",
             overflow: "hidden",
           }}

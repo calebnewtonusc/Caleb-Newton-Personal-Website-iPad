@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import type { AppId } from "@/data/content";
 
 // App imports
-import AboutApp from "./AboutApp";
 import WorkApp from "./WorkApp";
 import ProjectsApp from "./ProjectsApp";
 import EducationApp from "./EducationApp";
@@ -22,7 +21,6 @@ interface Props {
 }
 
 const appMap: Record<string, React.ComponentType<{ onClose: () => void; orientation: string }>> = {
-  about: AboutApp,
   work: WorkApp,
   projects: ProjectsApp,
   education: EducationApp,
@@ -44,10 +42,12 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
       style={{
         position: "absolute",
         inset: 0,
+        zIndex: 10,
         display: "flex",
         flexDirection: "column",
         borderRadius: "inherit",
         overflow: "hidden",
+        background: "#f2f2f7",
       }}
       initial={{ scale: 0.08, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
