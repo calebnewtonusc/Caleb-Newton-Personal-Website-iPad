@@ -52,7 +52,7 @@ function ProjectIcon({ project, size }: { project: typeof projects[0]; size: num
           flexShrink: 0,
           position: "relative",
           overflow: "hidden",
-          padding: "14%",
+          padding: iconSrc.endsWith(".jpg") || iconSrc.endsWith(".jpeg") ? "0%" : "12%",
         }}
       >
         {/* Subtle color tint layer */}
@@ -77,7 +77,7 @@ function ProjectIcon({ project, size }: { project: typeof projects[0]; size: num
           style={{
             width: "100%",
             height: "100%",
-            objectFit: "contain",
+            objectFit: iconSrc.endsWith(".jpg") || iconSrc.endsWith(".jpeg") ? "cover" : "contain",
             position: "relative",
             zIndex: 1,
             filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.4))",

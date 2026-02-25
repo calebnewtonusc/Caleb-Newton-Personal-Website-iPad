@@ -40,7 +40,6 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef({ active: false, startY: 0, startX: 0 });
   const touchRef = useRef({ startY: 0, startX: 0 });
-  const isNearBottomRef = useRef(false);
   const closedRef = useRef(false);
 
   const safeClose = useCallback(() => {
@@ -58,12 +57,8 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
     const container = containerRef.current;
     if (!container) return;
 
-    // Track if cursor is near the bottom zone
+    // Handle drag-up to close
     const handleMouseMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
-      isNearBottomRef.current = e.clientY > rect.bottom - 80;
-
-      // Handle drag-up to close
       if (dragRef.current.active) {
         const dy = dragRef.current.startY - e.clientY;
         if (dy > 120) {
@@ -81,13 +76,7 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
       dragRef.current.active = false;
     };
 
-    // Scroll up near bottom → exit
-    const handleWheel = (e: WheelEvent) => {
-      if (isNearBottomRef.current && e.deltaY < 0) {
-        e.stopPropagation();
-        safeClose();
-      }
-    };
+    // Wheel-to-exit is now handled by the dedicated bottom zone overlay
 
     // Touch: swipe up to exit
     const handleTouchStart = (e: TouchEvent) => {
@@ -106,7 +95,6 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
     container.addEventListener("mousemove", handleMouseMove);
     container.addEventListener("mousedown", handleMouseDown);
     window.addEventListener("mouseup", handleMouseUp);
-    container.addEventListener("wheel", handleWheel, { passive: false });
     container.addEventListener("touchstart", handleTouchStart, { passive: true });
     container.addEventListener("touchend", handleTouchEnd, { passive: true });
 
@@ -114,7 +102,6 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
       container.removeEventListener("mousemove", handleMouseMove);
       container.removeEventListener("mousedown", handleMouseDown);
       window.removeEventListener("mouseup", handleMouseUp);
-      container.removeEventListener("wheel", handleWheel);
       container.removeEventListener("touchstart", handleTouchStart);
       container.removeEventListener("touchend", handleTouchEnd);
     };
@@ -129,8 +116,8 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
         position: "absolute",
         inset: 0,
         zIndex: 10,
-        borderRadius: "inherit",
         overflow: "hidden",
+        background: "#f2f2f7",
       }}
       initial={{ scale: 0.08, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
@@ -141,6 +128,25 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
       <div style={{ position: "absolute", inset: 0 }}>
         <AppComponent onClose={onClose} orientation={orientation} />
       </div>
+
+      {/* Invisible scroll-capture zone over home indicator area */}
+      <div
+        style={{
+          position: "absolute",
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: 44,
+          zIndex: 19,
+          cursor: "default",
+        }}
+        onWheel={(e) => {
+          if (e.deltaY < 0) {
+            e.stopPropagation();
+            safeClose();
+          }
+        }}
+      />
 
       {/* Home Indicator - clickable, also acts as visual swipe target */}
       <motion.div

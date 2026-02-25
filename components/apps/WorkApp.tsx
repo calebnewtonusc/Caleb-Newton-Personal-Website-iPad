@@ -58,11 +58,11 @@ const WorkCard = memo(function WorkCard({
           )}
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ display: "flex", alignItems: "baseline", justifyContent: "space-between", gap: 8, marginBottom: 3 }}>
+          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 8, marginBottom: 3 }}>
             <span style={{ fontSize: 16, fontWeight: 700, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif", lineHeight: 1.2 }}>
               {exp.company}
             </span>
-            <span style={{ fontSize: 11, color: "#8e8e93", flexShrink: 0, fontFamily: "-apple-system, sans-serif" }}>
+            <span style={{ fontSize: 12, color: "#8e8e93", flexShrink: 0, fontFamily: "-apple-system, sans-serif", marginTop: 2, textAlign: "right" }}>
               {exp.period}
             </span>
           </div>

@@ -479,6 +479,16 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
           />
         </div>
       </div>
+
+      {/* Projects Folder Overlay */}
+      <AnimatePresence>
+        {folderOpen && (
+          <ProjectsFolder
+            onClose={() => setFolderOpen(false)}
+            orientation={orientation}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

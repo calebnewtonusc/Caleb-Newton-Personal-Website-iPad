@@ -25,16 +25,16 @@ export default function IPadFrame({ orientation, children, onPowerPress }: Props
   const screenW = outerW - bezelV * 2;
   const screenH = outerH - bezelH * 2;
 
-  // White / Silver aluminum frame gradient
+  // Matte green aluminum frame gradient
   const frameGrad = `
-    radial-gradient(ellipse at 25% 15%, #f8f8f8 0%, transparent 50%),
-    radial-gradient(ellipse at 75% 85%, #d0d0d0 0%, transparent 55%),
-    linear-gradient(155deg, #f2f2f2 0%, #e0e0e0 25%, #ebebeb 50%, #d8d8d8 75%, #f0f0f0 100%)
+    radial-gradient(ellipse at 25% 15%, #6a8f73 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 85%, #3b5543 0%, transparent 55%),
+    linear-gradient(155deg, #5a7d63 0%, #4a6b53 25%, #527461 50%, #465e4e 75%, #547865 100%)
   `;
 
   const btnGrad = isLandscape
-    ? "linear-gradient(90deg, #b8b8b8 0%, #d8d8d8 50%, #c8c8c8 100%)"
-    : "linear-gradient(180deg, #b8b8b8 0%, #d8d8d8 50%, #c8c8c8 100%)";
+    ? "linear-gradient(90deg, #3b5543 0%, #5a7d63 50%, #4a6b53 100%)"
+    : "linear-gradient(180deg, #3b5543 0%, #5a7d63 50%, #4a6b53 100%)";
 
   return (
     <div
@@ -130,7 +130,7 @@ export default function IPadFrame({ orientation, children, onPowerPress }: Props
           inset: 0,
           borderRadius: "inherit",
           background:
-            "linear-gradient(145deg, rgba(255,255,255,0.6) 0%, transparent 30%, rgba(0,0,0,0.03) 100%)",
+            "linear-gradient(145deg, rgba(255,255,255,0.45) 0%, transparent 30%, rgba(0,0,0,0.05) 100%)",
           pointerEvents: "none",
         }}
       />

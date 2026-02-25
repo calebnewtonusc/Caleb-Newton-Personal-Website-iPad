@@ -36,18 +36,18 @@ const SECTION_ICONS: Record<string, { bg: string; render: () => React.ReactNode 
   faith: {
     bg: "#5856D6",
     render: () => (
-      <svg width="16" height="20" viewBox="0 0 16 20" fill="white">
-        <rect x="6.5" y="0" width="3" height="20" rx="1.5" />
-        <rect x="0" y="5" width="16" height="3" rx="1.5" />
+      <svg width="15" height="19" viewBox="0 0 15 19" fill="none">
+        <rect x="6" y="0" width="3" height="19" rx="1.5" fill="white" />
+        <rect x="0" y="5" width="15" height="3" rx="1.5" fill="white" />
       </svg>
     ),
   },
   music: {
     bg: "#FF2D55",
     render: () => (
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <path d="M6 12.5V4l9-1.5v7" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-        <circle cx="3.5" cy="12.5" r="2.5" fill="white" />
+      <svg width="17" height="16" viewBox="0 0 17 16" fill="none">
+        <path d="M5.5 13V4.5L15 3v7.5" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="3" cy="13" r="2.5" fill="white" />
         <circle cx="12.5" cy="10.5" r="2.5" fill="white" />
       </svg>
     ),
@@ -55,48 +55,49 @@ const SECTION_ICONS: Record<string, { bg: string; render: () => React.ReactNode 
   sports: {
     bg: "#34C759",
     render: () => (
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <circle cx="8" cy="8" r="7" stroke="white" strokeWidth="1.5" />
-        <path d="M4.5 3C6 5 6 11 4.5 13M11.5 3C10 5 10 11 11.5 13" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M1 8h14" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+        <circle cx="9" cy="9" r="7.5" stroke="white" strokeWidth="1.5" />
+        <path d="M9 1.5v15M1.5 9h15" stroke="white" strokeWidth="1.2" strokeLinecap="round" />
+        <path d="M3.5 3.5L14.5 14.5M14.5 3.5L3.5 14.5" stroke="white" strokeWidth="1" strokeLinecap="round" />
       </svg>
     ),
   },
   film: {
     bg: "#FF9500",
     render: () => (
-      <svg width="16" height="14" viewBox="0 0 16 14" fill="none">
-        <rect x="1" y="3" width="14" height="10" rx="1.5" stroke="white" strokeWidth="1.5" />
-        <path d="M1 7h14" stroke="white" strokeWidth="1.5" />
-        <path d="M4 3V1M8 3V1M12 3V1" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
-        <path d="M4 3L2 1M8 3L6 1M12 3L10 1" stroke="white" strokeWidth="1.3" strokeLinecap="round" />
+      <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
+        <rect x="1" y="1" width="16" height="12" rx="2" stroke="white" strokeWidth="1.5" />
+        <path d="M1 4.5h16M1 9.5h16" stroke="white" strokeWidth="1" />
+        <path d="M4.5 1v3.5M9 1v3.5M13.5 1v3.5" stroke="white" strokeWidth="1" strokeLinecap="round" />
+        <path d="M4.5 9.5V13M9 9.5V13M13.5 9.5V13" stroke="white" strokeWidth="1" strokeLinecap="round" />
       </svg>
     ),
   },
   runtime: {
     bg: "#FFD60A",
     render: () => (
-      <svg width="12" height="18" viewBox="0 0 12 18" fill="#1c1c1e">
-        <path d="M7 0L0 10h6L5 18 12 7H6z" />
+      <svg width="13" height="18" viewBox="0 0 13 18" fill="none">
+        <path d="M7.5 0.5L0.5 10H6L5.5 17.5L12.5 7H7L7.5 0.5Z" fill="#1c1c1e" stroke="#1c1c1e" strokeWidth="0.5" strokeLinejoin="round" />
       </svg>
     ),
   },
   system: {
     bg: "#636366",
     render: () => (
-      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <circle cx="8" cy="8" r="2.5" stroke="white" strokeWidth="1.5" />
-        <path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.4 3.4l1.4 1.4M11.2 11.2l1.4 1.4M3.4 12.6l1.4-1.4M11.2 4.8l1.4-1.4" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+      <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+        <circle cx="8.5" cy="8.5" r="2.8" stroke="white" strokeWidth="1.5" />
+        <path d="M8.5 1v2.2M8.5 13.8V16M1 8.5h2.2M13.8 8.5H16" stroke="white" strokeWidth="1.6" strokeLinecap="round" />
+        <path d="M3.2 3.2l1.55 1.55M12.25 12.25l1.55 1.55M3.2 13.8l1.55-1.55M12.25 4.75l1.55-1.55" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
       </svg>
     ),
   },
   device: {
     bg: "#8E8E93",
     render: () => (
-      <svg width="11" height="18" viewBox="0 0 11 18" fill="none">
-        <rect x="1" y="1" width="9" height="16" rx="2" stroke="white" strokeWidth="1.5" />
-        <circle cx="5.5" cy="14" r="1" fill="white" />
-        <path d="M3.5 1v1h4V1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+      <svg width="12" height="18" viewBox="0 0 12 18" fill="none">
+        <rect x="1" y="1" width="10" height="16" rx="2.5" stroke="white" strokeWidth="1.5" />
+        <rect x="4" y="2.5" width="4" height="1.5" rx="0.75" fill="white" />
+        <circle cx="6" cy="14.5" r="1.2" fill="white" />
       </svg>
     ),
   },

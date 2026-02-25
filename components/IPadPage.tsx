@@ -19,7 +19,7 @@ export default function IPadPage() {
   const [locked, setLocked] = useState(true);
   const [screenOff, setScreenOff] = useState(false);
   const [userScale, setUserScale] = useState<number | null>(null);
-  const resizeDragRef = useRef({ active: false, startX: 0, startY: 0, startScale: 1 });
+  const resizeDragRef = useRef({ active: false, startX: 0, startY: 0, startScale: 1, corner: "br" as "tl" | "tr" | "bl" | "br" });
 
   const updateScale = useCallback((orient: "landscape" | "portrait") => {
     const ipad = orient === "landscape" ? IPAD_LANDSCAPE : IPAD_PORTRAIT;
@@ -97,7 +97,12 @@ export default function IPadPage() {
       if (!resizeDragRef.current.active) return;
       const dx = e.clientX - resizeDragRef.current.startX;
       const dy = e.clientY - resizeDragRef.current.startY;
-      const delta = (dx + dy) / 500;
+      const { corner } = resizeDragRef.current;
+      let delta: number;
+      if (corner === "br") delta = (dx + dy) / 500;
+      else if (corner === "bl") delta = (-dx + dy) / 500;
+      else if (corner === "tr") delta = (dx - dy) / 500;
+      else delta = (-dx - dy) / 500;
       const newScale = Math.max(0.3, Math.min(2.0, resizeDragRef.current.startScale + delta));
       setUserScale(newScale);
     };
@@ -206,36 +211,49 @@ export default function IPadPage() {
           </AnimatePresence>
         </IPadFrame>
 
-        {/* Resize handle */}
-        <div
-          onMouseDown={(e) => {
-            e.preventDefault();
-            const currentScale = userScale ?? scale;
-            resizeDragRef.current = { active: true, startX: e.clientX, startY: e.clientY, startScale: currentScale };
-          }}
-          style={{
-            position: "absolute",
-            bottom: -20,
-            right: -20,
-            width: 32,
-            height: 32,
-            cursor: "nwse-resize",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            opacity: 0.4,
-            transition: "opacity 0.2s",
-            zIndex: 20,
-          }}
-          onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
-          onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.4")}
-          title="Drag to resize"
-        >
-          <svg width="14" height="14" viewBox="0 0 14 14" fill="rgba(255,255,255,0.8)">
-            <path d="M14 8L8 14L14 14L14 8Z" />
-            <path d="M14 2L2 14L4 14L14 4Z" opacity="0.6" />
-          </svg>
-        </div>
+        {/* Resize handles — all 4 corners */}
+        {(["tl", "tr", "bl", "br"] as const).map((corner) => {
+          const isBR = corner === "br";
+          const isBL = corner === "bl";
+          const isTR = corner === "tr";
+          return (
+            <div
+              key={corner}
+              onMouseDown={(e) => {
+                e.preventDefault();
+                const currentScale = userScale ?? scale;
+                resizeDragRef.current = { active: true, startX: e.clientX, startY: e.clientY, startScale: currentScale, corner };
+              }}
+              style={{
+                position: "absolute",
+                ...(corner === "tl" ? { top: -20, left: -20 } :
+                   corner === "tr" ? { top: -20, right: -20 } :
+                   corner === "bl" ? { bottom: -20, left: -20 } :
+                   { bottom: -20, right: -20 }),
+                width: 32,
+                height: 32,
+                cursor: (corner === "tl" || corner === "br") ? "nwse-resize" : "nesw-resize",
+                display: "flex",
+                alignItems: isBR || isBL ? "flex-end" : "flex-start",
+                justifyContent: isBR || isTR ? "flex-end" : "flex-start",
+                opacity: 0.35,
+                transition: "opacity 0.2s",
+                zIndex: 20,
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.75")}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.35")}
+              title="Drag to resize"
+            >
+              <svg
+                width="10" height="10" viewBox="0 0 10 10" fill="rgba(255,255,255,0.85)"
+                style={{ transform: corner === "tl" ? "rotate(180deg)" : corner === "tr" ? "rotate(270deg)" : corner === "bl" ? "rotate(90deg)" : "none" }}
+              >
+                <path d="M10 6L6 10L10 10L10 6Z" />
+                <path d="M10 1L1 10L3 10L10 3Z" opacity="0.6" />
+              </svg>
+            </div>
+          );
+        })}
       </motion.div>
     </div>
   );

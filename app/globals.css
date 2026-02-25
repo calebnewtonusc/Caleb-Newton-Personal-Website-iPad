@@ -63,7 +63,7 @@ body {
   align-items: center;
   font-size: clamp(4rem, 10vh, 9rem);
   font-weight: 900;
-  color: rgba(255, 255, 255, 0.06);
+  color: rgba(77, 160, 100, 0.45);
   letter-spacing: -0.04em;
   white-space: nowrap;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;
@@ -272,7 +272,7 @@ body {
     rgba(255, 255, 255, 0) 52%
   );
   z-index: 1;
-  border-radius: inherit;
+  border-radius: 0;
   pointer-events: none;
 }
 
@@ -297,7 +297,7 @@ body {
   position: absolute;
   inset: 0;
   background: var(--ios-bg);
-  border-radius: inherit;
+  border-radius: 0;
   overflow: hidden;
   display: flex;
   flex-direction: column;
