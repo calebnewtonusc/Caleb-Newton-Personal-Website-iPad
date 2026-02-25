@@ -4,13 +4,15 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { AppId, AppDef } from "@/data/content";
 import { apps, dockApps } from "@/data/content";
-import ProjectsFolder from "../apps/ProjectsFolder";
 
 interface Props {
   orientation: "landscape" | "portrait";
   onOpenApp: (id: AppId) => void;
   locked: boolean;
   onUnlock: () => void;
+  folderOpen: boolean;
+  onFolderOpen: (origin: { x: string; y: string }) => void;
+  onFolderClose: () => void;
 }
 
 function WorkCalendarIcon({ size }: { size: number }) {
@@ -170,23 +172,16 @@ function AppIcon({
   );
 }
 
-export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }: Props) {
+export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, folderOpen, onFolderOpen, onFolderClose }: Props) {
   const isLandscape = orientation === "landscape";
 
   const [time, setTime] = useState(new Date());
-  const [folderOpen, setFolderOpen] = useState(false);
-  const [folderOrigin, setFolderOrigin] = useState({ x: "50%", y: "50%" });
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
-
-  // Close folder when screen locks or power button pressed
-  useEffect(() => {
-    if (locked) setFolderOpen(false);
-  }, [locked]);
 
   const timeStr = time.toLocaleTimeString("en-US", {
     hour: "numeric",
@@ -229,14 +224,10 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
 
   const handleOpen = (app: AppDef, e: React.MouseEvent) => {
     if (app.id === "projects") {
-      // Capture click position relative to the HomeScreen container for origin animation
-      if (containerRef.current) {
-        const r = containerRef.current.getBoundingClientRect();
-        const x = (((e.clientX - r.left) / r.width) * 100).toFixed(1) + "%";
-        const y = (((e.clientY - r.top) / r.height) * 100).toFixed(1) + "%";
-        setFolderOrigin({ x, y });
-      }
-      setFolderOpen(true);
+      // Origin relative to ipad-viewport (100vw × 100vh) so backdrop covers full screen
+      const x = ((e.clientX / window.innerWidth) * 100).toFixed(1) + "%";
+      const y = ((e.clientY / window.innerHeight) * 100).toFixed(1) + "%";
+      onFolderOpen({ x, y });
       return;
     }
     if (app.external) {
@@ -483,7 +474,7 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
 
         {/* Home indicator — always visible, sits ABOVE folder overlay (zIndex 30) */}
         <div
-          onClick={() => { if (folderOpen) setFolderOpen(false); }}
+          onClick={() => { if (folderOpen) onFolderClose(); }}
           style={{
             height: 12,
             display: "flex",
@@ -509,13 +500,6 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
         </div>
       </div>
 
-      {/* Projects Folder — always rendered, controls its own AnimatePresence internally */}
-      <ProjectsFolder
-        open={folderOpen}
-        onClose={() => setFolderOpen(false)}
-        orientation={orientation}
-        origin={folderOrigin}
-      />
     </div>
   );
 }

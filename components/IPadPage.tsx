@@ -6,6 +6,7 @@ import IPadFrame from "./ipad/IPadFrame";
 import HomeScreen from "./ipad/HomeScreen";
 import AppWindow from "./apps/AppWindow";
 import SpotifyApp from "./apps/SpotifyApp";
+import ProjectsFolder from "./apps/ProjectsFolder";
 import type { AppId } from "@/data/content";
 
 const IPAD_LANDSCAPE = { w: 900, h: 630 };
@@ -16,6 +17,8 @@ export default function IPadPage() {
   const [openApp, setOpenApp] = useState<AppId | null>(null);
   const [userScale, setUserScale] = useState<number | null>(null);
   const [locked, setLocked] = useState(true);
+  const [folderOpen, setFolderOpen] = useState(false);
+  const [folderOrigin, setFolderOrigin] = useState({ x: "50%", y: "50%" });
   const [screenOff, setScreenOff] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -195,6 +198,9 @@ export default function IPadPage() {
     };
   }, [scaleMotionValue]);
 
+  // Close folder when locked
+  useEffect(() => { if (locked) setFolderOpen(false); }, [locked]);
+
   const handlePowerPress = useCallback(() => {
     if (screenOff) {
       setScreenOff(false);
@@ -243,6 +249,14 @@ export default function IPadPage() {
   return (
     <div className="ipad-viewport">
       <div className="page-bg" aria-hidden="true" />
+
+      {/* Projects folder — rendered at viewport level so backdrop covers full screen */}
+      <ProjectsFolder
+        open={folderOpen}
+        onClose={() => setFolderOpen(false)}
+        orientation={orientation}
+        origin={folderOrigin}
+      />
 
       {/* Landscape: fixed vertical labels — fade in/out on orientation change */}
       <AnimatePresence>
@@ -328,6 +342,9 @@ export default function IPadPage() {
               onOpenApp={setOpenApp}
               locked={locked}
               onUnlock={() => setLocked(false)}
+              folderOpen={folderOpen}
+              onFolderOpen={(origin) => { setFolderOrigin(origin); setFolderOpen(true); }}
+              onFolderClose={() => setFolderOpen(false)}
             />
 
             {/* Persistently mounted Spotify with hover+wheel support */}
