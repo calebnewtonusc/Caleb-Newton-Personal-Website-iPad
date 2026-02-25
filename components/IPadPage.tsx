@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue } from "framer-motion";
 import IPadFrame from "./ipad/IPadFrame";
 import HomeScreen from "./ipad/HomeScreen";
 import AppWindow from "./apps/AppWindow";
@@ -11,14 +11,19 @@ import type { AppId } from "@/data/content";
 const IPAD_LANDSCAPE = { w: 900, h: 630 };
 const IPAD_PORTRAIT = { w: 630, h: 900 };
 
+// Approx horizontal extent of the vertical side labels (font-size ≈ clamp(4rem, 10vh, 9rem))
+const LABEL_RESERVE_PX = 90; // px reserved on each side in landscape
+
 export default function IPadPage() {
   const [orientation, setOrientation] = useState<"landscape" | "portrait">("landscape");
   const [openApp, setOpenApp] = useState<AppId | null>(null);
-  const [scale, setScale] = useState(1);
-  const [visible, setVisible] = useState(true);
+  const [userScale, setUserScale] = useState<number | null>(null);
   const [locked, setLocked] = useState(true);
   const [screenOff, setScreenOff] = useState(false);
-  const [userScale, setUserScale] = useState<number | null>(null);
+  const [mounted, setMounted] = useState(false);
+
+  // useMotionValue → instant updates on every mousemove/resize, no animation lag
+  const scaleMotionValue = useMotionValue(0.97);
   const resizeDragRef = useRef({ active: false, startX: 0, startY: 0, startScale: 1, corner: "br" as "tl" | "tr" | "bl" | "br" });
 
   // Preload all images on mount
@@ -27,6 +32,8 @@ export default function IPadPage() {
       "/assets/CalebAtBeachUSCHoodie.jpg",
       "/assets/CalebAtUSC.jpg",
       "/assets/icons/modellab.png",
+      "/assets/icons/tech16-logo.png",
+      "/assets/icons/foodvision-logo.png",
       "/assets/projects/modellab.jpg",
       "/assets/projects/tech16personalities.jpg",
       "/assets/projects/foodvision.jpg",
@@ -35,64 +42,38 @@ export default function IPadPage() {
       "/assets/projects/usc-cook-scale.png",
       "/assets/projects/thelines.jpg",
     ];
-    urls.forEach((url) => {
-      const img = new Image();
-      img.src = url;
-    });
+    urls.forEach((url) => { const img = new Image(); img.src = url; });
   }, []);
 
-  const updateScale = useCallback((orient: "landscape" | "portrait") => {
+  const calcScale = useCallback((orient: "landscape" | "portrait") => {
     const ipad = orient === "landscape" ? IPAD_LANDSCAPE : IPAD_PORTRAIT;
-    // In portrait, labels (≈100px each) sit above+below iPad inside the scaled div,
-    // so total scaled content is ipad.h + 200px (label heights) + 48px (gaps).
-    // Solve: scale * (ipad.h + 248) ≤ viewport.h * 0.92
-    const scaleW = (window.innerWidth * 0.88) / ipad.w;
+    // Landscape: leave room for the vertical side labels
+    const availW = orient === "landscape"
+      ? window.innerWidth - LABEL_RESERVE_PX * 2
+      : window.innerWidth * 0.92;
+    const scaleW = availW / ipad.w;
+    // Portrait: labels (≈96px each + 24px gap) sit above+below inside the scaled div
     const scaleH = orient === "portrait"
-      ? (window.innerHeight * 0.92) / (ipad.h + 248)
-      : (window.innerHeight * 0.88) / ipad.h;
-    setScale(Math.min(scaleW, scaleH));
+      ? (window.innerHeight * 0.95) / (ipad.h + 96 * 2 + 48)
+      : (window.innerHeight * 0.90) / ipad.h;
+    return Math.min(scaleW, scaleH, 1.4); // cap at 1.4x
   }, []);
-
-  const handleOrientationChange = useCallback(
-    async (newOrientation: "landscape" | "portrait") => {
-      setVisible(false);
-      await new Promise((r) => setTimeout(r, 200));
-      setOrientation(newOrientation);
-      updateScale(newOrientation);
-      setVisible(true);
-    },
-    [updateScale]
-  );
 
   const getOrientation = useCallback((): "landscape" | "portrait" => {
-    // On mobile devices, use actual screen orientation (width > height = landscape)
-    // This way, rotating phone sideways gives landscape iPad
     const isMobile = window.innerWidth <= 1024 && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
-    if (isMobile) {
-      return window.innerWidth > window.innerHeight ? "landscape" : "portrait";
-    }
-    // On desktop, use breakpoint
+    if (isMobile) return window.innerWidth > window.innerHeight ? "landscape" : "portrait";
     return window.innerWidth < 960 ? "portrait" : "landscape";
   }, []);
 
-  const handlePowerPress = useCallback(() => {
-    if (screenOff) {
-      // Turn screen on → go to lock screen
-      setScreenOff(false);
-      setLocked(true);
-      setOpenApp(null);
-    } else {
-      // Turn screen off → go black
-      setScreenOff(true);
-    }
-  }, [screenOff]);
-
+  // Initial mount
   useEffect(() => {
     const initial = getOrientation();
     setOrientation(initial);
-    updateScale(initial);
-  }, [getOrientation, updateScale]);
+    scaleMotionValue.set(calcScale(initial));
+    setMounted(true);
+  }, [getOrientation, calcScale, scaleMotionValue]);
 
+  // Window resize — instant, no animation
   useEffect(() => {
     let pending = false;
     const onResize = () => {
@@ -100,13 +81,12 @@ export default function IPadPage() {
       pending = true;
       requestAnimationFrame(() => {
         pending = false;
-        setUserScale(null);
         const next = getOrientation();
-        setOrientation((cur) => {
-          if (next !== cur) handleOrientationChange(next);
-          else updateScale(next);
-          return cur;
-        });
+        setOrientation(next);
+        setUserScale(null);
+        if (!resizeDragRef.current.active) {
+          scaleMotionValue.set(calcScale(next));
+        }
       });
     };
     window.addEventListener("resize", onResize);
@@ -115,8 +95,9 @@ export default function IPadPage() {
       window.removeEventListener("resize", onResize);
       window.removeEventListener("orientationchange", onResize);
     };
-  }, [handleOrientationChange, updateScale, getOrientation]);
+  }, [getOrientation, calcScale, scaleMotionValue]);
 
+  // Corner drag resize — instant, per-frame via motion value
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!resizeDragRef.current.active) return;
@@ -128,10 +109,13 @@ export default function IPadPage() {
       else if (corner === "bl") delta = (-dx + dy) / 500;
       else if (corner === "tr") delta = (dx - dy) / 500;
       else delta = (-dx - dy) / 500;
-      const newScale = Math.max(0.3, Math.min(2.0, resizeDragRef.current.startScale + delta));
-      setUserScale(newScale);
+      const newScale = Math.max(0.25, Math.min(2.0, resizeDragRef.current.startScale + delta));
+      scaleMotionValue.set(newScale); // instant — no framer animation
     };
     const handleMouseUp = () => {
+      if (resizeDragRef.current.active) {
+        setUserScale(scaleMotionValue.get());
+      }
       resizeDragRef.current.active = false;
     };
     window.addEventListener("mousemove", handleMouseMove);
@@ -140,13 +124,26 @@ export default function IPadPage() {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
     };
-  }, []);
+  }, [scaleMotionValue]);
 
-  const effectiveScale = userScale ?? scale;
+  const handlePowerPress = useCallback(() => {
+    if (screenOff) {
+      setScreenOff(false);
+      setLocked(true);
+      setOpenApp(null);
+    } else {
+      setScreenOff(true);
+    }
+  }, [screenOff]);
 
   const isPortrait = orientation === "portrait";
+
+  // Gradient text style for both landscape (CSS class) and portrait (inline)
   const labelStyle: React.CSSProperties = {
-    color: "rgba(255,255,255,0.55)",
+    background: "linear-gradient(160deg, #ffffff 0%, #d4e8d4 55%, #a8cca8 100%)",
+    backgroundClip: "text",
+    WebkitBackgroundClip: "text",
+    color: "transparent",
     fontSize: "6rem",
     fontWeight: 900,
     letterSpacing: "-0.04em",
@@ -160,7 +157,6 @@ export default function IPadPage() {
 
   return (
     <div className="ipad-viewport">
-      {/* Background */}
       <div className="page-bg" aria-hidden="true" />
 
       {/* Landscape: fixed vertical labels on left/right sides */}
@@ -171,16 +167,16 @@ export default function IPadPage() {
         </>
       )}
 
-      {/* iPad — in portrait, wrapped in flex column with horizontal labels above/below */}
+      {/* iPad wrapper — scale driven by motion value (instant, no lag) */}
       <motion.div
-        animate={{ opacity: visible ? 1 : 0, scale: visible ? effectiveScale : effectiveScale * 0.97 }}
-        initial={{ opacity: 0, scale: effectiveScale * 0.97 }}
-        transition={{ duration: 0.25, ease: "easeInOut" }}
         style={{
+          scale: scaleMotionValue,
           transformOrigin: "center center",
           position: "relative",
           zIndex: 10,
           flexShrink: 0,
+          opacity: mounted ? 1 : 0,
+          transition: "opacity 0.3s",
           ...(isPortrait ? {
             display: "flex",
             flexDirection: "column",
@@ -189,22 +185,22 @@ export default function IPadPage() {
           } : {}),
         }}
       >
-        {/* Portrait: "Caleb's" above the iPad */}
+        {/* Portrait: "Caleb's" above */}
         {isPortrait && (
           <div aria-hidden="true" style={labelStyle}>Caleb&apos;s</div>
         )}
 
-        {/* iPad frame + resize handles in their own relative container */}
+        {/* iPad frame + invisible resize handles */}
         <div style={{ position: "relative", flexShrink: 0 }}>
           <IPadFrame orientation={orientation} onPowerPress={handlePowerPress}>
-            {/* HomeScreen is always mounted - never remounts when app closes */}
             <HomeScreen
               orientation={orientation}
               onOpenApp={setOpenApp}
               locked={locked}
               onUnlock={() => setLocked(false)}
             />
-            {/* Persistently mounted Spotify - iframes cached so reopening is instant */}
+
+            {/* Persistently mounted Spotify */}
             <motion.div
               animate={
                 openApp === "spotify"
@@ -242,7 +238,6 @@ export default function IPadPage() {
               )}
             </AnimatePresence>
 
-            {/* Screen-off overlay */}
             <AnimatePresence>
               {screenOff && (
                 <motion.div
@@ -251,31 +246,26 @@ export default function IPadPage() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.3 }}
-                  onClick={() => {
-                    setScreenOff(false);
-                    setLocked(true);
-                    setOpenApp(null);
-                  }}
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    background: "#000000",
-                    zIndex: 100,
-                    cursor: "pointer",
-                  }}
+                  onClick={() => { setScreenOff(false); setLocked(true); setOpenApp(null); }}
+                  style={{ position: "absolute", inset: 0, background: "#000000", zIndex: 100, cursor: "pointer" }}
                 />
               )}
             </AnimatePresence>
           </IPadFrame>
 
-          {/* Resize handles — invisible hit areas at all 4 corners */}
+          {/* Invisible resize handles — all 4 corners */}
           {(["tl", "tr", "bl", "br"] as const).map((corner) => (
             <div
               key={corner}
               onMouseDown={(e) => {
                 e.preventDefault();
-                const currentScale = userScale ?? scale;
-                resizeDragRef.current = { active: true, startX: e.clientX, startY: e.clientY, startScale: currentScale, corner };
+                resizeDragRef.current = {
+                  active: true,
+                  startX: e.clientX,
+                  startY: e.clientY,
+                  startScale: scaleMotionValue.get(),
+                  corner,
+                };
               }}
               style={{
                 position: "absolute",
@@ -292,7 +282,7 @@ export default function IPadPage() {
           ))}
         </div>
 
-        {/* Portrait: "iPad" below the iPad */}
+        {/* Portrait: "iPad" below */}
         {isPortrait && (
           <div aria-hidden="true" style={labelStyle}>iPad</div>
         )}

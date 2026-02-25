@@ -1,7 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { useRef, useEffect, useCallback } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { useRef, useEffect, useCallback, useState } from "react";
 import type { AppId } from "@/data/content";
 
 // App imports
@@ -38,9 +38,11 @@ const appMap: Record<string, React.ComponentType<{ onClose: () => void; orientat
 export default function AppWindow({ appId, onClose, orientation }: Props) {
   const AppComponent = appMap[appId];
   const containerRef = useRef<HTMLDivElement>(null);
+  const homeZoneRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef({ active: false, startY: 0, startX: 0 });
   const touchRef = useRef({ startY: 0, startX: 0 });
   const closedRef = useRef(false);
+  const [pillHovered, setPillHovered] = useState(false);
 
   const safeClose = useCallback(() => {
     if (!closedRef.current) {
@@ -53,11 +55,11 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
     closedRef.current = false;
   }, [appId]);
 
+  // Native drag-up-to-close and touch swipe
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    // Handle drag-up to close
     const handleMouseMove = (e: MouseEvent) => {
       if (dragRef.current.active) {
         const dy = dragRef.current.startY - e.clientY;
@@ -67,29 +69,18 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
         }
       }
     };
-
     const handleMouseDown = (e: MouseEvent) => {
       dragRef.current = { active: true, startY: e.clientY, startX: e.clientX };
     };
+    const handleMouseUp = () => { dragRef.current.active = false; };
 
-    const handleMouseUp = () => {
-      dragRef.current.active = false;
-    };
-
-    // Wheel-to-exit is now handled by the dedicated bottom zone overlay
-
-    // Touch: swipe up to exit
     const handleTouchStart = (e: TouchEvent) => {
       touchRef.current = { startY: e.touches[0].clientY, startX: e.touches[0].clientX };
     };
-
     const handleTouchEnd = (e: TouchEvent) => {
       const dy = touchRef.current.startY - e.changedTouches[0].clientY;
       const dx = Math.abs(touchRef.current.startX - e.changedTouches[0].clientX);
-      // Swipe up at least 80px, and more vertical than horizontal
-      if (dy > 80 && dy > dx) {
-        safeClose();
-      }
+      if (dy > 80 && dy > dx) safeClose();
     };
 
     container.addEventListener("mousemove", handleMouseMove);
@@ -105,6 +96,18 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
       container.removeEventListener("touchstart", handleTouchStart);
       container.removeEventListener("touchend", handleTouchEnd);
     };
+  }, [safeClose]);
+
+  // Native wheel listener on the home indicator zone — bypasses React synthetic event
+  // blocking issues caused by passive scroll handlers in app content
+  useEffect(() => {
+    const el = homeZoneRef.current;
+    if (!el) return;
+    const onWheel = (e: WheelEvent) => {
+      if (e.deltaY < 0) safeClose();
+    };
+    el.addEventListener("wheel", onWheel, { passive: true });
+    return () => el.removeEventListener("wheel", onWheel);
   }, [safeClose]);
 
   if (!AppComponent) return null;
@@ -129,53 +132,41 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
         <AppComponent onClose={onClose} orientation={orientation} />
       </div>
 
-      {/* Invisible scroll-capture zone over home indicator area */}
+      {/* Home indicator — native wheel listener, hover tracked via useState so pill animates correctly */}
       <div
-        style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: 44,
-          zIndex: 19,
-          cursor: "default",
-        }}
-        onWheel={(e) => {
-          if (e.deltaY < 0) {
-            e.stopPropagation();
-            safeClose();
-          }
-        }}
-      />
-
-      {/* Home Indicator - clickable, also acts as visual swipe target */}
-      <motion.div
+        ref={homeZoneRef}
         onClick={onClose}
-        onWheel={(e) => {
-          if (e.deltaY < 0) {
-            e.stopPropagation();
-            safeClose();
-          }
-        }}
+        onMouseEnter={() => setPillHovered(true)}
+        onMouseLeave={() => setPillHovered(false)}
         style={{
           position: "absolute",
           bottom: 0,
           left: 0,
           right: 0,
-          height: 28,
+          height: 34,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
           cursor: "pointer",
           zIndex: 20,
-          paddingBottom: 4,
+          paddingBottom: 6,
         }}
-        whileHover={{ scaleX: 1.18, opacity: 0.85 }}
-        whileTap={{ scale: 0.96 }}
-        transition={{ type: "spring", stiffness: 500, damping: 30 }}
       >
-        <div style={{ width: 120, height: 5, borderRadius: 3, background: "rgba(150,150,150,0.45)" }} />
-      </motion.div>
+        <motion.div
+          animate={{
+            scaleX: pillHovered ? 1.35 : 1,
+            opacity: pillHovered ? 0.9 : 0.45,
+          }}
+          whileTap={{ scaleX: 0.8 }}
+          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+          style={{
+            width: 120,
+            height: 5,
+            borderRadius: 3,
+            background: "rgba(60,60,67,0.5)",
+          }}
+        />
+      </div>
     </motion.div>
   );
 }

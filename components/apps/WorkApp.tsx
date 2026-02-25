@@ -33,10 +33,10 @@ const WorkCard = memo(function WorkCard({
       <div
         onClick={onToggle}
         style={{
-          padding: "14px 16px 14px 14px",
+          padding: "12px 14px 12px 14px",
           cursor: "pointer",
           display: "flex",
-          alignItems: "flex-start",
+          alignItems: "center",
           gap: 10,
         }}
       >
@@ -47,7 +47,7 @@ const WorkCard = memo(function WorkCard({
           display: "flex", alignItems: "center", justifyContent: "center",
           boxShadow: "0 1px 4px rgba(0,0,0,0.1)",
           border: exp.logo ? "0.5px solid rgba(0,0,0,0.08)" : "none",
-          overflow: "hidden", marginTop: 1,
+          overflow: "hidden",
         }}>
           {exp.logo ? (
             <div style={{ position: "relative", width: 28, height: 28 }}>
@@ -57,32 +57,35 @@ const WorkCard = memo(function WorkCard({
             <span style={{ fontSize: 15, fontWeight: 800, color: "white", fontFamily: "-apple-system, sans-serif" }}>{exp.company[0]}</span>
           )}
         </div>
+
+        {/* Company name + title */}
         <div style={{ flex: 1, minWidth: 0 }}>
-          <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: 8, marginBottom: 3 }}>
-            <span style={{ fontSize: 16, fontWeight: 700, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif", lineHeight: 1.2 }}>
-              {exp.company}
-            </span>
-            <span style={{ fontSize: 12, color: "#8e8e93", flexShrink: 0, fontFamily: "-apple-system, sans-serif", marginTop: 2, textAlign: "right" }}>
-              {exp.period}
-            </span>
-          </div>
-          <span style={{ fontSize: 13, fontWeight: 500, color: "#636366", fontFamily: "-apple-system, sans-serif" }}>
+          <span style={{ display: "block", fontSize: 15, fontWeight: 700, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif", lineHeight: 1.3 }}>
+            {exp.company}
+          </span>
+          <span style={{ display: "block", fontSize: 12, fontWeight: 500, color: "#636366", fontFamily: "-apple-system, sans-serif", marginTop: 1 }}>
             {exp.title}
           </span>
         </div>
 
-        <motion.div
-          animate={{ rotate: expanded ? 90 : 0 }}
-          transition={{ type: "spring", stiffness: 400, damping: 28 }}
-          style={{
-            flexShrink: 0, width: 28, height: 28, borderRadius: "50%",
-            background: "#f2f2f7", display: "flex", alignItems: "center", justifyContent: "center", marginTop: 2,
-          }}
-        >
-          <svg width="7" height="11" viewBox="0 0 7 11" fill="none">
-            <path d="M1 1L6 5.5L1 10" stroke="#8e8e93" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </motion.div>
+        {/* Period + chevron — always vertically centered together */}
+        <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
+          <span style={{ fontSize: 12, color: "#8e8e93", fontFamily: "-apple-system, sans-serif", textAlign: "right" }}>
+            {exp.period}
+          </span>
+          <motion.div
+            animate={{ rotate: expanded ? 90 : 0 }}
+            transition={{ type: "spring", stiffness: 400, damping: 28 }}
+            style={{
+              width: 26, height: 26, borderRadius: "50%",
+              background: "#f2f2f7", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+            }}
+          >
+            <svg width="7" height="11" viewBox="0 0 7 11" fill="none">
+              <path d="M1 1L6 5.5L1 10" stroke="#8e8e93" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+          </motion.div>
+        </div>
       </div>
 
       <AnimatePresence>

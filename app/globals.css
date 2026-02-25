@@ -63,7 +63,10 @@ body {
   align-items: center;
   font-size: clamp(4rem, 10vh, 9rem);
   font-weight: 900;
-  color: rgba(255, 255, 255, 0.55);
+  background: linear-gradient(160deg, #ffffff 0%, #d4e8d4 55%, #a8cca8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   letter-spacing: -0.04em;
   white-space: nowrap;
   font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", sans-serif;

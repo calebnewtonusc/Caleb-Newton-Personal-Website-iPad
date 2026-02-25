@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { projects } from "@/data/content";
 
 interface Props {
@@ -9,22 +9,26 @@ interface Props {
   origin?: { x: string; y: string };
 }
 
-// Map project id to dedicated icon path (falls back to project.image)
+// Transparent PNG logos — preferred over screenshot JPGs
 const PROJECT_ICONS: Record<string, string> = {
   modellab: "/assets/icons/modellab.png",
+  tech16: "/assets/icons/tech16-logo.png",
+  foodvision: "/assets/icons/foodvision-logo.png",
 };
 
-// These have solid (non-transparent) backgrounds - treat like JPGs
-const SOLID_BG_IMAGES = new Set([
+// Images with opaque (non-transparent) backgrounds — displayed cover/fill
+const SOLID_BG = new Set([
   "/assets/projects/la-healthcare.png",
   "/assets/projects/nba-prediction.png",
   "/assets/projects/usc-cook-scale.png",
+  "/assets/projects/thelines.jpg",
 ]);
 
 function ProjectIcon({ project, size }: { project: typeof projects[0]; size: number }) {
   const iconSrc = PROJECT_ICONS[project.id] ?? project.image;
   const color = project.color ?? "#007AFF";
-  const isCover = iconSrc.endsWith(".jpg") || iconSrc.endsWith(".jpeg") || SOLID_BG_IMAGES.has(iconSrc);
+  const isJpg = iconSrc.endsWith(".jpg") || iconSrc.endsWith(".jpeg");
+  const isSolid = isJpg || SOLID_BG.has(iconSrc);
 
   return (
     <motion.div
@@ -39,50 +43,34 @@ function ProjectIcon({ project, size }: { project: typeof projects[0]; size: num
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: 6,
-        cursor: "pointer",
+        gap: 5,
+        cursor: project.live ? "pointer" : "default",
         width: size + 16,
       }}
     >
-      {/* Glassmorphic icon */}
       <div
         style={{
           width: size,
           height: size,
           borderRadius: size * 0.2255,
-          background: isCover ? "transparent" : `rgba(255,255,255,0.18)`,
-          backdropFilter: isCover ? undefined : "blur(16px) saturate(1.8)",
-          WebkitBackdropFilter: isCover ? undefined : "blur(16px) saturate(1.8)",
-          border: `1px solid rgba(255,255,255,0.3)`,
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          boxShadow: `0 4px 20px rgba(0,0,0,0.35), inset 0 1px 0 rgba(255,255,255,0.4), 0 0 0 0.5px ${color}44`,
-          flexShrink: 0,
-          position: "relative",
           overflow: "hidden",
-          padding: isCover ? "0" : "12%",
+          position: "relative",
+          flexShrink: 0,
+          background: isSolid ? "transparent" : `rgba(255,255,255,0.18)`,
+          backdropFilter: isSolid ? undefined : "blur(16px) saturate(1.8)",
+          WebkitBackdropFilter: isSolid ? undefined : "blur(16px) saturate(1.8)",
+          border: "1px solid rgba(255,255,255,0.28)",
+          boxShadow: `0 4px 18px rgba(0,0,0,0.32), inset 0 1px 0 rgba(255,255,255,0.35), 0 0 0 0.5px ${color}33`,
+          padding: isSolid ? 0 : "12%",
+          boxSizing: "border-box",
         }}
       >
-        {!isCover && (
+        {!isSolid && (
           <>
-            {/* Subtle color tint layer */}
-            <div style={{
-              position: "absolute", inset: 0,
-              background: `${color}18`,
-              borderRadius: "inherit",
-              pointerEvents: "none",
-            }} />
-            {/* Top gloss */}
-            <div style={{
-              position: "absolute", inset: 0,
-              background: "linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 55%)",
-              borderRadius: "inherit",
-              pointerEvents: "none",
-            }} />
+            <div style={{ position: "absolute", inset: 0, background: `${color}18`, pointerEvents: "none" }} />
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 55%)", pointerEvents: "none" }} />
           </>
         )}
-        {/* Logo image */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
           src={iconSrc}
@@ -90,16 +78,15 @@ function ProjectIcon({ project, size }: { project: typeof projects[0]; size: num
           style={{
             width: "100%",
             height: "100%",
-            objectFit: isCover ? "cover" : "contain",
+            objectFit: isSolid ? "cover" : "contain",
             position: "relative",
             zIndex: 1,
-            filter: isCover ? undefined : "drop-shadow(0 2px 6px rgba(0,0,0,0.4))",
+            filter: isSolid ? undefined : "drop-shadow(0 2px 4px rgba(0,0,0,0.35))",
           }}
         />
       </div>
-      {/* Label */}
       <span style={{
-        fontSize: 11,
+        fontSize: 10,
         color: "white",
         textAlign: "center",
         fontWeight: 500,
@@ -119,8 +106,9 @@ function ProjectIcon({ project, size }: { project: typeof projects[0]; size: num
 
 export default function ProjectsFolder({ onClose, orientation, origin }: Props) {
   const isLandscape = orientation === "landscape";
-  const iconSize = isLandscape ? 72 : 64;
-  const cols = isLandscape ? 4 : 3;
+  // Always 3 columns, square-ish cells
+  const iconSize = isLandscape ? 76 : 68;
+  const cols = 3;
 
   const originX = origin?.x ?? "50%";
   const originY = origin?.y ?? "50%";
@@ -160,18 +148,17 @@ export default function ProjectsFolder({ onClose, orientation, origin }: Props) 
           WebkitBackdropFilter: "blur(60px) saturate(2.2) brightness(1.1)",
           border: "1px solid rgba(255,255,255,0.32)",
           borderRadius: 28,
-          padding: isLandscape ? "24px 32px 28px" : "20px 24px 24px",
+          padding: isLandscape ? "22px 28px 24px" : "18px 22px 20px",
           boxShadow: "0 24px 64px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(0,0,0,0.05)",
-          maxWidth: isLandscape ? 520 : 360,
-          width: "90%",
+          width: isLandscape ? `${cols * (iconSize + 16) + (cols - 1) * 14 + 56}px` : `${cols * (iconSize + 16) + (cols - 1) * 12 + 44}px`,
         }}
       >
         {/* Folder title */}
         <div style={{
           textAlign: "center",
-          marginBottom: 20,
+          marginBottom: 16,
           color: "white",
-          fontSize: isLandscape ? 20 : 18,
+          fontSize: isLandscape ? 18 : 16,
           fontWeight: 600,
           fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif",
           letterSpacing: -0.3,
@@ -180,27 +167,40 @@ export default function ProjectsFolder({ onClose, orientation, origin }: Props) 
           Projects
         </div>
 
-        {/* Projects grid */}
+        {/* 3×3 grid — always 3 columns */}
         <div style={{
           display: "grid",
-          gridTemplateColumns: `repeat(${cols}, 1fr)`,
-          gap: isLandscape ? "20px 16px" : "18px 12px",
-          justifyItems: "center",
+          gridTemplateColumns: `repeat(${cols}, ${iconSize + 16}px)`,
+          gap: isLandscape ? "16px 14px" : "14px 12px",
+          justifyContent: "center",
         }}>
           {projects.map((project) => (
             <ProjectIcon key={project.id} project={project} size={iconSize} />
           ))}
         </div>
 
-        {/* Bottom hint */}
-        <div style={{
-          textAlign: "center",
-          marginTop: 20,
-          color: "rgba(255,255,255,0.45)",
-          fontSize: 12,
-          fontFamily: "-apple-system, sans-serif",
-        }}>
-          Tap outside to close
+        {/* Home indicator inside the folder — clicking it closes */}
+        <div
+          onClick={onClose}
+          style={{
+            marginTop: 16,
+            display: "flex",
+            justifyContent: "center",
+            cursor: "pointer",
+            paddingBottom: 2,
+          }}
+        >
+          <motion.div
+            whileHover={{ scaleX: 1.3 }}
+            whileTap={{ scaleX: 0.8 }}
+            transition={{ type: "spring", stiffness: 500, damping: 30 }}
+            style={{
+              width: 80,
+              height: 4,
+              borderRadius: 2,
+              background: "rgba(255,255,255,0.4)",
+            }}
+          />
         </div>
       </motion.div>
     </motion.div>
