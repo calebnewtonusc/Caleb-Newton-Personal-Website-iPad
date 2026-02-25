@@ -43,8 +43,13 @@ export default function IPadPage() {
 
   const updateScale = useCallback((orient: "landscape" | "portrait") => {
     const ipad = orient === "landscape" ? IPAD_LANDSCAPE : IPAD_PORTRAIT;
-    const scaleW = (window.innerWidth * 0.92) / ipad.w;
-    const scaleH = (window.innerHeight * 0.88) / ipad.h;
+    // In portrait, labels (≈100px each) sit above+below iPad inside the scaled div,
+    // so total scaled content is ipad.h + 200px (label heights) + 48px (gaps).
+    // Solve: scale * (ipad.h + 248) ≤ viewport.h * 0.92
+    const scaleW = (window.innerWidth * 0.88) / ipad.w;
+    const scaleH = orient === "portrait"
+      ? (window.innerHeight * 0.92) / (ipad.h + 248)
+      : (window.innerHeight * 0.88) / ipad.h;
     setScale(Math.min(scaleW, scaleH));
   }, []);
 
@@ -139,15 +144,34 @@ export default function IPadPage() {
 
   const effectiveScale = userScale ?? scale;
 
+  const isPortrait = orientation === "portrait";
+  const labelStyle: React.CSSProperties = {
+    color: "rgba(255,255,255,0.55)",
+    fontSize: "6rem",
+    fontWeight: 900,
+    letterSpacing: "-0.04em",
+    fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif",
+    lineHeight: 1,
+    userSelect: "none",
+    pointerEvents: "none",
+    textAlign: "center",
+    flexShrink: 0,
+  };
+
   return (
     <div className="ipad-viewport">
       {/* Background */}
       <div className="page-bg" aria-hidden="true" />
-      {/* Labels — fixed at z-index 25, always above iPad */}
-      <div className="page-label-left" aria-hidden="true">Caleb&apos;s</div>
-      <div className="page-label-right" aria-hidden="true">iPad</div>
 
-      {/* iPad */}
+      {/* Landscape: fixed vertical labels on left/right sides */}
+      {!isPortrait && (
+        <>
+          <div className="page-label-left" aria-hidden="true">Caleb&apos;s</div>
+          <div className="page-label-right" aria-hidden="true">iPad</div>
+        </>
+      )}
+
+      {/* iPad — in portrait, wrapped in flex column with horizontal labels above/below */}
       <motion.div
         animate={{ opacity: visible ? 1 : 0, scale: visible ? effectiveScale : effectiveScale * 0.97 }}
         initial={{ opacity: 0, scale: effectiveScale * 0.97 }}
@@ -157,102 +181,121 @@ export default function IPadPage() {
           position: "relative",
           zIndex: 10,
           flexShrink: 0,
+          ...(isPortrait ? {
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            gap: 24,
+          } : {}),
         }}
       >
-        <IPadFrame orientation={orientation} onPowerPress={handlePowerPress}>
-          {/* HomeScreen is always mounted - never remounts when app closes */}
-          <HomeScreen
-            orientation={orientation}
-            onOpenApp={setOpenApp}
-            locked={locked}
-            onUnlock={() => setLocked(false)}
-          />
-          {/* Persistently mounted Spotify - iframes cached so reopening is instant */}
-          <motion.div
-            animate={
-              openApp === "spotify"
-                ? { scale: 1, opacity: 1, pointerEvents: "auto" as const }
-                : { scale: 0.08, opacity: 0, pointerEvents: "none" as const }
-            }
-            initial={{ scale: 0.08, opacity: 0, pointerEvents: "none" as const }}
-            transition={{ type: "spring", stiffness: 480, damping: 36 }}
-            style={{ position: "absolute", inset: 0, zIndex: 10, borderRadius: "inherit", overflow: "hidden" }}
-          >
-            <div style={{ position: "absolute", inset: 0 }}>
-              <SpotifyApp onClose={() => setOpenApp(null)} orientation={orientation} />
-            </div>
+        {/* Portrait: "Caleb's" above the iPad */}
+        {isPortrait && (
+          <div aria-hidden="true" style={labelStyle}>Caleb&apos;s</div>
+        )}
+
+        {/* iPad frame + resize handles in their own relative container */}
+        <div style={{ position: "relative", flexShrink: 0 }}>
+          <IPadFrame orientation={orientation} onPowerPress={handlePowerPress}>
+            {/* HomeScreen is always mounted - never remounts when app closes */}
+            <HomeScreen
+              orientation={orientation}
+              onOpenApp={setOpenApp}
+              locked={locked}
+              onUnlock={() => setLocked(false)}
+            />
+            {/* Persistently mounted Spotify - iframes cached so reopening is instant */}
             <motion.div
-              onClick={() => setOpenApp(null)}
-              style={{
-                position: "absolute", bottom: 0, left: 0, right: 0, height: 28,
-                display: "flex", alignItems: "center", justifyContent: "center",
-                cursor: "pointer", zIndex: 20, paddingBottom: 4,
-              }}
-              whileTap={{ scale: 0.96 }}
+              animate={
+                openApp === "spotify"
+                  ? { scale: 1, opacity: 1, pointerEvents: "auto" as const }
+                  : { scale: 0.08, opacity: 0, pointerEvents: "none" as const }
+              }
+              initial={{ scale: 0.08, opacity: 0, pointerEvents: "none" as const }}
+              transition={{ type: "spring", stiffness: 480, damping: 36 }}
+              style={{ position: "absolute", inset: 0, zIndex: 10, borderRadius: "inherit", overflow: "hidden" }}
             >
-              <div style={{ width: 120, height: 5, borderRadius: 3, background: "rgba(150,150,150,0.45)" }} />
-            </motion.div>
-          </motion.div>
-
-          <AnimatePresence>
-            {openApp && openApp !== "spotify" && (
-              <AppWindow
-                key={openApp}
-                appId={openApp}
-                onClose={() => setOpenApp(null)}
-                orientation={orientation}
-              />
-            )}
-          </AnimatePresence>
-
-          {/* Screen-off overlay */}
-          <AnimatePresence>
-            {screenOff && (
+              <div style={{ position: "absolute", inset: 0 }}>
+                <SpotifyApp onClose={() => setOpenApp(null)} orientation={orientation} />
+              </div>
               <motion.div
-                key="screen-off"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                onClick={() => {
-                  setScreenOff(false);
-                  setLocked(true);
-                  setOpenApp(null);
-                }}
+                onClick={() => setOpenApp(null)}
                 style={{
-                  position: "absolute",
-                  inset: 0,
-                  background: "#000000",
-                  zIndex: 100,
-                  cursor: "pointer",
+                  position: "absolute", bottom: 0, left: 0, right: 0, height: 28,
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  cursor: "pointer", zIndex: 20, paddingBottom: 4,
                 }}
-              />
-            )}
-          </AnimatePresence>
-        </IPadFrame>
+                whileTap={{ scale: 0.96 }}
+              >
+                <div style={{ width: 120, height: 5, borderRadius: 3, background: "rgba(150,150,150,0.45)" }} />
+              </motion.div>
+            </motion.div>
 
-        {/* Resize handles — invisible hit areas at all 4 corners */}
-        {(["tl", "tr", "bl", "br"] as const).map((corner) => (
-          <div
-            key={corner}
-            onMouseDown={(e) => {
-              e.preventDefault();
-              const currentScale = userScale ?? scale;
-              resizeDragRef.current = { active: true, startX: e.clientX, startY: e.clientY, startScale: currentScale, corner };
-            }}
-            style={{
-              position: "absolute",
-              ...(corner === "tl" ? { top: -16, left: -16 } :
-                 corner === "tr" ? { top: -16, right: -16 } :
-                 corner === "bl" ? { bottom: -16, left: -16 } :
-                 { bottom: -16, right: -16 }),
-              width: 32,
-              height: 32,
-              cursor: (corner === "tl" || corner === "br") ? "nwse-resize" : "nesw-resize",
-              zIndex: 20,
-            }}
-          />
-        ))}
+            <AnimatePresence>
+              {openApp && openApp !== "spotify" && (
+                <AppWindow
+                  key={openApp}
+                  appId={openApp}
+                  onClose={() => setOpenApp(null)}
+                  orientation={orientation}
+                />
+              )}
+            </AnimatePresence>
+
+            {/* Screen-off overlay */}
+            <AnimatePresence>
+              {screenOff && (
+                <motion.div
+                  key="screen-off"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  onClick={() => {
+                    setScreenOff(false);
+                    setLocked(true);
+                    setOpenApp(null);
+                  }}
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    background: "#000000",
+                    zIndex: 100,
+                    cursor: "pointer",
+                  }}
+                />
+              )}
+            </AnimatePresence>
+          </IPadFrame>
+
+          {/* Resize handles — invisible hit areas at all 4 corners */}
+          {(["tl", "tr", "bl", "br"] as const).map((corner) => (
+            <div
+              key={corner}
+              onMouseDown={(e) => {
+                e.preventDefault();
+                const currentScale = userScale ?? scale;
+                resizeDragRef.current = { active: true, startX: e.clientX, startY: e.clientY, startScale: currentScale, corner };
+              }}
+              style={{
+                position: "absolute",
+                ...(corner === "tl" ? { top: -16, left: -16 } :
+                   corner === "tr" ? { top: -16, right: -16 } :
+                   corner === "bl" ? { bottom: -16, left: -16 } :
+                   { bottom: -16, right: -16 }),
+                width: 32,
+                height: 32,
+                cursor: (corner === "tl" || corner === "br") ? "nwse-resize" : "nesw-resize",
+                zIndex: 20,
+              }}
+            />
+          ))}
+        </div>
+
+        {/* Portrait: "iPad" below the iPad */}
+        {isPortrait && (
+          <div aria-hidden="true" style={labelStyle}>iPad</div>
+        )}
       </motion.div>
     </div>
   );
