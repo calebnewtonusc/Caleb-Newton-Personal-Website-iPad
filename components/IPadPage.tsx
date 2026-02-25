@@ -41,7 +41,7 @@ export default function IPadPage() {
     const CLOSE_ZONE = 60;
     const HOVER_ZONE = 60;
     const onWheel = (e: WheelEvent) => {
-      if (!spotifyOpenRef.current || e.deltaY >= 0) return;
+      if (!spotifyOpenRef.current) return;
       // DOM containment check — reliable under parent CSS transforms
       if (!el.contains(e.target as Node)) return;
       const rect = el.getBoundingClientRect();
@@ -348,7 +348,7 @@ export default function IPadPage() {
               {/* Spotify home indicator with hover animation */}
               <div
                 onClick={() => setOpenApp(null)}
-                onWheel={(e) => { if (e.deltaY < 0) setOpenApp(null); }}
+                onWheel={() => setOpenApp(null)}
                 style={{
                   position: "absolute", bottom: 0, left: 0, right: 0, height: 60,
                   display: "flex", alignItems: "flex-end", justifyContent: "center",

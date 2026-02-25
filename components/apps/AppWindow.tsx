@@ -71,7 +71,6 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
     const getRect = () => container.getBoundingClientRect();
 
     const onWheel = (e: WheelEvent) => {
-      if (e.deltaY >= 0) return;
       if (!container.contains(e.target as Node)) return;
       const r = getRect();
       if (e.clientY >= r.bottom - CLOSE_ZONE_PX) safeClose();
@@ -134,10 +133,8 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
     <motion.div
       ref={containerRef}
       onWheel={(e) => {
-        if (e.deltaY < 0) {
-          const r = containerRef.current?.getBoundingClientRect();
-          if (r && e.clientY >= r.bottom - CLOSE_ZONE_PX) safeClose();
-        }
+        const r = containerRef.current?.getBoundingClientRect();
+        if (r && e.clientY >= r.bottom - CLOSE_ZONE_PX) safeClose();
       }}
       style={{
         position: "absolute",
@@ -160,7 +157,7 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
       {/* Height matches CLOSE_ZONE_PX so onWheel fires across the full close zone */}
       <div
         onClick={safeClose}
-        onWheel={(e) => { if (e.deltaY < 0) safeClose(); }}
+        onWheel={() => safeClose()}
         style={{
           position: "absolute",
           bottom: 0,
