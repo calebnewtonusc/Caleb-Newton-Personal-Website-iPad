@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence, useMotionValue } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, animate as fmAnimate } from "framer-motion";
 import IPadFrame from "./ipad/IPadFrame";
 import HomeScreen from "./ipad/HomeScreen";
 import AppWindow from "./apps/AppWindow";
@@ -11,9 +11,6 @@ import type { AppId } from "@/data/content";
 const IPAD_LANDSCAPE = { w: 900, h: 630 };
 const IPAD_PORTRAIT = { w: 630, h: 900 };
 
-// Approx horizontal extent of the vertical side labels (font-size ≈ clamp(4rem, 10vh, 9rem))
-const LABEL_RESERVE_PX = 90; // px reserved on each side in landscape
-
 export default function IPadPage() {
   const [orientation, setOrientation] = useState<"landscape" | "portrait">("landscape");
   const [openApp, setOpenApp] = useState<AppId | null>(null);
@@ -22,9 +19,45 @@ export default function IPadPage() {
   const [screenOff, setScreenOff] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  // useMotionValue → instant updates on every mousemove/resize, no animation lag
   const scaleMotionValue = useMotionValue(0.97);
   const resizeDragRef = useRef({ active: false, startX: 0, startY: 0, startScale: 1, corner: "br" as "tl" | "tr" | "bl" | "br" });
+  const prevOrientRef = useRef<"landscape" | "portrait" | null>(null);
+
+  // Spotify home zone hover/wheel detection
+  const spotifyWrapperRef = useRef<HTMLDivElement>(null);
+  const [spotifyPillHovered, setSpotifyPillHovered] = useState(false);
+  const spotifyOpenRef = useRef(false);
+
+  useEffect(() => {
+    spotifyOpenRef.current = openApp === "spotify";
+    if (openApp !== "spotify") setSpotifyPillHovered(false);
+  }, [openApp]);
+
+  useEffect(() => {
+    const el = spotifyWrapperRef.current;
+    if (!el) return;
+    const CLOSE_ZONE = 34;
+    const HOVER_ZONE = 60;
+    const onWheel = (e: WheelEvent) => {
+      if (!spotifyOpenRef.current || e.deltaY >= 0) return;
+      const rect = el.getBoundingClientRect();
+      if (e.clientY >= rect.bottom - CLOSE_ZONE) setOpenApp(null);
+    };
+    const onMouseMove = (e: MouseEvent) => {
+      if (!spotifyOpenRef.current) return;
+      const rect = el.getBoundingClientRect();
+      setSpotifyPillHovered(e.clientY >= rect.bottom - HOVER_ZONE);
+    };
+    const onMouseLeave = () => setSpotifyPillHovered(false);
+    el.addEventListener("wheel", onWheel, { passive: true });
+    el.addEventListener("mousemove", onMouseMove);
+    el.addEventListener("mouseleave", onMouseLeave);
+    return () => {
+      el.removeEventListener("wheel", onWheel);
+      el.removeEventListener("mousemove", onMouseMove);
+      el.removeEventListener("mouseleave", onMouseLeave);
+    };
+  }, []);
 
   // Preload all images on mount
   useEffect(() => {
@@ -47,16 +80,20 @@ export default function IPadPage() {
 
   const calcScale = useCallback((orient: "landscape" | "portrait") => {
     const ipad = orient === "landscape" ? IPAD_LANDSCAPE : IPAD_PORTRAIT;
-    // Landscape: leave room for the vertical side labels
-    const availW = orient === "landscape"
-      ? window.innerWidth - LABEL_RESERVE_PX * 2
-      : window.innerWidth * 0.92;
+    let availW: number;
+    if (orient === "landscape") {
+      // Dynamic reserve based on actual label font-size: clamp(4rem, 10vh, 9rem)
+      const labelFontSize = Math.max(64, Math.min(window.innerHeight * 0.1, 144));
+      const reserve = labelFontSize + 20;
+      availW = window.innerWidth - reserve * 2;
+    } else {
+      availW = window.innerWidth * 0.92;
+    }
     const scaleW = availW / ipad.w;
-    // Portrait: labels (≈96px each + 24px gap) sit above+below inside the scaled div
     const scaleH = orient === "portrait"
       ? (window.innerHeight * 0.95) / (ipad.h + 96 * 2 + 48)
       : (window.innerHeight * 0.90) / ipad.h;
-    return Math.min(scaleW, scaleH, 1.4); // cap at 1.4x
+    return Math.min(scaleW, scaleH, 1.4);
   }, []);
 
   const getOrientation = useCallback((): "landscape" | "portrait" => {
@@ -69,11 +106,12 @@ export default function IPadPage() {
   useEffect(() => {
     const initial = getOrientation();
     setOrientation(initial);
+    prevOrientRef.current = initial;
     scaleMotionValue.set(calcScale(initial));
     setMounted(true);
   }, [getOrientation, calcScale, scaleMotionValue]);
 
-  // Window resize — instant, no animation
+  // Window resize — instant for same orientation, spring-animated for orientation switch
   useEffect(() => {
     let pending = false;
     const onResize = () => {
@@ -82,10 +120,28 @@ export default function IPadPage() {
       requestAnimationFrame(() => {
         pending = false;
         const next = getOrientation();
+        const orientChanged = next !== prevOrientRef.current;
         setOrientation(next);
-        setUserScale(null);
+
         if (!resizeDragRef.current.active) {
-          scaleMotionValue.set(calcScale(next));
+          const newScale = calcScale(next);
+          if (orientChanged) {
+            setUserScale(null);
+            // Smooth spring when switching orientation
+            fmAnimate(scaleMotionValue, newScale, {
+              type: "spring",
+              stiffness: 260,
+              damping: 28,
+              restDelta: 0.001,
+            });
+          } else {
+            scaleMotionValue.set(newScale); // instant on plain resize
+          }
+        }
+
+        if (orientChanged) {
+          prevOrientRef.current = next;
+          setUserScale(null);
         }
       });
     };
@@ -97,7 +153,7 @@ export default function IPadPage() {
     };
   }, [getOrientation, calcScale, scaleMotionValue]);
 
-  // Corner drag resize — instant, per-frame via motion value
+  // Corner drag resize — instant per-frame via motion value
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!resizeDragRef.current.active) return;
@@ -110,7 +166,7 @@ export default function IPadPage() {
       else if (corner === "tr") delta = (dx - dy) / 500;
       else delta = (-dx - dy) / 500;
       const newScale = Math.max(0.25, Math.min(2.0, resizeDragRef.current.startScale + delta));
-      scaleMotionValue.set(newScale); // instant — no framer animation
+      scaleMotionValue.set(newScale);
     };
     const handleMouseUp = () => {
       if (resizeDragRef.current.active) {
@@ -138,9 +194,25 @@ export default function IPadPage() {
 
   const isPortrait = orientation === "portrait";
 
-  // Gradient text style for both landscape (CSS class) and portrait (inline)
-  const labelStyle: React.CSSProperties = {
-    background: "linear-gradient(160deg, #ffffff 0%, #d4e8d4 55%, #a8cca8 100%)",
+  // Separate matte-white + soft-green gradients for each label — distinct feel
+  const calebsPortraitStyle: React.CSSProperties = {
+    background: "linear-gradient(175deg, #ffffff 0%, #e0eed0 50%, #9eba8e 100%)",
+    backgroundClip: "text",
+    WebkitBackgroundClip: "text",
+    color: "transparent",
+    fontSize: "6rem",
+    fontWeight: 900,
+    letterSpacing: "-0.04em",
+    fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif",
+    lineHeight: 1,
+    userSelect: "none",
+    pointerEvents: "none",
+    textAlign: "center",
+    flexShrink: 0,
+  };
+
+  const iPadPortraitStyle: React.CSSProperties = {
+    background: "linear-gradient(5deg, #ffffff 0%, #d8edcc 55%, #8aab84 100%)",
     backgroundClip: "text",
     WebkitBackgroundClip: "text",
     color: "transparent",
@@ -159,15 +231,48 @@ export default function IPadPage() {
     <div className="ipad-viewport">
       <div className="page-bg" aria-hidden="true" />
 
-      {/* Landscape: fixed vertical labels on left/right sides */}
-      {!isPortrait && (
-        <>
-          <div className="page-label-left" aria-hidden="true">Caleb&apos;s</div>
-          <div className="page-label-right" aria-hidden="true">iPad</div>
-        </>
-      )}
+      {/* Landscape: fixed vertical labels — fade in/out on orientation change */}
+      <AnimatePresence>
+        {!isPortrait && (
+          <motion.div
+            key="landscape-labels"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+            style={{ pointerEvents: "none" }}
+          >
+            {/* "Caleb's" left — white fading to soft green downward */}
+            <div
+              className="page-label-left"
+              aria-hidden="true"
+              style={{
+                background: "linear-gradient(160deg, #ffffff 0%, #ddeece 45%, #9eba8e 100%)",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                color: "transparent",
+              }}
+            >
+              Caleb&apos;s
+            </div>
+            {/* "iPad" right — soft green fading to white */}
+            <div
+              className="page-label-right"
+              aria-hidden="true"
+              style={{
+                background: "linear-gradient(20deg, #ffffff 0%, #d8edcc 50%, #8aab84 100%)",
+                WebkitBackgroundClip: "text",
+                backgroundClip: "text",
+                color: "transparent",
+              }}
+            >
+              iPad
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* iPad wrapper — scale driven by motion value (instant, no lag) */}
+      {/* iPad wrapper — scale driven by motion value */}
       <motion.div
         style={{
           scale: scaleMotionValue,
@@ -185,10 +290,22 @@ export default function IPadPage() {
           } : {}),
         }}
       >
-        {/* Portrait: "Caleb's" above */}
-        {isPortrait && (
-          <div aria-hidden="true" style={labelStyle}>Caleb&apos;s</div>
-        )}
+        {/* Portrait: "Caleb's" above — slides in from top */}
+        <AnimatePresence>
+          {isPortrait && (
+            <motion.div
+              key="portrait-label-top"
+              initial={{ opacity: 0, y: -32 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -32 }}
+              transition={{ type: "spring", stiffness: 280, damping: 26 }}
+              aria-hidden="true"
+              style={calebsPortraitStyle}
+            >
+              Caleb&apos;s
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* iPad frame + invisible resize handles */}
         <div style={{ position: "relative", flexShrink: 0 }}>
@@ -200,8 +317,9 @@ export default function IPadPage() {
               onUnlock={() => setLocked(false)}
             />
 
-            {/* Persistently mounted Spotify */}
+            {/* Persistently mounted Spotify with hover+wheel support */}
             <motion.div
+              ref={spotifyWrapperRef}
               animate={
                 openApp === "spotify"
                   ? { scale: 1, opacity: 1, pointerEvents: "auto" as const }
@@ -214,17 +332,25 @@ export default function IPadPage() {
               <div style={{ position: "absolute", inset: 0 }}>
                 <SpotifyApp onClose={() => setOpenApp(null)} orientation={orientation} />
               </div>
-              <motion.div
+              {/* Spotify home indicator with hover animation */}
+              <div
                 onClick={() => setOpenApp(null)}
                 style={{
-                  position: "absolute", bottom: 0, left: 0, right: 0, height: 28,
+                  position: "absolute", bottom: 0, left: 0, right: 0, height: 34,
                   display: "flex", alignItems: "center", justifyContent: "center",
-                  cursor: "pointer", zIndex: 20, paddingBottom: 4,
+                  cursor: "pointer", zIndex: 20, paddingBottom: 6,
                 }}
-                whileTap={{ scale: 0.96 }}
               >
-                <div style={{ width: 120, height: 5, borderRadius: 3, background: "rgba(150,150,150,0.45)" }} />
-              </motion.div>
+                <motion.div
+                  animate={{
+                    scaleX: spotifyPillHovered ? 1.35 : 1,
+                    opacity: spotifyPillHovered ? 0.9 : 0.45,
+                  }}
+                  whileTap={{ scaleX: 0.8 }}
+                  transition={{ type: "spring", stiffness: 500, damping: 30 }}
+                  style={{ width: 120, height: 5, borderRadius: 3, background: "rgba(150,150,150,0.45)", pointerEvents: "none" }}
+                />
+              </div>
             </motion.div>
 
             <AnimatePresence>
@@ -282,10 +408,22 @@ export default function IPadPage() {
           ))}
         </div>
 
-        {/* Portrait: "iPad" below */}
-        {isPortrait && (
-          <div aria-hidden="true" style={labelStyle}>iPad</div>
-        )}
+        {/* Portrait: "iPad" below — slides in from bottom */}
+        <AnimatePresence>
+          {isPortrait && (
+            <motion.div
+              key="portrait-label-bottom"
+              initial={{ opacity: 0, y: 32 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 32 }}
+              transition={{ type: "spring", stiffness: 280, damping: 26 }}
+              aria-hidden="true"
+              style={iPadPortraitStyle}
+            >
+              iPad
+            </motion.div>
+          )}
+        </AnimatePresence>
       </motion.div>
     </div>
   );

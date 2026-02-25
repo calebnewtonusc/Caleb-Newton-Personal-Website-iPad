@@ -82,39 +82,46 @@ function AppIcon({
         {app.id === "work" ? (
           <WorkCalendarIcon size={size} />
         ) : app.id === "projects" ? (
-          // iPadOS folder style - glassmorphic with mini project logos
+          // iPadOS folder style — 3×3 mini grid of project icons
           <div style={{
             width: "100%", height: "100%",
             background: "rgba(255,255,255,0.2)",
             backdropFilter: "blur(12px) saturate(1.6)",
             WebkitBackdropFilter: "blur(12px) saturate(1.6)",
             display: "flex", alignItems: "center", justifyContent: "center",
-            padding: "16%",
+            padding: "14%",
             boxSizing: "border-box",
           }}>
             <div style={{
               width: "100%", height: "100%",
-              display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "1fr 1fr",
-              gap: "10%",
+              display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gridTemplateRows: "1fr 1fr 1fr",
+              gap: "8%",
             }}>
               {([
                 "/assets/icons/modellab.png",
-                "/assets/projects/tech16personalities.jpg",
-                "/assets/projects/foodvision.jpg",
+                "/assets/icons/tech16-logo.png",
+                "/assets/icons/foodvision-logo.png",
                 "/assets/projects/la-healthcare.png",
-              ] as string[]).map((src, i) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <div key={i} style={{
-                  background: "rgba(255,255,255,0.15)",
-                  borderRadius: "18%",
-                  overflow: "hidden",
-                  display: "flex", alignItems: "center", justifyContent: "center",
-                  padding: "8%",
-                  boxSizing: "border-box",
-                }}>
-                  <img src={src} alt="" style={{ width: "100%", height: "100%", objectFit: "contain", filter: "drop-shadow(0 1px 3px rgba(0,0,0,0.3))" }} />
-                </div>
-              ))}
+                "/assets/projects/nba-prediction.png",
+                "/assets/projects/usc-cook-scale.png",
+                "/assets/projects/thelines.jpg",
+                null,
+                null,
+              ]).map((src, i) =>
+                src ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <div key={i} style={{
+                    background: "rgba(255,255,255,0.12)",
+                    borderRadius: "18%",
+                    overflow: "hidden",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}>
+                    <img src={src} alt="" style={{ width: "100%", height: "100%", objectFit: src.endsWith(".jpg") ? "cover" : "contain" }} />
+                  </div>
+                ) : (
+                  <div key={i} />
+                )
+              )}
             </div>
           </div>
         ) : app.icon ? (
@@ -474,7 +481,7 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
           </div>
         </div>
 
-        {/* Home indicator — tapping closes folder if open */}
+        {/* Home indicator — always visible, sits ABOVE folder overlay (zIndex 30) */}
         <div
           onClick={() => { if (folderOpen) setFolderOpen(false); }}
           style={{
@@ -485,29 +492,30 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
             paddingBottom: 4,
             flexShrink: 0,
             cursor: folderOpen ? "pointer" : "default",
+            position: "relative",
+            zIndex: 30, // always above folder overlay (z-index 25)
           }}
         >
-          <div
+          <motion.div
+            animate={{ scaleX: folderOpen ? 1.2 : 1, opacity: folderOpen ? 0.85 : 0.5 }}
+            transition={{ type: "spring", stiffness: 400, damping: 28 }}
             style={{
               width: 120,
               height: 4,
               borderRadius: 2,
-              background: "rgba(255,255,255,0.5)",
+              background: "rgba(255,255,255,0.6)",
             }}
           />
         </div>
       </div>
 
-      {/* Projects Folder Overlay */}
-      <AnimatePresence>
-        {folderOpen && (
-          <ProjectsFolder
-            onClose={() => setFolderOpen(false)}
-            orientation={orientation}
-            origin={folderOrigin}
-          />
-        )}
-      </AnimatePresence>
+      {/* Projects Folder — always rendered, controls its own AnimatePresence internally */}
+      <ProjectsFolder
+        open={folderOpen}
+        onClose={() => setFolderOpen(false)}
+        orientation={orientation}
+        origin={folderOrigin}
+      />
     </div>
   );
 }

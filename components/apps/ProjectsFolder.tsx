@@ -1,9 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { projects } from "@/data/content";
 
 interface Props {
+  open: boolean;
   onClose: () => void;
   orientation: string;
   origin?: { x: string; y: string };
@@ -104,9 +105,8 @@ function ProjectIcon({ project, size }: { project: typeof projects[0]; size: num
   );
 }
 
-export default function ProjectsFolder({ onClose, orientation, origin }: Props) {
+export default function ProjectsFolder({ open, onClose, orientation, origin }: Props) {
   const isLandscape = orientation === "landscape";
-  // Always 3 columns, square-ish cells
   const iconSize = isLandscape ? 76 : 68;
   const cols = 3;
 
@@ -114,95 +114,87 @@ export default function ProjectsFolder({ onClose, orientation, origin }: Props) 
   const originY = origin?.y ?? "50%";
 
   return (
-    <motion.div
-      key="folder-overlay"
-      initial={{ opacity: 0, scale: 0.08 }}
-      animate={{ opacity: 1, scale: 1 }}
-      exit={{ opacity: 0, scale: 0.08 }}
-      transition={{ type: "spring", stiffness: 420, damping: 34 }}
-      onClick={onClose}
-      style={{
-        position: "absolute",
-        inset: 0,
-        zIndex: 25,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        background: "rgba(0,0,0,0.22)",
-        backdropFilter: "blur(28px) saturate(1.6)",
-        WebkitBackdropFilter: "blur(28px) saturate(1.6)",
-        transformOrigin: `${originX} ${originY}`,
-      }}
-    >
-      {/* Folder card */}
-      <motion.div
-        key="folder-card"
-        initial={{ scale: 0.88, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.88, opacity: 0 }}
-        transition={{ type: "spring", stiffness: 440, damping: 34, delay: 0.04 }}
-        onClick={(e) => e.stopPropagation()}
-        style={{
-          background: "rgba(255,255,255,0.14)",
-          backdropFilter: "blur(60px) saturate(2.2) brightness(1.1)",
-          WebkitBackdropFilter: "blur(60px) saturate(2.2) brightness(1.1)",
-          border: "1px solid rgba(255,255,255,0.32)",
-          borderRadius: 28,
-          padding: isLandscape ? "22px 28px 24px" : "18px 22px 20px",
-          boxShadow: "0 24px 64px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(0,0,0,0.05)",
-          width: isLandscape ? `${cols * (iconSize + 16) + (cols - 1) * 14 + 56}px` : `${cols * (iconSize + 16) + (cols - 1) * 12 + 44}px`,
-        }}
-      >
-        {/* Folder title */}
-        <div style={{
-          textAlign: "center",
-          marginBottom: 16,
-          color: "white",
-          fontSize: isLandscape ? 18 : 16,
-          fontWeight: 600,
-          fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif",
-          letterSpacing: -0.3,
-          textShadow: "0 1px 4px rgba(0,0,0,0.5)",
-        }}>
-          Projects
-        </div>
-
-        {/* 3×3 grid — always 3 columns */}
-        <div style={{
-          display: "grid",
-          gridTemplateColumns: `repeat(${cols}, ${iconSize + 16}px)`,
-          gap: isLandscape ? "16px 14px" : "14px 12px",
-          justifyContent: "center",
-        }}>
-          {projects.map((project) => (
-            <ProjectIcon key={project.id} project={project} size={iconSize} />
-          ))}
-        </div>
-
-        {/* Home indicator inside the folder — clicking it closes */}
-        <div
+    <AnimatePresence>
+      {open && (
+        // Backdrop: fades the blur at full screen — no scaling here
+        <motion.div
+          key="folder-root"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.22 }}
           onClick={onClose}
           style={{
-            marginTop: 16,
-            display: "flex",
-            justifyContent: "center",
-            cursor: "pointer",
-            paddingBottom: 2,
+            position: "absolute",
+            inset: 0,
+            zIndex: 25,
+            background: "rgba(0,0,0,0.22)",
+            backdropFilter: "blur(28px) saturate(1.6)",
+            WebkitBackdropFilter: "blur(28px) saturate(1.6)",
           }}
         >
+          {/* Card scale wrapper — scales from tap origin, no blur attached */}
           <motion.div
-            whileHover={{ scaleX: 1.3 }}
-            whileTap={{ scaleX: 0.8 }}
-            transition={{ type: "spring", stiffness: 500, damping: 30 }}
+            key="folder-card-wrapper"
+            initial={{ scale: 0.08, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.08, opacity: 0 }}
+            transition={{ type: "spring", stiffness: 420, damping: 34 }}
             style={{
-              width: 80,
-              height: 4,
-              borderRadius: 2,
-              background: "rgba(255,255,255,0.4)",
+              position: "absolute",
+              inset: 0,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              pointerEvents: "none",
+              transformOrigin: `${originX} ${originY}`,
             }}
-          />
-        </div>
-      </motion.div>
-    </motion.div>
+          >
+            {/* Folder card */}
+            <div
+              onClick={(e) => e.stopPropagation()}
+              style={{
+                pointerEvents: "auto",
+                background: "rgba(255,255,255,0.14)",
+                backdropFilter: "blur(60px) saturate(2.2) brightness(1.1)",
+                WebkitBackdropFilter: "blur(60px) saturate(2.2) brightness(1.1)",
+                border: "1px solid rgba(255,255,255,0.32)",
+                borderRadius: 28,
+                padding: isLandscape ? "22px 28px 24px" : "18px 22px 20px",
+                boxShadow: "0 24px 64px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(0,0,0,0.05)",
+                width: isLandscape ? `${cols * (iconSize + 16) + (cols - 1) * 14 + 56}px` : `${cols * (iconSize + 16) + (cols - 1) * 12 + 44}px`,
+              }}
+            >
+              {/* Folder title */}
+              <div style={{
+                textAlign: "center",
+                marginBottom: 16,
+                color: "white",
+                fontSize: isLandscape ? 18 : 16,
+                fontWeight: 600,
+                fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif",
+                letterSpacing: -0.3,
+                textShadow: "0 1px 4px rgba(0,0,0,0.5)",
+              }}>
+                Projects
+              </div>
+
+              {/* 3×3 grid */}
+              <div style={{
+                display: "grid",
+                gridTemplateColumns: `repeat(${cols}, ${iconSize + 16}px)`,
+                gap: isLandscape ? "16px 14px" : "14px 12px",
+                justifyContent: "center",
+              }}>
+                {projects.map((project) => (
+                  <ProjectIcon key={project.id} project={project} size={iconSize} />
+                ))}
+              </div>
+              {/* No home pill inside — HomeScreen's indicator (z-index 30) handles closing */}
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
   );
 }

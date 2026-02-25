@@ -68,9 +68,9 @@ const WorkCard = memo(function WorkCard({
           </span>
         </div>
 
-        {/* Period + chevron — always vertically centered together */}
-        <div style={{ display: "flex", alignItems: "center", gap: 6, flexShrink: 0 }}>
-          <span style={{ fontSize: 12, color: "#8e8e93", fontFamily: "-apple-system, sans-serif", textAlign: "right" }}>
+        {/* Right column: date on top aligned with company name row, chevron below */}
+        <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-end", justifyContent: "center", gap: 5, flexShrink: 0 }}>
+          <span style={{ fontSize: 11, color: "#8e8e93", fontFamily: "-apple-system, sans-serif", whiteSpace: "nowrap", lineHeight: 1.4, paddingTop: 1 }}>
             {exp.period}
           </span>
           <motion.div

@@ -35,10 +35,13 @@ const appMap: Record<string, React.ComponentType<{ onClose: () => void; orientat
   bible: BibleApp,
 };
 
+// Bottom px: scroll-up here closes; hovered here shows pill highlight
+const CLOSE_ZONE_PX = 34;
+const HOVER_ZONE_PX = 60;
+
 export default function AppWindow({ appId, onClose, orientation }: Props) {
   const AppComponent = appMap[appId];
   const containerRef = useRef<HTMLDivElement>(null);
-  const homeZoneRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef({ active: false, startY: 0, startX: 0 });
   const touchRef = useRef({ startY: 0, startX: 0 });
   const closedRef = useRef(false);
@@ -53,14 +56,29 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
 
   useEffect(() => {
     closedRef.current = false;
+    setPillHovered(false);
   }, [appId]);
 
-  // Native drag-up-to-close and touch swipe
+  // All close/hover detection via container-level listeners.
+  // Wheel + Y-position check: no click required to trigger close.
+  // Mouse events bubble from child elements up to the container, so this works
+  // even if app content has its own scroll handlers.
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    const handleMouseMove = (e: MouseEvent) => {
+    const onWheel = (e: WheelEvent) => {
+      if (e.deltaY >= 0) return; // only upward scroll triggers close
+      const rect = container.getBoundingClientRect();
+      if (e.clientY >= rect.bottom - CLOSE_ZONE_PX) {
+        safeClose();
+      }
+    };
+
+    const onMouseMove = (e: MouseEvent) => {
+      const rect = container.getBoundingClientRect();
+      setPillHovered(e.clientY >= rect.bottom - HOVER_ZONE_PX);
+
       if (dragRef.current.active) {
         const dy = dragRef.current.startY - e.clientY;
         if (dy > 120) {
@@ -69,45 +87,44 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
         }
       }
     };
-    const handleMouseDown = (e: MouseEvent) => {
+
+    const onMouseDown = (e: MouseEvent) => {
       dragRef.current = { active: true, startY: e.clientY, startX: e.clientX };
     };
-    const handleMouseUp = () => { dragRef.current.active = false; };
 
-    const handleTouchStart = (e: TouchEvent) => {
+    const onMouseLeave = () => {
+      setPillHovered(false);
+      dragRef.current.active = false;
+    };
+
+    const onMouseUp = () => { dragRef.current.active = false; };
+
+    const onTouchStart = (e: TouchEvent) => {
       touchRef.current = { startY: e.touches[0].clientY, startX: e.touches[0].clientX };
     };
-    const handleTouchEnd = (e: TouchEvent) => {
+    const onTouchEnd = (e: TouchEvent) => {
       const dy = touchRef.current.startY - e.changedTouches[0].clientY;
       const dx = Math.abs(touchRef.current.startX - e.changedTouches[0].clientX);
       if (dy > 80 && dy > dx) safeClose();
     };
 
-    container.addEventListener("mousemove", handleMouseMove);
-    container.addEventListener("mousedown", handleMouseDown);
-    window.addEventListener("mouseup", handleMouseUp);
-    container.addEventListener("touchstart", handleTouchStart, { passive: true });
-    container.addEventListener("touchend", handleTouchEnd, { passive: true });
+    container.addEventListener("wheel", onWheel, { passive: true });
+    container.addEventListener("mousemove", onMouseMove);
+    container.addEventListener("mousedown", onMouseDown);
+    container.addEventListener("mouseleave", onMouseLeave);
+    window.addEventListener("mouseup", onMouseUp);
+    container.addEventListener("touchstart", onTouchStart, { passive: true });
+    container.addEventListener("touchend", onTouchEnd, { passive: true });
 
     return () => {
-      container.removeEventListener("mousemove", handleMouseMove);
-      container.removeEventListener("mousedown", handleMouseDown);
-      window.removeEventListener("mouseup", handleMouseUp);
-      container.removeEventListener("touchstart", handleTouchStart);
-      container.removeEventListener("touchend", handleTouchEnd);
+      container.removeEventListener("wheel", onWheel);
+      container.removeEventListener("mousemove", onMouseMove);
+      container.removeEventListener("mousedown", onMouseDown);
+      container.removeEventListener("mouseleave", onMouseLeave);
+      window.removeEventListener("mouseup", onMouseUp);
+      container.removeEventListener("touchstart", onTouchStart);
+      container.removeEventListener("touchend", onTouchEnd);
     };
-  }, [safeClose]);
-
-  // Native wheel listener on the home indicator zone — bypasses React synthetic event
-  // blocking issues caused by passive scroll handlers in app content
-  useEffect(() => {
-    const el = homeZoneRef.current;
-    if (!el) return;
-    const onWheel = (e: WheelEvent) => {
-      if (e.deltaY < 0) safeClose();
-    };
-    el.addEventListener("wheel", onWheel, { passive: true });
-    return () => el.removeEventListener("wheel", onWheel);
   }, [safeClose]);
 
   if (!AppComponent) return null;
@@ -132,12 +149,9 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
         <AppComponent onClose={onClose} orientation={orientation} />
       </div>
 
-      {/* Home indicator — native wheel listener, hover tracked via useState so pill animates correctly */}
+      {/* Home indicator — click or hover+scroll-up to exit */}
       <div
-        ref={homeZoneRef}
-        onClick={onClose}
-        onMouseEnter={() => setPillHovered(true)}
-        onMouseLeave={() => setPillHovered(false)}
+        onClick={safeClose}
         style={{
           position: "absolute",
           bottom: 0,
@@ -164,6 +178,7 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
             height: 5,
             borderRadius: 3,
             background: "rgba(60,60,67,0.5)",
+            pointerEvents: "none",
           }}
         />
       </div>
