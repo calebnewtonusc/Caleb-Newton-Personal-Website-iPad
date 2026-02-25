@@ -124,7 +124,7 @@ export default function EducationApp({ onClose }: Props) {
 
                   {/* Footer */}
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                    <span style={{ fontSize: 13, color: "#aeaeb2" }}>{noteDate(recent.period)}</span>
+                    <span style={{ fontSize: 13, color: "#aeaeb2" }}>{recent.period}</span>
                     <motion.button
                       whileTap={{ scale: 0.95 }}
                       onClick={() => setSelected(recent.id)}
@@ -212,7 +212,7 @@ export default function EducationApp({ onClose }: Props) {
                           >
                             {ed.school}
                           </span>
-                          <span style={{ fontSize: 12, color: "#aeaeb2", flexShrink: 0 }}>{noteDate(ed.period)}</span>
+                          <span style={{ fontSize: 12, color: "#aeaeb2", flexShrink: 0, minWidth: 36, textAlign: "right" }}>{noteDate(ed.period)}</span>
                         </div>
                         <p
                           style={{
@@ -288,8 +288,8 @@ export default function EducationApp({ onClose }: Props) {
                 </h1>
 
                 {/* Subtitle + date */}
-                <p style={{ fontSize: 13, color: "#aeaeb2", marginBottom: 4 }}>
-                  {noteDate(selectedEd.period)}
+                <p style={{ fontSize: 13, color: "#aeaeb2", marginBottom: 4, letterSpacing: 0.1 }}>
+                  {selectedEd.period}
                 </p>
                 {selectedEd.subtitle && (
                   <p style={{ fontSize: 13, color: "#636366", marginBottom: 20, fontStyle: "italic" }}>

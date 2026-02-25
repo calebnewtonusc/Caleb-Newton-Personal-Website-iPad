@@ -831,7 +831,7 @@ export interface AppDef {
 }
 
 export const apps: AppDef[] = [
-  { id: "settings",     name: "Settings",    emoji: "S", icon: "/assets/icons/settingsapp.png",     gradient: ["#8E8E93", "#636366"] },
+  { id: "settings",     name: "About",       emoji: "S", icon: "/assets/icons/settingsapp.png",     gradient: ["#8E8E93", "#636366"] },
   { id: "work",         name: "Work",        emoji: "W",                                            gradient: ["#AF52DE", "#7B2D8B"] },
   { id: "projects",     name: "Projects",    emoji: "P", icon: "/assets/icons/appstore.png",        gradient: ["#FF9500", "#FF5E00"] },
   { id: "education",    name: "Education",   emoji: "E", icon: "/assets/icons/notes.png",           gradient: ["#FF3B30", "#C0392B"] },

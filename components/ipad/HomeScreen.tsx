@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { AppId, AppDef } from "@/data/content";
 import { apps, dockApps } from "@/data/content";
+import ProjectsFolder from "../apps/ProjectsFolder";
 
 interface Props {
   orientation: "landscape" | "portrait";
@@ -80,12 +81,48 @@ function AppIcon({
       >
         {app.id === "work" ? (
           <WorkCalendarIcon size={size} />
+        ) : app.id === "projects" ? (
+          // iPadOS folder style - glassmorphic with mini project logos
+          <div style={{
+            width: "100%", height: "100%",
+            background: "rgba(255,255,255,0.2)",
+            backdropFilter: "blur(12px) saturate(1.6)",
+            WebkitBackdropFilter: "blur(12px) saturate(1.6)",
+            display: "flex", alignItems: "center", justifyContent: "center",
+            padding: "16%",
+            boxSizing: "border-box",
+          }}>
+            <div style={{
+              width: "100%", height: "100%",
+              display: "grid", gridTemplateColumns: "1fr 1fr", gridTemplateRows: "1fr 1fr",
+              gap: "10%",
+            }}>
+              {([
+                "/assets/icons/modellab.png",
+                "/assets/projects/tech16personalities.jpg",
+                "/assets/projects/foodvision.jpg",
+                "/assets/projects/la-healthcare.png",
+              ] as string[]).map((src, i) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <div key={i} style={{
+                  background: "rgba(255,255,255,0.15)",
+                  borderRadius: "18%",
+                  overflow: "hidden",
+                  display: "flex", alignItems: "center", justifyContent: "center",
+                  padding: "8%",
+                  boxSizing: "border-box",
+                }}>
+                  <img src={src} alt="" style={{ width: "100%", height: "100%", objectFit: "contain", filter: "drop-shadow(0 1px 3px rgba(0,0,0,0.3))" }} />
+                </div>
+              ))}
+            </div>
+          </div>
         ) : app.icon ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={app.icon}
             alt={app.name}
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transform: app.id === "settings" ? "scale(1.04)" : undefined }}
+            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transform: app.id === "settings" ? "scale(1.05)" : undefined }}
           />
         ) : (
           <span
@@ -130,6 +167,7 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
   const isLandscape = orientation === "landscape";
 
   const [time, setTime] = useState(new Date());
+  const [folderOpen, setFolderOpen] = useState(false);
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
@@ -175,6 +213,10 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
       })();
 
   const handleOpen = (app: AppDef) => {
+    if (app.id === "projects") {
+      setFolderOpen(true);
+      return;
+    }
     if (app.external) {
       window.open(app.external, "_blank", "noopener,noreferrer");
     } else {

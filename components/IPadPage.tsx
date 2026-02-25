@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import IPadFrame from "./ipad/IPadFrame";
 import HomeScreen from "./ipad/HomeScreen";
@@ -17,6 +17,9 @@ export default function IPadPage() {
   const [scale, setScale] = useState(1);
   const [visible, setVisible] = useState(true);
   const [locked, setLocked] = useState(true);
+  const [screenOff, setScreenOff] = useState(false);
+  const [userScale, setUserScale] = useState<number | null>(null);
+  const resizeDragRef = useRef({ active: false, startX: 0, startY: 0, startScale: 1 });
 
   const updateScale = useCallback((orient: "landscape" | "portrait") => {
     const ipad = orient === "landscape" ? IPAD_LANDSCAPE : IPAD_PORTRAIT;
@@ -36,12 +39,34 @@ export default function IPadPage() {
     [updateScale]
   );
 
+  const getOrientation = useCallback((): "landscape" | "portrait" => {
+    // On mobile devices, use actual screen orientation (width > height = landscape)
+    // This way, rotating phone sideways gives landscape iPad
+    const isMobile = window.innerWidth <= 1024 && ('ontouchstart' in window || navigator.maxTouchPoints > 0);
+    if (isMobile) {
+      return window.innerWidth > window.innerHeight ? "landscape" : "portrait";
+    }
+    // On desktop, use breakpoint
+    return window.innerWidth < 960 ? "portrait" : "landscape";
+  }, []);
+
+  const handlePowerPress = useCallback(() => {
+    if (screenOff) {
+      // Turn screen on → go to lock screen
+      setScreenOff(false);
+      setLocked(true);
+      setOpenApp(null);
+    } else {
+      // Turn screen off → go black
+      setScreenOff(true);
+    }
+  }, [screenOff]);
+
   useEffect(() => {
-    const initial = window.innerWidth < 960 ? "portrait" : "landscape";
+    const initial = getOrientation();
     setOrientation(initial);
     updateScale(initial);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [getOrientation, updateScale]);
 
   useEffect(() => {
     let pending = false;
@@ -50,7 +75,8 @@ export default function IPadPage() {
       pending = true;
       requestAnimationFrame(() => {
         pending = false;
-        const next = window.innerWidth < 960 ? "portrait" : "landscape";
+        setUserScale(null);
+        const next = getOrientation();
         setOrientation((cur) => {
           if (next !== cur) handleOrientationChange(next);
           else updateScale(next);
@@ -59,8 +85,34 @@ export default function IPadPage() {
       });
     };
     window.addEventListener("resize", onResize);
-    return () => window.removeEventListener("resize", onResize);
-  }, [handleOrientationChange, updateScale]);
+    window.addEventListener("orientationchange", onResize);
+    return () => {
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("orientationchange", onResize);
+    };
+  }, [handleOrientationChange, updateScale, getOrientation]);
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!resizeDragRef.current.active) return;
+      const dx = e.clientX - resizeDragRef.current.startX;
+      const dy = e.clientY - resizeDragRef.current.startY;
+      const delta = (dx + dy) / 500;
+      const newScale = Math.max(0.3, Math.min(2.0, resizeDragRef.current.startScale + delta));
+      setUserScale(newScale);
+    };
+    const handleMouseUp = () => {
+      resizeDragRef.current.active = false;
+    };
+    window.addEventListener("mousemove", handleMouseMove);
+    window.addEventListener("mouseup", handleMouseUp);
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      window.removeEventListener("mouseup", handleMouseUp);
+    };
+  }, []);
+
+  const effectiveScale = userScale ?? scale;
 
   return (
     <div className="ipad-viewport">
@@ -72,8 +124,8 @@ export default function IPadPage() {
 
       {/* iPad */}
       <motion.div
-        animate={{ opacity: visible ? 1 : 0, scale: visible ? scale : scale * 0.97 }}
-        initial={{ opacity: 0, scale: scale * 0.97 }}
+        animate={{ opacity: visible ? 1 : 0, scale: visible ? effectiveScale : effectiveScale * 0.97 }}
+        initial={{ opacity: 0, scale: effectiveScale * 0.97 }}
         transition={{ duration: 0.25, ease: "easeInOut" }}
         style={{
           transformOrigin: "center center",
@@ -82,7 +134,7 @@ export default function IPadPage() {
           flexShrink: 0,
         }}
       >
-        <IPadFrame orientation={orientation}>
+        <IPadFrame orientation={orientation} onPowerPress={handlePowerPress}>
           {/* HomeScreen is always mounted - never remounts when app closes */}
           <HomeScreen
             orientation={orientation}
@@ -127,7 +179,63 @@ export default function IPadPage() {
               />
             )}
           </AnimatePresence>
+
+          {/* Screen-off overlay */}
+          <AnimatePresence>
+            {screenOff && (
+              <motion.div
+                key="screen-off"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.3 }}
+                onClick={() => {
+                  setScreenOff(false);
+                  setLocked(true);
+                  setOpenApp(null);
+                }}
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  background: "#000000",
+                  zIndex: 100,
+                  cursor: "pointer",
+                }}
+              />
+            )}
+          </AnimatePresence>
         </IPadFrame>
+
+        {/* Resize handle */}
+        <div
+          onMouseDown={(e) => {
+            e.preventDefault();
+            const currentScale = userScale ?? scale;
+            resizeDragRef.current = { active: true, startX: e.clientX, startY: e.clientY, startScale: currentScale };
+          }}
+          style={{
+            position: "absolute",
+            bottom: -20,
+            right: -20,
+            width: 32,
+            height: 32,
+            cursor: "nwse-resize",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            opacity: 0.4,
+            transition: "opacity 0.2s",
+            zIndex: 20,
+          }}
+          onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.8")}
+          onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.4")}
+          title="Drag to resize"
+        >
+          <svg width="14" height="14" viewBox="0 0 14 14" fill="rgba(255,255,255,0.8)">
+            <path d="M14 8L8 14L14 14L14 8Z" />
+            <path d="M14 2L2 14L4 14L14 4Z" opacity="0.6" />
+          </svg>
+        </div>
       </motion.div>
     </div>
   );

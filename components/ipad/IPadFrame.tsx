@@ -1,17 +1,19 @@
 "use client";
 
 import { ReactNode } from "react";
+import { motion } from "framer-motion";
 
 interface Props {
   orientation: "landscape" | "portrait";
   children: ReactNode;
+  onPowerPress?: () => void;
 }
 
 // iPad Pro 11" (M4) Space Gray -realistic proportions
 // Portrait:  630 × 900  outer frame
 // Landscape: 900 × 630  outer frame
 
-export default function IPadFrame({ orientation, children }: Props) {
+export default function IPadFrame({ orientation, children, onPowerPress }: Props) {
   const isLandscape = orientation === "landscape";
 
   const outerW = isLandscape ? 900 : 630;
@@ -23,16 +25,16 @@ export default function IPadFrame({ orientation, children }: Props) {
   const screenW = outerW - bezelV * 2;
   const screenH = outerH - bezelH * 2;
 
-  // Titanium / Space Gray frame gradient
+  // White / Silver aluminum frame gradient
   const frameGrad = `
-    radial-gradient(ellipse at 20% 10%, #4a4a4c 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 90%, #111113 0%, transparent 55%),
-    linear-gradient(155deg, #3a3a3c 0%, #2c2c2e 30%, #1c1c1e 60%, #131315 80%, #1e1e20 100%)
+    radial-gradient(ellipse at 25% 15%, #f8f8f8 0%, transparent 50%),
+    radial-gradient(ellipse at 75% 85%, #d0d0d0 0%, transparent 55%),
+    linear-gradient(155deg, #f2f2f2 0%, #e0e0e0 25%, #ebebeb 50%, #d8d8d8 75%, #f0f0f0 100%)
   `;
 
   const btnGrad = isLandscape
-    ? "linear-gradient(90deg, #141416 0%, #3a3a3c 50%, #2c2c2e 100%)"
-    : "linear-gradient(180deg, #141416 0%, #3a3a3c 50%, #2c2c2e 100%)";
+    ? "linear-gradient(90deg, #b8b8b8 0%, #d8d8d8 50%, #c8c8c8 100%)"
+    : "linear-gradient(180deg, #b8b8b8 0%, #d8d8d8 50%, #c8c8c8 100%)";
 
   return (
     <div
@@ -44,19 +46,21 @@ export default function IPadFrame({ orientation, children }: Props) {
         position: "relative",
         flexShrink: 0,
         boxShadow: `
-          0 0 0 0.5px rgba(255,255,255,0.1) inset,
-          0 0 0 1px rgba(0,0,0,0.9),
-          0 50px 120px rgba(0,0,0,0.7),
-          0 20px 60px rgba(0,0,0,0.5),
-          0 8px 24px rgba(0,0,0,0.4),
-          inset 0 1px 0 rgba(255,255,255,0.12),
-          inset 0 -1px 0 rgba(0,0,0,0.4)
+          0 0 0 0.5px rgba(0,0,0,0.08) inset,
+          0 0 0 1px rgba(0,0,0,0.25),
+          0 50px 120px rgba(0,0,0,0.55),
+          0 20px 60px rgba(0,0,0,0.35),
+          0 8px 24px rgba(0,0,0,0.25),
+          inset 0 1px 0 rgba(255,255,255,0.9),
+          inset 0 -1px 0 rgba(0,0,0,0.15)
         `,
       }}
     >
       {/* ── Side / Top Buttons ── */}
       {/* Power button (right side landscape / top-right portrait) */}
-      <div
+      <motion.div
+        onClick={onPowerPress}
+        whileTap={onPowerPress ? { scale: 0.9 } : undefined}
         style={{
           position: "absolute",
           ...(isLandscape
@@ -65,6 +69,7 @@ export default function IPadFrame({ orientation, children }: Props) {
           background: btnGrad,
           borderRadius: isLandscape ? "0 3px 3px 0" : "0 3px 3px 0",
           boxShadow: "2px 0 6px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)",
+          cursor: onPowerPress ? "pointer" : "default",
         }}
       />
       {/* Volume Up */}
@@ -125,7 +130,7 @@ export default function IPadFrame({ orientation, children }: Props) {
           inset: 0,
           borderRadius: "inherit",
           background:
-            "linear-gradient(145deg, rgba(255,255,255,0.08) 0%, transparent 35%, rgba(0,0,0,0.05) 100%)",
+            "linear-gradient(145deg, rgba(255,255,255,0.6) 0%, transparent 30%, rgba(0,0,0,0.03) 100%)",
           pointerEvents: "none",
         }}
       />

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { photos } from "@/data/content";
@@ -10,10 +10,38 @@ interface Props {
   orientation: string;
 }
 
+// Push an image into the browser cache immediately
+function preloadSrc(src: string) {
+  if (typeof window === "undefined") return;
+  const img = new window.Image();
+  img.src = src;
+}
+
 export default function PhotosApp({ onClose, orientation }: Props) {
   const [selected, setSelected] = useState<number | null>(null);
+  const [loaded, setLoaded] = useState<Set<number>>(new Set());
   const isLandscape = orientation === "landscape";
   const cols = isLandscape ? 3 : 2;
+
+  // MEGA CACHE: preload every photo the moment the app opens
+  useEffect(() => {
+    photos.forEach((p) => preloadSrc(p.src));
+  }, []);
+
+  // Preload prev + next while viewing a photo so swipe is instant
+  useEffect(() => {
+    if (selected === null) return;
+    if (selected > 0) preloadSrc(photos[selected - 1].src);
+    if (selected < photos.length - 1) preloadSrc(photos[selected + 1].src);
+  }, [selected]);
+
+  const markLoaded = useCallback((i: number) => {
+    setLoaded((prev) => {
+      const next = new Set(prev);
+      next.add(i);
+      return next;
+    });
+  }, []);
 
   return (
     <div className="app-window" style={{ background: "#f2f2f7" }}>
@@ -27,8 +55,14 @@ export default function PhotosApp({ onClose, orientation }: Props) {
               exit={{ opacity: 0 }}
               style={{ padding: "16px 16px 32px" }}
             >
-              <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} style={{ marginBottom: 20 }}>
-                <h1 className="ios-large-title font-poppins" style={{ color: "#1c1c1e", marginBottom: 4 }}>Photos</h1>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                style={{ marginBottom: 20 }}
+              >
+                <h1 className="ios-large-title font-poppins" style={{ color: "#1c1c1e", marginBottom: 4 }}>
+                  Photos
+                </h1>
                 <p style={{ fontSize: 15, color: "#636366" }}>Life outside the code</p>
               </motion.div>
 
@@ -42,9 +76,9 @@ export default function PhotosApp({ onClose, orientation }: Props) {
                 {photos.map((photo, i) => (
                   <motion.div
                     key={i}
-                    initial={{ opacity: 0, scale: 0.9 }}
+                    initial={{ opacity: 0, scale: 0.92 }}
                     animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: i * 0.05 }}
+                    transition={{ delay: i * 0.04, duration: 0.22 }}
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.95 }}
                     onClick={() => setSelected(i)}
@@ -56,13 +90,25 @@ export default function PhotosApp({ onClose, orientation }: Props) {
                       boxShadow: "0 3px 12px rgba(0,0,0,0.12)",
                       position: "relative",
                       transform: `rotate(${photo.rotation}deg)`,
+                      // Skeleton background visible until image loads
+                      background: "#e5e5ea",
                     }}
                   >
                     <Image
                       src={photo.src}
                       alt={photo.caption}
                       fill
-                      style={{ objectFit: "cover" }}
+                      // Correct sizes = Next.js picks the right srcset variant
+                      sizes={isLandscape ? "200px" : "170px"}
+                      style={{
+                        objectFit: "cover",
+                        // Smooth fade-in once loaded
+                        opacity: loaded.has(i) ? 1 : 0,
+                        transition: "opacity 0.25s ease",
+                      }}
+                      // First row loads eagerly; rest lazy
+                      priority={i < cols}
+                      onLoad={() => markLoaded(i)}
                     />
                   </motion.div>
                 ))}
@@ -81,20 +127,32 @@ export default function PhotosApp({ onClose, orientation }: Props) {
                 <button
                   onClick={() => setSelected(null)}
                   style={{
-                    display: "flex", alignItems: "center", gap: 4,
-                    color: "#007aff", fontSize: 16, background: "none",
-                    border: "none", cursor: "pointer", padding: 0,
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 4,
+                    color: "#007aff",
+                    fontSize: 16,
+                    background: "none",
+                    border: "none",
+                    cursor: "pointer",
+                    padding: 0,
                     fontFamily: "-apple-system, sans-serif",
                   }}
                 >
                   <svg width="8" height="13" viewBox="0 0 10 17" fill="none">
-                    <path d="M8.5 1L1 8.5L8.5 16" stroke="#007aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    <path
+                      d="M8.5 1L1 8.5L8.5 16"
+                      stroke="#007aff"
+                      strokeWidth="2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
                   </svg>
                   Photos
                 </button>
               </div>
 
-              {/* Full photo */}
+              {/* Full photo — always priority since it's the focal element */}
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -105,6 +163,7 @@ export default function PhotosApp({ onClose, orientation }: Props) {
                   overflow: "hidden",
                   boxShadow: "0 8px 40px rgba(0,0,0,0.2)",
                   position: "relative",
+                  background: "#e5e5ea",
                 }}
               >
                 <div style={{ aspectRatio: "4/3", position: "relative" }}>
@@ -112,7 +171,9 @@ export default function PhotosApp({ onClose, orientation }: Props) {
                     src={photos[selected].src}
                     alt={photos[selected].caption}
                     fill
+                    sizes="(max-width: 768px) 90vw, 640px"
                     style={{ objectFit: "cover" }}
+                    priority
                   />
                 </div>
                 <div
@@ -173,8 +234,15 @@ export default function PhotosApp({ onClose, orientation }: Props) {
                 </button>
               </div>
 
-              {/* Filmstrip thumbnails */}
-              <div style={{ padding: "16px 16px 0", display: "flex", gap: 8, overflowX: "auto" }}>
+              {/* Filmstrip — 56px slots need tiny images, not full-res */}
+              <div
+                style={{
+                  padding: "16px 16px 0",
+                  display: "flex",
+                  gap: 8,
+                  overflowX: "auto",
+                }}
+              >
                 {photos.map((photo, i) => (
                   <div
                     key={i}
@@ -188,9 +256,17 @@ export default function PhotosApp({ onClose, orientation }: Props) {
                       flexShrink: 0,
                       border: i === selected ? "2.5px solid #007aff" : "2px solid transparent",
                       position: "relative",
+                      background: "#e5e5ea",
                     }}
                   >
-                    <Image src={photo.src} alt={photo.caption} fill style={{ objectFit: "cover" }} />
+                    <Image
+                      src={photo.src}
+                      alt={photo.caption}
+                      fill
+                      // Explicit 56px → Next.js picks the smallest srcset variant
+                      sizes="56px"
+                      style={{ objectFit: "cover" }}
+                    />
                   </div>
                 ))}
               </div>

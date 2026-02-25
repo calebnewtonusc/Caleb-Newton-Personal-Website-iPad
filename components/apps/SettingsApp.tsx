@@ -36,19 +36,19 @@ const SECTION_ICONS: Record<string, { bg: string; render: () => React.ReactNode 
   faith: {
     bg: "#5856D6",
     render: () => (
-      <svg width="14" height="17" viewBox="0 0 14 18" fill="white">
-        <rect x="5.5" y="0" width="3" height="18" rx="1.5" />
-        <rect x="0" y="4.5" width="14" height="3" rx="1.5" />
+      <svg width="16" height="20" viewBox="0 0 16 20" fill="white">
+        <rect x="6.5" y="0" width="3" height="20" rx="1.5" />
+        <rect x="0" y="5" width="16" height="3" rx="1.5" />
       </svg>
     ),
   },
   music: {
     bg: "#FF2D55",
     render: () => (
-      <svg width="15" height="15" viewBox="0 0 15 15" fill="none">
-        <path d="M5.5 13V4.5l8-1.5v6" stroke="white" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
-        <circle cx="3.5" cy="13" r="2.5" fill="white" />
-        <circle cx="11.5" cy="10" r="2.5" fill="white" />
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M6 12.5V4l9-1.5v7" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+        <circle cx="3.5" cy="12.5" r="2.5" fill="white" />
+        <circle cx="12.5" cy="10.5" r="2.5" fill="white" />
       </svg>
     ),
   },
@@ -56,27 +56,28 @@ const SECTION_ICONS: Record<string, { bg: string; render: () => React.ReactNode 
     bg: "#34C759",
     render: () => (
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <circle cx="8" cy="8" r="7" stroke="white" strokeWidth="1.4" />
-        <path d="M5 2.5C6.5 4.5 6.5 11.5 5 13.5M11 2.5C9.5 4.5 9.5 11.5 11 13.5" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
+        <circle cx="8" cy="8" r="7" stroke="white" strokeWidth="1.5" />
+        <path d="M4.5 3C6 5 6 11 4.5 13M11.5 3C10 5 10 11 11.5 13" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M1 8h14" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
       </svg>
     ),
   },
   film: {
     bg: "#FF9500",
     render: () => (
-      <svg width="15" height="13" viewBox="0 0 15 13" fill="none">
-        <rect x="0.75" y="3.25" width="13.5" height="9" rx="1.5" stroke="white" strokeWidth="1.4" />
-        <path d="M0.75 7.25h13.5" stroke="white" strokeWidth="1.4" />
-        <path d="M3.5 3.25V1M7.5 3.25V1M11.5 3.25V1" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
-        <path d="M1 3L3.5 1M5 3L7.5 1M9 3L11.5 1" stroke="white" strokeWidth="1.3" strokeLinecap="round" />
+      <svg width="16" height="14" viewBox="0 0 16 14" fill="none">
+        <rect x="1" y="3" width="14" height="10" rx="1.5" stroke="white" strokeWidth="1.5" />
+        <path d="M1 7h14" stroke="white" strokeWidth="1.5" />
+        <path d="M4 3V1M8 3V1M12 3V1" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+        <path d="M4 3L2 1M8 3L6 1M12 3L10 1" stroke="white" strokeWidth="1.3" strokeLinecap="round" />
       </svg>
     ),
   },
   runtime: {
     bg: "#FFD60A",
     render: () => (
-      <svg width="11" height="17" viewBox="0 0 11 17" fill="#1c1c1e">
-        <path d="M6.5 0L0 9.5h5.5L4.5 17 11 7H5.5z" />
+      <svg width="12" height="18" viewBox="0 0 12 18" fill="#1c1c1e">
+        <path d="M7 0L0 10h6L5 18 12 7H6z" />
       </svg>
     ),
   },
@@ -84,18 +85,18 @@ const SECTION_ICONS: Record<string, { bg: string; render: () => React.ReactNode 
     bg: "#636366",
     render: () => (
       <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-        <circle cx="8" cy="8" r="2.5" stroke="white" strokeWidth="1.4" />
-        <path d="M8 1v2M8 13v2M1 8h2M13 8h2M2.9 2.9l1.4 1.4M11.7 11.7l1.4 1.4M2.9 13.1l1.4-1.4M11.7 4.3l1.4-1.4" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
+        <circle cx="8" cy="8" r="2.5" stroke="white" strokeWidth="1.5" />
+        <path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.4 3.4l1.4 1.4M11.2 11.2l1.4 1.4M3.4 12.6l1.4-1.4M11.2 4.8l1.4-1.4" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
       </svg>
     ),
   },
   device: {
     bg: "#8E8E93",
     render: () => (
-      <svg width="11" height="17" viewBox="0 0 11 17" fill="none">
-        <rect x="0.75" y="0.75" width="9.5" height="15.5" rx="1.75" stroke="white" strokeWidth="1.4" />
-        <circle cx="5.5" cy="13.5" r="1" fill="white" />
-        <path d="M4 0.75h3" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
+      <svg width="11" height="18" viewBox="0 0 11 18" fill="none">
+        <rect x="1" y="1" width="9" height="16" rx="2" stroke="white" strokeWidth="1.5" />
+        <circle cx="5.5" cy="14" r="1" fill="white" />
+        <path d="M3.5 1v1h4V1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
       </svg>
     ),
   },
@@ -153,7 +154,7 @@ export default function SettingsApp({ onClose, orientation }: Props) {
 
                 {/* Large title */}
                 <h1 style={{ fontSize: 34, fontWeight: 700, color: "#1c1c1e", marginBottom: 20, fontFamily: "-apple-system, sans-serif", letterSpacing: -0.5 }}>
-                  Settings
+                  About
                 </h1>
 
                 {/* Profile card */}
@@ -231,7 +232,7 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                 {!isLandscape && (
                   <button onClick={() => setSelectedSection(null)} style={{ display: "flex", alignItems: "center", gap: 5, color: "#007aff", fontSize: 17, background: "none", border: "none", cursor: "pointer", marginBottom: 16, padding: 0, fontFamily: "-apple-system, sans-serif" }}>
                     <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M7 1L1 7l6 6" stroke="#007aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                    Settings
+                    About
                   </button>
                 )}
 
@@ -289,7 +290,7 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                 {!isLandscape && (
                   <button onClick={() => setSelectedSection(null)} style={{ display: "flex", alignItems: "center", gap: 5, color: "#007aff", fontSize: 17, background: "none", border: "none", cursor: "pointer", marginBottom: 16, padding: 0, fontFamily: "-apple-system, sans-serif" }}>
                     <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M7 1L1 7l6 6" stroke="#007aff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" /></svg>
-                    Settings
+                    About
                   </button>
                 )}
 
