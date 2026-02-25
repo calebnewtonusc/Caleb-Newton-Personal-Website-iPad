@@ -61,16 +61,13 @@ function ProjectIcon({ project, size }: { project: typeof projects[0]; size: num
           backdropFilter: isSolid ? undefined : "blur(22px) saturate(2.4)",
           WebkitBackdropFilter: isSolid ? undefined : "blur(22px) saturate(2.4)",
           border: "1px solid rgba(255,255,255,0.22)",
-          boxShadow: `0 4px 18px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.22), 0 0 0 0.5px ${color}44`,
+          boxShadow: `0 4px 18px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.22), 0 0 0 0.5px rgba(255,255,255,0.12)`,
           padding: isSolid ? 0 : "12%",
           boxSizing: "border-box",
         }}
       >
         {!isSolid && (
-          <>
-            <div style={{ position: "absolute", inset: 0, background: `${color}55`, pointerEvents: "none" }} />
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 50%)", pointerEvents: "none" }} />
-          </>
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 50%)", pointerEvents: "none" }} />
         )}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
