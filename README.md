@@ -1,4 +1,4 @@
-# Caleb's iPad — Personal Portfolio
+# Caleb's iPad: Personal Portfolio
 
 ![Next.js](https://img.shields.io/badge/Next.js-16-000000?logo=next.js&logoColor=white)
 ![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
@@ -7,18 +7,18 @@
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4?logo=tailwindcss&logoColor=white)
 ![Vercel](https://img.shields.io/badge/Deployed-Vercel-000000?logo=vercel&logoColor=white)
 
-A personal portfolio site designed as an interactive iPad simulator — browse work experience, projects, education, and personal details through a fully functional iOS-inspired interface with real app icons, a lock screen, Dock, home screen folders, and springy Framer Motion animations.
+A personal portfolio site designed as an interactive iPad simulator. Browse work experience, projects, education, and personal details through a fully functional iOS-inspired interface with real app icons, a lock screen, Dock, home screen folders, and springy Framer Motion animations.
 
 > Screenshot
 
 ## Features
 
-- **Realistic iPad Shell** — pixel-accurate frame with Dynamic Island, status bar, Home indicator, and a power button that actually turns the screen off
-- **iOS Home Screen** — app icon grid with a tap-to-open Projects folder, Dock, and swipe-to-unlock lock screen; fully responsive between landscape and portrait
-- **17 Interactive Apps** — Work, Projects, Education, Photos, Organizations, Mail/Contact, Settings (About Me), CalebGPT, Spotify player, Bible, and social link apps (GitHub, LinkedIn, YouTube, Letterboxd, X, Substack, RateYourMusic)
-- **Framer Motion Physics** — spring-based orientation transitions, pinch-scale corner-drag resize, app open/close zoom animations, and ambient scroll gestures to close Spotify
-- **Spotify App** — embedded live Spotify player with favorite new and classic albums
-- **CalebGPT** — in-app AI assistant for answering questions about Caleb's background and work
+- **Realistic iPad Shell:** pixel-accurate frame with Dynamic Island, status bar, Home indicator, and a power button that actually turns the screen off
+- **iOS Home Screen:** app icon grid with a tap-to-open Projects folder, Dock, and swipe-to-unlock lock screen; fully responsive between landscape and portrait
+- **17 Interactive Apps:** Work, Projects, Education, Photos, Organizations, Mail/Contact, Settings (About Me), CalebGPT, Spotify player, Bible, and social link apps (GitHub, LinkedIn, YouTube, Letterboxd, X, Substack, RateYourMusic)
+- **Framer Motion Physics:** spring-based orientation transitions, pinch-scale corner-drag resize, app open/close zoom animations, and ambient scroll gestures to close Spotify
+- **Spotify App:** embedded live Spotify player with favorite new and classic albums
+- **CalebGPT:** in-app AI assistant for answering questions about Caleb's background and work
 
 ## Tech Stack
 
@@ -37,7 +37,7 @@ npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000). The site renders as an interactive iPad — click the lock screen to unlock, then tap any app icon to explore.
+Open [http://localhost:3000](http://localhost:3000). The site renders as an interactive iPad. Click the lock screen to unlock, then tap any app icon to explore.
 
 No environment variables are required for local development. The CalebGPT app and Spotify embeds may require API keys configured in Vercel for full functionality.
 
@@ -66,4 +66,4 @@ data/
 
 ---
 
-**Author:** Caleb Newton — [calebnewton.me](https://calebnewton.me)
+**Author:** Caleb Newton ([calebnewton.me](https://calebnewton.me))

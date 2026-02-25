@@ -11,7 +11,7 @@ Old site: `/Users/joelnewton/Desktop/2026-Code/projects/Personal-Website/src/pag
 
 ## Implementation Plan
 
-### 1. IPadPage.tsx — add 3D drag logic
+### 1. IPadPage.tsx: add 3D drag logic
 
 ```tsx
 import { useRef, useState, useCallback, useEffect } from "react";
@@ -101,5 +101,5 @@ const shadowY = useTransform(springX, [-30, 30], [40, -40]);
 
 ## Notes
 - Don't let 3D drag interfere with app interactions (`.app-window` guard)
-- The `scale` state from orientation changes should still work — just multiply/compose with the 3D transform
+- The `scale` state from orientation changes should still work (just multiply/compose with the 3D transform)
 - Framer Motion's `useSpring` handles the snap-back animation automatically
