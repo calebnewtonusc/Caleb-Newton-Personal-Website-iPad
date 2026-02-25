@@ -53,10 +53,10 @@ export default function IPadPage() {
       const rect = el.getBoundingClientRect();
       setSpotifyPillHovered(e.clientY >= rect.bottom - HOVER_ZONE);
     };
-    window.addEventListener("wheel", onWheel, { passive: true });
+    window.addEventListener("wheel", onWheel, { passive: true, capture: true });
     window.addEventListener("mousemove", onMouseMove);
     return () => {
-      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("wheel", onWheel, { capture: true });
       window.removeEventListener("mousemove", onMouseMove);
     };
   }, []);
@@ -115,8 +115,7 @@ export default function IPadPage() {
     setMounted(true);
   }, [getOrientation, calcScale, scaleMotionValue]);
 
-  // Window resize — proportional spring animation
-  // If iPad was at max: follow to new max. If manually smaller: maintain ratio.
+  // Window resize — proportional, instant for same orientation, spring for orientation flip
   useEffect(() => {
     let pending = false;
     const onResize = () => {
@@ -130,29 +129,25 @@ export default function IPadPage() {
 
         if (!resizeDragRef.current.active) {
           const autoScale = calcScale(next);
-          let target: number;
 
           if (orientChanged) {
             setUserScale(null);
-            target = autoScale;
-          } else {
-            // Maintain the ratio of current scale to previous auto-scale.
-            // This grows or shrinks the iPad proportionally with the window.
-            const prevAuto = prevAutoScaleRef.current;
-            const current = scaleMotionValue.get();
-            const ratio = prevAuto > 0 ? current / prevAuto : 1;
-            target = Math.max(0.25, Math.min(ratio * autoScale, autoScale));
-          }
-
-          prevAutoScaleRef.current = autoScale;
-
-          if (Math.abs(target - scaleMotionValue.get()) > 0.005) {
-            fmAnimate(scaleMotionValue, target, {
+            prevAutoScaleRef.current = autoScale;
+            fmAnimate(scaleMotionValue, autoScale, {
               type: "spring",
               stiffness: 260,
               damping: 28,
               restDelta: 0.001,
             });
+          } else {
+            // Proportional: maintain ratio of current to previous auto-scale.
+            // Uses instant .set() so continuous window resize stays smooth.
+            const prevAuto = prevAutoScaleRef.current;
+            const current = scaleMotionValue.get();
+            const ratio = prevAuto > 0 ? current / prevAuto : 1;
+            const target = Math.max(0.25, Math.min(ratio * autoScale, autoScale));
+            prevAutoScaleRef.current = autoScale;
+            scaleMotionValue.set(target);
           }
         }
 

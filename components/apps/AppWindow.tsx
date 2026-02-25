@@ -110,7 +110,8 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
       if (dy > 80 && dy > dx) safeClose();
     };
 
-    window.addEventListener("wheel", onWheel, { passive: true });
+    // capture:true fires before any child stopPropagation can block us
+    window.addEventListener("wheel", onWheel, { passive: true, capture: true });
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mousedown", onMouseDown);
     window.addEventListener("mouseup", onMouseUp);
@@ -118,7 +119,7 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
     container.addEventListener("touchend", onTouchEnd, { passive: true });
 
     return () => {
-      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("wheel", onWheel, { capture: true });
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("mousedown", onMouseDown);
       window.removeEventListener("mouseup", onMouseUp);
