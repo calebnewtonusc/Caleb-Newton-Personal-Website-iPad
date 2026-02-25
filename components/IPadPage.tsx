@@ -22,6 +22,8 @@ export default function IPadPage() {
   const scaleMotionValue = useMotionValue(0.97);
   const resizeDragRef = useRef({ active: false, startX: 0, startY: 0, startScale: 1, corner: "br" as "tl" | "tr" | "bl" | "br" });
   const prevOrientRef = useRef<"landscape" | "portrait" | null>(null);
+  // Tracks the last auto-scale so resize can maintain the user's ratio proportionally
+  const prevAutoScaleRef = useRef<number>(0.97);
 
   // Spotify home zone hover/wheel detection
   const spotifyWrapperRef = useRef<HTMLDivElement>(null);
@@ -40,22 +42,22 @@ export default function IPadPage() {
     const HOVER_ZONE = 60;
     const onWheel = (e: WheelEvent) => {
       if (!spotifyOpenRef.current || e.deltaY >= 0) return;
+      // DOM containment check — reliable under parent CSS transforms
+      if (!el.contains(e.target as Node)) return;
       const rect = el.getBoundingClientRect();
       if (e.clientY >= rect.bottom - CLOSE_ZONE) setOpenApp(null);
     };
     const onMouseMove = (e: MouseEvent) => {
       if (!spotifyOpenRef.current) return;
+      if (!el.contains(e.target as Node)) { setSpotifyPillHovered(false); return; }
       const rect = el.getBoundingClientRect();
       setSpotifyPillHovered(e.clientY >= rect.bottom - HOVER_ZONE);
     };
-    const onMouseLeave = () => setSpotifyPillHovered(false);
-    el.addEventListener("wheel", onWheel, { passive: true });
-    el.addEventListener("mousemove", onMouseMove);
-    el.addEventListener("mouseleave", onMouseLeave);
+    window.addEventListener("wheel", onWheel, { passive: true });
+    window.addEventListener("mousemove", onMouseMove);
     return () => {
-      el.removeEventListener("wheel", onWheel);
-      el.removeEventListener("mousemove", onMouseMove);
-      el.removeEventListener("mouseleave", onMouseLeave);
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("mousemove", onMouseMove);
     };
   }, []);
 
@@ -107,11 +109,14 @@ export default function IPadPage() {
     const initial = getOrientation();
     setOrientation(initial);
     prevOrientRef.current = initial;
-    scaleMotionValue.set(calcScale(initial));
+    const initScale = calcScale(initial);
+    scaleMotionValue.set(initScale);
+    prevAutoScaleRef.current = initScale;
     setMounted(true);
   }, [getOrientation, calcScale, scaleMotionValue]);
 
-  // Window resize — spring-animated always (acts as a wall: only pushes iPad smaller)
+  // Window resize — proportional spring animation
+  // If iPad was at max: follow to new max. If manually smaller: maintain ratio.
   useEffect(() => {
     let pending = false;
     const onResize = () => {
@@ -125,26 +130,29 @@ export default function IPadPage() {
 
         if (!resizeDragRef.current.active) {
           const autoScale = calcScale(next);
+          let target: number;
+
           if (orientChanged) {
             setUserScale(null);
-            fmAnimate(scaleMotionValue, autoScale, {
+            target = autoScale;
+          } else {
+            // Maintain the ratio of current scale to previous auto-scale.
+            // This grows or shrinks the iPad proportionally with the window.
+            const prevAuto = prevAutoScaleRef.current;
+            const current = scaleMotionValue.get();
+            const ratio = prevAuto > 0 ? current / prevAuto : 1;
+            target = Math.max(0.25, Math.min(ratio * autoScale, autoScale));
+          }
+
+          prevAutoScaleRef.current = autoScale;
+
+          if (Math.abs(target - scaleMotionValue.get()) > 0.005) {
+            fmAnimate(scaleMotionValue, target, {
               type: "spring",
               stiffness: 260,
               damping: 28,
               restDelta: 0.001,
             });
-          } else {
-            // Wall: only push inward (smaller). If window grows, keep current scale.
-            const current = scaleMotionValue.get();
-            const target = Math.min(current, autoScale);
-            if (Math.abs(target - current) > 0.005) {
-              fmAnimate(scaleMotionValue, target, {
-                type: "spring",
-                stiffness: 260,
-                damping: 28,
-                restDelta: 0.001,
-              });
-            }
           }
         }
 

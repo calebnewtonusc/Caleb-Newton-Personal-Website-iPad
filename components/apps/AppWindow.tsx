@@ -60,34 +60,31 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
     setPillHovered(false);
   }, [appId]);
 
-  // All close/hover detection via window-level listeners with manual bounds check.
-  // Window-level ensures events are never blocked by child stopPropagation,
-  // and drag works reliably even when the cursor moves outside the container.
+  // All close/hover detection via window-level listeners.
+  // Containment uses container.contains(target) — DOM hierarchy is immune to
+  // CSS transform/scale coordinate skew that can break getBoundingClientRect checks.
+  // Pill hover still uses clientY vs rect.bottom for the zone threshold.
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
     const getRect = () => container.getBoundingClientRect();
-    const inContainer = (x: number, y: number) => {
-      const r = getRect();
-      return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
-    };
 
     const onWheel = (e: WheelEvent) => {
       if (e.deltaY >= 0) return;
-      if (!inContainer(e.clientX, e.clientY)) return;
+      if (!container.contains(e.target as Node)) return;
       const r = getRect();
       if (e.clientY >= r.bottom - CLOSE_ZONE_PX) safeClose();
     };
 
     const onMouseMove = (e: MouseEvent) => {
       const r = getRect();
-      const inside = inContainer(e.clientX, e.clientY);
+      const inside = container.contains(e.target as Node);
       setPillHovered(inside && e.clientY >= r.bottom - HOVER_ZONE_PX);
 
       if (dragRef.current.active) {
         const dy = dragRef.current.startY - e.clientY;
-        if (dy > 120) {
+        if (dy > 80) {
           dragRef.current.active = false;
           safeClose();
         }
@@ -95,7 +92,7 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
     };
 
     const onMouseDown = (e: MouseEvent) => {
-      if (inContainer(e.clientX, e.clientY)) {
+      if (container.contains(e.target as Node)) {
         dragRef.current = { active: true, startY: e.clientY, startX: e.clientX };
       }
     };
