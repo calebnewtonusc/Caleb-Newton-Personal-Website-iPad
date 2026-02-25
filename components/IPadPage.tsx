@@ -367,8 +367,8 @@ export default function IPadPage() {
                 onClick={() => setOpenApp(null)}
                 onWheel={() => setOpenApp(null)}
                 style={{
-                  position: "absolute", bottom: 0, left: 0, right: 0, height: 60,
-                  display: "flex", alignItems: "flex-end", justifyContent: "center",
+                  position: "absolute", bottom: 0, left: 0, right: 0, height: 28,
+                  display: "flex", alignItems: "center", justifyContent: "center",
                   cursor: "pointer", zIndex: 20, paddingBottom: 6,
                 }}
               >

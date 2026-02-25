@@ -153,8 +153,8 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
         <AppComponent onClose={onClose} orientation={orientation} />
       </div>
 
-      {/* Home indicator — click or hover+scroll-up to exit */}
-      {/* Height matches CLOSE_ZONE_PX so onWheel fires across the full close zone */}
+      {/* Home indicator — click or scroll-up to exit */}
+      {/* Height is just the pill area; container onWheel handles the broader 60px zone */}
       <div
         onClick={safeClose}
         onWheel={() => safeClose()}
@@ -163,9 +163,9 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
           bottom: 0,
           left: 0,
           right: 0,
-          height: CLOSE_ZONE_PX,
+          height: 28,
           display: "flex",
-          alignItems: "flex-end",
+          alignItems: "center",
           justifyContent: "center",
           cursor: "pointer",
           zIndex: 20,
