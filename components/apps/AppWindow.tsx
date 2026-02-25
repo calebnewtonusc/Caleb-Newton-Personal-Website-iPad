@@ -133,6 +133,12 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
   return (
     <motion.div
       ref={containerRef}
+      onWheel={(e) => {
+        if (e.deltaY < 0) {
+          const r = containerRef.current?.getBoundingClientRect();
+          if (r && e.clientY >= r.bottom - CLOSE_ZONE_PX) safeClose();
+        }
+      }}
       style={{
         position: "absolute",
         inset: 0,
@@ -151,16 +157,18 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
       </div>
 
       {/* Home indicator — click or hover+scroll-up to exit */}
+      {/* Height matches CLOSE_ZONE_PX so onWheel fires across the full close zone */}
       <div
         onClick={safeClose}
+        onWheel={(e) => { if (e.deltaY < 0) safeClose(); }}
         style={{
           position: "absolute",
           bottom: 0,
           left: 0,
           right: 0,
-          height: 34,
+          height: CLOSE_ZONE_PX,
           display: "flex",
-          alignItems: "center",
+          alignItems: "flex-end",
           justifyContent: "center",
           cursor: "pointer",
           zIndex: 20,
