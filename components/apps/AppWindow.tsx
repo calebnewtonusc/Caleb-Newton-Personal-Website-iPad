@@ -60,25 +60,30 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
     setPillHovered(false);
   }, [appId]);
 
-  // All close/hover detection via container-level listeners.
-  // Wheel + Y-position check: no click required to trigger close.
-  // Mouse events bubble from child elements up to the container, so this works
-  // even if app content has its own scroll handlers.
+  // All close/hover detection via window-level listeners with manual bounds check.
+  // Window-level ensures events are never blocked by child stopPropagation,
+  // and drag works reliably even when the cursor moves outside the container.
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
+    const getRect = () => container.getBoundingClientRect();
+    const inContainer = (x: number, y: number) => {
+      const r = getRect();
+      return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+    };
+
     const onWheel = (e: WheelEvent) => {
-      if (e.deltaY >= 0) return; // only upward scroll triggers close
-      const rect = container.getBoundingClientRect();
-      if (e.clientY >= rect.bottom - CLOSE_ZONE_PX) {
-        safeClose();
-      }
+      if (e.deltaY >= 0) return;
+      if (!inContainer(e.clientX, e.clientY)) return;
+      const r = getRect();
+      if (e.clientY >= r.bottom - CLOSE_ZONE_PX) safeClose();
     };
 
     const onMouseMove = (e: MouseEvent) => {
-      const rect = container.getBoundingClientRect();
-      setPillHovered(e.clientY >= rect.bottom - HOVER_ZONE_PX);
+      const r = getRect();
+      const inside = inContainer(e.clientX, e.clientY);
+      setPillHovered(inside && e.clientY >= r.bottom - HOVER_ZONE_PX);
 
       if (dragRef.current.active) {
         const dy = dragRef.current.startY - e.clientY;
@@ -90,15 +95,14 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
     };
 
     const onMouseDown = (e: MouseEvent) => {
-      dragRef.current = { active: true, startY: e.clientY, startX: e.clientX };
+      if (inContainer(e.clientX, e.clientY)) {
+        dragRef.current = { active: true, startY: e.clientY, startX: e.clientX };
+      }
     };
 
-    const onMouseLeave = () => {
-      setPillHovered(false);
+    const onMouseUp = () => {
       dragRef.current.active = false;
     };
-
-    const onMouseUp = () => { dragRef.current.active = false; };
 
     const onTouchStart = (e: TouchEvent) => {
       touchRef.current = { startY: e.touches[0].clientY, startX: e.touches[0].clientX };
@@ -109,19 +113,17 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
       if (dy > 80 && dy > dx) safeClose();
     };
 
-    container.addEventListener("wheel", onWheel, { passive: true });
-    container.addEventListener("mousemove", onMouseMove);
-    container.addEventListener("mousedown", onMouseDown);
-    container.addEventListener("mouseleave", onMouseLeave);
+    window.addEventListener("wheel", onWheel, { passive: true });
+    window.addEventListener("mousemove", onMouseMove);
+    window.addEventListener("mousedown", onMouseDown);
     window.addEventListener("mouseup", onMouseUp);
     container.addEventListener("touchstart", onTouchStart, { passive: true });
     container.addEventListener("touchend", onTouchEnd, { passive: true });
 
     return () => {
-      container.removeEventListener("wheel", onWheel);
-      container.removeEventListener("mousemove", onMouseMove);
-      container.removeEventListener("mousedown", onMouseDown);
-      container.removeEventListener("mouseleave", onMouseLeave);
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("mousemove", onMouseMove);
+      window.removeEventListener("mousedown", onMouseDown);
       window.removeEventListener("mouseup", onMouseUp);
       container.removeEventListener("touchstart", onTouchStart);
       container.removeEventListener("touchend", onTouchEnd);

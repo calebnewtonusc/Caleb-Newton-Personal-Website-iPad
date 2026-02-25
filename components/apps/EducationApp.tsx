@@ -197,23 +197,21 @@ export default function EducationApp({ onClose }: Props) {
                       }}
                     >
                       <div style={{ flex: 1, minWidth: 0 }}>
-                        <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 3 }}>
-                          <span
-                            style={{
-                              fontSize: 14,
-                              fontWeight: 700,
-                              color: "#1c1c1e",
-                              overflow: "hidden",
-                              textOverflow: "ellipsis",
-                              whiteSpace: "nowrap",
-                              flex: 1,
-                              fontFamily: "-apple-system, sans-serif",
-                            }}
-                          >
-                            {ed.school}
-                          </span>
-                          <span style={{ fontSize: 12, color: "#aeaeb2", flexShrink: 0, minWidth: 36, textAlign: "right" }}>{noteDate(ed.period)}</span>
-                        </div>
+                        <span
+                          style={{
+                            display: "block",
+                            fontSize: 14,
+                            fontWeight: 700,
+                            color: "#1c1c1e",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                            whiteSpace: "nowrap",
+                            marginBottom: 3,
+                            fontFamily: "-apple-system, sans-serif",
+                          }}
+                        >
+                          {ed.school}
+                        </span>
                         <p
                           style={{
                             fontSize: 13,
@@ -226,6 +224,8 @@ export default function EducationApp({ onClose }: Props) {
                           {noteContent[ed.id]?.body.slice(0, 60).trim()}...
                         </p>
                       </div>
+                      {/* Date + arrow on same row, vertically centered together */}
+                      <span style={{ fontSize: 12, color: "#aeaeb2", flexShrink: 0, whiteSpace: "nowrap" }}>{noteDate(ed.period)}</span>
                       <svg width="8" height="13" viewBox="0 0 8 13" fill="none" style={{ flexShrink: 0 }}>
                         <path d="M1 1L7 6.5L1 12" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" />
                       </svg>

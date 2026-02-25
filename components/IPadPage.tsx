@@ -111,7 +111,7 @@ export default function IPadPage() {
     setMounted(true);
   }, [getOrientation, calcScale, scaleMotionValue]);
 
-  // Window resize — instant for same orientation, spring-animated for orientation switch
+  // Window resize — spring-animated always (acts as a wall: only pushes iPad smaller)
   useEffect(() => {
     let pending = false;
     const onResize = () => {
@@ -124,18 +124,27 @@ export default function IPadPage() {
         setOrientation(next);
 
         if (!resizeDragRef.current.active) {
-          const newScale = calcScale(next);
+          const autoScale = calcScale(next);
           if (orientChanged) {
             setUserScale(null);
-            // Smooth spring when switching orientation
-            fmAnimate(scaleMotionValue, newScale, {
+            fmAnimate(scaleMotionValue, autoScale, {
               type: "spring",
               stiffness: 260,
               damping: 28,
               restDelta: 0.001,
             });
           } else {
-            scaleMotionValue.set(newScale); // instant on plain resize
+            // Wall: only push inward (smaller). If window grows, keep current scale.
+            const current = scaleMotionValue.get();
+            const target = Math.min(current, autoScale);
+            if (Math.abs(target - current) > 0.005) {
+              fmAnimate(scaleMotionValue, target, {
+                type: "spring",
+                stiffness: 260,
+                damping: 28,
+                restDelta: 0.001,
+              });
+            }
           }
         }
 
@@ -153,7 +162,7 @@ export default function IPadPage() {
     };
   }, [getOrientation, calcScale, scaleMotionValue]);
 
-  // Corner drag resize — instant per-frame via motion value
+  // Corner drag resize — instant per-frame, capped at auto-scale (label boundary)
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!resizeDragRef.current.active) return;
@@ -165,7 +174,8 @@ export default function IPadPage() {
       else if (corner === "bl") delta = (-dx + dy) / 500;
       else if (corner === "tr") delta = (dx - dy) / 500;
       else delta = (-dx - dy) / 500;
-      const newScale = Math.max(0.25, Math.min(2.0, resizeDragRef.current.startScale + delta));
+      const maxScale = calcScale(getOrientation());
+      const newScale = Math.max(0.25, Math.min(maxScale, resizeDragRef.current.startScale + delta));
       scaleMotionValue.set(newScale);
     };
     const handleMouseUp = () => {
