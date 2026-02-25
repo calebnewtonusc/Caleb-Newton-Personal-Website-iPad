@@ -37,12 +37,15 @@ export default function IPadFrame({ orientation, children, onPowerPress }: Props
     : "linear-gradient(180deg, #3b5543 0%, #5a7d63 50%, #4a6b53 100%)";
 
   return (
-    <div
-      style={{
+    <motion.div
+      animate={{
         width: outerW,
         height: outerH,
-        background: frameGrad,
         borderRadius: isLandscape ? 30 : 40,
+      }}
+      transition={{ type: "spring", stiffness: 260, damping: 28 }}
+      style={{
+        background: frameGrad,
         position: "relative",
         flexShrink: 0,
         boxShadow: `
@@ -98,14 +101,17 @@ export default function IPadFrame({ orientation, children, onPowerPress }: Props
       />
 
       {/* ── Screen Container ── */}
-      <div
-        style={{
-          position: "absolute",
+      <motion.div
+        animate={{
           top: bezelH,
           left: bezelV,
           width: screenW,
           height: screenH,
           borderRadius: isLandscape ? 18 : 26,
+        }}
+        transition={{ type: "spring", stiffness: 260, damping: 28 }}
+        style={{
+          position: "absolute",
           overflow: "hidden",
           background: "#0a0a0c",
           boxShadow: "0 0 0 1px rgba(0,0,0,0.9) inset",
@@ -121,7 +127,7 @@ export default function IPadFrame({ orientation, children, onPowerPress }: Props
         >
           {children}
         </div>
-      </div>
+      </motion.div>
 
       {/* ── Frame specular / shine overlay ── */}
       <div
@@ -159,6 +165,6 @@ export default function IPadFrame({ orientation, children, onPowerPress }: Props
           boxShadow: "0 0 0 1.5px rgba(255,255,255,0.06), inset 0 0 4px rgba(0,0,0,0.8)",
         }}
       />
-    </div>
+    </motion.div>
   );
 }

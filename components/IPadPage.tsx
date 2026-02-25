@@ -36,7 +36,7 @@ export default function IPadPage() {
   useEffect(() => {
     const el = spotifyWrapperRef.current;
     if (!el) return;
-    const CLOSE_ZONE = 34;
+    const CLOSE_ZONE = 60;
     const HOVER_ZONE = 60;
     const onWheel = (e: WheelEvent) => {
       if (!spotifyOpenRef.current || e.deltaY >= 0) return;

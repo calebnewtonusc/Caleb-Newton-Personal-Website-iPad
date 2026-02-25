@@ -57,19 +57,19 @@ function ProjectIcon({ project, size }: { project: typeof projects[0]; size: num
           overflow: "hidden",
           position: "relative",
           flexShrink: 0,
-          background: isSolid ? "transparent" : `rgba(255,255,255,0.18)`,
-          backdropFilter: isSolid ? undefined : "blur(16px) saturate(1.8)",
-          WebkitBackdropFilter: isSolid ? undefined : "blur(16px) saturate(1.8)",
-          border: "1px solid rgba(255,255,255,0.28)",
-          boxShadow: `0 4px 18px rgba(0,0,0,0.32), inset 0 1px 0 rgba(255,255,255,0.35), 0 0 0 0.5px ${color}33`,
+          background: isSolid ? "transparent" : `rgba(8,8,18,0.40)`,
+          backdropFilter: isSolid ? undefined : "blur(22px) saturate(2.4)",
+          WebkitBackdropFilter: isSolid ? undefined : "blur(22px) saturate(2.4)",
+          border: "1px solid rgba(255,255,255,0.22)",
+          boxShadow: `0 4px 18px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.22), 0 0 0 0.5px ${color}44`,
           padding: isSolid ? 0 : "12%",
           boxSizing: "border-box",
         }}
       >
         {!isSolid && (
           <>
-            <div style={{ position: "absolute", inset: 0, background: `${color}18`, pointerEvents: "none" }} />
-            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 55%)", pointerEvents: "none" }} />
+            <div style={{ position: "absolute", inset: 0, background: `${color}55`, pointerEvents: "none" }} />
+            <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 50%)", pointerEvents: "none" }} />
           </>
         )}
         {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -82,7 +82,7 @@ function ProjectIcon({ project, size }: { project: typeof projects[0]; size: num
             objectFit: isSolid ? "cover" : "contain",
             position: "relative",
             zIndex: 1,
-            filter: isSolid ? undefined : "drop-shadow(0 2px 4px rgba(0,0,0,0.35))",
+            filter: isSolid ? undefined : "drop-shadow(0 2px 8px rgba(0,0,0,0.55))",
           }}
         />
       </div>

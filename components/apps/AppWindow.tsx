@@ -36,7 +36,8 @@ const appMap: Record<string, React.ComponentType<{ onClose: () => void; orientat
 };
 
 // Bottom px: scroll-up here closes; hovered here shows pill highlight
-const CLOSE_ZONE_PX = 34;
+// Keep equal so hovering anywhere the pill highlights = scroll-up closes
+const CLOSE_ZONE_PX = 60;
 const HOVER_ZONE_PX = 60;
 
 export default function AppWindow({ appId, onClose, orientation }: Props) {
