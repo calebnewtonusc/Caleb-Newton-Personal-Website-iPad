@@ -224,10 +224,15 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, f
 
   const handleOpen = (app: AppDef, e: React.MouseEvent) => {
     if (app.id === "projects") {
-      // Origin relative to ipad-viewport (100vw × 100vh) so backdrop covers full screen
-      const x = ((e.clientX / window.innerWidth) * 100).toFixed(1) + "%";
-      const y = ((e.clientY / window.innerHeight) * 100).toFixed(1) + "%";
-      onFolderOpen({ x, y });
+      // Origin relative to the iPad screen container for correct scale animation
+      if (containerRef.current) {
+        const r = containerRef.current.getBoundingClientRect();
+        const x = (((e.clientX - r.left) / r.width) * 100).toFixed(1) + "%";
+        const y = (((e.clientY - r.top) / r.height) * 100).toFixed(1) + "%";
+        onFolderOpen({ x, y });
+      } else {
+        onFolderOpen({ x: "50%", y: "50%" });
+      }
       return;
     }
     if (app.external) {

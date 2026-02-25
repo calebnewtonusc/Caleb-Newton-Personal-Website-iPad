@@ -250,14 +250,6 @@ export default function IPadPage() {
     <div className="ipad-viewport">
       <div className="page-bg" aria-hidden="true" />
 
-      {/* Projects folder — rendered at viewport level so backdrop covers full screen */}
-      <ProjectsFolder
-        open={folderOpen}
-        onClose={() => setFolderOpen(false)}
-        orientation={orientation}
-        origin={folderOrigin}
-      />
-
       {/* Landscape: fixed vertical labels — fade in/out on orientation change */}
       <AnimatePresence>
         {!isPortrait && (
@@ -345,6 +337,14 @@ export default function IPadPage() {
               folderOpen={folderOpen}
               onFolderOpen={(origin) => { setFolderOrigin(origin); setFolderOpen(true); }}
               onFolderClose={() => setFolderOpen(false)}
+            />
+
+            {/* Projects folder — inside screen so blur is scoped to iPad content only */}
+            <ProjectsFolder
+              open={folderOpen}
+              onClose={() => setFolderOpen(false)}
+              orientation={orientation}
+              origin={folderOrigin}
             />
 
             {/* Persistently mounted Spotify with hover+wheel support */}

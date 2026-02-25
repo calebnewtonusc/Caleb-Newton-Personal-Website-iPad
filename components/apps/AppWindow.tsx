@@ -35,14 +35,10 @@ const appMap: Record<string, React.ComponentType<{ onClose: () => void; orientat
   bible: BibleApp,
 };
 
-// Bottom px: scroll-up here closes; hovered here shows pill highlight
-// Keep equal so hovering anywhere the pill highlights = scroll-up closes
-const CLOSE_ZONE_PX = 60;
-const HOVER_ZONE_PX = 60;
-
 export default function AppWindow({ appId, onClose, orientation }: Props) {
   const AppComponent = appMap[appId];
   const containerRef = useRef<HTMLDivElement>(null);
+  const pillRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef({ active: false, startY: 0, startX: 0 });
   const touchRef = useRef({ startY: 0, startX: 0 });
   const closedRef = useRef(false);
@@ -60,26 +56,24 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
     setPillHovered(false);
   }, [appId]);
 
-  // All close/hover detection via window-level listeners.
-  // Containment uses container.contains(target) — DOM hierarchy is immune to
-  // CSS transform/scale coordinate skew that can break getBoundingClientRect checks.
-  // Pill hover still uses clientY vs rect.bottom for the zone threshold.
   useEffect(() => {
     const container = containerRef.current;
     if (!container) return;
 
-    const getRect = () => container.getBoundingClientRect();
+    // Returns true if the pointer is within the pill's bounding box
+    const overPill = (clientX: number, clientY: number) => {
+      const pr = pillRef.current?.getBoundingClientRect();
+      if (!pr) return false;
+      return clientX >= pr.left && clientX <= pr.right && clientY >= pr.top && clientY <= pr.bottom;
+    };
 
     const onWheel = (e: WheelEvent) => {
       if (!container.contains(e.target as Node)) return;
-      const r = getRect();
-      if (e.clientY >= r.bottom - CLOSE_ZONE_PX) safeClose();
+      if (overPill(e.clientX, e.clientY)) safeClose();
     };
 
     const onMouseMove = (e: MouseEvent) => {
-      const r = getRect();
-      const inside = container.contains(e.target as Node);
-      setPillHovered(inside && e.clientY >= r.bottom - HOVER_ZONE_PX);
+      setPillHovered(overPill(e.clientX, e.clientY));
 
       if (dragRef.current.active) {
         const dy = dragRef.current.startY - e.clientY;
@@ -96,9 +90,7 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
       }
     };
 
-    const onMouseUp = () => {
-      dragRef.current.active = false;
-    };
+    const onMouseUp = () => { dragRef.current.active = false; };
 
     const onTouchStart = (e: TouchEvent) => {
       touchRef.current = { startY: e.touches[0].clientY, startX: e.touches[0].clientX };
@@ -109,7 +101,6 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
       if (dy > 80 && dy > dx) safeClose();
     };
 
-    // capture:true fires before any child stopPropagation can block us
     window.addEventListener("wheel", onWheel, { passive: true, capture: true });
     window.addEventListener("mousemove", onMouseMove);
     window.addEventListener("mousedown", onMouseDown);
@@ -132,10 +123,6 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
   return (
     <motion.div
       ref={containerRef}
-      onWheel={(e) => {
-        const r = containerRef.current?.getBoundingClientRect();
-        if (r && e.clientY >= r.bottom - CLOSE_ZONE_PX) safeClose();
-      }}
       style={{
         position: "absolute",
         inset: 0,
@@ -153,16 +140,17 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
         <AppComponent onClose={onClose} orientation={orientation} />
       </div>
 
-      {/* Home indicator — click or scroll-up to exit */}
-      {/* Height is just the pill area; container onWheel handles the broader 60px zone */}
+      {/* Home indicator — centered pill-width hit area only */}
       <div
+        ref={pillRef}
         onClick={safeClose}
         onWheel={() => safeClose()}
         style={{
           position: "absolute",
           bottom: 0,
-          left: 0,
-          right: 0,
+          left: "50%",
+          transform: "translateX(-50%)",
+          width: 140,
           height: 28,
           display: "flex",
           alignItems: "center",
