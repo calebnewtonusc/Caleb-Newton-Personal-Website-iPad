@@ -30,6 +30,27 @@ export const social = {
 
 export const experience = [
   {
+    id: "cosasco",
+    title: "Tech Consultant",
+    company: "Cosasco (via Avenues Consulting)",
+    period: "Feb 2026 - Present",
+    year: "2026",
+    logo: "/assets/logos/cosasco.png",
+    color: "#0f2a4a",
+    website: "https://cosasco.vercel.app",
+    description:
+      "Avenues Consulting engagement: designed and built a full Next.js website for Cosasco (Rohrback Cosasco Systems) — a 70+ year industrial corrosion monitoring company operating in 110+ countries. Delivered every scope objective weeks ahead of schedule.",
+    achievements: [
+      "Built 66-page Next.js 16 site from scratch covering 11 industry verticals, 10 product lines, and full resources/news sections",
+      "Designed and shipped AI-powered chatbot (Ollama cloud) with resizable window, quick questions, markdown rendering, and rate limiting",
+      "Engineered structured support pathways: searchable FAQ, technical support form with SLA tiers, 3-step RMA wizard, and software activation portal — all wired to live API routes",
+      "Redesigned Find-a-Rep as a 7-region interactive accordion directory covering 110+ countries with per-rep email routing",
+      "Ran 5 audit passes eliminating 100+ UX, accessibility, content, and technical issues before first client presentation",
+    ],
+    skills: ["Next.js", "TypeScript", "Tailwind CSS", "AI Integration", "Vercel", "REST APIs"],
+    photos: [],
+  },
+  {
     id: "blue-modern",
     title: "Software Engineer",
     company: "Blue Modern Advisory",
