@@ -32,7 +32,7 @@ export const experience = [
   {
     id: "cosasco",
     title: "Tech Consultant",
-    company: "Cosasco (via Avenues Consulting)",
+    company: "Cosasco",
     period: "Feb 2026 - Present",
     year: "2026",
     logo: "/assets/logos/cosasco.png",
