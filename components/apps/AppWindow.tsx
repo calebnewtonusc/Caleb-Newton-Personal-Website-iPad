@@ -151,6 +151,12 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
       {/* Home Indicator - clickable, also acts as visual swipe target */}
       <motion.div
         onClick={onClose}
+        onWheel={(e) => {
+          if (e.deltaY < 0) {
+            e.stopPropagation();
+            safeClose();
+          }
+        }}
         style={{
           position: "absolute",
           bottom: 0,

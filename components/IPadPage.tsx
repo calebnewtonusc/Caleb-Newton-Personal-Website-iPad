@@ -21,6 +21,26 @@ export default function IPadPage() {
   const [userScale, setUserScale] = useState<number | null>(null);
   const resizeDragRef = useRef({ active: false, startX: 0, startY: 0, startScale: 1, corner: "br" as "tl" | "tr" | "bl" | "br" });
 
+  // Preload all images on mount
+  useEffect(() => {
+    const urls = [
+      "/assets/CalebAtBeachUSCHoodie.jpg",
+      "/assets/CalebAtUSC.jpg",
+      "/assets/icons/modellab.png",
+      "/assets/projects/modellab.jpg",
+      "/assets/projects/tech16personalities.jpg",
+      "/assets/projects/foodvision.jpg",
+      "/assets/projects/la-healthcare.png",
+      "/assets/projects/nba-prediction.png",
+      "/assets/projects/usc-cook-scale.png",
+      "/assets/projects/thelines.jpg",
+    ];
+    urls.forEach((url) => {
+      const img = new Image();
+      img.src = url;
+    });
+  }, []);
+
   const updateScale = useCallback((orient: "landscape" | "portrait") => {
     const ipad = orient === "landscape" ? IPAD_LANDSCAPE : IPAD_PORTRAIT;
     const scaleW = (window.innerWidth * 0.92) / ipad.w;
@@ -122,10 +142,10 @@ export default function IPadPage() {
   return (
     <div className="ipad-viewport">
       {/* Background */}
-      <div className="page-bg" aria-hidden="true">
-        <div className="page-label-left">Caleb&apos;s</div>
-        <div className="page-label-right">iPad</div>
-      </div>
+      <div className="page-bg" aria-hidden="true" />
+      {/* Labels — fixed at z-index 25, always above iPad */}
+      <div className="page-label-left" aria-hidden="true">Caleb&apos;s</div>
+      <div className="page-label-right" aria-hidden="true">iPad</div>
 
       {/* iPad */}
       <motion.div
@@ -211,49 +231,28 @@ export default function IPadPage() {
           </AnimatePresence>
         </IPadFrame>
 
-        {/* Resize handles — all 4 corners */}
-        {(["tl", "tr", "bl", "br"] as const).map((corner) => {
-          const isBR = corner === "br";
-          const isBL = corner === "bl";
-          const isTR = corner === "tr";
-          return (
-            <div
-              key={corner}
-              onMouseDown={(e) => {
-                e.preventDefault();
-                const currentScale = userScale ?? scale;
-                resizeDragRef.current = { active: true, startX: e.clientX, startY: e.clientY, startScale: currentScale, corner };
-              }}
-              style={{
-                position: "absolute",
-                ...(corner === "tl" ? { top: -20, left: -20 } :
-                   corner === "tr" ? { top: -20, right: -20 } :
-                   corner === "bl" ? { bottom: -20, left: -20 } :
-                   { bottom: -20, right: -20 }),
-                width: 32,
-                height: 32,
-                cursor: (corner === "tl" || corner === "br") ? "nwse-resize" : "nesw-resize",
-                display: "flex",
-                alignItems: isBR || isBL ? "flex-end" : "flex-start",
-                justifyContent: isBR || isTR ? "flex-end" : "flex-start",
-                opacity: 0.35,
-                transition: "opacity 0.2s",
-                zIndex: 20,
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.opacity = "0.75")}
-              onMouseLeave={(e) => (e.currentTarget.style.opacity = "0.35")}
-              title="Drag to resize"
-            >
-              <svg
-                width="10" height="10" viewBox="0 0 10 10" fill="rgba(255,255,255,0.85)"
-                style={{ transform: corner === "tl" ? "rotate(180deg)" : corner === "tr" ? "rotate(270deg)" : corner === "bl" ? "rotate(90deg)" : "none" }}
-              >
-                <path d="M10 6L6 10L10 10L10 6Z" />
-                <path d="M10 1L1 10L3 10L10 3Z" opacity="0.6" />
-              </svg>
-            </div>
-          );
-        })}
+        {/* Resize handles — invisible hit areas at all 4 corners */}
+        {(["tl", "tr", "bl", "br"] as const).map((corner) => (
+          <div
+            key={corner}
+            onMouseDown={(e) => {
+              e.preventDefault();
+              const currentScale = userScale ?? scale;
+              resizeDragRef.current = { active: true, startX: e.clientX, startY: e.clientY, startScale: currentScale, corner };
+            }}
+            style={{
+              position: "absolute",
+              ...(corner === "tl" ? { top: -16, left: -16 } :
+                 corner === "tr" ? { top: -16, right: -16 } :
+                 corner === "bl" ? { bottom: -16, left: -16 } :
+                 { bottom: -16, right: -16 }),
+              width: 32,
+              height: 32,
+              cursor: (corner === "tl" || corner === "br") ? "nwse-resize" : "nesw-resize",
+              zIndex: 20,
+            }}
+          />
+        ))}
       </motion.div>
     </div>
   );

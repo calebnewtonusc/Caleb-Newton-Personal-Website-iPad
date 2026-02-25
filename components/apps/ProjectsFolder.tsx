@@ -6,6 +6,7 @@ import { projects } from "@/data/content";
 interface Props {
   onClose: () => void;
   orientation: string;
+  origin?: { x: string; y: string };
 }
 
 // Map project id to dedicated icon path (falls back to project.image)
@@ -13,9 +14,17 @@ const PROJECT_ICONS: Record<string, string> = {
   modellab: "/assets/icons/modellab.png",
 };
 
+// These have solid (non-transparent) backgrounds - treat like JPGs
+const SOLID_BG_IMAGES = new Set([
+  "/assets/projects/la-healthcare.png",
+  "/assets/projects/nba-prediction.png",
+  "/assets/projects/usc-cook-scale.png",
+]);
+
 function ProjectIcon({ project, size }: { project: typeof projects[0]; size: number }) {
   const iconSrc = PROJECT_ICONS[project.id] ?? project.image;
   const color = project.color ?? "#007AFF";
+  const isCover = iconSrc.endsWith(".jpg") || iconSrc.endsWith(".jpeg") || SOLID_BG_IMAGES.has(iconSrc);
 
   return (
     <motion.div
@@ -41,9 +50,9 @@ function ProjectIcon({ project, size }: { project: typeof projects[0]; size: num
           width: size,
           height: size,
           borderRadius: size * 0.2255,
-          background: `rgba(255,255,255,0.18)`,
-          backdropFilter: "blur(16px) saturate(1.8)",
-          WebkitBackdropFilter: "blur(16px) saturate(1.8)",
+          background: isCover ? "transparent" : `rgba(255,255,255,0.18)`,
+          backdropFilter: isCover ? undefined : "blur(16px) saturate(1.8)",
+          WebkitBackdropFilter: isCover ? undefined : "blur(16px) saturate(1.8)",
           border: `1px solid rgba(255,255,255,0.3)`,
           display: "flex",
           alignItems: "center",
@@ -52,23 +61,27 @@ function ProjectIcon({ project, size }: { project: typeof projects[0]; size: num
           flexShrink: 0,
           position: "relative",
           overflow: "hidden",
-          padding: iconSrc.endsWith(".jpg") || iconSrc.endsWith(".jpeg") ? "0%" : "12%",
+          padding: isCover ? "0" : "12%",
         }}
       >
-        {/* Subtle color tint layer */}
-        <div style={{
-          position: "absolute", inset: 0,
-          background: `${color}18`,
-          borderRadius: "inherit",
-          pointerEvents: "none",
-        }} />
-        {/* Top gloss */}
-        <div style={{
-          position: "absolute", inset: 0,
-          background: "linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 55%)",
-          borderRadius: "inherit",
-          pointerEvents: "none",
-        }} />
+        {!isCover && (
+          <>
+            {/* Subtle color tint layer */}
+            <div style={{
+              position: "absolute", inset: 0,
+              background: `${color}18`,
+              borderRadius: "inherit",
+              pointerEvents: "none",
+            }} />
+            {/* Top gloss */}
+            <div style={{
+              position: "absolute", inset: 0,
+              background: "linear-gradient(180deg, rgba(255,255,255,0.22) 0%, rgba(255,255,255,0) 55%)",
+              borderRadius: "inherit",
+              pointerEvents: "none",
+            }} />
+          </>
+        )}
         {/* Logo image */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -77,10 +90,10 @@ function ProjectIcon({ project, size }: { project: typeof projects[0]; size: num
           style={{
             width: "100%",
             height: "100%",
-            objectFit: iconSrc.endsWith(".jpg") || iconSrc.endsWith(".jpeg") ? "cover" : "contain",
+            objectFit: isCover ? "cover" : "contain",
             position: "relative",
             zIndex: 1,
-            filter: "drop-shadow(0 2px 6px rgba(0,0,0,0.4))",
+            filter: isCover ? undefined : "drop-shadow(0 2px 6px rgba(0,0,0,0.4))",
           }}
         />
       </div>
@@ -104,18 +117,21 @@ function ProjectIcon({ project, size }: { project: typeof projects[0]; size: num
   );
 }
 
-export default function ProjectsFolder({ onClose, orientation }: Props) {
+export default function ProjectsFolder({ onClose, orientation, origin }: Props) {
   const isLandscape = orientation === "landscape";
   const iconSize = isLandscape ? 72 : 64;
   const cols = isLandscape ? 4 : 3;
 
+  const originX = origin?.x ?? "50%";
+  const originY = origin?.y ?? "50%";
+
   return (
     <motion.div
       key="folder-overlay"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.2 }}
+      initial={{ opacity: 0, scale: 0.08 }}
+      animate={{ opacity: 1, scale: 1 }}
+      exit={{ opacity: 0, scale: 0.08 }}
+      transition={{ type: "spring", stiffness: 420, damping: 34 }}
       onClick={onClose}
       style={{
         position: "absolute",
@@ -124,27 +140,28 @@ export default function ProjectsFolder({ onClose, orientation }: Props) {
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        background: "rgba(0,0,0,0.5)",
-        backdropFilter: "blur(20px) saturate(1.5)",
-        WebkitBackdropFilter: "blur(20px) saturate(1.5)",
+        background: "rgba(0,0,0,0.22)",
+        backdropFilter: "blur(28px) saturate(1.6)",
+        WebkitBackdropFilter: "blur(28px) saturate(1.6)",
+        transformOrigin: `${originX} ${originY}`,
       }}
     >
       {/* Folder card */}
       <motion.div
         key="folder-card"
-        initial={{ scale: 0.7, opacity: 0, y: 40 }}
-        animate={{ scale: 1, opacity: 1, y: 0 }}
-        exit={{ scale: 0.7, opacity: 0, y: 40 }}
-        transition={{ type: "spring", stiffness: 400, damping: 32 }}
+        initial={{ scale: 0.88, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        exit={{ scale: 0.88, opacity: 0 }}
+        transition={{ type: "spring", stiffness: 440, damping: 34, delay: 0.04 }}
         onClick={(e) => e.stopPropagation()}
         style={{
-          background: "rgba(255,255,255,0.15)",
-          backdropFilter: "blur(40px) saturate(2)",
-          WebkitBackdropFilter: "blur(40px) saturate(2)",
-          border: "1px solid rgba(255,255,255,0.25)",
-          borderRadius: 24,
+          background: "rgba(255,255,255,0.14)",
+          backdropFilter: "blur(60px) saturate(2.2) brightness(1.1)",
+          WebkitBackdropFilter: "blur(60px) saturate(2.2) brightness(1.1)",
+          border: "1px solid rgba(255,255,255,0.32)",
+          borderRadius: 28,
           padding: isLandscape ? "24px 32px 28px" : "20px 24px 24px",
-          boxShadow: "0 20px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.3)",
+          boxShadow: "0 24px 64px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(0,0,0,0.05)",
           maxWidth: isLandscape ? 520 : 360,
           width: "90%",
         }}

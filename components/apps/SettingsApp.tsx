@@ -53,12 +53,17 @@ const SECTION_ICONS: Record<string, { bg: string; render: () => React.ReactNode 
     ),
   },
   sports: {
-    bg: "#34C759",
+    bg: "#FF6B2B",
     render: () => (
       <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
-        <circle cx="9" cy="9" r="7.5" stroke="white" strokeWidth="1.5" />
-        <path d="M9 1.5v15M1.5 9h15" stroke="white" strokeWidth="1.2" strokeLinecap="round" />
-        <path d="M3.5 3.5L14.5 14.5M14.5 3.5L3.5 14.5" stroke="white" strokeWidth="1" strokeLinecap="round" />
+        {/* Basketball circle */}
+        <circle cx="9" cy="9" r="7.2" stroke="white" strokeWidth="1.5" fill="none" />
+        {/* Horizontal center seam */}
+        <path d="M1.8 9h14.4" stroke="white" strokeWidth="1.2" strokeLinecap="round" />
+        {/* Left curved seam */}
+        <path d="M6.5 2C4.2 4.5 4.2 13.5 6.5 16" stroke="white" strokeWidth="1.2" strokeLinecap="round" fill="none" />
+        {/* Right curved seam */}
+        <path d="M11.5 2C13.8 4.5 13.8 13.5 11.5 16" stroke="white" strokeWidth="1.2" strokeLinecap="round" fill="none" />
       </svg>
     ),
   },

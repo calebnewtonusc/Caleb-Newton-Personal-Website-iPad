@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { AppId, AppDef } from "@/data/content";
 import { apps, dockApps } from "@/data/content";
@@ -47,7 +47,7 @@ function AppIcon({
 }: {
   app: AppDef;
   size: number;
-  onTap: () => void;
+  onTap: (e: React.MouseEvent) => void;
   showLabel?: boolean;
 }) {
   return (
@@ -55,7 +55,7 @@ function AppIcon({
       whileTap={{ scale: 0.85 }}
       whileHover={{ scale: 1.08 }}
       transition={{ type: "spring", stiffness: 500, damping: 28 }}
-      onClick={onTap}
+      onClick={(e) => onTap(e)}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -168,10 +168,18 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
 
   const [time, setTime] = useState(new Date());
   const [folderOpen, setFolderOpen] = useState(false);
+  const [folderOrigin, setFolderOrigin] = useState({ x: "50%", y: "50%" });
+  const containerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
+
+  // Close folder when screen locks or power button pressed
+  useEffect(() => {
+    if (locked) setFolderOpen(false);
+  }, [locked]);
 
   const timeStr = time.toLocaleTimeString("en-US", {
     hour: "numeric",
@@ -212,8 +220,15 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
         return result;
       })();
 
-  const handleOpen = (app: AppDef) => {
+  const handleOpen = (app: AppDef, e: React.MouseEvent) => {
     if (app.id === "projects") {
+      // Capture click position relative to the HomeScreen container for origin animation
+      if (containerRef.current) {
+        const r = containerRef.current.getBoundingClientRect();
+        const x = (((e.clientX - r.left) / r.width) * 100).toFixed(1) + "%";
+        const y = (((e.clientY - r.top) / r.height) * 100).toFixed(1) + "%";
+        setFolderOrigin({ x, y });
+      }
       setFolderOpen(true);
       return;
     }
@@ -226,6 +241,7 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
 
   return (
     <div
+      ref={containerRef}
       style={{
         width: "100%",
         height: "100%",
@@ -429,7 +445,7 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
               app === null ? (
                 <div key={`spacer-${i}`} style={{ width: iconSize + 20, height: iconSize + 24, visibility: "hidden" }} />
               ) : (
-                <AppIcon key={app.id} app={app} size={iconSize} onTap={() => handleOpen(app)} />
+                <AppIcon key={app.id} app={app} size={iconSize} onTap={(e) => handleOpen(app, e)} />
               )
             )}
           </motion.div>
@@ -451,15 +467,16 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
                 key={app.id}
                 app={app}
                 size={isLandscape ? 48 : 52}
-                onTap={() => handleOpen(app)}
+                onTap={(e) => handleOpen(app, e)}
                 showLabel={false}
               />
             ))}
           </div>
         </div>
 
-        {/* Home indicator */}
+        {/* Home indicator — tapping closes folder if open */}
         <div
+          onClick={() => { if (folderOpen) setFolderOpen(false); }}
           style={{
             height: 12,
             display: "flex",
@@ -467,6 +484,7 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
             justifyContent: "center",
             paddingBottom: 4,
             flexShrink: 0,
+            cursor: folderOpen ? "pointer" : "default",
           }}
         >
           <div
@@ -486,6 +504,7 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
           <ProjectsFolder
             onClose={() => setFolderOpen(false)}
             orientation={orientation}
+            origin={folderOrigin}
           />
         )}
       </AnimatePresence>
