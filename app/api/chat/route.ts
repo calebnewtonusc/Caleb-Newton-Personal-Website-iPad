@@ -144,6 +144,7 @@ export async function POST(req: NextRequest) {
     const message = await anthropic.messages.create({
       model: "claude-sonnet-4-6",
       max_tokens: 512,
+      temperature: 0.5,
       system: SYSTEM_PROMPT,
       messages: messages.slice(-16),
     }, { signal: AbortSignal.timeout(20000) });
