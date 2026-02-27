@@ -175,7 +175,7 @@ export const experience = [
     title: "Research Assistant",
     company: "Caltech",
     period: "Aug 2024 - June 2025",
-    year: "2024",
+    year: "2025",
     logo: "/assets/logos/caltech.png",
     color: "#FF6B35",
     website: "https://www.caltech.edu",
