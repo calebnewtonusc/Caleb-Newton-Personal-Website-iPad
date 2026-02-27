@@ -10,17 +10,8 @@ interface Props {
   origin?: { x: string; y: string };
 }
 
-// Projects with transparent logo PNGs — show on dark glass background (no color tint)
-const GLASS_ICONS: Record<string, string> = {
-  modellab: "/assets/icons/modellab.png",
-  tech16: "/assets/icons/tech16-logo.png",
-  foodvision: "/assets/icons/foodvision-logo.png",
-};
-
 function ProjectIcon({ project, size }: { project: typeof projects[0]; size: number }) {
-  const glassIcon = GLASS_ICONS[project.id];
-  const useGlass = !!glassIcon;
-  const iconSrc = glassIcon ?? (project as { image?: string }).image;
+  const imageSrc = (project as { image?: string }).image;
 
   return (
     <motion.div
@@ -46,38 +37,23 @@ function ProjectIcon({ project, size }: { project: typeof projects[0]; size: num
           height: size,
           borderRadius: size * 0.2255,
           overflow: "hidden",
-          position: "relative",
           flexShrink: 0,
-          background: useGlass
-            ? "rgba(8,8,18,0.40)"
-            : iconSrc
+          background: imageSrc
             ? "transparent"
             : `linear-gradient(135deg, ${project.color}cc, ${project.color})`,
-          backdropFilter: useGlass ? "blur(22px) saturate(2.4)" : undefined,
-          WebkitBackdropFilter: useGlass ? "blur(22px) saturate(2.4)" : undefined,
           border: "1px solid rgba(255,255,255,0.22)",
           boxShadow: `0 4px 18px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.22)`,
-          padding: useGlass ? "12%" : 0,
-          boxSizing: "border-box",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
         }}
       >
-        {useGlass && (
-          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 50%)", pointerEvents: "none" }} />
-        )}
-        {iconSrc ? (
+        {imageSrc ? (
           /* eslint-disable-next-line @next/next/no-img-element */
           <img
-            src={iconSrc}
+            src={imageSrc}
             alt={project.title}
-            style={{
-              width: "100%", height: "100%",
-              objectFit: useGlass ? "contain" : "cover",
-              position: "relative", zIndex: 1,
-              filter: useGlass ? "drop-shadow(0 2px 8px rgba(0,0,0,0.55))" : undefined,
-            }}
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         ) : (
           <span style={{
@@ -86,8 +62,6 @@ function ProjectIcon({ project, size }: { project: typeof projects[0]; size: num
             fontSize: size * 0.32,
             fontFamily: "-apple-system, sans-serif",
             letterSpacing: "-0.03em",
-            position: "relative",
-            zIndex: 1,
           }}>
             {project.title.split(" ")[0].slice(0, 3).toUpperCase()}
           </span>
