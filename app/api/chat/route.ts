@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import Anthropic from "@anthropic-ai/sdk";
 
-const OLLAMA_API  = process.env.OLLAMA_BASE_URL ?? "https://api.ollama.com";
-const OLLAMA_KEY  = process.env.OLLAMA_API_KEY  ?? "ae97380dc55b4e2cb0271cee4acecbbb.Ck3m2HBt-SRGr4meEZtrKkzN";
-const MODEL       = "gemma3:4b";
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 const SYSTEM_PROMPT = `You are CalebGPT - a friendly AI built into Caleb Newton's personal portfolio. You know everything about Caleb and answer questions as his personal AI assistant. Keep answers concise, warm, and conversational. Use markdown: **bold** for key terms, bullet lists for multiple items.
 
@@ -142,32 +141,16 @@ export async function POST(req: NextRequest) {
   try {
     const { messages } = await req.json();
 
-    const response = await fetch(`${OLLAMA_API}/api/chat`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${OLLAMA_KEY}`,
-      },
-      body: JSON.stringify({
-        model: MODEL,
-        messages: [
-          { role: "system", content: SYSTEM_PROMPT },
-          ...messages.slice(-16),
-        ],
-        stream: false,
-        options: { temperature: 0.5, num_predict: 512 },
-      }),
-      signal: AbortSignal.timeout(20000),
-    });
+    const message = await anthropic.messages.create({
+      model: "claude-sonnet-4-6",
+      max_tokens: 512,
+      system: SYSTEM_PROMPT,
+      messages: messages.slice(-16),
+    }, { signal: AbortSignal.timeout(20000) });
 
-    if (!response.ok) {
-      const errorText = await response.text();
-      console.error("Ollama API error:", response.status, errorText);
-      return NextResponse.json({ error: `Ollama ${response.status}: ${errorText}` }, { status: 502 });
-    }
-
-    const data = await response.json();
-    const fullContent = data.message?.content ?? "Sorry, I couldn't generate a response.";
+    const fullContent = message.content[0].type === "text"
+      ? message.content[0].text
+      : "Sorry, I couldn't generate a response.";
 
     return NextResponse.json({ content: fullContent });
   } catch (err) {
