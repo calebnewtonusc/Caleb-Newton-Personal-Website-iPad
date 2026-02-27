@@ -100,17 +100,19 @@ function AppIcon({
               gap: "8%",
             }}>
               {([
-                "/assets/icons/modellab.png",
-                "/assets/icons/tech16-logo.png",
-                "/assets/icons/foodvision-logo.png",
-                "/assets/projects/la-healthcare.png",
-                "/assets/projects/nba-prediction.png",
-                "/assets/projects/usc-cook-scale.png",
-                "/assets/projects/thelines.jpg",
+                { label: "M", color: "#007AFF" },
+                { label: "16", color: "#AF52DE" },
+                { label: "FV", color: "#FF9500" },
+                { label: "LA", color: "#34C759" },
+                { label: "NBA", color: "#FF3B30" },
+                { label: "USC", color: "#990000" },
+                { img: "/assets/projects/thelines.jpg" },
                 null,
                 null,
-              ]).map((src, i) =>
-                src ? (
+              ] as ({ label: string; color: string } | { img: string } | null)[]).map((item, i) =>
+                item === null ? (
+                  <div key={i} />
+                ) : "img" in item ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <div key={i} style={{
                     background: "rgba(255,255,255,0.12)",
@@ -118,10 +120,22 @@ function AppIcon({
                     overflow: "hidden",
                     display: "flex", alignItems: "center", justifyContent: "center",
                   }}>
-                    <img src={src} alt="" style={{ width: "100%", height: "100%", objectFit: src.endsWith(".jpg") ? "cover" : "contain" }} />
+                    <img src={item.img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                   </div>
                 ) : (
-                  <div key={i} />
+                  <div key={i} style={{
+                    background: `linear-gradient(135deg, ${item.color}cc, ${item.color})`,
+                    borderRadius: "18%",
+                    display: "flex", alignItems: "center", justifyContent: "center",
+                  }}>
+                    <span style={{
+                      color: "white",
+                      fontWeight: 700,
+                      fontSize: item.label.length > 2 ? "28%" : "34%",
+                      fontFamily: "-apple-system, sans-serif",
+                      letterSpacing: "-0.03em",
+                    }}>{item.label}</span>
+                  </div>
                 )
               )}
             </div>
