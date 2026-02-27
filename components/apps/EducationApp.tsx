@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { LazyMotion, m, domAnimation, AnimatePresence } from "framer-motion";
 import { education } from "@/data/content";
 
 interface Props {
@@ -12,7 +12,7 @@ interface Props {
 // Map each education entry to a full-text "note"
 const noteContent: Record<string, { body: string }> = {
   usc: {
-    body: `Aug 2025 - May 2029. Freshman at USC studying CS + Applied Mathematics. Taking Multivariable Calculus, Linear Algebra, C++, and Discrete Methods simultaneously - dense, but each course feeds the others.
+    body: `Aug 2025 - May 2029. Freshman at USC. Taking Multivariable Calculus, Linear Algebra, C++, and Discrete Methods simultaneously - dense, but each course feeds the others.
 
 C++ is making me think about memory in ways Python never did. Linear algebra shows up in every ML paper. Building things here that I couldn't have imagined in high school.`,
   },
@@ -59,11 +59,12 @@ export default function EducationApp({ onClose }: Props) {
   const recent = education[0]; // USC is most recent
 
   return (
+    <LazyMotion features={domAnimation}>
     <div className="app-window" style={{ background: "#f2f2f7" }}>
       <AnimatePresence mode="wait">
         {!selected ? (
           /* LIST VIEW */
-          <motion.div
+          <m.div
             key="list"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -72,16 +73,16 @@ export default function EducationApp({ onClose }: Props) {
           >
             <div className="ios-scroll" style={{ flex: 1, overflowY: "auto", padding: "16px 0 32px" }}>
               {/* Title */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 style={{ padding: "4px 16px 18px" }}
               >
                 <h1 className="ios-large-title font-poppins" style={{ color: "#1c1c1e" }}>Notes</h1>
-              </motion.div>
+              </m.div>
 
               {/* Recent Note featured card */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.06 }}
@@ -125,7 +126,7 @@ export default function EducationApp({ onClose }: Props) {
                   {/* Footer */}
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <span style={{ fontSize: 13, color: "#aeaeb2" }}>{recent.period}</span>
-                    <motion.button
+                    <m.button
                       whileTap={{ scale: 0.95 }}
                       onClick={() => setSelected(recent.id)}
                       style={{
@@ -142,13 +143,13 @@ export default function EducationApp({ onClose }: Props) {
                       }}
                     >
                       Open
-                    </motion.button>
+                    </m.button>
                   </div>
                 </div>
-              </motion.div>
+              </m.div>
 
               {/* All Notes section */}
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.12 }}
@@ -180,7 +181,7 @@ export default function EducationApp({ onClose }: Props) {
 
                   {/* List rows */}
                   {education.map((ed, i) => (
-                    <motion.div
+                    <m.div
                       key={ed.id}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
@@ -229,15 +230,15 @@ export default function EducationApp({ onClose }: Props) {
                       <svg width="8" height="13" viewBox="0 0 8 13" fill="none" style={{ flexShrink: 0 }}>
                         <path d="M1 1L7 6.5L1 12" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" />
                       </svg>
-                    </motion.div>
+                    </m.div>
                   ))}
                 </div>
-              </motion.div>
+              </m.div>
             </div>
-          </motion.div>
+          </m.div>
         ) : (
           /* DETAIL VIEW */
-          <motion.div
+          <m.div
             key={`detail-${selected}`}
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
@@ -307,8 +308,8 @@ export default function EducationApp({ onClose }: Props) {
                     fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif",
                   }}
                 >
-                  {noteContent[selectedEd.id]?.body.split("\n\n").map((para, i) => (
-                    <p key={i} style={{ marginBottom: 18 }}>{para}</p>
+                  {noteContent[selectedEd.id]?.body.split("\n\n").map((para, paraNum) => (
+                    <p key={`para-${paraNum}`} style={{ marginBottom: 18 }}>{para}</p>
                   ))}
                 </div>
 
@@ -318,8 +319,8 @@ export default function EducationApp({ onClose }: Props) {
                     <p style={{ fontSize: 20, fontWeight: 700, color: "#1c1c1e", marginBottom: 10, fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif" }}>
                       Highlights
                     </p>
-                    {selectedEd.highlights.map((h, i) => (
-                      <div key={i} style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 10 }}>
+                    {selectedEd.highlights.map((h, hNum) => (
+                      <div key={`highlight-${hNum}`} style={{ display: "flex", alignItems: "flex-start", gap: 10, marginBottom: 10 }}>
                         <span style={{ fontSize: 20, lineHeight: "1.55", color: "#1c1c1e", flexShrink: 0, marginTop: -1 }}>•</span>
                         <p style={{ fontSize: 16, color: "#1c1c1e", lineHeight: 1.55, margin: 0 }}>{h}</p>
                       </div>
@@ -328,9 +329,10 @@ export default function EducationApp({ onClose }: Props) {
                 )}
               </div>
             )}
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </div>
+    </LazyMotion>
   );
 }
