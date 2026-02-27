@@ -20,7 +20,7 @@ const GLASS_ICONS: Record<string, string> = {
 function ProjectIcon({ project, size }: { project: typeof projects[0]; size: number }) {
   const glassIcon = GLASS_ICONS[project.id];
   const useGlass = !!glassIcon;
-  const iconSrc = glassIcon ?? project.image;
+  const iconSrc = glassIcon ?? (project as { image?: string }).image;
 
   return (
     <motion.div
@@ -48,29 +48,50 @@ function ProjectIcon({ project, size }: { project: typeof projects[0]; size: num
           overflow: "hidden",
           position: "relative",
           flexShrink: 0,
-          background: useGlass ? "rgba(8,8,18,0.40)" : "transparent",
+          background: useGlass
+            ? "rgba(8,8,18,0.40)"
+            : iconSrc
+            ? "transparent"
+            : `linear-gradient(135deg, ${project.color}cc, ${project.color})`,
           backdropFilter: useGlass ? "blur(22px) saturate(2.4)" : undefined,
           WebkitBackdropFilter: useGlass ? "blur(22px) saturate(2.4)" : undefined,
           border: "1px solid rgba(255,255,255,0.22)",
           boxShadow: `0 4px 18px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.22)`,
           padding: useGlass ? "12%" : 0,
           boxSizing: "border-box",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
         }}
       >
         {useGlass && (
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0) 50%)", pointerEvents: "none" }} />
         )}
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src={iconSrc}
-          alt={project.title}
-          style={{
-            width: "100%", height: "100%",
-            objectFit: useGlass ? "contain" : "cover",
-            position: "relative", zIndex: 1,
-            filter: useGlass ? "drop-shadow(0 2px 8px rgba(0,0,0,0.55))" : undefined,
-          }}
-        />
+        {iconSrc ? (
+          /* eslint-disable-next-line @next/next/no-img-element */
+          <img
+            src={iconSrc}
+            alt={project.title}
+            style={{
+              width: "100%", height: "100%",
+              objectFit: useGlass ? "contain" : "cover",
+              position: "relative", zIndex: 1,
+              filter: useGlass ? "drop-shadow(0 2px 8px rgba(0,0,0,0.55))" : undefined,
+            }}
+          />
+        ) : (
+          <span style={{
+            color: "white",
+            fontWeight: 800,
+            fontSize: size * 0.32,
+            fontFamily: "-apple-system, sans-serif",
+            letterSpacing: "-0.03em",
+            position: "relative",
+            zIndex: 1,
+          }}>
+            {project.title.split(" ")[0].slice(0, 3).toUpperCase()}
+          </span>
+        )}
       </div>
       <span style={{
         fontSize: 10,
