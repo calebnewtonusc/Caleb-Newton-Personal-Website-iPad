@@ -37,7 +37,7 @@ body {
 
 body {
   font-family: var(--font-sf);
-  background: #000000;
+  background: #080d09;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -49,7 +49,11 @@ body {
   z-index: 0;
   pointer-events: none;
   user-select: none;
-  background: #000000;
+  background:
+    radial-gradient(ellipse at 20% 30%, rgba(45, 90, 55, 0.28) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 70%, rgba(20, 50, 35, 0.22) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 0%, rgba(30, 60, 40, 0.18) 0%, transparent 45%),
+    linear-gradient(160deg, #080d09 0%, #0c1410 35%, #090e0b 65%, #06090707 100%);
   overflow: hidden;
 }
 

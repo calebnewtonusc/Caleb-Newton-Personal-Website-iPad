@@ -4,6 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { AppId, AppDef } from "@/data/content";
 import { apps, dockApps } from "@/data/content";
+import TypedGreeting from "@/components/TypedGreeting";
 
 interface Props {
   orientation: "landscape" | "portrait";
@@ -371,7 +372,7 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, f
               </div>
             </div>
 
-            {/* Name + subtitle */}
+            {/* Name + typed subtitle */}
             <div
               style={{
                 position: "relative",
@@ -384,8 +385,8 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, f
               <div style={{ fontSize: isLandscape ? 20 : 22, fontWeight: 600, letterSpacing: -0.4 }}>
                 Caleb Newton
               </div>
-              <div style={{ fontSize: 13, color: "rgba(255,255,255,0.65)", marginTop: 4, letterSpacing: 0.1 }}>
-                USC &middot; CS + Applied Math
+              <div style={{ marginTop: 6 }}>
+                <TypedGreeting fontSize={13} isLandscape={isLandscape} />
               </div>
             </div>
 

@@ -8,6 +8,7 @@ import AppWindow from "./apps/AppWindow";
 import SpotifyApp from "./apps/SpotifyApp";
 import ProjectsFolder from "./apps/ProjectsFolder";
 import type { AppId } from "@/data/content";
+import ParticlesBackground from "./ParticlesBackground";
 
 const IPAD_LANDSCAPE = { w: 900, h: 630 };
 const IPAD_PORTRAIT = { w: 630, h: 900 };
@@ -249,6 +250,19 @@ export default function IPadPage() {
   return (
     <div className="ipad-viewport">
       <div className="page-bg" aria-hidden="true" />
+
+      {/* Particle background — behind iPad, pointer-events disabled */}
+      <div
+        aria-hidden="true"
+        style={{
+          position: "fixed",
+          inset: 0,
+          zIndex: 1,
+          pointerEvents: "none",
+        }}
+      >
+        <ParticlesBackground />
+      </div>
 
       {/* Landscape: fixed vertical labels — fade in/out on orientation change */}
       <AnimatePresence>
