@@ -29,6 +29,26 @@ export const social = {
 
 export const experience = [
   {
+    id: "aina",
+    title: "Software Engineer & Immersive Studio Production Assistant",
+    company: "Aina Tech, Inc.",
+    period: "Sept 2025 - Present",
+    year: "2026",
+    logo: "/assets/icons/aina.png",
+    color: "#007AFF",
+    website: "https://www.ainatech.ai/",
+    description:
+      "Contributing to the first 3D generative model trained entirely on real-world volumetric capture data, where every existing model relies on synthetic datasets that fail to reproduce photorealistic human appearance.",
+    achievements: [
+      "Built AlgoRun, a pipeline orchestration GUI with a FastAPI backend, React/TypeScript frontend, and WebSocket real-time monitoring automating the full reconstruction stack: RED R3D decode, COLMAP structure-from-motion, Depth Anything V3, and 4D Gaussian Splatting",
+      "Built COLMAP validation tooling with automated diagnostics and tiered storage (10TB cache + AWS S3), and CDN distribution infrastructure on Bunny CDN and Cloudflare R2 for sharing multi-terabyte volumetric datasets",
+      "Built Aina Central, an autonomous documentation and knowledge system for a 35+ repository enterprise codebase that monitors all repos via webhooks, detects cross-repo inconsistencies, runs automated code checks, and syncs live updates to Notion via Composio; includes an AI chatbot enabling any team member to query architecture and pipeline behavior in natural language",
+      "Optimizing 4D Gaussian Splatting training across 4 GPUs via CUDA profiling (nvprof, Nsight Compute) and load balancing; supporting on-set 75-camera rig operations including calibration, synchronization, and AWS cloud deployment",
+    ],
+    skills: ["Computer Vision", "4D Gaussian Splatting", "COLMAP", "FastAPI", "CUDA", "Python", "React"],
+    photos: ["/assets/AinatechImages/Ainatechsetup.jpg", "/assets/AinatechImages/Ainatechgoats.jpg"],
+  },
+  {
     id: "personage",
     title: "AI Engineer",
     company: "Personage",
@@ -64,25 +84,6 @@ export const experience = [
       "All 16 models maintained as open-source repositories ahead of commercialization",
     ],
     skills: ["PyTorch", "LoRA/PEFT", "RLHF", "DPO", "ZeRO-3/DeepSpeed", "LLM Fine-tuning"],
-    photos: [],
-  },
-  {
-    id: "cosasco",
-    title: "UI/UX & AI Consultant",
-    company: "Cosasco",
-    period: "Feb 2026 - Present",
-    year: "2026",
-    logo: "/assets/logos/cosasco.png",
-    color: "#0f2a4a",
-    website: "https://cosasco.vercel.app",
-    description:
-      "Designed and built a full Next.js website for Cosasco (Rohrback Cosasco Systems), a 70+ year industrial corrosion monitoring company operating in 110+ countries. Delivered every scope objective weeks ahead of schedule.",
-    achievements: [
-      "Built 66-page Next.js 15 site from scratch covering 11 industry verticals, 10 product lines, and full resources/news sections",
-      "Designed and shipped AI-powered chatbot with resizable window, markdown rendering, and rate limiting alongside structured support pathways: searchable FAQ, SLA-tiered support form, 3-step RMA wizard, and software activation portal wired to live API routes",
-      "Redesigned Find-a-Rep as a 7-region interactive accordion directory covering 110+ countries with per-rep email routing; ran 5 audit passes eliminating 100+ UX, accessibility, content, and technical issues before first client presentation",
-    ],
-    skills: ["Next.js", "TypeScript", "Tailwind CSS", "AI Integration", "Vercel", "REST APIs"],
     photos: [],
   },
   {
@@ -143,42 +144,22 @@ export const experience = [
     photos: [],
   },
   {
-    id: "aina",
-    title: "Software Engineer & Immersive Studio Production Assistant",
-    company: "Aina Tech, Inc.",
-    period: "Sept 2025 - Present",
+    id: "cosasco",
+    title: "UI/UX & AI Consultant",
+    company: "Cosasco",
+    period: "Feb 2026 - Present",
     year: "2026",
-    logo: "/assets/icons/aina.png",
-    color: "#007AFF",
-    website: "https://www.ainatech.ai/",
+    logo: "/assets/logos/cosasco.png",
+    color: "#0f2a4a",
+    website: "https://cosasco.vercel.app",
     description:
-      "Contributing to the first 3D generative model trained entirely on real-world volumetric capture data, where every existing model relies on synthetic datasets that fail to reproduce photorealistic human appearance.",
+      "Designed and built a full Next.js website for Cosasco (Rohrback Cosasco Systems), a 70+ year industrial corrosion monitoring company operating in 110+ countries. Delivered every scope objective weeks ahead of schedule.",
     achievements: [
-      "Built AlgoRun, a pipeline orchestration GUI with a FastAPI backend, React/TypeScript frontend, and WebSocket real-time monitoring automating the full reconstruction stack: RED R3D decode, COLMAP structure-from-motion, Depth Anything V3, and 4D Gaussian Splatting",
-      "Built COLMAP validation tooling with automated diagnostics and tiered storage (10TB cache + AWS S3), and CDN distribution infrastructure on Bunny CDN and Cloudflare R2 for sharing multi-terabyte volumetric datasets",
-      "Built Aina Central, an autonomous documentation and knowledge system for a 35+ repository enterprise codebase that monitors all repos via webhooks, detects cross-repo inconsistencies, runs automated code checks, and syncs live updates to Notion via Composio; includes an AI chatbot enabling any team member to query architecture and pipeline behavior in natural language",
-      "Optimizing 4D Gaussian Splatting training across 4 GPUs via CUDA profiling (nvprof, Nsight Compute) and load balancing; supporting on-set 75-camera rig operations including calibration, synchronization, and AWS cloud deployment",
+      "Built 66-page Next.js 15 site from scratch covering 11 industry verticals, 10 product lines, and full resources/news sections",
+      "Designed and shipped AI-powered chatbot with resizable window, markdown rendering, and rate limiting alongside structured support pathways: searchable FAQ, SLA-tiered support form, 3-step RMA wizard, and software activation portal wired to live API routes",
+      "Redesigned Find-a-Rep as a 7-region interactive accordion directory covering 110+ countries with per-rep email routing; ran 5 audit passes eliminating 100+ UX, accessibility, content, and technical issues before first client presentation",
     ],
-    skills: ["Computer Vision", "4D Gaussian Splatting", "COLMAP", "FastAPI", "CUDA", "Python", "React"],
-    photos: ["/assets/AinatechImages/Ainatechsetup.jpg", "/assets/AinatechImages/Ainatechgoats.jpg"],
-  },
-  {
-    id: "fleurs",
-    title: "Growth Consultant",
-    company: "Fleurs et Sel Cookies",
-    period: "Sep 2025 - Oct 2025",
-    year: "2025",
-    logo: "/assets/fleursetsel_logo.png",
-    color: "#FF9500",
-    website: "https://www.fleursetsel.com/",
-    description:
-      "Produced a scaling strategy for a founder-led premium bakery without losing brand identity.",
-    achievements: [
-      "Delivered social media feed, packaging mockups, and full implementation roadmap",
-      "Built partnership recommendations using case studies (Sprinkles, Glossier) and corporate research (Marriott, Delta)",
-      "Included QR-driven acquisition concepts",
-    ],
-    skills: ["Strategy", "Marketing", "Business Development"],
+    skills: ["Next.js", "TypeScript", "Tailwind CSS", "AI Integration", "Vercel", "REST APIs"],
     photos: [],
   },
   {
@@ -228,6 +209,25 @@ export const experience = [
     ],
     skills: ["Python", "Control Theory", "Simulations", "MATLAB", "Data Visualization"],
     photos: ["/assets/caltech_research.jpg"],
+  },
+  {
+    id: "fleurs",
+    title: "Growth Consultant",
+    company: "Fleurs et Sel Cookies",
+    period: "Sep 2025 - Oct 2025",
+    year: "2025",
+    logo: "/assets/fleursetsel_logo.png",
+    color: "#FF9500",
+    website: "https://www.fleursetsel.com/",
+    description:
+      "Produced a scaling strategy for a founder-led premium bakery without losing brand identity.",
+    achievements: [
+      "Delivered social media feed, packaging mockups, and full implementation roadmap",
+      "Built partnership recommendations using case studies (Sprinkles, Glossier) and corporate research (Marriott, Delta)",
+      "Included QR-driven acquisition concepts",
+    ],
+    skills: ["Strategy", "Marketing", "Business Development"],
+    photos: [],
   },
 ];
 
