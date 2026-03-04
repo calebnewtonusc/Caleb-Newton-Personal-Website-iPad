@@ -29,6 +29,44 @@ export const social = {
 
 export const experience = [
   {
+    id: "personage",
+    title: "AI Engineer",
+    company: "Personage",
+    period: "Mar 2026 - Present",
+    year: "2026",
+    logo: "/assets/logos/personage.png",
+    color: "#144b50",
+    website: "https://personage.com",
+    description:
+      "Building an AI supplement formula recommendation engine integrated directly into Personage's live practitioner platform, enabling licensed clinicians to generate fully personalized, evidence-grounded protocols from natural language clinical input.",
+    achievements: [
+      "Architected clinical intelligence layer spanning 16 health categories and 100+ curated ingredients with enforced output schema covering dosages, mechanism-of-action rationale, drug interaction screening, and contraindication flags",
+      "Powered by Claude Sonnet 4.6 via real-time SSE streaming with React useReducer for streaming state management",
+      "Built custom markdown parser rendering ingredient names and dosage badges token-by-token with an auto-expanding chat interface optimized for practitioner-first workflows",
+    ],
+    skills: ["Claude AI", "Next.js", "TypeScript", "React", "SSE Streaming", "FastAPI"],
+    photos: [],
+  },
+  {
+    id: "specialized-models",
+    title: "Founder, Researcher & Engineer",
+    company: "Specialized Model Startups",
+    period: "Feb 2026 - Present",
+    year: "2026",
+    logo: "/assets/logos/specializedmodels.png",
+    color: "#0d0d0d",
+    website: "https://specialized-model-startups.vercel.app",
+    description:
+      "Designing and training 16 domain-specialized AI models targeting high-stakes production environments where general-purpose models demonstrably fail, with a research paper in preparation.",
+    achievements: [
+      "Built unified training framework combining expert-curated corpora, execution-verified reward signals, and a 3-stage pipeline (SFT, RL, DPO) with ZeRO-3 optimization across 18x NVIDIA A6000 (864GB VRAM)",
+      "Benchmarked against GPT-4 across all domains; domains span ML competition, CI/CD repair, container security, cybersecurity, math education, code review, performance optimization, legacy modernization, and 8 more",
+      "All 16 models maintained as open-source repositories ahead of commercialization",
+    ],
+    skills: ["PyTorch", "LoRA/PEFT", "RLHF", "DPO", "ZeRO-3/DeepSpeed", "LLM Fine-tuning"],
+    photos: [],
+  },
+  {
     id: "cosasco",
     title: "UI/UX & AI Consultant",
     company: "Cosasco",
@@ -38,13 +76,11 @@ export const experience = [
     color: "#0f2a4a",
     website: "https://cosasco.vercel.app",
     description:
-      "Avenues Consulting engagement: designed and built a full Next.js website for Cosasco (Rohrback Cosasco Systems) — a 70+ year industrial corrosion monitoring company operating in 110+ countries. Delivered every scope objective weeks ahead of schedule.",
+      "Designed and built a full Next.js website for Cosasco (Rohrback Cosasco Systems), a 70+ year industrial corrosion monitoring company operating in 110+ countries. Delivered every scope objective weeks ahead of schedule.",
     achievements: [
-      "Built 66-page Next.js 16 site from scratch covering 11 industry verticals, 10 product lines, and full resources/news sections",
-      "Designed and shipped AI-powered chatbot (Ollama cloud) with resizable window, quick questions, markdown rendering, and rate limiting",
-      "Engineered structured support pathways: searchable FAQ, technical support form with SLA tiers, 3-step RMA wizard, and software activation portal — all wired to live API routes",
-      "Redesigned Find-a-Rep as a 7-region interactive accordion directory covering 110+ countries with per-rep email routing",
-      "Ran 5 audit passes eliminating 100+ UX, accessibility, content, and technical issues before first client presentation",
+      "Built 66-page Next.js 15 site from scratch covering 11 industry verticals, 10 product lines, and full resources/news sections",
+      "Designed and shipped AI-powered chatbot with resizable window, markdown rendering, and rate limiting alongside structured support pathways: searchable FAQ, SLA-tiered support form, 3-step RMA wizard, and software activation portal wired to live API routes",
+      "Redesigned Find-a-Rep as a 7-region interactive accordion directory covering 110+ countries with per-rep email routing; ran 5 audit passes eliminating 100+ UX, accessibility, content, and technical issues before first client presentation",
     ],
     skills: ["Next.js", "TypeScript", "Tailwind CSS", "AI Integration", "Vercel", "REST APIs"],
     photos: [],
@@ -59,14 +95,18 @@ export const experience = [
     color: "#0A66C2",
     website: "https://bluemodernadvisory.com/",
     description:
-      "Engineering the first digital health network.",
-    achievements: [],
-    skills: ["Digital Health", "Software Engineering", "Health Tech", "TypeScript"],
+      "Engineering data and AI infrastructure for Amber, a relationship-centric health platform scoring wellbeing across six dimensions through personal relationships.",
+    achievements: [
+      "Built a DAG-based data pipeline engine with topological sorting, per-node retry/timeout logic, and an NLP extraction layer that parses natural language into a structured relationship graph with cross-dimensional health impact ratings",
+      "AI digest system spanning Apple Health, Google Calendar, and 11 additional OAuth2 integrations delivering per-dimension contextual health intelligence",
+      "Integrated Solana blockchain anchoring and compressed NFTs for immutable family graph state with W3C-standard Verifiable Credentials via Persona and Stripe, on a Fastify backend with Privy authentication and Drizzle ORM on PostgreSQL",
+    ],
+    skills: ["Fastify", "Drizzle ORM", "PostgreSQL", "Solana", "NLP", "TypeScript", "Privy"],
     photos: [],
   },
   {
     id: "beamlink",
-    title: "Cyber Security Consultant",
+    title: "Cybersecurity Consultant",
     company: "Beamlink",
     period: "Feb 2026 - Present",
     year: "2026",
@@ -74,9 +114,13 @@ export const experience = [
     color: "#FF3B30",
     website: "https://beamlink.io/",
     description:
-      "CybOrg client engagement: engineering security for \"the future of cellular.\"",
-    achievements: [],
-    skills: ["Cybersecurity", "Network Security", "Consulting"],
+      "Conducting an end-to-end security assessment of Bentocell IoT cellular hardware and cloud infrastructure for a next-generation cellular technology startup.",
+    achievements: [
+      "Assessing REST API, WebSocket command channels, and Prometheus/Grafana monitoring stack across Heroku/AWS infrastructure",
+      "Testing OWASP API Security Top 10 vulnerabilities including BOLA, BOPLA, broken authentication, and cross-organization data isolation failures",
+      "Delivering risk-ranked findings, sandboxed exploit demonstrations, and a full remediation roadmap with API key lifecycle best practices",
+    ],
+    skills: ["Penetration Testing", "OWASP API Security", "IoT Security", "Network Security"],
     photos: [],
   },
   {
@@ -89,13 +133,13 @@ export const experience = [
     color: "#5856D6",
     website: "https://www.pallas.care/",
     description:
-      "KTP client engagement: optimizing a senior care agency through data analytics -financial visibility, workforce quality metrics, and strategic growth recommendations benchmarked against LA County industry data.",
+      "Built a full analytics platform for a premium LA County senior home care agency tracking $2.85M ARR, benchmarked against PHI National, NAHC, and CMS industry datasets.",
     achievements: [
-      "Delivered Executive Overview, Financial Analytics, Workforce Quality, Client Analytics, Operations, and Strategic Insights modules",
-      "Surfaced caregiver retention trends, scheduling efficiency, and geographic coverage gaps",
-      "Framed recommendations around LA County benchmarks for non-medical home care",
+      "Built a 6-module Next.js platform with 13 Recharts visualizations covering full P&L, payor mix, 9-category cost structure, workforce metrics, and 36-month client retention curve",
+      "Surfaced caregiver retention at 78.4% vs. 65% industry average (+13.4 pts) and NPS of 72 vs. industry average of 32 (+40 pts)",
+      "Delivered 8 strategic recommendations in a 4-quadrant Impact/Effort matrix identifying $1.2M+ in revenue upside across geographic expansion, LTCI billing optimization, and live-in care program launch",
     ],
-    skills: ["Next.js", "TypeScript", "Recharts", "Tailwind CSS", "Data Analytics"],
+    skills: ["Next.js", "TypeScript", "Recharts", "Tailwind CSS", "Data Analytics", "Financial Modeling"],
     photos: [],
   },
   {
@@ -108,14 +152,14 @@ export const experience = [
     color: "#007AFF",
     website: "https://www.ainatech.ai/",
     description:
-      "Building the future of holographic video through Gaussian Splatting, Neural Radiance Fields, and the coolest camera rig on Earth.",
+      "Contributing to the first 3D generative model trained entirely on real-world volumetric capture data, where every existing model relies on synthetic datasets that fail to reproduce photorealistic human appearance.",
     achievements: [
-      "Developing AlgRun GUI automating volumetric pipeline (RED R3D decode, COLMAP, 4DGS) with Python/FastAPI backend, React/TypeScript frontend, and WebSocket monitoring processing 75-camera RED Komodo captures",
-      "Building COLMAP validation tools with automated diagnostics, tiered storage (10TB cache + AWS S3), and WebGPU rendering",
-      "Optimizing 4D Gaussian Splatting through GPU load balancing across 4 GPUs, CUDA profiling, and training convergence debugging",
-      "Supporting 75-camera volumetric rig operations including setup, calibration, synchronization, and AWS cloud deployment",
+      "Built AlgoRun, a pipeline orchestration GUI with a FastAPI backend, React/TypeScript frontend, and WebSocket real-time monitoring automating the full reconstruction stack: RED R3D decode, COLMAP structure-from-motion, Depth Anything V3, and 4D Gaussian Splatting",
+      "Built COLMAP validation tooling with automated diagnostics and tiered storage (10TB cache + AWS S3), and CDN distribution infrastructure on Bunny CDN and Cloudflare R2 for sharing multi-terabyte volumetric datasets",
+      "Built Aina Central, an autonomous documentation and knowledge system for a 35+ repository enterprise codebase that monitors all repos via webhooks, detects cross-repo inconsistencies, runs automated code checks, and syncs live updates to Notion via Composio; includes an AI chatbot enabling any team member to query architecture and pipeline behavior in natural language",
+      "Optimizing 4D Gaussian Splatting training across 4 GPUs via CUDA profiling (nvprof, Nsight Compute) and load balancing; supporting on-set 75-camera rig operations including calibration, synchronization, and AWS cloud deployment",
     ],
-    skills: ["Computer Vision", "Neural Radiance Fields", "Gaussian Splatting", "Python", "React"],
+    skills: ["Computer Vision", "4D Gaussian Splatting", "COLMAP", "FastAPI", "CUDA", "Python", "React"],
     photos: ["/assets/AinatechImages/Ainatechsetup.jpg", "/assets/AinatechImages/Ainatechgoats.jpg"],
   },
   {
@@ -128,9 +172,9 @@ export const experience = [
     color: "#FF9500",
     website: "https://www.fleursetsel.com/",
     description:
-      "Produced scaling strategy for founder-led premium bakery without losing brand identity.",
+      "Produced a scaling strategy for a founder-led premium bakery without losing brand identity.",
     achievements: [
-      "Delivered social media feed, packaging mockups, and implementation roadmap",
+      "Delivered social media feed, packaging mockups, and full implementation roadmap",
       "Built partnership recommendations using case studies (Sprinkles, Glossier) and corporate research (Marriott, Delta)",
       "Included QR-driven acquisition concepts",
     ],
@@ -147,12 +191,10 @@ export const experience = [
     color: "#34C759",
     website: "",
     description:
-      "Co-founded a cross-school Christian collective uniting 15+ high school clubs across the San Gabriel Valley into one movement. Also served as President of ACTS Christian Club at San Marino High School - where the vision first took root.",
+      "Co-founded a cross-school Christian collective uniting 15+ high school clubs across the San Gabriel Valley into one movement. Also served as President of ACTS Christian Club at San Marino High School, where the vision first took root.",
     achievements: [
-      "Spearheaded formation of a coalition uniting 15+ high school Christian clubs across the San Gabriel Valley",
-      "Conceived and executed Everything Night - a first-of-its-kind regional event attracting 200+ students to 20 breakout sessions",
-      "Exercised visionary leadership by filtering and curating the strongest student-led ideas into a cohesive program that maximized impact",
-      "Pioneered a scalable framework for multi-school collaboration, media, and fundraising that created a replicable model for regional impact",
+      "Spearheaded formation of a coalition uniting 15+ high school Christian clubs across the San Gabriel Valley, pioneering a scalable framework for multi-school collaboration, media, and fundraising",
+      "Conceived and executed Everything Night, a first-of-its-kind regional event attracting 200+ students to 20 breakout sessions by filtering and curating the strongest student-led ideas into a cohesive high-impact program",
     ],
     skills: ["Leadership", "Community Building", "Event Coordination", "Faith"],
     photos: [
@@ -181,9 +223,8 @@ export const experience = [
     description:
       "Collaborated with Taylan Kargin, Ph.D., on control theory research creating simulations for aerospace, autonomous systems, and robotics.",
     achievements: [
-      "Built MATLAB and Python simulations comparing control models",
-      "Created system models and plots to distill complex theory into actionable insights",
-      "Supported evaluation for aerospace and robotics control strategies",
+      "Built MATLAB and Python simulations to compare Taylan Kargin's control model against three alternatives; produced visualizations to communicate stability, efficiency, and scalability trade-offs",
+      "Created system models and plots to distill complex theory into actionable insights for faculty and peers; supported evaluation for aerospace and robotics control strategies",
     ],
     skills: ["Python", "Control Theory", "Simulations", "MATLAB", "Data Visualization"],
     photos: ["/assets/caltech_research.jpg"],
