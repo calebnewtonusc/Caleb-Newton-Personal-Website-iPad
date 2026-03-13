@@ -273,6 +273,14 @@ export const projects = [
     color: "#8b1a1a",
     comingSoon: true,
   },
+  {
+    id: "amber",
+    title: "Amber",
+    logo: null,
+    live: "#",
+    color: "#7a4a0a",
+    comingSoon: true,
+  },
 ];
 
 export const education = [
