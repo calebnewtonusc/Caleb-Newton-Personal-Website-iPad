@@ -247,9 +247,8 @@ export const projects = [
     id: "clearout",
     title: "ClearOut",
     logo: null,
-    live: "#",
+    live: "https://clearout.xyz/",
     color: "#3a1a4a",
-    comingSoon: true,
   },
   {
     id: "astroshockdiaper",
