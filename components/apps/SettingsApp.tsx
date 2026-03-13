@@ -262,7 +262,7 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                 <div style={{ background: "white", borderRadius: 10, overflow: "hidden", marginBottom: 8 }}>
                   {[
                     { label: "Building", value: "Holographic video @ AINA Tech" },
-                    { label: "Studying", value: "Iovine & Young Academy @ USC" },
+                    { label: "Studying", value: "Innovation · ML · Math · Cyber · Entrepreneurship" },
                     { label: "Learning", value: "PyTorch · 4DGS · Guitar" },
                   ].map((item, i) => (
                     <div key={item.label} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "13px 16px", borderTop: i > 0 ? "0.5px solid rgba(60,60,67,0.18)" : "none" }}>

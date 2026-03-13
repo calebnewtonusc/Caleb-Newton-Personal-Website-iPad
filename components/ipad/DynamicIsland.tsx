@@ -84,7 +84,7 @@ export default function DynamicIsland() {
                     letterSpacing: 0.1,
                   }}
                 >
-                  Iovine & Young Academy @ USC
+                  Innovation · ML · Math · Cyber · Entrepreneurship
                 </div>
               </div>
             </motion.div>

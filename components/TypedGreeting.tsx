@@ -18,7 +18,7 @@ export default function TypedGreeting({ fontSize = 14, isLandscape = true }: Pro
     typedRef.current = new Typed(elRef.current, {
       strings: [
         "Hey, I'm Caleb.",
-        'Iovine & Young Academy @ USC.',
+        'Innovation · ML · Math · Cyber · Entrepreneurship.',
         "Let's build something.",
       ],
       typeSpeed: 48,
