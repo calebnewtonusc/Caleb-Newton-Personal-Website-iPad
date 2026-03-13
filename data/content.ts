@@ -68,25 +68,6 @@ export const experience = [
     photos: [],
   },
   {
-    id: "specialized-models",
-    title: "Founder, Researcher & Engineer",
-    company: "Specialized Model Startups",
-    period: "Feb 2026 - Present",
-    year: "2026",
-    logo: "/assets/logos/specializedmodels.png",
-    color: "#0d0d0d",
-    website: "https://specialized-model-startups.vercel.app",
-    description:
-      "Designing and training 16 domain-specialized AI models targeting high-stakes production environments where general-purpose models demonstrably fail, with a research paper in preparation.",
-    achievements: [
-      "Built unified training framework combining expert-curated corpora, execution-verified reward signals, and a 3-stage pipeline (SFT, RL, DPO) with ZeRO-3 optimization across 18x NVIDIA A6000 (864GB VRAM)",
-      "Benchmarked against GPT-4 across all domains; domains span ML competition, CI/CD repair, container security, cybersecurity, math education, code review, performance optimization, legacy modernization, and 8 more",
-      "All 16 models maintained as open-source repositories ahead of commercialization",
-    ],
-    skills: ["PyTorch", "LoRA/PEFT", "RLHF", "DPO", "ZeRO-3/DeepSpeed", "LLM Fine-tuning"],
-    photos: [],
-  },
-  {
     id: "blue-modern",
     title: "AI & Data Engineer",
     company: "Blue Modern Advisory",
