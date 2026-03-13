@@ -336,9 +336,7 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, f
               style={{
                 position: "absolute",
                 inset: 0,
-                background: "rgba(0,0,0,0.3)",
-                backdropFilter: "blur(2px)",
-                WebkitBackdropFilter: "blur(2px)",
+                background: "rgba(0,0,0,0.18)",
               }}
             />
 
