@@ -282,15 +282,18 @@ export default function IPadPage() {
     const onTouchEnd = (e: TouchEvent) => {
       if (Math.abs(e.changedTouches[0].clientX - startX) > 15 || Math.abs(e.changedTouches[0].clientY - startY) > 15) setLocked(false);
     };
+    const onWheel = (e: WheelEvent) => { if (Math.abs(e.deltaX) > 10 || Math.abs(e.deltaY) > 10) setLocked(false); };
     window.addEventListener("mousedown", onDown);
     window.addEventListener("mouseup", onUp);
     window.addEventListener("touchstart", onTouchStart, { passive: true });
     window.addEventListener("touchend", onTouchEnd, { passive: true });
+    window.addEventListener("wheel", onWheel, { passive: true });
     return () => {
       window.removeEventListener("mousedown", onDown);
       window.removeEventListener("mouseup", onUp);
       window.removeEventListener("touchstart", onTouchStart);
       window.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("wheel", onWheel);
     };
   }, [locked]);
 
