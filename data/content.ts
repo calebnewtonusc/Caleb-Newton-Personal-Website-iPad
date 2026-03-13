@@ -237,7 +237,7 @@ export const projects = [
   {
     id: "nalana",
     title: "Nalana",
-    logo: null,
+    logo: "/assets/ventures/nalana.svg",
     live: "https://nalana.vercel.app/",
     color: "#1a4a2e",
   },
