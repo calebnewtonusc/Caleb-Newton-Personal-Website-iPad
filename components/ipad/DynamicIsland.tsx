@@ -84,7 +84,7 @@ export default function DynamicIsland() {
                     letterSpacing: 0.1,
                   }}
                 >
-                  CS + Applied Math @ USC
+                  Jimmy Iovine Academy @ USC
                 </div>
               </div>
             </motion.div>

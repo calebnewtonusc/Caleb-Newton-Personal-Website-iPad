@@ -180,7 +180,7 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <p style={{ fontSize: 20, fontWeight: 600, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>Caleb Newton</p>
                     <p style={{ fontSize: 13, color: "#636366", fontFamily: "-apple-system, sans-serif", marginTop: 1 }}>
-                      USC · CS + Applied Math
+                      USC · Jimmy Iovine Academy
                     </p>
                   </div>
                   <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
@@ -262,7 +262,7 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                 <div style={{ background: "white", borderRadius: 10, overflow: "hidden", marginBottom: 8 }}>
                   {[
                     { label: "Building", value: "Holographic video @ AINA Tech" },
-                    { label: "Studying", value: "CS + Applied Math @ USC" },
+                    { label: "Studying", value: "Jimmy Iovine Academy @ USC" },
                     { label: "Learning", value: "PyTorch · 4DGS · Guitar" },
                   ].map((item, i) => (
                     <div key={item.label} style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "13px 16px", borderTop: i > 0 ? "0.5px solid rgba(60,60,67,0.18)" : "none" }}>

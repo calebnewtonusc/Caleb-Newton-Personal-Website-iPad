@@ -106,7 +106,7 @@ function AppIcon({
                 { label: "FO", color: "#0a3d55" },
                 { label: "NA", color: "#1a4a2e" },
                 { label: "CO", color: "#3a1a4a" },
-                { label: "AS", color: "#1a2a4a" },
+                { label: "AO", color: "#1a2a4a" },
                 { label: "VD", color: "#1a4a1a" },
                 null,
                 null,

@@ -369,7 +369,7 @@ export default function IPadPage() {
       </AnimatePresence>
 
       {/* iPad wrapper — scale driven by motion value, 3D drag-to-rotate */}
-      <div style={{ perspective: 1200, perspectiveOrigin: "center center" }}>
+      <div style={{ perspective: 1200, perspectiveOrigin: "center center", position: "relative", zIndex: 10 }}>
       <motion.div
         onMouseDown={onIpadMouseDown}
         onTouchStart={onIpadTouchStart}
@@ -377,7 +377,6 @@ export default function IPadPage() {
           scale: scaleMotionValue,
           rotateX: springX,
           rotateY: springY,
-          transformStyle: "preserve-3d",
           filter: dropShadow,
           cursor: isDragging3D ? "grabbing" : "grab",
           transformOrigin: "center center",

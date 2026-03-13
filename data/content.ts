@@ -234,14 +234,14 @@ export const experience = [
 export const projects = [
   {
     id: "isaac-newton",
-    title: "Isaac Newton Studios",
+    title: "I.N.S.",
     logo: "/assets/ventures/isaac-newton.png",
     live: "https://isaacnewtonstudios.com/",
     color: "#1a1a2e",
   },
   {
     id: "serutnev",
-    title: "Serutnev",
+    title: "serutneV",
     logo: "/assets/ventures/serutnev.png",
     live: "https://serutnev.co/",
     color: "#0f0f23",
@@ -270,7 +270,7 @@ export const projects = [
   },
   {
     id: "astroshockdiaper",
-    title: "AstroShockDiaper",
+    title: "Astro Overnight",
     logo: null,
     live: "#",
     color: "#1a2a4a",
