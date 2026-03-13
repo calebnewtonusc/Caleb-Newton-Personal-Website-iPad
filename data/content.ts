@@ -233,7 +233,7 @@ export const projects = [
     id: "fiduciaryos",
     title: "FiduciaryOS",
     logo: null,
-    live: "https://fiduciaryos.vercel.app/",
+    live: "https://fiduciary.cash/",
     color: "#0a3d55",
   },
   {
