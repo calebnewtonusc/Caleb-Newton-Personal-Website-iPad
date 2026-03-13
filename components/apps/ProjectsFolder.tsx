@@ -121,9 +121,9 @@ export default function ProjectsFolder({ open, onClose, orientation, origin }: P
   const swipeStart = useRef<{ x: number; y: number } | null>(null);
   const wheelAccum = useRef(0);
   const wheelTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const cardWidth = isLandscape
-    ? COLS * (iconSize + 16) + (COLS - 1) * 14 + 56
-    : COLS * (iconSize + 16) + (COLS - 1) * 12 + 44;
+  const hPad = isLandscape ? 28 : 22;
+  const contentWidth = COLS * (iconSize + 16) + (COLS - 1) * (isLandscape ? 14 : 12);
+  const cardWidth = contentWidth + hPad * 2;
 
   const page1 = projects.filter((p) => !(p as { page?: number }).page || (p as { page?: number }).page === 1);
   const page2 = projects.filter((p) => (p as { page?: number }).page === 2);
@@ -229,15 +229,15 @@ export default function ProjectsFolder({ open, onClose, orientation, origin }: P
                 onWheel={onWheel}
               >
                 <motion.div
-                  animate={{ x: -page * cardWidth }}
+                  animate={{ x: -page * contentWidth }}
                   transition={{ type: "spring", stiffness: 380, damping: 36 }}
-                  style={{ display: "flex", width: `${totalPages * cardWidth}px` }}
+                  style={{ display: "flex", width: `${totalPages * contentWidth}px` }}
                 >
                   {pages.map((pageProjects, pi) => (
                     <div
                       key={pi}
                       style={{
-                        width: cardWidth,
+                        width: contentWidth,
                         flexShrink: 0,
                         display: "grid",
                         gridTemplateColumns: `repeat(${COLS}, ${iconSize + 16}px)`,
