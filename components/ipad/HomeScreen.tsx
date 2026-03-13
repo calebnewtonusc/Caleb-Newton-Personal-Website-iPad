@@ -103,7 +103,7 @@ function AppIcon({
               {projects.slice(0, 9).map((p, i) =>
                 p.logo ? (
                   <div key={i} style={{
-                    background: "white",
+                    background: `linear-gradient(135deg, ${p.color}cc, ${p.color})`,
                     borderRadius: "20%",
                     overflow: "hidden",
                     display: "flex", alignItems: "center", justifyContent: "center",
