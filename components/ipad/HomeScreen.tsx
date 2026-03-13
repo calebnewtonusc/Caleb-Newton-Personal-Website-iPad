@@ -92,32 +92,32 @@ function AppIcon({
             backdropFilter: "blur(12px) saturate(1.6)",
             WebkitBackdropFilter: "blur(12px) saturate(1.6)",
             display: "flex", alignItems: "center", justifyContent: "center",
-            padding: "14%",
+            padding: "22%",
             boxSizing: "border-box",
           }}>
             <div style={{
               width: "100%", height: "100%",
               display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gridTemplateRows: "1fr 1fr 1fr",
-              gap: "8%",
+              gap: "12%",
             }}>
               {([
-                { img: "/assets/ventures/isaac-newton.png", bg: "#1a1a2e" },
-                { img: "/assets/ventures/serutnev.png", bg: "#0f0f23" },
-                { label: "FO", color: "#0a3d55" },
-                { label: "NA", color: "#1a4a2e" },
-                { label: "CO", color: "#3a1a4a" },
-                { label: "AO", color: "#1a2a4a" },
-                { label: "VD", color: "#1a4a1a" },
+                { img: "/assets/ventures/isaac-newton.png" },
+                { color: "#0f0f23" },
+                { color: "#0a3d55" },
+                { color: "#1a4a2e" },
+                { color: "#3a1a4a" },
+                { color: "#1a2a4a" },
+                { color: "#1a4a1a" },
                 null,
                 null,
-              ] as ({ label: string; color: string } | { img: string; bg: string } | null)[]).map((item, i) =>
+              ] as ({ img: string } | { color: string } | null)[]).map((item, i) =>
                 item === null ? (
                   <div key={i} />
                 ) : "img" in item ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <div key={i} style={{
                     background: "white",
-                    borderRadius: "18%",
+                    borderRadius: "20%",
                     overflow: "hidden",
                     display: "flex", alignItems: "center", justifyContent: "center",
                   }}>
@@ -126,17 +126,8 @@ function AppIcon({
                 ) : (
                   <div key={i} style={{
                     background: `linear-gradient(135deg, ${item.color}cc, ${item.color})`,
-                    borderRadius: "18%",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                  }}>
-                    <span style={{
-                      color: "white",
-                      fontWeight: 700,
-                      fontSize: "28%",
-                      fontFamily: "-apple-system, sans-serif",
-                      letterSpacing: "-0.03em",
-                    }}>{item.label}</span>
-                  </div>
+                    borderRadius: "20%",
+                  }} />
                 )
               )}
             </div>
