@@ -119,6 +119,8 @@ export default function ProjectsFolder({ open, onClose, orientation, origin }: P
   const iconSize = isLandscape ? 76 : 68;
   const [page, setPage] = useState(0);
   const swipeStart = useRef<{ x: number; y: number } | null>(null);
+  const wheelAccum = useRef(0);
+  const wheelTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const cardWidth = isLandscape
     ? COLS * (iconSize + 16) + (COLS - 1) * 14 + 56
     : COLS * (iconSize + 16) + (COLS - 1) * 12 + 44;
@@ -130,6 +132,21 @@ export default function ProjectsFolder({ open, onClose, orientation, origin }: P
 
   const originX = origin?.x ?? "50%";
   const originY = origin?.y ?? "50%";
+
+  const onWheel = (e: React.WheelEvent) => {
+    // Only act on predominantly horizontal scroll (trackpad 2-finger swipe)
+    if (Math.abs(e.deltaX) <= Math.abs(e.deltaY)) return;
+    wheelAccum.current += e.deltaX;
+    if (wheelTimer.current) clearTimeout(wheelTimer.current);
+    wheelTimer.current = setTimeout(() => { wheelAccum.current = 0; }, 300);
+    if (wheelAccum.current > 60) {
+      wheelAccum.current = 0;
+      setPage((p) => Math.min(p + 1, totalPages - 1));
+    } else if (wheelAccum.current < -60) {
+      wheelAccum.current = 0;
+      setPage((p) => Math.max(p - 1, 0));
+    }
+  };
 
   const onPointerDown = (e: React.PointerEvent) => {
     swipeStart.current = { x: e.clientX, y: e.clientY };
@@ -209,6 +226,7 @@ export default function ProjectsFolder({ open, onClose, orientation, origin }: P
                 style={{ overflow: "hidden", touchAction: "pan-y" }}
                 onPointerDown={onPointerDown}
                 onPointerUp={onPointerUp}
+                onWheel={onWheel}
               >
                 <motion.div
                   animate={{ x: -page * cardWidth }}
