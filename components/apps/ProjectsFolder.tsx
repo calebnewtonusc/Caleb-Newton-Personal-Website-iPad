@@ -121,21 +121,18 @@ export default function ProjectsFolder({ open, onClose, orientation, origin }: P
   return (
     <AnimatePresence>
       {open && (
-        // Backdrop: fades the blur at full screen — no scaling here
+        // Backdrop: animate blur + dark tint together to avoid light-flash artifact
         <motion.div
           key="folder-root"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.22 }}
+          initial={{ background: "rgba(0,0,0,0)", backdropFilter: "blur(0px) saturate(1)", WebkitBackdropFilter: "blur(0px) saturate(1)" }}
+          animate={{ background: "rgba(0,0,0,0.22)", backdropFilter: "blur(28px) saturate(1.6)", WebkitBackdropFilter: "blur(28px) saturate(1.6)" }}
+          exit={{ background: "rgba(0,0,0,0)", backdropFilter: "blur(0px) saturate(1)", WebkitBackdropFilter: "blur(0px) saturate(1)" }}
+          transition={{ duration: 0.2 }}
           onClick={onClose}
           style={{
             position: "absolute",
             inset: 0,
             zIndex: 25,
-            background: "rgba(0,0,0,0.22)",
-            backdropFilter: "blur(28px) saturate(1.6)",
-            WebkitBackdropFilter: "blur(28px) saturate(1.6)",
           }}
         >
           {/* Card scale wrapper — scales from tap origin, no blur attached */}
