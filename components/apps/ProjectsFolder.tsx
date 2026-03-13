@@ -1,6 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence } from "framer-motion";
+import { useRef, useState } from "react";
 import { projects } from "@/data/content";
 
 interface Props {
@@ -109,18 +110,35 @@ function ProjectIcon({ project, size }: { project: typeof projects[0]; size: num
   );
 }
 
+const COLS = 3;
+const ROWS = 3;
+const PER_PAGE = COLS * ROWS;
+
 export default function ProjectsFolder({ open, onClose, orientation, origin }: Props) {
   const isLandscape = orientation === "landscape";
   const iconSize = isLandscape ? 76 : 68;
-  const cols = 3;
+  const [page, setPage] = useState(0);
+  const dragStartX = useRef(0);
+  const cardWidth = isLandscape
+    ? COLS * (iconSize + 16) + (COLS - 1) * 14 + 56
+    : COLS * (iconSize + 16) + (COLS - 1) * 12 + 44;
+
+  const page1 = projects.filter((p) => !(p as { page?: number }).page || (p as { page?: number }).page === 1);
+  const page2 = projects.filter((p) => (p as { page?: number }).page === 2);
+  const pages = [page1, page2].filter((p) => p.length > 0);
+  const totalPages = pages.length;
 
   const originX = origin?.x ?? "50%";
   const originY = origin?.y ?? "50%";
 
+  const handleDragEnd = (_: unknown, info: { offset: { x: number } }) => {
+    if (info.offset.x < -40 && page < totalPages - 1) setPage(page + 1);
+    else if (info.offset.x > 40 && page > 0) setPage(page - 1);
+  };
+
   return (
     <AnimatePresence>
       {open && (
-        // Backdrop: animate blur + dark tint together to avoid light-flash artifact
         <motion.div
           key="folder-root"
           initial={{ background: "rgba(0,0,0,0)", backdropFilter: "blur(0px) saturate(1)" }}
@@ -128,14 +146,8 @@ export default function ProjectsFolder({ open, onClose, orientation, origin }: P
           exit={{ background: "rgba(0,0,0,0)", backdropFilter: "blur(0px) saturate(1)" }}
           transition={{ duration: 0.2 }}
           onClick={onClose}
-          style={{
-            position: "absolute",
-            inset: 0,
-            zIndex: 25,
-            WebkitBackdropFilter: "blur(28px) saturate(1.6)",
-          }}
+          style={{ position: "absolute", inset: 0, zIndex: 25, WebkitBackdropFilter: "blur(28px) saturate(1.6)" }}
         >
-          {/* Card scale wrapper — scales from tap origin, no blur attached */}
           <motion.div
             key="folder-card-wrapper"
             initial={{ scale: 0.08, opacity: 0 }}
@@ -162,12 +174,13 @@ export default function ProjectsFolder({ open, onClose, orientation, origin }: P
                 WebkitBackdropFilter: "blur(60px) saturate(2.2) brightness(1.1)",
                 border: "1px solid rgba(255,255,255,0.32)",
                 borderRadius: 28,
-                padding: isLandscape ? "22px 28px 24px" : "18px 22px 20px",
+                padding: isLandscape ? "22px 28px 20px" : "18px 22px 16px",
                 boxShadow: "0 24px 64px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.4), inset 0 -1px 0 rgba(0,0,0,0.05)",
-                width: isLandscape ? `${cols * (iconSize + 16) + (cols - 1) * 14 + 56}px` : `${cols * (iconSize + 16) + (cols - 1) * 12 + 44}px`,
+                width: `${cardWidth}px`,
+                overflow: "hidden",
               }}
             >
-              {/* Folder title */}
+              {/* Title */}
               <div style={{
                 textAlign: "center",
                 marginBottom: 16,
@@ -181,18 +194,64 @@ export default function ProjectsFolder({ open, onClose, orientation, origin }: P
                 Ventures
               </div>
 
-              {/* 3×3 grid */}
-              <div style={{
-                display: "grid",
-                gridTemplateColumns: `repeat(${cols}, ${iconSize + 16}px)`,
-                gap: isLandscape ? "16px 14px" : "14px 12px",
-                justifyContent: "center",
-              }}>
-                {projects.map((project) => (
-                  <ProjectIcon key={project.id} project={project} size={iconSize} />
-                ))}
+              {/* Swipeable pages */}
+              <div style={{ overflow: "hidden" }}>
+                <motion.div
+                  drag="x"
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.15}
+                  onDragEnd={handleDragEnd}
+                  animate={{ x: -page * cardWidth }}
+                  transition={{ type: "spring", stiffness: 380, damping: 36 }}
+                  style={{ display: "flex", width: `${totalPages * cardWidth}px`, cursor: "grab" }}
+                >
+                  {pages.map((pageProjects, pi) => (
+                    <div
+                      key={pi}
+                      style={{
+                        width: cardWidth,
+                        flexShrink: 0,
+                        display: "grid",
+                        gridTemplateColumns: `repeat(${COLS}, ${iconSize + 16}px)`,
+                        gap: isLandscape ? "16px 14px" : "14px 12px",
+                        justifyContent: "center",
+                        minHeight: isLandscape ? `${ROWS * (iconSize + 30)}px` : `${ROWS * (iconSize + 28)}px`,
+                        alignContent: "start",
+                      }}
+                    >
+                      {pageProjects.map((project) => (
+                        <ProjectIcon key={project.id} project={project} size={iconSize} />
+                      ))}
+                    </div>
+                  ))}
+                </motion.div>
               </div>
-              {/* No home pill inside — HomeScreen's indicator (z-index 30) handles closing */}
+
+              {/* Page dots */}
+              {totalPages > 1 && (
+                <div style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  gap: 6,
+                  marginTop: 14,
+                }}>
+                  {pages.map((_, i) => (
+                    <motion.div
+                      key={i}
+                      animate={{ opacity: i === page ? 1 : 0.35, scale: i === page ? 1 : 0.8 }}
+                      transition={{ duration: 0.2 }}
+                      onClick={() => setPage(i)}
+                      style={{
+                        width: 6,
+                        height: 6,
+                        borderRadius: "50%",
+                        background: "white",
+                        cursor: "pointer",
+                      }}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           </motion.div>
         </motion.div>

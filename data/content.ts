@@ -283,6 +283,16 @@ export const projects = [
     color: "#7a4a0a",
     comingSoon: true,
   },
+  // Page 2
+  {
+    id: "civicq",
+    title: "CivicQ",
+    logo: null,
+    live: "#",
+    color: "#1a3a5c",
+    comingSoon: true,
+    page: 2,
+  },
 ];
 
 export const education = [
