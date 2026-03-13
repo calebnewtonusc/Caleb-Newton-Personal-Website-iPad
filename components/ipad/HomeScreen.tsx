@@ -290,6 +290,7 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, f
         {locked && (
           <motion.div
             initial={{ y: 0 }}
+            animate={{ y: 0 }}
             exit={{ y: "-100%" }}
             transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
             onClick={onUnlock}
@@ -320,7 +321,7 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, f
             {/* Lock wallpaper */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src="/assets/CalebAtBeachUSCHoodie.jpg"
+              src="/assets/everything_night_main.jpg"
               alt=""
               style={{
                 position: "absolute",
@@ -328,7 +329,7 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, f
                 width: "100%",
                 height: "100%",
                 objectFit: "cover",
-                objectPosition: "center top",
+                objectPosition: "center center",
               }}
             />
             <div

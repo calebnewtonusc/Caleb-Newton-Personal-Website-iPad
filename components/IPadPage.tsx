@@ -212,9 +212,13 @@ export default function IPadPage() {
   }, [scaleMotionValue]);
 
   // 3D drag handlers
+  const lockedRef = useRef(true);
+  useEffect(() => { lockedRef.current = locked; }, [locked]);
+
   const onIpadMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
     if (target.closest(".app-window")) return;
+    if (lockedRef.current) return; // don't 3D-drag while lock screen is showing
     ipadDragRef.current = { active: true, startX: e.clientX, startY: e.clientY, rx: rotX.get(), ry: rotY.get() };
     setIsDragging3D(true);
   }, [rotX, rotY]);
@@ -222,6 +226,7 @@ export default function IPadPage() {
   const onIpadTouchStart = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
     if (target.closest(".app-window")) return;
+    if (lockedRef.current) return;
     const touch = e.touches[0];
     ipadDragRef.current = { active: true, startX: touch.clientX, startY: touch.clientY, rx: rotX.get(), ry: rotY.get() };
   }, [rotX, rotY]);
