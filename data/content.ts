@@ -271,7 +271,7 @@ export const projects = [
     id: "marrow",
     title: "Marrow",
     logo: null,
-    live: "https://marrow-delta.vercel.app/",
+    live: "https://marrow.love/",
     color: "#8b1a1a",
     comingSoon: false,
   },
