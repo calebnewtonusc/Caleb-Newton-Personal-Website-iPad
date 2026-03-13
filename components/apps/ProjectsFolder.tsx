@@ -124,15 +124,16 @@ export default function ProjectsFolder({ open, onClose, orientation, origin }: P
         // Backdrop: animate blur + dark tint together to avoid light-flash artifact
         <motion.div
           key="folder-root"
-          initial={{ background: "rgba(0,0,0,0)", backdropFilter: "blur(0px) saturate(1)", WebkitBackdropFilter: "blur(0px) saturate(1)" }}
-          animate={{ background: "rgba(0,0,0,0.22)", backdropFilter: "blur(28px) saturate(1.6)", WebkitBackdropFilter: "blur(28px) saturate(1.6)" }}
-          exit={{ background: "rgba(0,0,0,0)", backdropFilter: "blur(0px) saturate(1)", WebkitBackdropFilter: "blur(0px) saturate(1)" }}
+          initial={{ background: "rgba(0,0,0,0)", backdropFilter: "blur(0px) saturate(1)" }}
+          animate={{ background: "rgba(0,0,0,0.22)", backdropFilter: "blur(28px) saturate(1.6)" }}
+          exit={{ background: "rgba(0,0,0,0)", backdropFilter: "blur(0px) saturate(1)" }}
           transition={{ duration: 0.2 }}
           onClick={onClose}
           style={{
             position: "absolute",
             inset: 0,
             zIndex: 25,
+            WebkitBackdropFilter: "blur(28px) saturate(1.6)",
           }}
         >
           {/* Card scale wrapper — scales from tap origin, no blur attached */}
