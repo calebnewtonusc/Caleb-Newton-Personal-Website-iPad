@@ -189,41 +189,6 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, f
     return () => clearInterval(timer);
   }, []);
 
-  // Swipe-to-unlock: mirrors AppWindow's native event listener pattern
-  const lockSwipeRef = useRef<{ startX: number; startY: number } | null>(null);
-  useEffect(() => {
-    if (!locked) return;
-    const onMouseDown = (e: MouseEvent) => {
-      lockSwipeRef.current = { startX: e.clientX, startY: e.clientY };
-    };
-    const onMouseUp = (e: MouseEvent) => {
-      if (!lockSwipeRef.current) return;
-      const dx = e.clientX - lockSwipeRef.current.startX;
-      const dy = e.clientY - lockSwipeRef.current.startY;
-      lockSwipeRef.current = null;
-      if (Math.abs(dx) > 20 || Math.abs(dy) > 20) onUnlock();
-    };
-    const onTouchStart = (e: TouchEvent) => {
-      lockSwipeRef.current = { startX: e.touches[0].clientX, startY: e.touches[0].clientY };
-    };
-    const onTouchEnd = (e: TouchEvent) => {
-      if (!lockSwipeRef.current) return;
-      const dx = e.changedTouches[0].clientX - lockSwipeRef.current.startX;
-      const dy = e.changedTouches[0].clientY - lockSwipeRef.current.startY;
-      lockSwipeRef.current = null;
-      if (Math.abs(dx) > 20 || Math.abs(dy) > 20) onUnlock();
-    };
-    window.addEventListener("mousedown", onMouseDown);
-    window.addEventListener("mouseup", onMouseUp);
-    window.addEventListener("touchstart", onTouchStart, { passive: true });
-    window.addEventListener("touchend", onTouchEnd, { passive: true });
-    return () => {
-      window.removeEventListener("mousedown", onMouseDown);
-      window.removeEventListener("mouseup", onMouseUp);
-      window.removeEventListener("touchstart", onTouchStart);
-      window.removeEventListener("touchend", onTouchEnd);
-    };
-  }, [locked, onUnlock]);
 
   const timeStr = time.toLocaleTimeString("en-US", {
     hour: "numeric",
@@ -325,8 +290,8 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, f
       <AnimatePresence>
         {locked && (
           <motion.div
-            initial={{ y: 0 }}
-            animate={{ y: 0 }}
+            initial={{ y: "0%" }}
+            animate={{ y: "0%" }}
             exit={{ y: "-100%" }}
             transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
             onClick={onUnlock}

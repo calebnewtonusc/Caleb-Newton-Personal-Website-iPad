@@ -270,6 +270,30 @@ export default function IPadPage() {
   // Close folder when locked
   useEffect(() => { if (locked) setFolderOpen(false); }, [locked]);
 
+  // Swipe-to-unlock detection — lives here so we call setLocked directly (no callback identity issues)
+  useEffect(() => {
+    if (!locked) return;
+    let startX = 0, startY = 0;
+    const onDown = (e: MouseEvent) => { startX = e.clientX; startY = e.clientY; };
+    const onUp = (e: MouseEvent) => {
+      if (Math.abs(e.clientX - startX) > 15 || Math.abs(e.clientY - startY) > 15) setLocked(false);
+    };
+    const onTouchStart = (e: TouchEvent) => { startX = e.touches[0].clientX; startY = e.touches[0].clientY; };
+    const onTouchEnd = (e: TouchEvent) => {
+      if (Math.abs(e.changedTouches[0].clientX - startX) > 15 || Math.abs(e.changedTouches[0].clientY - startY) > 15) setLocked(false);
+    };
+    window.addEventListener("mousedown", onDown);
+    window.addEventListener("mouseup", onUp);
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchend", onTouchEnd, { passive: true });
+    return () => {
+      window.removeEventListener("mousedown", onDown);
+      window.removeEventListener("mouseup", onUp);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchend", onTouchEnd);
+    };
+  }, [locked]);
+
   const handlePowerPress = useCallback(() => {
     if (screenOff) {
       setScreenOff(false);
