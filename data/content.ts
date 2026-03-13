@@ -253,7 +253,7 @@ export const projects = [
     id: "astroshockdiaper",
     title: "Astro Overnight",
     logo: null,
-    live: "https://astro-overnight.vercel.app/",
+    live: "https://astroovernight.com/",
     color: "#1a2a4a",
     comingSoon: false,
   },
