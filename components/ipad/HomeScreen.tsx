@@ -340,7 +340,7 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, f
               }}
             />
 
-            {/* Time + Date */}
+            {/* Time + Date + Name grouped at top */}
             <div
               style={{
                 position: "relative",
@@ -348,6 +348,10 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, f
                 textAlign: "center",
                 color: "white",
                 fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif",
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: 0,
               }}
             >
               <div
@@ -371,23 +375,14 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, f
               >
                 {dateStr}
               </div>
-            </div>
-
-            {/* Name + typed subtitle */}
-            <div
-              style={{
-                position: "relative",
-                zIndex: 2,
-                textAlign: "center",
-                color: "white",
-                fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif",
-              }}
-            >
-              <div style={{ fontSize: isLandscape ? 20 : 22, fontWeight: 600, letterSpacing: -0.4 }}>
-                Caleb Newton
-              </div>
-              <div style={{ marginTop: 6 }}>
-                <TypedGreeting fontSize={13} isLandscape={isLandscape} />
+              {/* Name + typed subtitle directly below date */}
+              <div style={{ marginTop: isLandscape ? 14 : 18 }}>
+                <div style={{ fontSize: isLandscape ? 20 : 22, fontWeight: 600, letterSpacing: -0.4 }}>
+                  Caleb Newton
+                </div>
+                <div style={{ marginTop: 6 }}>
+                  <TypedGreeting fontSize={13} isLandscape={isLandscape} />
+                </div>
               </div>
             </div>
 
