@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { AppId, AppDef } from "@/data/content";
-import { apps, dockApps } from "@/data/content";
+import { apps, dockApps, projects } from "@/data/content";
 import TypedGreeting from "@/components/TypedGreeting";
 
 interface Props {
@@ -100,32 +100,20 @@ function AppIcon({
               display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gridTemplateRows: "1fr 1fr 1fr",
               gap: "12%",
             }}>
-              {([
-                { img: "/assets/ventures/isaac-newton.png" },
-                { color: "#0f0f23" },
-                { color: "#0a3d55" },
-                { color: "#1a4a2e" },
-                { color: "#3a1a4a" },
-                { color: "#1a2a4a" },
-                { color: "#1a4a1a" },
-                null,
-                null,
-              ] as ({ img: string } | { color: string } | null)[]).map((item, i) =>
-                item === null ? (
-                  <div key={i} />
-                ) : "img" in item ? (
-                  // eslint-disable-next-line @next/next/no-img-element
+              {projects.slice(0, 9).map((p, i) =>
+                p.logo ? (
                   <div key={i} style={{
                     background: "white",
                     borderRadius: "20%",
                     overflow: "hidden",
                     display: "flex", alignItems: "center", justifyContent: "center",
                   }}>
-                    <img src={item.img} alt="" style={{ width: "80%", height: "80%", objectFit: "contain" }} />
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img src={p.logo} alt="" style={{ width: "80%", height: "80%", objectFit: "contain" }} />
                   </div>
                 ) : (
                   <div key={i} style={{
-                    background: `linear-gradient(135deg, ${item.color}cc, ${item.color})`,
+                    background: `linear-gradient(135deg, ${p.color}cc, ${p.color})`,
                     borderRadius: "20%",
                   }} />
                 )
