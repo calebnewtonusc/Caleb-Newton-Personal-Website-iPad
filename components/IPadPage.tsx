@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence, useMotionValue, animate as fmAnimate } from "framer-motion";
+import { motion, AnimatePresence, useMotionValue, useSpring, useTransform, useMotionTemplate, animate as fmAnimate } from "framer-motion";
 import IPadFrame from "./ipad/IPadFrame";
 import HomeScreen from "./ipad/HomeScreen";
 import AppWindow from "./apps/AppWindow";
@@ -24,6 +24,18 @@ export default function IPadPage() {
   const [mounted, setMounted] = useState(false);
 
   const scaleMotionValue = useMotionValue(0.97);
+
+  // 3D drag-to-rotate
+  const rotX = useMotionValue(0);
+  const rotY = useMotionValue(0);
+  const springX = useSpring(rotX, { stiffness: 260, damping: 28 });
+  const springY = useSpring(rotY, { stiffness: 260, damping: 28 });
+  const shadowOffsetX = useTransform(springY, [-30, 30], [-40, 40]);
+  const shadowOffsetY = useTransform(springX, [-30, 30], [40, -40]);
+  const dropShadow = useMotionTemplate`drop-shadow(${shadowOffsetX}px ${shadowOffsetY}px 60px rgba(0,0,0,0.55))`;
+  const ipadDragRef = useRef({ active: false, startX: 0, startY: 0, rx: 0, ry: 0 });
+  const [isDragging3D, setIsDragging3D] = useState(false);
+
   const resizeDragRef = useRef({ active: false, startX: 0, startY: 0, startScale: 1, corner: "br" as "tl" | "tr" | "bl" | "br" });
   const prevOrientRef = useRef<"landscape" | "portrait" | null>(null);
   // Tracks the last auto-scale so resize can maintain the user's ratio proportionally
@@ -199,6 +211,57 @@ export default function IPadPage() {
     };
   }, [scaleMotionValue]);
 
+  // 3D drag handlers
+  const onIpadMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+    if (target.closest(".app-window")) return;
+    ipadDragRef.current = { active: true, startX: e.clientX, startY: e.clientY, rx: rotX.get(), ry: rotY.get() };
+    setIsDragging3D(true);
+  }, [rotX, rotY]);
+
+  const onIpadTouchStart = useCallback((e: React.TouchEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+    if (target.closest(".app-window")) return;
+    const touch = e.touches[0];
+    ipadDragRef.current = { active: true, startX: touch.clientX, startY: touch.clientY, rx: rotX.get(), ry: rotY.get() };
+  }, [rotX, rotY]);
+
+  useEffect(() => {
+    const MAX_ROT = 30;
+    const onMove = (e: MouseEvent) => {
+      if (!ipadDragRef.current.active) return;
+      const dx = e.clientX - ipadDragRef.current.startX;
+      const dy = e.clientY - ipadDragRef.current.startY;
+      rotY.set(Math.max(-MAX_ROT, Math.min(MAX_ROT, ipadDragRef.current.ry + dx * 0.25)));
+      rotX.set(Math.max(-MAX_ROT, Math.min(MAX_ROT, ipadDragRef.current.rx + dy * -0.25)));
+    };
+    const onUp = () => {
+      if (!ipadDragRef.current.active) return;
+      ipadDragRef.current.active = false;
+      setIsDragging3D(false);
+      rotX.set(0);
+      rotY.set(0);
+    };
+    const onTouchMove = (e: TouchEvent) => {
+      if (!ipadDragRef.current.active) return;
+      const touch = e.touches[0];
+      const dx = touch.clientX - ipadDragRef.current.startX;
+      const dy = touch.clientY - ipadDragRef.current.startY;
+      rotY.set(Math.max(-MAX_ROT, Math.min(MAX_ROT, ipadDragRef.current.ry + dx * 0.25)));
+      rotX.set(Math.max(-MAX_ROT, Math.min(MAX_ROT, ipadDragRef.current.rx + dy * -0.25)));
+    };
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("mouseup", onUp);
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    window.addEventListener("touchend", onUp);
+    return () => {
+      window.removeEventListener("mousemove", onMove);
+      window.removeEventListener("mouseup", onUp);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onUp);
+    };
+  }, [rotX, rotY]);
+
   // Close folder when locked
   useEffect(() => { if (locked) setFolderOpen(false); }, [locked]);
 
@@ -305,10 +368,18 @@ export default function IPadPage() {
         )}
       </AnimatePresence>
 
-      {/* iPad wrapper — scale driven by motion value */}
+      {/* iPad wrapper — scale driven by motion value, 3D drag-to-rotate */}
+      <div style={{ perspective: 1200, perspectiveOrigin: "center center" }}>
       <motion.div
+        onMouseDown={onIpadMouseDown}
+        onTouchStart={onIpadTouchStart}
         style={{
           scale: scaleMotionValue,
+          rotateX: springX,
+          rotateY: springY,
+          transformStyle: "preserve-3d",
+          filter: dropShadow,
+          cursor: isDragging3D ? "grabbing" : "grab",
           transformOrigin: "center center",
           position: "relative",
           zIndex: 10,
@@ -470,6 +541,7 @@ export default function IPadPage() {
           )}
         </AnimatePresence>
       </motion.div>
+      </div>
     </div>
   );
 }

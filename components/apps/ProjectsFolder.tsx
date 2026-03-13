@@ -11,23 +11,25 @@ interface Props {
 }
 
 function ProjectIcon({ project, size }: { project: typeof projects[0]; size: number }) {
-  const imageSrc = (project as { image?: string }).image;
+  const logoSrc = (project as { logo?: string | null }).logo;
+  const comingSoon = (project as { comingSoon?: boolean }).comingSoon;
+  const isClickable = project.live && project.live !== "#";
 
   return (
     <motion.div
-      whileTap={{ scale: 0.85 }}
-      whileHover={{ scale: 1.08 }}
+      whileTap={{ scale: isClickable ? 0.85 : 1 }}
+      whileHover={{ scale: isClickable ? 1.08 : 1.03 }}
       transition={{ type: "spring", stiffness: 500, damping: 28 }}
       onClick={(e) => {
         e.stopPropagation();
-        if (project.live) window.open(project.live, "_blank", "noopener,noreferrer");
+        if (isClickable) window.open(project.live, "_blank", "noopener,noreferrer");
       }}
       style={{
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
         gap: 5,
-        cursor: project.live ? "pointer" : "default",
+        cursor: isClickable ? "pointer" : "default",
         width: size + 16,
       }}
     >
@@ -38,33 +40,55 @@ function ProjectIcon({ project, size }: { project: typeof projects[0]; size: num
           borderRadius: size * 0.2255,
           overflow: "hidden",
           flexShrink: 0,
-          background: imageSrc
-            ? "transparent"
+          background: logoSrc
+            ? "rgba(0,0,0,0.7)"
             : `linear-gradient(135deg, ${project.color}cc, ${project.color})`,
           border: "1px solid rgba(255,255,255,0.22)",
           boxShadow: `0 4px 18px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.22)`,
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
+          position: "relative",
         }}
       >
-        {imageSrc ? (
+        {logoSrc ? (
           /* eslint-disable-next-line @next/next/no-img-element */
           <img
-            src={imageSrc}
+            src={logoSrc}
             alt={project.title}
-            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+            style={{ width: "80%", height: "80%", objectFit: "contain" }}
           />
         ) : (
           <span style={{
             color: "white",
             fontWeight: 800,
-            fontSize: size * 0.32,
+            fontSize: size * 0.28,
             fontFamily: "-apple-system, sans-serif",
             letterSpacing: "-0.03em",
+            textAlign: "center",
+            padding: "0 4px",
           }}>
-            {project.title.split(" ")[0].slice(0, 3).toUpperCase()}
+            {project.title.slice(0, 2).toUpperCase()}
           </span>
+        )}
+        {comingSoon && (
+          <div style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            background: "rgba(0,0,0,0.55)",
+            backdropFilter: "blur(4px)",
+            fontSize: size * 0.12,
+            color: "rgba(255,255,255,0.7)",
+            textAlign: "center",
+            fontFamily: "-apple-system, sans-serif",
+            fontWeight: 600,
+            letterSpacing: 0.2,
+            padding: "2px 0 3px",
+          }}>
+            SOON
+          </div>
         )}
       </div>
       <span style={{
@@ -157,7 +181,7 @@ export default function ProjectsFolder({ open, onClose, orientation, origin }: P
                 letterSpacing: -0.3,
                 textShadow: "0 1px 4px rgba(0,0,0,0.5)",
               }}>
-                Projects
+                Ventures
               </div>
 
               {/* 3×3 grid */}

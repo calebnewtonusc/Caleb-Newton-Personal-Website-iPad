@@ -248,7 +248,7 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                     <Image src={profile.photoAlt} alt="Caleb Newton" fill style={{ objectFit: "cover", objectPosition: "center 25%" }} />
                   </div>
                   <p style={{ fontSize: 22, fontWeight: 700, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif", marginBottom: 3 }}>Caleb Newton</p>
-                  <p style={{ fontSize: 13, color: "#636366", fontFamily: "-apple-system, sans-serif" }}>USC Freshman · CS + Applied Mathematics</p>
+                  <p style={{ fontSize: 13, color: "#636366", fontFamily: "-apple-system, sans-serif" }}>USC · Jimmy Iovine & André Young Academy</p>
                 </div>
 
                 {/* Bio */}

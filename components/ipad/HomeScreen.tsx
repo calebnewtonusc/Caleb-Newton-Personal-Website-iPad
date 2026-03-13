@@ -85,7 +85,7 @@ function AppIcon({
         {app.id === "work" ? (
           <WorkCalendarIcon size={size} />
         ) : app.id === "projects" ? (
-          // iPadOS folder style — 3×3 mini grid of project icons
+          // iPadOS folder style — ventures grid
           <div style={{
             width: "100%", height: "100%",
             background: "rgba(255,255,255,0.2)",
@@ -101,27 +101,27 @@ function AppIcon({
               gap: "8%",
             }}>
               {([
-                { label: "M", color: "#007AFF" },
-                { label: "16", color: "#AF52DE" },
-                { label: "FV", color: "#FF9500" },
-                { label: "LA", color: "#34C759" },
-                { label: "NBA", color: "#FF3B30" },
-                { label: "USC", color: "#990000" },
-                { img: "/assets/projects/thelines.jpg" },
+                { img: "/assets/ventures/isaac-newton.png", bg: "#1a1a2e" },
+                { img: "/assets/ventures/serutnev.png", bg: "#0f0f23" },
+                { label: "FO", color: "#0a3d55" },
+                { label: "NA", color: "#1a4a2e" },
+                { label: "CO", color: "#3a1a4a" },
+                { label: "AS", color: "#1a2a4a" },
+                { label: "VD", color: "#1a4a1a" },
                 null,
                 null,
-              ] as ({ label: string; color: string } | { img: string } | null)[]).map((item, i) =>
+              ] as ({ label: string; color: string } | { img: string; bg: string } | null)[]).map((item, i) =>
                 item === null ? (
                   <div key={i} />
                 ) : "img" in item ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <div key={i} style={{
-                    background: "rgba(255,255,255,0.12)",
+                    background: item.bg,
                     borderRadius: "18%",
                     overflow: "hidden",
                     display: "flex", alignItems: "center", justifyContent: "center",
                   }}>
-                    <img src={item.img} alt="" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                    <img src={item.img} alt="" style={{ width: "80%", height: "80%", objectFit: "contain" }} />
                   </div>
                 ) : (
                   <div key={i} style={{
@@ -132,7 +132,7 @@ function AppIcon({
                     <span style={{
                       color: "white",
                       fontWeight: 700,
-                      fontSize: item.label.length > 2 ? "28%" : "34%",
+                      fontSize: "28%",
                       fontFamily: "-apple-system, sans-serif",
                       letterSpacing: "-0.03em",
                     }}>{item.label}</span>
@@ -302,6 +302,17 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, f
             exit={{ y: "-100%" }}
             transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
             onClick={onUnlock}
+            onPointerDown={(e) => {
+              const startX = e.clientX;
+              const startY = e.clientY;
+              const onUp = (up: PointerEvent) => {
+                const dx = up.clientX - startX;
+                const dy = up.clientY - startY;
+                if (Math.abs(dx) > 12 || Math.abs(dy) > 12) onUnlock();
+                window.removeEventListener("pointerup", onUp);
+              };
+              window.addEventListener("pointerup", onUp);
+            }}
             style={{
               position: "absolute",
               inset: 0,
@@ -420,7 +431,7 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, f
                   />
                 </svg>
               </motion.div>
-              <span>Tap to unlock</span>
+              <span>Swipe to unlock</span>
             </div>
           </motion.div>
         )}
