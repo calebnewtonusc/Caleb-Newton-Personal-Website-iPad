@@ -265,6 +265,14 @@ export const projects = [
     color: "#1a4a1a",
     comingSoon: true,
   },
+  {
+    id: "marrow",
+    title: "Marrow",
+    logo: null,
+    live: "#",
+    color: "#8b1a1a",
+    comingSoon: true,
+  },
 ];
 
 export const education = [
