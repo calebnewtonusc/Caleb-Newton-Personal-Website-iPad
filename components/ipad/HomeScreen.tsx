@@ -116,7 +116,7 @@ function AppIcon({
                 ) : "img" in item ? (
                   // eslint-disable-next-line @next/next/no-img-element
                   <div key={i} style={{
-                    background: item.bg,
+                    background: "white",
                     borderRadius: "18%",
                     overflow: "hidden",
                     display: "flex", alignItems: "center", justifyContent: "center",

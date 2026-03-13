@@ -84,7 +84,7 @@ export default function DynamicIsland() {
                     letterSpacing: 0.1,
                   }}
                 >
-                  Jimmy Iovine Academy @ USC
+                  Iovine & Young Academy @ USC
                 </div>
               </div>
             </motion.div>

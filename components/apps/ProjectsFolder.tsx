@@ -41,7 +41,7 @@ function ProjectIcon({ project, size }: { project: typeof projects[0]; size: num
           overflow: "hidden",
           flexShrink: 0,
           background: logoSrc
-            ? "rgba(0,0,0,0.7)"
+            ? "white"
             : `linear-gradient(135deg, ${project.color}cc, ${project.color})`,
           border: "1px solid rgba(255,255,255,0.22)",
           boxShadow: `0 4px 18px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.22)`,
