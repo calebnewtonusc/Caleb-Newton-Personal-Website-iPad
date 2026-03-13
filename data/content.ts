@@ -288,7 +288,7 @@ export const projects = [
     id: "civicq",
     title: "CivicQ",
     logo: null,
-    live: "https://civicq-red.vercel.app/",
+    live: "https://civicq.vote/",
     color: "#1a3a5c",
     comingSoon: false,
     page: 2,
