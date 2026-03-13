@@ -118,7 +118,7 @@ export default function ProjectsFolder({ open, onClose, orientation, origin }: P
   const isLandscape = orientation === "landscape";
   const iconSize = isLandscape ? 76 : 68;
   const [page, setPage] = useState(0);
-  const dragStartX = useRef(0);
+  const swipeStart = useRef<{ x: number; y: number } | null>(null);
   const cardWidth = isLandscape
     ? COLS * (iconSize + 16) + (COLS - 1) * 14 + 56
     : COLS * (iconSize + 16) + (COLS - 1) * 12 + 44;
@@ -131,9 +131,19 @@ export default function ProjectsFolder({ open, onClose, orientation, origin }: P
   const originX = origin?.x ?? "50%";
   const originY = origin?.y ?? "50%";
 
-  const handleDragEnd = (_: unknown, info: { offset: { x: number } }) => {
-    if (info.offset.x < -40 && page < totalPages - 1) setPage(page + 1);
-    else if (info.offset.x > 40 && page > 0) setPage(page - 1);
+  const onPointerDown = (e: React.PointerEvent) => {
+    swipeStart.current = { x: e.clientX, y: e.clientY };
+  };
+  const onPointerUp = (e: React.PointerEvent) => {
+    if (!swipeStart.current) return;
+    const dx = e.clientX - swipeStart.current.x;
+    const dy = e.clientY - swipeStart.current.y;
+    swipeStart.current = null;
+    if (Math.abs(dx) < 8) return; // treat as tap
+    if (Math.abs(dx) > Math.abs(dy)) {
+      if (dx < -40 && page < totalPages - 1) setPage((p) => p + 1);
+      else if (dx > 40 && page > 0) setPage((p) => p - 1);
+    }
   };
 
   return (
@@ -195,15 +205,15 @@ export default function ProjectsFolder({ open, onClose, orientation, origin }: P
               </div>
 
               {/* Swipeable pages */}
-              <div style={{ overflow: "hidden" }}>
+              <div
+                style={{ overflow: "hidden", touchAction: "pan-y" }}
+                onPointerDown={onPointerDown}
+                onPointerUp={onPointerUp}
+              >
                 <motion.div
-                  drag="x"
-                  dragConstraints={{ left: 0, right: 0 }}
-                  dragElastic={0.15}
-                  onDragEnd={handleDragEnd}
                   animate={{ x: -page * cardWidth }}
                   transition={{ type: "spring", stiffness: 380, damping: 36 }}
-                  style={{ display: "flex", width: `${totalPages * cardWidth}px`, cursor: "grab" }}
+                  style={{ display: "flex", width: `${totalPages * cardWidth}px` }}
                 >
                   {pages.map((pageProjects, pi) => (
                     <div
