@@ -3,7 +3,7 @@
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { AppId, AppDef } from "@/data/content";
-import { apps, dockApps, projects } from "@/data/content";
+import { apps, dockApps } from "@/data/content";
 import TypedGreeting from "@/components/TypedGreeting";
 
 interface Props {
@@ -11,9 +11,6 @@ interface Props {
   onOpenApp: (id: AppId) => void;
   locked: boolean;
   onUnlock: () => void;
-  folderOpen: boolean;
-  onFolderOpen: (origin: { x: string; y: string }) => void;
-  onFolderClose: () => void;
 }
 
 function WorkCalendarIcon({ size }: { size: number }) {
@@ -26,13 +23,11 @@ function WorkCalendarIcon({ size }: { size: number }) {
       background: "white", display: "flex", flexDirection: "column", flexShrink: 0,
       boxShadow: "0 0 0 0.5px rgba(0,0,0,0.14)",
     }}>
-      {/* Day of week — anchored to bottom of its section so it sits lower */}
       <div style={{ height: size * 0.32, display: "flex", alignItems: "flex-end", justifyContent: "center", paddingBottom: size * 0.015 }}>
         <span style={{ fontSize: size * 0.14, fontWeight: 700, color: "#FF3B30", fontFamily: "-apple-system, sans-serif", letterSpacing: 0.6, lineHeight: 1 }}>
           {dayStr.toUpperCase()}
         </span>
       </div>
-      {/* Day number — anchored to top of its section so it sits higher */}
       <div style={{ flex: 1, display: "flex", alignItems: "flex-start", justifyContent: "center", paddingTop: size * 0.01 }}>
         <span style={{ fontSize: size * 0.60, fontWeight: 100, color: "#1c1c1e", fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif", lineHeight: 1 }}>
           {dayNum}
@@ -84,42 +79,6 @@ function AppIcon({
       >
         {app.id === "work" ? (
           <WorkCalendarIcon size={size} />
-        ) : app.id === "projects" ? (
-          // iPadOS folder style — ventures grid
-          <div style={{
-            width: "100%", height: "100%",
-            background: "rgba(255,255,255,0.2)",
-            backdropFilter: "blur(12px) saturate(1.6)",
-            WebkitBackdropFilter: "blur(12px) saturate(1.6)",
-            display: "flex", alignItems: "center", justifyContent: "center",
-            padding: "22%",
-            boxSizing: "border-box",
-          }}>
-            <div style={{
-              width: "100%", height: "100%",
-              display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gridTemplateRows: "1fr 1fr 1fr",
-              gap: "12%",
-            }}>
-              {projects.slice(0, 9).map((p, i) =>
-                p.logo ? (
-                  <div key={i} style={{
-                    background: (p as { logoBg?: string }).logoBg ?? `linear-gradient(135deg, ${p.color}cc, ${p.color})`,
-                    borderRadius: "20%",
-                    overflow: "hidden",
-                    display: "flex", alignItems: "center", justifyContent: "center",
-                  }}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={p.logo} alt="" style={{ width: "80%", height: "80%", objectFit: "contain" }} />
-                  </div>
-                ) : (
-                  <div key={i} style={{
-                    background: `linear-gradient(135deg, ${p.color}cc, ${p.color})`,
-                    borderRadius: "20%",
-                  }} />
-                )
-              )}
-            </div>
-          </div>
         ) : app.icon ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
@@ -166,7 +125,7 @@ function AppIcon({
   );
 }
 
-export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, folderOpen, onFolderOpen, onFolderClose }: Props) {
+export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }: Props) {
   const isLandscape = orientation === "landscape";
 
   const [time, setTime] = useState(new Date());
@@ -176,7 +135,6 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, f
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
-
 
   const timeStr = time.toLocaleTimeString("en-US", {
     hour: "numeric",
@@ -189,14 +147,12 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, f
     day: "numeric",
   });
 
-  // Grid layout
   const cols = isLandscape ? 5 : 4;
   const iconSize = isLandscape ? 68 : 72;
 
   const dockAppDefs = dockApps.map((id) => apps.find((a) => a.id === id)!).filter(Boolean);
 
   const nonDockApps = apps.filter((app) => !dockApps.includes(app.id));
-  // In landscape (5 cols), insert null spacers at center column (col 3) to avoid Caleb's face
   const gridItems: (AppDef | null)[] = isLandscape
     ? (() => {
         const result: (AppDef | null)[] = [];
@@ -207,7 +163,6 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, f
         return result;
       })()
     : (() => {
-        // Portrait: skip middle 2 cols so apps flank Caleb's face
         const result: (AppDef | null)[] = [];
         for (const app of nonDockApps) {
           const col = result.length % 4;
@@ -217,19 +172,7 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, f
         return result;
       })();
 
-  const handleOpen = (app: AppDef, e: React.MouseEvent) => {
-    if (app.id === "projects") {
-      // Origin relative to the iPad screen container for correct scale animation
-      if (containerRef.current) {
-        const r = containerRef.current.getBoundingClientRect();
-        const x = (((e.clientX - r.left) / r.width) * 100).toFixed(1) + "%";
-        const y = (((e.clientY - r.top) / r.height) * 100).toFixed(1) + "%";
-        onFolderOpen({ x, y });
-      } else {
-        onFolderOpen({ x: "50%", y: "50%" });
-      }
-      return;
-    }
+  const handleOpen = (app: AppDef, _e: React.MouseEvent) => {
     if (app.external) {
       window.open(app.external, "_blank", "noopener,noreferrer");
     } else {
@@ -353,7 +296,6 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, f
               >
                 {dateStr}
               </div>
-              {/* Name + typed subtitle directly below date */}
               <div style={{ marginTop: isLandscape ? 14 : 18 }}>
                 <div style={{ fontSize: isLandscape ? 20 : 22, fontWeight: 600, letterSpacing: -0.4 }}>
                   Caleb Newton
@@ -466,9 +408,8 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, f
           </div>
         </div>
 
-        {/* Home indicator — always visible, sits ABOVE folder overlay (zIndex 30) */}
+        {/* Home indicator */}
         <div
-          onClick={() => { if (folderOpen) onFolderClose(); }}
           style={{
             height: 12,
             display: "flex",
@@ -476,24 +417,19 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock, f
             justifyContent: "center",
             paddingBottom: 4,
             flexShrink: 0,
-            cursor: folderOpen ? "pointer" : "default",
-            position: "relative",
-            zIndex: 30, // always above folder overlay (z-index 25)
           }}
         >
-          <motion.div
-            animate={{ scaleX: folderOpen ? 1.2 : 1, opacity: folderOpen ? 0.85 : 0.5 }}
-            transition={{ type: "spring", stiffness: 400, damping: 28 }}
+          <div
             style={{
               width: 120,
               height: 4,
               borderRadius: 2,
               background: "rgba(255,255,255,0.6)",
+              opacity: 0.5,
             }}
           />
         </div>
       </div>
-
     </div>
   );
 }

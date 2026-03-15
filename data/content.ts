@@ -832,7 +832,7 @@ export interface AppDef {
 export const apps: AppDef[] = [
   { id: "settings",     name: "About",       emoji: "S", icon: "/assets/icons/settingsapp.png",     gradient: ["#8E8E93", "#636366"] },
   { id: "work",         name: "Work",        emoji: "W",                                            gradient: ["#AF52DE", "#7B2D8B"] },
-  { id: "projects",     name: "Ventures",    emoji: "V", icon: "/assets/icons/appstore.png",        gradient: ["#FF9500", "#FF5E00"] },
+  { id: "projects",     name: "Ideas",       emoji: "I", icon: "/assets/icons/ideas.png",           gradient: ["#FF9500", "#FF5E00"], external: "https://calebsideas.com/" },
   { id: "education",    name: "Education",   emoji: "E", icon: "/assets/icons/notes.png",           gradient: ["#FF3B30", "#C0392B"] },
   { id: "files",        name: "Organizations", emoji: "F", icon: "/assets/icons/organizations.png", gradient: ["#007AFF", "#5AC8FA"] },
   { id: "photos",       name: "Photos",      emoji: "P", icon: "/assets/icons/photos.webp",         gradient: ["#34C759", "#248A3D"] },

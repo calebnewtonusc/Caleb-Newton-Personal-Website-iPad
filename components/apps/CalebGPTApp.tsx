@@ -78,7 +78,7 @@ function TypingDots() {
   );
 }
 
-export default function CalebGPTApp({ onClose: _onClose }: Props) {
+export default function CalebGPTApp(_props: Props) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -138,7 +138,7 @@ export default function CalebGPTApp({ onClose: _onClose }: Props) {
             padding: "2px 7px", color: "#636366", fontWeight: 500,
             fontFamily: "-apple-system, sans-serif",
           }}>
-            4o
+            Sonnet
           </span>
         </div>
       </div>

@@ -6,7 +6,6 @@ import type { AppId } from "@/data/content";
 
 // App imports
 import WorkApp from "./WorkApp";
-import ProjectsApp from "./ProjectsApp";
 import EducationApp from "./EducationApp";
 import FilesApp from "./FilesApp";
 import PhotosApp from "./PhotosApp";
@@ -24,7 +23,6 @@ interface Props {
 
 const appMap: Record<string, React.ComponentType<{ onClose: () => void; orientation: string }>> = {
   work: WorkApp,
-  projects: ProjectsApp,
   education: EducationApp,
   files: FilesApp,
   photos: PhotosApp,

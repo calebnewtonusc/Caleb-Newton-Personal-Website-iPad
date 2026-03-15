@@ -1,6 +1,19 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 
+// Simple in-memory rate limiter (per warm Lambda instance — resets on cold start)
+const ipMap = new Map<string, { n: number; ts: number }>();
+const LIMIT = 15;
+const WINDOW = 60_000;
+function limited(ip: string): boolean {
+  const now = Date.now();
+  const rec = ipMap.get(ip);
+  if (!rec || now - rec.ts > WINDOW) { ipMap.set(ip, { n: 1, ts: now }); return false; }
+  if (rec.n >= LIMIT) return true;
+  rec.n++;
+  return false;
+}
+
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
 const SYSTEM_PROMPT = `You are CalebGPT - a friendly AI built into Caleb Newton's personal portfolio. You know everything about Caleb and answer questions as his personal AI assistant. Keep answers concise, warm, and conversational. Use markdown: **bold** for key terms, bullet lists for multiple items.
@@ -138,8 +151,17 @@ HALLUCINATION PREVENTION EXAMPLES:
 If someone asks what you can do, say you can answer questions about Caleb's background, projects, experience, skills, faith, and interests.`;
 
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  if (limited(ip)) {
+    return NextResponse.json({ error: "Too many requests. Please wait a moment." }, { status: 429 });
+  }
+
   try {
-    const { messages } = await req.json();
+    const body = await req.json();
+    const messages = Array.isArray(body?.messages) ? body.messages : null;
+    if (!messages) {
+      return NextResponse.json({ error: "Invalid request." }, { status: 400 });
+    }
 
     const message = await anthropic.messages.create({
       model: "claude-sonnet-4-6",
@@ -156,6 +178,6 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ content: fullContent });
   } catch (err) {
     console.error("Chat route error:", err);
-    return NextResponse.json({ error: `Error: ${String(err)}` }, { status: 500 });
+    return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
   }
 }

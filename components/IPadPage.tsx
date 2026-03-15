@@ -6,7 +6,6 @@ import IPadFrame from "./ipad/IPadFrame";
 import HomeScreen from "./ipad/HomeScreen";
 import AppWindow from "./apps/AppWindow";
 import SpotifyApp from "./apps/SpotifyApp";
-import ProjectsFolder from "./apps/ProjectsFolder";
 import type { AppId } from "@/data/content";
 import ParticlesBackground from "./ParticlesBackground";
 
@@ -18,8 +17,6 @@ export default function IPadPage() {
   const [openApp, setOpenApp] = useState<AppId | null>(null);
   const [userScale, setUserScale] = useState<number | null>(null);
   const [locked, setLocked] = useState(true);
-  const [folderOpen, setFolderOpen] = useState(false);
-  const [folderOrigin, setFolderOrigin] = useState({ x: "50%", y: "50%" });
   const [screenOff, setScreenOff] = useState(false);
   const [mounted, setMounted] = useState(false);
 
@@ -38,7 +35,6 @@ export default function IPadPage() {
 
   const resizeDragRef = useRef({ active: false, startX: 0, startY: 0, startScale: 1, corner: "br" as "tl" | "tr" | "bl" | "br" });
   const prevOrientRef = useRef<"landscape" | "portrait" | null>(null);
-  // Tracks the last auto-scale so resize can maintain the user's ratio proportionally
   const prevAutoScaleRef = useRef<number>(0.97);
 
   // Spotify home zone hover/wheel detection
@@ -58,7 +54,6 @@ export default function IPadPage() {
     const HOVER_ZONE = 60;
     const onWheel = (e: WheelEvent) => {
       if (!spotifyOpenRef.current) return;
-      // DOM containment check — reliable under parent CSS transforms
       if (!el.contains(e.target as Node)) return;
       const rect = el.getBoundingClientRect();
       if (e.clientY >= rect.bottom - CLOSE_ZONE) setOpenApp(null);
@@ -100,7 +95,6 @@ export default function IPadPage() {
     const ipad = orient === "landscape" ? IPAD_LANDSCAPE : IPAD_PORTRAIT;
     let availW: number;
     if (orient === "landscape") {
-      // Dynamic reserve based on actual label font-size: clamp(4rem, 10vh, 9rem)
       const labelFontSize = Math.max(64, Math.min(window.innerHeight * 0.1, 144));
       const reserve = labelFontSize + 20;
       availW = window.innerWidth - reserve * 2;
@@ -156,8 +150,6 @@ export default function IPadPage() {
               restDelta: 0.001,
             });
           } else {
-            // Proportional: maintain ratio of current to previous auto-scale.
-            // Uses instant .set() so continuous window resize stays smooth.
             const prevAuto = prevAutoScaleRef.current;
             const current = scaleMotionValue.get();
             const ratio = prevAuto > 0 ? current / prevAuto : 1;
@@ -181,7 +173,7 @@ export default function IPadPage() {
     };
   }, [getOrientation, calcScale, scaleMotionValue]);
 
-  // Corner drag resize — instant per-frame, capped at auto-scale (label boundary)
+  // Corner drag resize
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (!resizeDragRef.current.active) return;
@@ -214,14 +206,11 @@ export default function IPadPage() {
   // 3D drag handlers
   const lockedRef = useRef(true);
   useEffect(() => { lockedRef.current = locked; }, [locked]);
-  const folderOpenRef = useRef(false);
-  useEffect(() => { folderOpenRef.current = folderOpen; }, [folderOpen]);
 
   const onIpadMouseDown = useCallback((e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
     if (target.closest(".app-window")) return;
     if (lockedRef.current) return;
-    if (folderOpenRef.current) return; // don't 3D-drag while folder is open
     ipadDragRef.current = { active: true, startX: e.clientX, startY: e.clientY, rx: rotX.get(), ry: rotY.get() };
     setIsDragging3D(true);
   }, [rotX, rotY]);
@@ -230,7 +219,6 @@ export default function IPadPage() {
     const target = e.target as HTMLElement;
     if (target.closest(".app-window")) return;
     if (lockedRef.current) return;
-    if (folderOpenRef.current) return;
     const touch = e.touches[0];
     ipadDragRef.current = { active: true, startX: touch.clientX, startY: touch.clientY, rx: rotX.get(), ry: rotY.get() };
   }, [rotX, rotY]);
@@ -271,10 +259,7 @@ export default function IPadPage() {
     };
   }, [rotX, rotY]);
 
-  // Close folder when locked
-  useEffect(() => { if (locked) setFolderOpen(false); }, [locked]);
-
-  // Swipe-to-unlock detection — lives here so we call setLocked directly (no callback identity issues)
+  // Swipe-to-unlock detection
   useEffect(() => {
     if (!locked) return;
     let startX = 0, startY = 0;
@@ -313,7 +298,6 @@ export default function IPadPage() {
 
   const isPortrait = orientation === "portrait";
 
-  // Separate matte-white + soft-green gradients for each label — distinct feel
   const calebsPortraitStyle: React.CSSProperties = {
     background: "linear-gradient(175deg, #ffffff 0%, #e0eed0 50%, #9eba8e 100%)",
     backgroundClip: "text",
@@ -346,6 +330,9 @@ export default function IPadPage() {
     flexShrink: 0,
   };
 
+  // Suppress unused warning — userScale is read by calcScale indirectly via resize handler
+  void userScale;
+
   return (
     <div className="ipad-viewport">
       <div className="page-bg" aria-hidden="true" />
@@ -363,7 +350,7 @@ export default function IPadPage() {
         <ParticlesBackground />
       </div>
 
-      {/* Landscape: fixed vertical labels — fade in/out on orientation change */}
+      {/* Landscape: fixed vertical labels */}
       <AnimatePresence>
         {!isPortrait && (
           <motion.div
@@ -374,7 +361,6 @@ export default function IPadPage() {
             transition={{ duration: 0.4, ease: "easeInOut" }}
             style={{ pointerEvents: "none" }}
           >
-            {/* "Caleb's" left — white fading to soft green downward */}
             <div
               className="page-label-left"
               aria-hidden="true"
@@ -387,7 +373,6 @@ export default function IPadPage() {
             >
               Caleb&apos;s
             </div>
-            {/* "iPad" right — soft green fading to white */}
             <div
               className="page-label-right"
               aria-hidden="true"
@@ -429,7 +414,7 @@ export default function IPadPage() {
           } : {}),
         }}
       >
-        {/* Portrait: "Caleb's" above — slides in from top */}
+        {/* Portrait: "Caleb's" above */}
         <AnimatePresence>
           {isPortrait && (
             <motion.div
@@ -454,17 +439,6 @@ export default function IPadPage() {
               onOpenApp={setOpenApp}
               locked={locked}
               onUnlock={() => setLocked(false)}
-              folderOpen={folderOpen}
-              onFolderOpen={(origin) => { setFolderOrigin(origin); setFolderOpen(true); }}
-              onFolderClose={() => setFolderOpen(false)}
-            />
-
-            {/* Projects folder — inside screen so blur is scoped to iPad content only */}
-            <ProjectsFolder
-              open={folderOpen}
-              onClose={() => setFolderOpen(false)}
-              orientation={orientation}
-              origin={folderOrigin}
             />
 
             {/* Persistently mounted Spotify with hover+wheel support */}
@@ -482,7 +456,7 @@ export default function IPadPage() {
               <div style={{ position: "absolute", inset: 0 }}>
                 <SpotifyApp onClose={() => setOpenApp(null)} orientation={orientation} />
               </div>
-              {/* Spotify home indicator with hover animation */}
+              {/* Spotify home indicator */}
               <div
                 onClick={() => setOpenApp(null)}
                 onWheel={() => setOpenApp(null)}
@@ -559,7 +533,7 @@ export default function IPadPage() {
           ))}
         </div>
 
-        {/* Portrait: "iPad" below — slides in from bottom */}
+        {/* Portrait: "iPad" below */}
         <AnimatePresence>
           {isPortrait && (
             <motion.div
