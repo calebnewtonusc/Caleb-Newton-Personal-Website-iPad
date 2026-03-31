@@ -12,6 +12,7 @@
     "@anthropic-ai/sdk": "^0.54.0",
     "@tsparticles/react": "^3.0.0",
     "@tsparticles/slim": "^3.9.1",
+    "@vercel/analytics": "^2.0.1",
     "framer-motion": "^12.34.3",
     "next": "16.1.6",
     "react": "19.2.3",

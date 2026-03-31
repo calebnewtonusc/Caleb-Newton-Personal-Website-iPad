@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "Caleb Newton",
@@ -48,7 +49,8 @@ export default function RootLayout({
         <link rel="preload" href="/assets/icons/github.webp" as="image" />
         <link rel="preload" href="/assets/icons/linkedin.jpg" as="image" />
       </head>
-      <body>{children}</body>
+      <body>{children}  <Analytics />
+</body>
     </html>
   );
 }
