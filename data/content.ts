@@ -8,7 +8,7 @@ export const profile = {
   photo: "/assets/CalebAtBeachUSCHoodie.jpg",
   photoAlt: "/assets/CalebAtUSC.jpg",
   skills: ["Machine Learning", "Data Engineering", "Computer Vision"],
-  bio: "Hello! I'm Caleb Newton, a follower of Jesus and USC freshman. I'm passionate about building AI systems that serve people, grounded in my Christian faith and commitment to human-centered technology. Currently diving deep into the technical foundations of machine learning: PyTorch, transformers, computer vision, and ranking systems. Outside of code, I'm into vinyl records, board games, hiking, baseball, and making learning joyful.",
+  bio: "Hello! I'm Caleb Newton, a follower of Jesus and USC freshman. I'm passionate about building AI systems that serve people, grounded in my Christian faith and commitment to human-centered technology. Currently diving deep into the technical foundations of machine learning: PyTorch, transformers, computer vision, and ranking systems. Outside of code, I'm into vinyl records, board games, hiking, skateboarding, baseball, and making learning joyful.",
   roles: [
     "Follower of Jesus",
     "Aspiring ML Engineer",
