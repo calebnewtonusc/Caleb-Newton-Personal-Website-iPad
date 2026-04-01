@@ -67,3 +67,5 @@ data/
 ---
 
 **Author:** Caleb Newton ([calebnewton.me](https://calebnewton.me))
+
+All glory to God! ✝️❤️
