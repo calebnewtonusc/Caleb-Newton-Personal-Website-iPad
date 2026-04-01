@@ -20,7 +20,8 @@ export const profile = {
 export const social = {
   github: "https://github.com/calebnewtonusc",
   linkedin: "https://www.linkedin.com/in/caleb-newton-3680041a5/",
-  youtube: "https://www.youtube.com/playlist?list=PLWhbpQ2inj_p13rmaV6mOdpLu3kTIi8XF",
+  youtube:
+    "https://www.youtube.com/playlist?list=PLWhbpQ2inj_p13rmaV6mOdpLu3kTIi8XF",
   spotify: "https://open.spotify.com/user/rbfdtme07mst8eft5f4j8k2ll",
   letterboxd: "https://letterboxd.com/cnewt/",
   rateyourmusic: "https://rateyourmusic.com/~cnewt",
@@ -45,27 +46,19 @@ export const experience = [
       "Built Aina Central, an autonomous documentation and knowledge system for a 35+ repository enterprise codebase that monitors all repos via webhooks, detects cross-repo inconsistencies, runs automated code checks, and syncs live updates to Notion via Composio; includes an AI chatbot enabling any team member to query architecture and pipeline behavior in natural language",
       "Optimizing 4D Gaussian Splatting training across 4 GPUs via CUDA profiling (nvprof, Nsight Compute) and load balancing; supporting on-set 75-camera rig operations including calibration, synchronization, and AWS cloud deployment",
     ],
-    skills: ["Computer Vision", "4D Gaussian Splatting", "COLMAP", "FastAPI", "CUDA", "Python", "React"],
-    photos: ["/assets/AinatechImages/Ainatechsetup.jpg", "/assets/AinatechImages/Ainatechgoats.jpg"],
-  },
-  {
-    id: "personage",
-    title: "AI Engineer",
-    company: "Personage",
-    period: "Mar 2026 - Present",
-    year: "2026",
-    logo: "/assets/logos/personage.png",
-    color: "#144b50",
-    website: "https://personage.com",
-    description:
-      "Building an AI supplement formula recommendation engine integrated directly into Personage's live practitioner platform, enabling licensed clinicians to generate fully personalized, evidence-grounded protocols from natural language clinical input.",
-    achievements: [
-      "Architected clinical intelligence layer spanning 16 health categories and 100+ curated ingredients with enforced output schema covering dosages, mechanism-of-action rationale, drug interaction screening, and contraindication flags",
-      "Powered by Claude Sonnet 4.6 via real-time SSE streaming with React useReducer for streaming state management",
-      "Built custom markdown parser rendering ingredient names and dosage badges token-by-token with an auto-expanding chat interface optimized for practitioner-first workflows",
+    skills: [
+      "Computer Vision",
+      "4D Gaussian Splatting",
+      "COLMAP",
+      "FastAPI",
+      "CUDA",
+      "Python",
+      "React",
     ],
-    skills: ["Claude AI", "Next.js", "TypeScript", "React", "SSE Streaming", "FastAPI"],
-    photos: [],
+    photos: [
+      "/assets/AinatechImages/Ainatechsetup.jpg",
+      "/assets/AinatechImages/Ainatechgoats.jpg",
+    ],
   },
   {
     id: "blue-modern",
@@ -83,7 +76,15 @@ export const experience = [
       "AI digest system spanning Apple Health, Google Calendar, and 11 additional OAuth2 integrations delivering per-dimension contextual health intelligence",
       "Integrated Solana blockchain anchoring and compressed NFTs for immutable family graph state with W3C-standard Verifiable Credentials via Persona and Stripe, on a Fastify backend with Privy authentication and Drizzle ORM on PostgreSQL",
     ],
-    skills: ["Fastify", "Drizzle ORM", "PostgreSQL", "Solana", "NLP", "TypeScript", "Privy"],
+    skills: [
+      "Fastify",
+      "Drizzle ORM",
+      "PostgreSQL",
+      "Solana",
+      "NLP",
+      "TypeScript",
+      "Privy",
+    ],
     photos: [],
   },
   {
@@ -102,7 +103,12 @@ export const experience = [
       "Testing OWASP API Security Top 10 vulnerabilities including BOLA, BOPLA, broken authentication, and cross-organization data isolation failures",
       "Delivering risk-ranked findings, sandboxed exploit demonstrations, and a full remediation roadmap with API key lifecycle best practices",
     ],
-    skills: ["Penetration Testing", "OWASP API Security", "IoT Security", "Network Security"],
+    skills: [
+      "Penetration Testing",
+      "OWASP API Security",
+      "IoT Security",
+      "Network Security",
+    ],
     photos: [],
   },
   {
@@ -121,7 +127,14 @@ export const experience = [
       "Surfaced caregiver retention at 78.4% vs. 65% industry average (+13.4 pts) and NPS of 72 vs. industry average of 32 (+40 pts)",
       "Delivered 8 strategic recommendations in a 4-quadrant Impact/Effort matrix identifying $1.2M+ in revenue upside across geographic expansion, LTCI billing optimization, and live-in care program launch",
     ],
-    skills: ["Next.js", "TypeScript", "Recharts", "Tailwind CSS", "Data Analytics", "Financial Modeling"],
+    skills: [
+      "Next.js",
+      "TypeScript",
+      "Recharts",
+      "Tailwind CSS",
+      "Data Analytics",
+      "Financial Modeling",
+    ],
     photos: [],
   },
   {
@@ -140,7 +153,14 @@ export const experience = [
       "Designed and shipped AI-powered chatbot with resizable window, markdown rendering, and rate limiting alongside structured support pathways: searchable FAQ, SLA-tiered support form, 3-step RMA wizard, and software activation portal wired to live API routes",
       "Redesigned Find-a-Rep as a 7-region interactive accordion directory covering 110+ countries with per-rep email routing; ran 5 audit passes eliminating 100+ UX, accessibility, content, and technical issues before first client presentation",
     ],
-    skills: ["Next.js", "TypeScript", "Tailwind CSS", "AI Integration", "Vercel", "REST APIs"],
+    skills: [
+      "Next.js",
+      "TypeScript",
+      "Tailwind CSS",
+      "AI Integration",
+      "Vercel",
+      "REST APIs",
+    ],
     photos: [],
   },
   {
@@ -188,7 +208,13 @@ export const experience = [
       "Built MATLAB and Python simulations to compare Taylan Kargin's control model against three alternatives; produced visualizations to communicate stability, efficiency, and scalability trade-offs",
       "Created system models and plots to distill complex theory into actionable insights for faculty and peers; supported evaluation for aerospace and robotics control strategies",
     ],
-    skills: ["Python", "Control Theory", "Simulations", "MATLAB", "Data Visualization"],
+    skills: [
+      "Python",
+      "Control Theory",
+      "Simulations",
+      "MATLAB",
+      "Data Visualization",
+    ],
     photos: ["/assets/caltech_research.jpg"],
   },
   {
@@ -324,7 +350,8 @@ export const education = [
     logo: "/assets/education/smhs.png",
     color: "#007AFF",
     website: "https://www.sanmarinohs.org",
-    description: "AP Scholar with Distinction. National Merit Commended Student.",
+    description:
+      "AP Scholar with Distinction. National Merit Commended Student.",
     highlights: [
       "Promethean Award -Highest honor for graduating student",
       "AP Scholar with Distinction",
@@ -345,7 +372,11 @@ export const education = [
     website: "https://precollege.berkeley.edu/summer-computer-science-academy",
     description:
       "Intensive BJC-based course in abstraction, recursion, algorithms, and introductory ML through Snap! and Python.",
-    highlights: ["Algorithms & Recursion", "Introductory Machine Learning", "Python"],
+    highlights: [
+      "Algorithms & Recursion",
+      "Introductory Machine Learning",
+      "Python",
+    ],
   },
   {
     id: "cnsi",
@@ -356,10 +387,16 @@ export const education = [
     status: "Completed",
     logo: "/assets/education/ucla_logo.png",
     color: "#2563EB",
-    website: "https://cnsi.ucla.edu/applications-of-nanoscience-summer-program/",
+    website:
+      "https://cnsi.ucla.edu/applications-of-nanoscience-summer-program/",
     description:
       "Built AquaShield (hydrophobic water bottle) in two-week STEM + entrepreneurship program. Pitched to investors, applied MATLAB for analysis.",
-    highlights: ["Nanotechnology", "Entrepreneurship", "MATLAB", "Investor Pitch"],
+    highlights: [
+      "Nanotechnology",
+      "Entrepreneurship",
+      "MATLAB",
+      "Investor Pitch",
+    ],
   },
   {
     id: "stjohns",
@@ -371,7 +408,8 @@ export const education = [
     logo: "/assets/stjohns.jpg",
     color: "#FF9500",
     website: "https://www.stjohnsnurseryla.com",
-    description: "Built early STEM skills by testing gravity with block towers, racing tricycles, and asking 'why?' 47 times a day.",
+    description:
+      "Built early STEM skills by testing gravity with block towers, racing tricycles, and asking 'why?' 47 times a day.",
     highlights: [
       "Block Tower Construction Club",
       "Tricycle Racing League",
@@ -422,16 +460,48 @@ export const personalSettings = [
     section: "Faith & Identity",
     icon: "faith",
     items: [
-      { label: "Follower of Jesus", type: "toggle-on", detail: "Non-negotiable" },
+      {
+        label: "Follower of Jesus",
+        type: "toggle-on",
+        detail: "Non-negotiable",
+      },
       { label: "Favorite Verse", type: "info", detail: "1 Thessalonians 5:17" },
       { label: "Church", type: "info", detail: "ACTS2 Fellowship @ USC" },
-      { label: "Ministry", type: "info", detail: "President, ACTS · Co-Founder, SGV Christian Club Collective" },
-      { label: "Recharge Location", type: "info", detail: "Sunday service + community" },
-      { label: "Joy Source", type: "info", detail: "Lasting community, watching others thrive" },
-      { label: "Dominican Republic", type: "info", detail: "Mission trip - joy doesn't come from wealth" },
-      { label: "Boldness", type: "toggle-on", detail: "Will stand against the crowd when it matters" },
-      { label: "Human-Centered Technology", type: "toggle-on", detail: "Tech should serve people, not enslave them" },
-      { label: "IRL Connection > Social Media", type: "toggle-on", detail: "Always" },
+      {
+        label: "Ministry",
+        type: "info",
+        detail: "President, ACTS · Co-Founder, SGV Christian Club Collective",
+      },
+      {
+        label: "Recharge Location",
+        type: "info",
+        detail: "Sunday service + community",
+      },
+      {
+        label: "Joy Source",
+        type: "info",
+        detail: "Lasting community, watching others thrive",
+      },
+      {
+        label: "Dominican Republic",
+        type: "info",
+        detail: "Mission trip - joy doesn't come from wealth",
+      },
+      {
+        label: "Boldness",
+        type: "toggle-on",
+        detail: "Will stand against the crowd when it matters",
+      },
+      {
+        label: "Human-Centered Technology",
+        type: "toggle-on",
+        detail: "Tech should serve people, not enslave them",
+      },
+      {
+        label: "IRL Connection > Social Media",
+        type: "toggle-on",
+        detail: "Always",
+      },
     ],
   },
   {
@@ -440,9 +510,17 @@ export const personalSettings = [
     items: [
       { label: "Vinyl Collector", type: "info", detail: "Growing steadily" },
       { label: "Concert-Goer", type: "info", detail: "LA has good venues" },
-      { label: "Genres", type: "info", detail: "Jazz · Hip-Hop · Gospel · R&B · Indie" },
+      {
+        label: "Genres",
+        type: "info",
+        detail: "Jazz · Hip-Hop · Gospel · R&B · Indie",
+      },
       { label: "All-Time Favorite", type: "info", detail: "Stevie Wonder" },
-      { label: "Current Rotation", type: "info", detail: "Little Simz, Quadeca, Will Reagan" },
+      {
+        label: "Current Rotation",
+        type: "info",
+        detail: "Little Simz, Quadeca, Will Reagan",
+      },
       { label: "Plays Guitar", type: "info", detail: "Learning worship songs" },
     ],
   },
@@ -450,9 +528,21 @@ export const personalSettings = [
     section: "Sports & Activities",
     icon: "sports",
     items: [
-      { label: "Baseball", type: "toggle-off", detail: "Retired · Pitcher · San Marino HS" },
-      { label: "Wrestling", type: "toggle-off", detail: "Retired · San Marino HS" },
-      { label: "Hiking", type: "toggle-on", detail: "Hollywood Hills, mountains, anywhere" },
+      {
+        label: "Baseball",
+        type: "toggle-off",
+        detail: "Retired · Pitcher · San Marino HS",
+      },
+      {
+        label: "Wrestling",
+        type: "toggle-off",
+        detail: "Retired · San Marino HS",
+      },
+      {
+        label: "Hiking",
+        type: "toggle-on",
+        detail: "Hollywood Hills, mountains, anywhere",
+      },
       { label: "Board Games", type: "toggle-on", detail: "Serious about this" },
       { label: "Spikeball & Pickleball", type: "toggle-on", detail: "Active" },
     ],
@@ -462,14 +552,38 @@ export const personalSettings = [
     icon: "film",
     items: [
       { label: "Letterboxd", type: "info", detail: "cnewt · 55 films logged" },
-      { label: "Favorites", type: "info", detail: "Peanut Butter Falcon · Inception · Dumb & Dumber · Toy Story" },
-      { label: "Rating Style", type: "info", detail: "Generous - 59% five stars. If it's good it's good" },
+      {
+        label: "Favorites",
+        type: "info",
+        detail: "Peanut Butter Falcon · Inception · Dumb & Dumber · Toy Story",
+      },
+      {
+        label: "Rating Style",
+        type: "info",
+        detail: "Generous - 59% five stars. If it's good it's good",
+      },
       { label: "On Watchlist", type: "info", detail: "Parasite · Dune" },
-      { label: "Film Opinions", type: "info", detail: "Strong ones - will share unprompted" },
-      { label: "RateYourMusic", type: "info", detail: "~cnewt · jazz & hip-hop deep cuts" },
+      {
+        label: "Film Opinions",
+        type: "info",
+        detail: "Strong ones - will share unprompted",
+      },
+      {
+        label: "RateYourMusic",
+        type: "info",
+        detail: "~cnewt · jazz & hip-hop deep cuts",
+      },
       { label: "Thrifting", type: "toggle-on", detail: "Finds are undefeated" },
-      { label: "Style", type: "info", detail: "Clean fits, thrifted - never paying retail" },
-      { label: "Reading", type: "info", detail: "Non-fiction · theology · AI alignment" },
+      {
+        label: "Style",
+        type: "info",
+        detail: "Clean fits, thrifted - never paying retail",
+      },
+      {
+        label: "Reading",
+        type: "info",
+        detail: "Non-fiction · theology · AI alignment",
+      },
     ],
   },
   {
@@ -479,7 +593,11 @@ export const personalSettings = [
       { label: "Sleep Schedule", type: "info", detail: "Cooked" },
       { label: "Coffee Dependency", type: "info", detail: "Critical" },
       { label: "Peak Coding Hours", type: "info", detail: "11 PM – 3 AM" },
-      { label: "Meal Prep", type: "toggle-off", detail: "Dining hall (for now)" },
+      {
+        label: "Meal Prep",
+        type: "toggle-off",
+        detail: "Dining hall (for now)",
+      },
       { label: "Social Battery", type: "info", detail: "Recharges at church" },
       { label: "Reply Time (iMessage)", type: "info", detail: "Eventually" },
       { label: "Biohacking Protocol", type: "info", detail: "Active" },
@@ -489,11 +607,23 @@ export const personalSettings = [
     section: "System Preferences",
     icon: "system",
     items: [
-      { label: "Do Not Disturb", type: "toggle-off", detail: "People keep texting" },
+      {
+        label: "Do Not Disturb",
+        type: "toggle-off",
+        detail: "People keep texting",
+      },
       { label: "Location", type: "info", detail: "Leavey Library" },
-      { label: "Brain Backup", type: "info", detail: "GitHub + Todoist + Poke Agent" },
+      {
+        label: "Brain Backup",
+        type: "info",
+        detail: "GitHub + Todoist + Poke Agent",
+      },
       { label: "Dictation", type: "info", detail: "WillowVoice - goes faster" },
-      { label: "Privacy", type: "info", detail: "Public GitHub, private thoughts" },
+      {
+        label: "Privacy",
+        type: "info",
+        detail: "Public GitHub, private thoughts",
+      },
     ],
   },
   {
@@ -503,14 +633,38 @@ export const personalSettings = [
       { label: "Edition", type: "info", detail: "2006 (Caleb Newton)" },
       { label: "Personality", type: "info", detail: "ENTJ-A · Commander" },
       { label: "Location", type: "info", detail: "San Marino, CA → USC" },
-      { label: "Software Version", type: "info", detail: "USC Freshman OS 25.1.0" },
+      {
+        label: "Software Version",
+        type: "info",
+        detail: "USC Freshman OS 25.1.0",
+      },
       { label: "Serial Number", type: "info", detail: "calebnew@usc.edu" },
-      { label: "Optimal State", type: "info", detail: "Deep work + good music + strong coffee" },
-      { label: "Social Mode", type: "info", detail: "Meaningful conversations > small talk" },
-      { label: "Background Process", type: "info", detail: "Head-bobbing may occur during vinyl sessions" },
+      {
+        label: "Optimal State",
+        type: "info",
+        detail: "Deep work + good music + strong coffee",
+      },
+      {
+        label: "Social Mode",
+        type: "info",
+        detail: "Meaningful conversations > small talk",
+      },
+      {
+        label: "Background Process",
+        type: "info",
+        detail: "Head-bobbing may occur during vinyl sessions",
+      },
       { label: "Battery", type: "info", detail: "Charged by faith & coffee" },
-      { label: "Storage", type: "info", detail: "∞ Curiosity · 20TB Work Ethic" },
-      { label: "Favorite Question", type: "info", detail: "Is your mind more like a tower or a river?" },
+      {
+        label: "Storage",
+        type: "info",
+        detail: "∞ Curiosity · 20TB Work Ethic",
+      },
+      {
+        label: "Favorite Question",
+        type: "info",
+        detail: "Is your mind more like a tower or a river?",
+      },
     ],
   },
 ];
@@ -567,7 +721,8 @@ export const photos = [
   },
   {
     src: "/assets/premed_friends.jpg",
-    caption: "Premed friends at dinner -one of the few times we're not studying lol",
+    caption:
+      "Premed friends at dinner -one of the few times we're not studying lol",
     date: "Fall 2025",
     location: "Los Angeles, CA",
     rotation: -1,
@@ -583,7 +738,8 @@ export const organizations = [
     period: "Fall 2025 - Present",
     logo: "/assets/logos/acts2.png",
     color: "#5856D6",
-    description: "USC Christian student organization rooted in Acts 2. Community, faith, and fellowship on campus.",
+    description:
+      "USC Christian student organization rooted in Acts 2. Community, faith, and fellowship on campus.",
     link: "https://usc.acts2fellowship.org/",
     category: "Faith",
   },
@@ -595,7 +751,8 @@ export const organizations = [
     period: "Spring 2026 - Present",
     logo: "/assets/logos/ktp.png",
     color: "#6C47FF",
-    description: "Professional technology fraternity. Currently working on client projects in AI and data analytics.",
+    description:
+      "Professional technology fraternity. Currently working on client projects in AI and data analytics.",
     link: "https://ktp-website-2026.vercel.app/",
     category: "Professional",
   },
@@ -607,7 +764,8 @@ export const organizations = [
     period: "Spring 2026 - Present",
     logo: "/assets/logos/datasc.png",
     color: "#007AFF",
-    description: "USC data science club exploring ML, analytics, and data-driven projects.",
+    description:
+      "USC data science club exploring ML, analytics, and data-driven projects.",
     link: "https://www.datasc.org/",
     category: "Professional",
   },
@@ -619,7 +777,8 @@ export const organizations = [
     period: "Spring 2026 - Present",
     logo: "/assets/logos/maai.png",
     color: "#FF6B35",
-    description: "USC Marshall AI association bridging business and AI. Member of the Biotech department - exploring ML applications in life sciences.",
+    description:
+      "USC Marshall AI association bridging business and AI. Member of the Biotech department - exploring ML applications in life sciences.",
     link: "https://www.uscmaia.com/",
     category: "Professional",
   },
@@ -643,7 +802,8 @@ export const organizations = [
     period: "Spring 2026 - Present",
     logo: "/assets/logos/avenues.png",
     color: "#0A66C2",
-    description: "USC student-run consulting club delivering real strategy projects to real clients.",
+    description:
+      "USC student-run consulting club delivering real strategy projects to real clients.",
     link: "https://www.uscavenues.org/",
     category: "Professional",
   },
@@ -655,7 +815,8 @@ export const organizations = [
     period: "Spring 2026 - Present",
     logo: "/assets/logos/uscflavors.png",
     color: "#FF9500",
-    description: "USC food culture club celebrating cuisine, community, and culinary exploration.",
+    description:
+      "USC food culture club celebrating cuisine, community, and culinary exploration.",
     link: "https://www.uscflavors.com/",
     category: "Social",
   },
@@ -667,7 +828,8 @@ export const organizations = [
     period: "Spring 2026 - Present",
     logo: "/assets/logos/trojanboardgames.png",
     color: "#990000",
-    description: "USC board game club. Strategy games, tabletop RPGs, and game nights on campus.",
+    description:
+      "USC board game club. Strategy games, tabletop RPGs, and game nights on campus.",
     link: "https://www.instagram.com/trojanboardgames/",
     category: "Social",
   },
@@ -686,7 +848,10 @@ export const organizations = [
       "Strengthened collaborative decision-making and communication skills",
       "Deep servant leadership and character development curriculum",
     ],
-    photos: ["/assets/impact360_leadership.jpg", "/assets/dominican_republic.jpg"],
+    photos: [
+      "/assets/impact360_leadership.jpg",
+      "/assets/dominican_republic.jpg",
+    ],
     link: "https://impact360institute.org",
     category: "Faith",
   },
@@ -698,7 +863,8 @@ export const organizations = [
     period: "Nov 2024 - June 2025",
     logo: "/assets/logos/sgvchristiancc.png",
     color: "#34C759",
-    description: "Co-founded a coalition uniting 15+ high school Christian clubs across the San Gabriel Valley - launched from a vision to break down walls between isolated campus ministries. Also served as President of ACTS Christian Club at San Marino High School, where this vision first took root. Built real community between students who never would have met otherwise.",
+    description:
+      "Co-founded a coalition uniting 15+ high school Christian clubs across the San Gabriel Valley - launched from a vision to break down walls between isolated campus ministries. Also served as President of ACTS Christian Club at San Marino High School, where this vision first took root. Built real community between students who never would have met otherwise.",
     achievements: [
       "Spearheaded formation of a coalition uniting 15+ high school Christian clubs across the San Gabriel Valley",
       "Conceived and executed Everything Night - a first-of-its-kind regional event attracting 200+ students to 20 breakout sessions",
@@ -729,7 +895,8 @@ export const organizations = [
     period: "Feb 2023 - Present",
     logo: "/assets/logos/littleleaguechallenger.jpeg",
     color: "#34C759",
-    description: "Volunteer coach for the Challenger Division - youth athletes with physical and developmental disabilities. Leading practices and creating an empowering, inclusive environment.",
+    description:
+      "Volunteer coach for the Challenger Division - youth athletes with physical and developmental disabilities. Leading practices and creating an empowering, inclusive environment.",
     achievements: [] as string[],
     photos: [] as string[],
     link: "https://www.littleleague.org/play-little-league/challenger/",
@@ -743,7 +910,8 @@ export const organizations = [
     period: "Jul 2022",
     logo: "/assets/logos/worldbaseballacademy.png",
     color: "#007AFF",
-    description: "Led youth baseball clinics and outreach programs in Jarabacoa, Dominican Republic. Combined sport and ministry to support under-resourced communities.",
+    description:
+      "Led youth baseball clinics and outreach programs in Jarabacoa, Dominican Republic. Combined sport and ministry to support under-resourced communities.",
     achievements: [] as string[],
     photos: [] as string[],
     link: "https://www.worldbaseballacademy.com/",
@@ -757,7 +925,8 @@ export const organizations = [
     period: "2025 - Present",
     logo: "/assets/logos/scoutfitters.png",
     color: "#34C759",
-    description: "USC's hiking and outdoors club. Getting outside, exploring trails, and building community with fellow Trojans.",
+    description:
+      "USC's hiking and outdoors club. Getting outside, exploring trails, and building community with fellow Trojans.",
     achievements: [] as string[],
     photos: [] as string[],
     link: "https://www.scoutfitters.org/",
@@ -771,7 +940,8 @@ export const organizations = [
     period: "Apr 2022 - Jun 2022",
     logo: "/assets/logos/turn2foryouth.png",
     color: "#FF9500",
-    description: "Organized a community-wide baseball equipment drive and delivered gear to underserved youth in the Dominican Republic. Poverty alleviation through sport.",
+    description:
+      "Organized a community-wide baseball equipment drive and delivered gear to underserved youth in the Dominican Republic. Poverty alleviation through sport.",
     achievements: [] as string[],
     photos: [] as string[],
     link: "https://www.turn2foryouth.com/",
@@ -783,19 +953,60 @@ export const music = {
   currentlyPlaying: {
     title: "Praise",
     artist: "Various Artists",
-    spotifyEmbed: "https://open.spotify.com/embed/track/7Ee6XgP8EHKDhTMYLIndu9?utm_source=generator",
+    spotifyEmbed:
+      "https://open.spotify.com/embed/track/7Ee6XgP8EHKDhTMYLIndu9?utm_source=generator",
   },
   favoriteNewAlbums: [
-    { artist: "Little Simz",  album: "Drop 7",                  embedUrl: "https://open.spotify.com/embed/album/4nOym5RKE8Opauf3rMxPAW?utm_source=generator" },
-    { artist: "The Hellp",    album: "Latest",                   embedUrl: "https://open.spotify.com/embed/album/7r0oaJO4WR0KLgg1rZu6kg?utm_source=generator" },
-    { artist: "Will Reagan",  album: "Latest",                   embedUrl: "https://open.spotify.com/embed/album/06BotF7CerCXpcm5Km2uX7?utm_source=generator" },
-    { artist: "Quadeca",      album: "From Bird's Eye View",     embedUrl: "https://open.spotify.com/embed/album/6o6VAIetIFOsaOa0qt7w9u?utm_source=generator" },
+    {
+      artist: "Little Simz",
+      album: "Drop 7",
+      embedUrl:
+        "https://open.spotify.com/embed/album/4nOym5RKE8Opauf3rMxPAW?utm_source=generator",
+    },
+    {
+      artist: "The Hellp",
+      album: "Latest",
+      embedUrl:
+        "https://open.spotify.com/embed/album/7r0oaJO4WR0KLgg1rZu6kg?utm_source=generator",
+    },
+    {
+      artist: "Will Reagan",
+      album: "Latest",
+      embedUrl:
+        "https://open.spotify.com/embed/album/06BotF7CerCXpcm5Km2uX7?utm_source=generator",
+    },
+    {
+      artist: "Quadeca",
+      album: "From Bird's Eye View",
+      embedUrl:
+        "https://open.spotify.com/embed/album/6o6VAIetIFOsaOa0qt7w9u?utm_source=generator",
+    },
   ],
   favoriteOldAlbums: [
-    { artist: "Stevie Wonder", album: "Songs in the Key of Life",          embedUrl: "https://open.spotify.com/embed/album/6YUCc2RiXcEKS9ibuZxjt0?utm_source=generator" },
-    { artist: "Parliament",    album: "Mothership Connection",              embedUrl: "https://open.spotify.com/embed/album/4q1HNSka8CzuLvC8ydcsD2?utm_source=generator" },
-    { artist: "Lauryn Hill",   album: "The Miseducation of Lauryn Hill",   embedUrl: "https://open.spotify.com/embed/album/1BZoqf8Zje5nGdwZhOjAtD?utm_source=generator" },
-    { artist: "John Coltrane", album: "A Love Supreme",                    embedUrl: "https://open.spotify.com/embed/album/3JRgE1OqN7A8wrYqFxDfJO?utm_source=generator" },
+    {
+      artist: "Stevie Wonder",
+      album: "Songs in the Key of Life",
+      embedUrl:
+        "https://open.spotify.com/embed/album/6YUCc2RiXcEKS9ibuZxjt0?utm_source=generator",
+    },
+    {
+      artist: "Parliament",
+      album: "Mothership Connection",
+      embedUrl:
+        "https://open.spotify.com/embed/album/4q1HNSka8CzuLvC8ydcsD2?utm_source=generator",
+    },
+    {
+      artist: "Lauryn Hill",
+      album: "The Miseducation of Lauryn Hill",
+      embedUrl:
+        "https://open.spotify.com/embed/album/1BZoqf8Zje5nGdwZhOjAtD?utm_source=generator",
+    },
+    {
+      artist: "John Coltrane",
+      album: "A Love Supreme",
+      embedUrl:
+        "https://open.spotify.com/embed/album/3JRgE1OqN7A8wrYqFxDfJO?utm_source=generator",
+    },
   ],
 };
 
@@ -830,23 +1041,136 @@ export interface AppDef {
 }
 
 export const apps: AppDef[] = [
-  { id: "settings",     name: "About",       emoji: "S", icon: "/assets/icons/settingsapp.png",     gradient: ["#8E8E93", "#636366"] },
-  { id: "work",         name: "Work",        emoji: "W",                                            gradient: ["#AF52DE", "#7B2D8B"] },
-  { id: "projects",     name: "Ideas",       emoji: "I", icon: "/assets/icons/ideas.png",           gradient: ["#FF9500", "#FF5E00"], external: "https://calebsideas.com/" },
-  { id: "education",    name: "Education",   emoji: "E", icon: "/assets/icons/notes.png",           gradient: ["#FF3B30", "#C0392B"] },
-  { id: "files",        name: "Organizations", emoji: "F", icon: "/assets/icons/organizations.png", gradient: ["#007AFF", "#5AC8FA"] },
-  { id: "photos",       name: "Photos",      emoji: "P", icon: "/assets/icons/photos.webp",         gradient: ["#34C759", "#248A3D"] },
-  { id: "contact",      name: "Mail",        emoji: "C", icon: "/assets/icons/mailapp.png",         gradient: ["#5AC8FA", "#007AFF"] },
-  { id: "spotify",      name: "Spotify",     emoji: "S", icon: "/assets/icons/spotify.png",         gradient: ["#1DB954", "#157A37"] },
-  { id: "bible",        name: "Bible",       emoji: "B", icon: "/assets/icons/bibleapp.png",        gradient: ["#D4A017", "#A0770F"] },
-  { id: "calebgpt",     name: "CalebGPT",    emoji: "C", icon: "/assets/icons/chatgpt.png",         gradient: ["#10A37F", "#1A7F64"] },
-  { id: "youtube",      name: "YouTube",     emoji: "Y", icon: "/assets/icons/youtubeapplogo.png",  gradient: ["#FF0000", "#C0392B"], external: "https://www.youtube.com/@caleebnewtown" },
-  { id: "github",       name: "GitHub",      emoji: "G", icon: "/assets/icons/github.webp",         gradient: ["#24292E", "#000000"], external: "https://github.com/calebnewtonusc" },
-  { id: "linkedin",     name: "LinkedIn",    emoji: "L", icon: "/assets/icons/linkedin.jpg",        gradient: ["#0A66C2", "#004182"], external: "https://www.linkedin.com/in/caleb-newton-3680041a5/" },
-  { id: "letterboxd",   name: "Letterboxd",  emoji: "L", icon: "/assets/icons/letterboxd.png",      gradient: ["#FF8000", "#E55C00"], external: "https://letterboxd.com/cnewt/" },
-  { id: "rateyourmusic",name: "RYM",         emoji: "R", icon: "/assets/icons/rym.png",             gradient: ["#ED1C24", "#A8001B"], external: "https://rateyourmusic.com/~cnewt" },
-  { id: "x",            name: "X",           emoji: "X", icon: "/assets/icons/x.jpg",               gradient: ["#000000", "#14171A"], external: "https://x.com/klubnootuhn" },
-  { id: "substack",     name: "Substack",    emoji: "S", icon: "/assets/icons/substack.png",           gradient: ["#FF6719", "#E05C0A"], external: "https://substack.com/@calebnewton" },
+  {
+    id: "settings",
+    name: "About",
+    emoji: "S",
+    icon: "/assets/icons/settingsapp.png",
+    gradient: ["#8E8E93", "#636366"],
+  },
+  { id: "work", name: "Work", emoji: "W", gradient: ["#AF52DE", "#7B2D8B"] },
+  {
+    id: "projects",
+    name: "Ideas",
+    emoji: "I",
+    icon: "/assets/icons/ideas.png",
+    gradient: ["#FF9500", "#FF5E00"],
+    external: "https://calebsideas.com/",
+  },
+  {
+    id: "education",
+    name: "Education",
+    emoji: "E",
+    icon: "/assets/icons/notes.png",
+    gradient: ["#FF3B30", "#C0392B"],
+  },
+  {
+    id: "files",
+    name: "Organizations",
+    emoji: "F",
+    icon: "/assets/icons/organizations.png",
+    gradient: ["#007AFF", "#5AC8FA"],
+  },
+  {
+    id: "photos",
+    name: "Photos",
+    emoji: "P",
+    icon: "/assets/icons/photos.webp",
+    gradient: ["#34C759", "#248A3D"],
+  },
+  {
+    id: "contact",
+    name: "Mail",
+    emoji: "C",
+    icon: "/assets/icons/mailapp.png",
+    gradient: ["#5AC8FA", "#007AFF"],
+  },
+  {
+    id: "spotify",
+    name: "Spotify",
+    emoji: "S",
+    icon: "/assets/icons/spotify.png",
+    gradient: ["#1DB954", "#157A37"],
+  },
+  {
+    id: "bible",
+    name: "Bible",
+    emoji: "B",
+    icon: "/assets/icons/bibleapp.png",
+    gradient: ["#D4A017", "#A0770F"],
+  },
+  {
+    id: "calebgpt",
+    name: "CalebGPT",
+    emoji: "C",
+    icon: "/assets/icons/chatgpt.png",
+    gradient: ["#10A37F", "#1A7F64"],
+  },
+  {
+    id: "youtube",
+    name: "YouTube",
+    emoji: "Y",
+    icon: "/assets/icons/youtubeapplogo.png",
+    gradient: ["#FF0000", "#C0392B"],
+    external: "https://www.youtube.com/@caleebnewtown",
+  },
+  {
+    id: "github",
+    name: "GitHub",
+    emoji: "G",
+    icon: "/assets/icons/github.webp",
+    gradient: ["#24292E", "#000000"],
+    external: "https://github.com/calebnewtonusc",
+  },
+  {
+    id: "linkedin",
+    name: "LinkedIn",
+    emoji: "L",
+    icon: "/assets/icons/linkedin.jpg",
+    gradient: ["#0A66C2", "#004182"],
+    external: "https://www.linkedin.com/in/caleb-newton-3680041a5/",
+  },
+  {
+    id: "letterboxd",
+    name: "Letterboxd",
+    emoji: "L",
+    icon: "/assets/icons/letterboxd.png",
+    gradient: ["#FF8000", "#E55C00"],
+    external: "https://letterboxd.com/cnewt/",
+  },
+  {
+    id: "rateyourmusic",
+    name: "RYM",
+    emoji: "R",
+    icon: "/assets/icons/rym.png",
+    gradient: ["#ED1C24", "#A8001B"],
+    external: "https://rateyourmusic.com/~cnewt",
+  },
+  {
+    id: "x",
+    name: "X",
+    emoji: "X",
+    icon: "/assets/icons/x.jpg",
+    gradient: ["#000000", "#14171A"],
+    external: "https://x.com/klubnootuhn",
+  },
+  {
+    id: "substack",
+    name: "Substack",
+    emoji: "S",
+    icon: "/assets/icons/substack.png",
+    gradient: ["#FF6719", "#E05C0A"],
+    external: "https://substack.com/@calebnewton",
+  },
 ];
 
-export const dockApps: AppId[] = ["projects", "linkedin", "github", "youtube", "substack", "x", "letterboxd", "rateyourmusic"];
+export const dockApps: AppId[] = [
+  "projects",
+  "linkedin",
+  "github",
+  "youtube",
+  "substack",
+  "x",
+  "letterboxd",
+  "rateyourmusic",
+];
