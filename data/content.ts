@@ -744,6 +744,19 @@ export const organizations = [
     category: "Faith",
   },
   {
+    id: "usctts",
+    name: "USC Trojan Technology Solutions",
+    shortName: "TTS",
+    role: "President",
+    period: "Fall 2025 - Present",
+    logo: "/assets/logos/ttslogo2026.png",
+    color: "#990000",
+    description:
+      "Founded & scaled a student organization combining venture building, pro bono consulting, & technical education; grew membership to 100+ across engineering, design, & business through a structured recruiting & self-selection model. Delivered 5 pro bono technology engagements for USC departments & Los Angeles startups while building a 20+ person advisory network & launching a speaker series that expanded student mentorship & access to industry operators.",
+    link: "https://usctts.com",
+    category: "Professional",
+  },
+  {
     id: "ktp",
     name: "Kappa Theta Pi",
     shortName: "KTP",
