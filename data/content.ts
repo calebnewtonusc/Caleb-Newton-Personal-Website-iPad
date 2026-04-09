@@ -1042,7 +1042,8 @@ export type AppId =
   | "x"
   | "substack"
   | "calebgpt"
-  | "bible";
+  | "bible"
+  | "calendar";
 
 export interface AppDef {
   id: AppId;
@@ -1061,7 +1062,13 @@ export const apps: AppDef[] = [
     icon: "/assets/icons/settingsapp.png",
     gradient: ["#8E8E93", "#636366"],
   },
-  { id: "work", name: "Work", emoji: "W", gradient: ["#AF52DE", "#7B2D8B"] },
+  {
+    id: "work",
+    name: "Docs",
+    emoji: "W",
+    icon: "/assets/icons/googledocs.png",
+    gradient: ["#4285F4", "#2962FF"],
+  },
   {
     id: "projects",
     name: "Ideas",
@@ -1174,6 +1181,14 @@ export const apps: AppDef[] = [
     icon: "/assets/icons/substack.png",
     gradient: ["#FF6719", "#E05C0A"],
     external: "https://substack.com/@calebnewton",
+  },
+  {
+    id: "calendar",
+    name: "Calendar",
+    emoji: "C",
+    icon: "/assets/icons/calendar_ios.png",
+    gradient: ["#FF3B30", "#FF2D55"],
+    external: "https://calendly.com/calebnew-usc/30min",
   },
 ];
 

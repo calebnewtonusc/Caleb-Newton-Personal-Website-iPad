@@ -10,188 +10,737 @@ interface Props {
   orientation: string;
 }
 
-const WorkCard = memo(function WorkCard({
-  exp,
-  expanded,
-  onToggle,
-}: {
-  exp: typeof experience[0];
-  expanded: boolean;
-  onToggle: () => void;
-}) {
+type ViewState = { mode: "list" } | { mode: "doc"; expId: string };
+
+/* ── Google Docs blue ── */
+const GDOCS_BLUE = "#1a73e8";
+const GDOCS_LIGHT_BLUE = "#e8f0fe";
+
+/* ── Toolbar button (File, Edit, etc.) ── */
+function MenuButton({ label }: { label: string }) {
+  const [hovered, setHovered] = useState(false);
   return (
-    <motion.div
-      whileTap={{ scale: 0.988 }}
+    <span
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       style={{
-        background: "white",
-        borderRadius: 16,
-        overflow: "hidden",
-        boxShadow: "0 1px 6px rgba(0,0,0,0.07)",
+        fontSize: 13,
+        color: "#3c4043",
+        fontFamily: "'Google Sans', -apple-system, sans-serif",
+        padding: "4px 7px",
+        borderRadius: 4,
+        cursor: "default",
+        background: hovered ? "#e8eaed" : "transparent",
+        transition: "background 0.15s",
+        userSelect: "none",
       }}
     >
-      {/* Collapsed row */}
+      {label}
+    </span>
+  );
+}
+
+/* ── Document card in the list view ── */
+const DocCard = memo(function DocCard({
+  exp,
+  onOpen,
+  index,
+}: {
+  exp: (typeof experience)[0];
+  onOpen: () => void;
+  index: number;
+}) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        delay: index * 0.04,
+        type: "spring",
+        stiffness: 340,
+        damping: 28,
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onClick={onOpen}
+      style={{
+        width: 180,
+        cursor: "pointer",
+        flexShrink: 0,
+      }}
+    >
+      {/* Doc thumbnail */}
       <div
-        onClick={onToggle}
         style={{
-          padding: "12px 14px 12px 14px",
-          cursor: "pointer",
+          width: 180,
+          height: 232,
+          borderRadius: 8,
+          border: hovered ? `2px solid ${GDOCS_BLUE}` : "1px solid #dadce0",
+          background: "white",
+          overflow: "hidden",
           display: "flex",
-          alignItems: "center",
-          gap: 10,
+          flexDirection: "column",
+          transition: "border 0.15s, box-shadow 0.15s",
+          boxShadow: hovered ? "0 2px 8px rgba(26,115,232,0.18)" : "none",
         }}
       >
-        {/* Company logo */}
-        <div style={{
-          width: 40, height: 40, borderRadius: 10, flexShrink: 0,
-          background: exp.logo ? "white" : exp.color,
-          display: "flex", alignItems: "center", justifyContent: "center",
-          boxShadow: "0 1px 4px rgba(0,0,0,0.1)",
-          border: exp.logo ? "0.5px solid rgba(0,0,0,0.08)" : "none",
-          overflow: "hidden",
-        }}>
-          {exp.logo ? (
-            <div style={{ position: "relative", width: 28, height: 28 }}>
-              <Image src={exp.logo} alt={exp.company} fill style={{ objectFit: "contain" }} />
-            </div>
-          ) : (
-            <span style={{ fontSize: 15, fontWeight: 800, color: "white", fontFamily: "-apple-system, sans-serif" }}>{exp.company[0]}</span>
-          )}
-        </div>
-
-        {/* Company name + title */}
-        <div style={{ flex: 1, minWidth: 0 }}>
-          <span style={{ display: "block", fontSize: 15, fontWeight: 700, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif", lineHeight: 1.3 }}>
-            {exp.company}
-          </span>
-          <span style={{ display: "block", fontSize: 12, fontWeight: 500, color: "#636366", fontFamily: "-apple-system, sans-serif", marginTop: 1 }}>
-            {exp.title}
-          </span>
-        </div>
-
-        {/* Right column: date + chevron on same row, both vertically centered */}
-        <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: 8, flexShrink: 0 }}>
-          <span style={{ fontSize: 11, color: "#8e8e93", fontFamily: "-apple-system, sans-serif", whiteSpace: "nowrap", lineHeight: 1.4 }}>
-            {exp.period}
-          </span>
-          <motion.div
-            animate={{ rotate: expanded ? 90 : 0 }}
-            transition={{ type: "spring", stiffness: 400, damping: 28 }}
+        {/* Mini doc preview */}
+        <div style={{ padding: "16px 14px 0", flex: 1 }}>
+          <div
             style={{
-              width: 26, height: 26, borderRadius: "50%",
-              background: "#f2f2f7", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
+              fontSize: 10,
+              fontWeight: 700,
+              color: "#202124",
+              marginBottom: 6,
+              fontFamily: "'Google Sans', -apple-system, sans-serif",
+              lineHeight: 1.3,
             }}
           >
-            <svg width="7" height="11" viewBox="0 0 7 11" fill="none">
-              <path d="M1 1L6 5.5L1 10" stroke="#8e8e93" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
-          </motion.div>
+            {exp.company}
+          </div>
+          <div
+            style={{
+              fontSize: 8,
+              color: "#5f6368",
+              marginBottom: 8,
+              fontFamily: "-apple-system, sans-serif",
+              lineHeight: 1.4,
+            }}
+          >
+            {exp.title}
+          </div>
+          {/* Fake text lines */}
+          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
+            <div
+              style={{
+                height: 3,
+                background: "#e0e0e0",
+                borderRadius: 1,
+                width: "100%",
+              }}
+            />
+            <div
+              style={{
+                height: 3,
+                background: "#e0e0e0",
+                borderRadius: 1,
+                width: "90%",
+              }}
+            />
+            <div
+              style={{
+                height: 3,
+                background: "#e0e0e0",
+                borderRadius: 1,
+                width: "75%",
+              }}
+            />
+            <div
+              style={{
+                height: 3,
+                background: "#e0e0e0",
+                borderRadius: 1,
+                width: "85%",
+              }}
+            />
+            <div
+              style={{
+                height: 3,
+                background: "#e0e0e0",
+                borderRadius: 1,
+                width: "60%",
+              }}
+            />
+          </div>
         </div>
       </div>
-
-      <AnimatePresence>
-        {expanded && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ type: "spring", stiffness: 380, damping: 32 }}
-            style={{ overflow: "hidden" }}
+      {/* Doc title + details */}
+      <div
+        style={{
+          padding: "8px 4px 0",
+          display: "flex",
+          alignItems: "flex-start",
+          gap: 8,
+        }}
+      >
+        <div
+          style={{
+            width: 20,
+            height: 20,
+            flexShrink: 0,
+            position: "relative",
+            marginTop: 1,
+          }}
+        >
+          <Image
+            src="/assets/icons/googledocs.png"
+            alt="Doc"
+            fill
+            style={{ objectFit: "contain" }}
+          />
+        </div>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <div
+            style={{
+              fontSize: 12,
+              fontWeight: 600,
+              color: "#202124",
+              fontFamily: "'Google Sans', -apple-system, sans-serif",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "nowrap",
+              lineHeight: 1.3,
+            }}
           >
-            <div style={{ borderTop: "0.5px solid rgba(60,60,67,0.1)", padding: "14px 16px 16px 14px" }}>
-              <p style={{ fontSize: 14, color: "#3a3a3c", lineHeight: 1.65, marginBottom: exp.achievements.length > 0 ? 12 : 0, fontFamily: "-apple-system, sans-serif" }}>
-                {exp.description}
-              </p>
-
-              {exp.achievements.length > 0 && (
-                <div style={{ marginBottom: exp.skills.length > 0 ? 12 : 0 }}>
-                  {exp.achievements.map((a, i) => (
-                    <div key={i} style={{ display: "flex", gap: 8, marginBottom: 7 }}>
-                      <span style={{ color: "#8e8e93", fontWeight: 700, flexShrink: 0, fontSize: 14, marginTop: 1 }}>·</span>
-                      <p style={{ fontSize: 13, color: "#3a3a3c", lineHeight: 1.55, fontFamily: "-apple-system, sans-serif" }}>{a}</p>
-                    </div>
-                  ))}
-                </div>
-              )}
-
-              {exp.skills.length > 0 && (
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 5, marginBottom: exp.photos && exp.photos.length > 0 ? 12 : 0 }}>
-                  {exp.skills.map((s) => (
-                    <span key={s} style={{ fontSize: 11, fontWeight: 600, color: "#636366", background: "rgba(0,0,0,0.05)", border: "1px solid rgba(0,0,0,0.08)", borderRadius: 8, padding: "3px 8px" }}>
-                      {s}
-                    </span>
-                  ))}
-                </div>
-              )}
-
-              {exp.photos && exp.photos.length > 0 && (
-                <div style={{ display: "flex", gap: 8, marginTop: 4, overflowX: "auto", paddingBottom: 4 }}>
-                  {exp.photos.map((src, pi) => (
-                    // eslint-disable-next-line @next/next/no-img-element
-                    <img key={pi} src={src} alt="" style={{ height: 100, width: 160, borderRadius: 10, objectFit: "cover", flexShrink: 0, boxShadow: "0 1px 6px rgba(0,0,0,0.12)" }} />
-                  ))}
-                </div>
-              )}
-
-              {exp.website && (
-                <a href={exp.website} target="_blank" rel="noopener noreferrer"
-                  style={{ display: "inline-flex", alignItems: "center", gap: 4, marginTop: 12, fontSize: 13, fontWeight: 600, color: "#007aff", textDecoration: "none" }}>
-                  Visit {exp.company} {"\u2197"}
-                </a>
-              )}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+            {exp.company}
+          </div>
+          <div
+            style={{
+              fontSize: 10,
+              color: "#5f6368",
+              fontFamily: "-apple-system, sans-serif",
+              marginTop: 1,
+            }}
+          >
+            {exp.period}
+          </div>
+        </div>
+      </div>
     </motion.div>
   );
 });
 
-export default function WorkApp({ onClose: _onClose }: Props) {
-  const [expanded, setExpanded] = useState<string | null>(null);
-  const toggle = (id: string) => setExpanded((prev) => (prev === id ? null : id));
-
+/* ── Doc view: looks like an open Google Doc ── */
+function DocView({
+  exp,
+  onBack,
+}: {
+  exp: (typeof experience)[0];
+  onBack: () => void;
+}) {
   return (
-    <div className="app-window" style={{ background: "#f2f2f7" }}>
-      <div className="ios-scroll" style={{ flex: 1, overflowY: "auto", padding: "0 0 32px" }}>
-        <motion.div initial={{ opacity: 0, y: 12 }} animate={{ opacity: 1, y: 0 }} style={{ padding: "16px 16px 18px" }}>
-          <h1 className="ios-large-title" style={{ color: "#1c1c1e", fontFamily: "-apple-system, sans-serif", fontWeight: 800, marginBottom: 4 }}>
-            Work
-          </h1>
-          <p style={{ fontSize: 14, color: "#636366", fontFamily: "-apple-system, sans-serif" }}>
-            Always looking to build something great
-          </p>
-        </motion.div>
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+        background: "#f8f9fa",
+      }}
+    >
+      {/* Top bar */}
+      <div
+        style={{
+          background: "white",
+          borderBottom: "1px solid #dadce0",
+          padding: "8px 12px 0",
+          display: "flex",
+          flexDirection: "column",
+          flexShrink: 0,
+        }}
+      >
+        {/* Row 1: back arrow + doc icon + title */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            marginBottom: 4,
+          }}
+        >
+          <motion.div
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
+            onClick={onBack}
+            style={{
+              width: 28,
+              height: 28,
+              borderRadius: 14,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              cursor: "pointer",
+              flexShrink: 0,
+            }}
+          >
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path
+                d="M15 19l-7-7 7-7"
+                stroke="#5f6368"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </motion.div>
+          <div
+            style={{
+              width: 24,
+              height: 24,
+              position: "relative",
+              flexShrink: 0,
+            }}
+          >
+            <Image
+              src="/assets/icons/googledocs.png"
+              alt="Doc"
+              fill
+              style={{ objectFit: "contain" }}
+            />
+          </div>
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <div
+              style={{
+                fontSize: 16,
+                fontWeight: 500,
+                color: "#202124",
+                fontFamily: "'Google Sans', -apple-system, sans-serif",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+              }}
+            >
+              {exp.company}
+            </div>
+          </div>
+        </div>
 
-        {/* Year groups */}
-        <div style={{ padding: "0 16px 32px" }}>
-          {[
-            { label: "2026", items: experience.filter((e) => e.year === "2026") },
-            { label: "2025", items: experience.filter((e) => e.year === "2025") },
-            { label: "2024", items: experience.filter((e) => e.year === "2024") },
-          ].filter((g) => g.items.length > 0).map((group, gi) => (
-            <div key={group.label} style={{ marginBottom: 22 }}>
-              <p style={{
-                fontSize: 13, color: "#6e6e73", fontWeight: 600, letterSpacing: 0.5,
-                marginBottom: 10, textTransform: "uppercase",
+        {/* Row 2: Menu bar */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 0,
+            paddingLeft: 36,
+            paddingBottom: 4,
+          }}
+        >
+          <MenuButton label="File" />
+          <MenuButton label="Edit" />
+          <MenuButton label="View" />
+          <MenuButton label="Insert" />
+          <MenuButton label="Format" />
+          <MenuButton label="Tools" />
+        </div>
+
+        {/* Row 3: Formatting toolbar */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 6,
+            paddingLeft: 36,
+            paddingBottom: 8,
+            borderTop: "1px solid #e8eaed",
+            paddingTop: 6,
+          }}
+        >
+          {/* Font dropdown */}
+          <div
+            style={{
+              fontSize: 11,
+              color: "#3c4043",
+              border: "1px solid #dadce0",
+              borderRadius: 4,
+              padding: "2px 8px",
+              fontFamily: "-apple-system, sans-serif",
+              userSelect: "none",
+            }}
+          >
+            Arial
+          </div>
+          {/* Size */}
+          <div
+            style={{
+              fontSize: 11,
+              color: "#3c4043",
+              border: "1px solid #dadce0",
+              borderRadius: 4,
+              padding: "2px 6px",
+              minWidth: 24,
+              textAlign: "center",
+              fontFamily: "-apple-system, sans-serif",
+              userSelect: "none",
+            }}
+          >
+            11
+          </div>
+          {/* Separator */}
+          <div style={{ width: 1, height: 18, background: "#dadce0" }} />
+          {/* B I U */}
+          {["B", "I", "U"].map((l) => (
+            <div
+              key={l}
+              style={{
+                width: 24,
+                height: 24,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                borderRadius: 4,
+                fontSize: 13,
+                fontWeight: l === "B" ? 700 : 400,
+                fontStyle: l === "I" ? "italic" : "normal",
+                textDecoration: l === "U" ? "underline" : "none",
+                color: "#3c4043",
                 fontFamily: "-apple-system, sans-serif",
-              }}>
-                {group.label}
-              </p>
-              <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                {group.items.map((exp, i) => (
-                  <motion.div
-                    key={exp.id}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: gi * 0.06 + i * 0.04, type: "spring", stiffness: 340, damping: 28 }}
+                userSelect: "none",
+              }}
+            >
+              {l}
+            </div>
+          ))}
+          {/* Separator */}
+          <div style={{ width: 1, height: 18, background: "#dadce0" }} />
+          {/* Text color indicator */}
+          <div
+            style={{
+              width: 24,
+              height: 24,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              fontSize: 13,
+              fontWeight: 500,
+              color: "#3c4043",
+              fontFamily: "-apple-system, sans-serif",
+              userSelect: "none",
+            }}
+          >
+            A
+          </div>
+        </div>
+      </div>
+
+      {/* Document body */}
+      <div
+        className="ios-scroll"
+        style={{
+          flex: 1,
+          overflowY: "auto",
+          display: "flex",
+          justifyContent: "center",
+          padding: "24px 12px",
+        }}
+      >
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ type: "spring", stiffness: 300, damping: 28 }}
+          style={{
+            width: "100%",
+            maxWidth: 560,
+            background: "white",
+            borderRadius: 2,
+            boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08)",
+            padding: "40px 40px 60px",
+            minHeight: 500,
+            fontFamily: "Arial, -apple-system, sans-serif",
+          }}
+        >
+          {/* Title */}
+          <h1
+            style={{
+              fontSize: 22,
+              fontWeight: 700,
+              color: "#202124",
+              marginBottom: 4,
+              lineHeight: 1.3,
+            }}
+          >
+            {exp.title}
+          </h1>
+          <div
+            style={{
+              fontSize: 15,
+              color: GDOCS_BLUE,
+              fontWeight: 500,
+              marginBottom: 2,
+              display: "flex",
+              alignItems: "center",
+              gap: 6,
+            }}
+          >
+            {exp.logo && (
+              <span
+                style={{
+                  width: 18,
+                  height: 18,
+                  position: "relative",
+                  display: "inline-block",
+                  flexShrink: 0,
+                }}
+              >
+                <Image
+                  src={exp.logo}
+                  alt=""
+                  fill
+                  style={{ objectFit: "contain" }}
+                />
+              </span>
+            )}
+            {exp.company}
+          </div>
+          <div style={{ fontSize: 13, color: "#5f6368", marginBottom: 20 }}>
+            {exp.period}
+          </div>
+
+          {/* Horizontal rule */}
+          <div style={{ height: 1, background: "#dadce0", marginBottom: 20 }} />
+
+          {/* Description */}
+          <p
+            style={{
+              fontSize: 14,
+              color: "#3c4043",
+              lineHeight: 1.7,
+              marginBottom: 20,
+            }}
+          >
+            {exp.description}
+          </p>
+
+          {/* Achievements */}
+          {exp.achievements.length > 0 && (
+            <>
+              <h2
+                style={{
+                  fontSize: 15,
+                  fontWeight: 700,
+                  color: "#202124",
+                  marginBottom: 10,
+                }}
+              >
+                Key Contributions
+              </h2>
+              <ul style={{ paddingLeft: 20, margin: 0 }}>
+                {exp.achievements.map((a, i) => (
+                  <li
+                    key={i}
+                    style={{
+                      fontSize: 13,
+                      color: "#3c4043",
+                      lineHeight: 1.65,
+                      marginBottom: 8,
+                    }}
                   >
-                    <WorkCard exp={exp} expanded={expanded === exp.id} onToggle={() => toggle(exp.id)} />
-                  </motion.div>
+                    {a}
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+
+          {/* Skills */}
+          {exp.skills.length > 0 && (
+            <div style={{ marginTop: 20 }}>
+              <h2
+                style={{
+                  fontSize: 15,
+                  fontWeight: 700,
+                  color: "#202124",
+                  marginBottom: 10,
+                }}
+              >
+                Technologies
+              </h2>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                {exp.skills.map((s) => (
+                  <span
+                    key={s}
+                    style={{
+                      fontSize: 12,
+                      fontWeight: 500,
+                      color: GDOCS_BLUE,
+                      background: GDOCS_LIGHT_BLUE,
+                      borderRadius: 12,
+                      padding: "3px 10px",
+                    }}
+                  >
+                    {s}
+                  </span>
                 ))}
               </div>
             </div>
-          ))}
+          )}
+
+          {/* Photos */}
+          {exp.photos && exp.photos.length > 0 && (
+            <div
+              style={{
+                marginTop: 24,
+                display: "flex",
+                gap: 10,
+                overflowX: "auto",
+                paddingBottom: 4,
+              }}
+            >
+              {exp.photos.map((src, pi) => (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img
+                  key={pi}
+                  src={src}
+                  alt=""
+                  style={{
+                    height: 120,
+                    width: 190,
+                    borderRadius: 4,
+                    objectFit: "cover",
+                    flexShrink: 0,
+                    border: "1px solid #dadce0",
+                  }}
+                />
+              ))}
+            </div>
+          )}
+
+          {/* Website link */}
+          {exp.website && (
+            <a
+              href={exp.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 4,
+                marginTop: 24,
+                fontSize: 13,
+                fontWeight: 500,
+                color: GDOCS_BLUE,
+                textDecoration: "none",
+              }}
+            >
+              {exp.website} {"\u2197"}
+            </a>
+          )}
+        </motion.div>
+      </div>
+    </div>
+  );
+}
+
+/* ── Main WorkApp ── */
+export default function WorkApp({ onClose: _onClose }: Props) {
+  const [view, setView] = useState<ViewState>({ mode: "list" });
+
+  if (view.mode === "doc") {
+    const exp = experience.find((e) => e.id === view.expId);
+    if (!exp) return null;
+    return <DocView exp={exp} onBack={() => setView({ mode: "list" })} />;
+  }
+
+  const groups = [
+    { label: "2026", items: experience.filter((e) => e.year === "2026") },
+    { label: "2025", items: experience.filter((e) => e.year === "2025") },
+    { label: "2024", items: experience.filter((e) => e.year === "2024") },
+  ].filter((g) => g.items.length > 0);
+
+  return (
+    <div
+      className="app-window"
+      style={{
+        background: "#f8f9fa",
+        display: "flex",
+        flexDirection: "column",
+        height: "100%",
+      }}
+    >
+      {/* Google Docs header bar */}
+      <div
+        style={{
+          background: "white",
+          borderBottom: "1px solid #dadce0",
+          padding: "12px 16px",
+          display: "flex",
+          alignItems: "center",
+          gap: 10,
+          flexShrink: 0,
+        }}
+      >
+        <div
+          style={{ width: 28, height: 28, position: "relative", flexShrink: 0 }}
+        >
+          <Image
+            src="/assets/icons/googledocs.png"
+            alt="Docs"
+            fill
+            style={{ objectFit: "contain" }}
+          />
         </div>
+        <span
+          style={{
+            fontSize: 18,
+            fontWeight: 500,
+            color: "#202124",
+            fontFamily: "'Google Sans', -apple-system, sans-serif",
+          }}
+        >
+          Docs
+        </span>
+      </div>
+
+      {/* Template strip */}
+      <div
+        style={{
+          background: "#f1f3f4",
+          borderBottom: "1px solid #dadce0",
+          padding: "12px 16px",
+          flexShrink: 0,
+        }}
+      >
+        <span
+          style={{
+            fontSize: 13,
+            fontWeight: 500,
+            color: "#202124",
+            fontFamily: "'Google Sans', -apple-system, sans-serif",
+          }}
+        >
+          Work Experience
+        </span>
+      </div>
+
+      {/* Doc list */}
+      <div
+        className="ios-scroll"
+        style={{ flex: 1, overflowY: "auto", padding: "0 0 32px" }}
+      >
+        {groups.map((group) => (
+          <div key={group.label} style={{ padding: "16px 16px 0" }}>
+            <div
+              style={{
+                fontSize: 13,
+                fontWeight: 500,
+                color: "#5f6368",
+                fontFamily: "'Google Sans', -apple-system, sans-serif",
+                marginBottom: 12,
+                display: "flex",
+                alignItems: "center",
+                gap: 6,
+              }}
+            >
+              <span>{group.label}</span>
+              <div style={{ flex: 1, height: 1, background: "#dadce0" }} />
+            </div>
+            <div
+              style={{
+                display: "flex",
+                flexWrap: "wrap",
+                gap: 16,
+              }}
+            >
+              {group.items.map((exp, i) => (
+                <DocCard
+                  key={exp.id}
+                  exp={exp}
+                  index={i}
+                  onOpen={() => setView({ mode: "doc", expId: exp.id })}
+                />
+              ))}
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

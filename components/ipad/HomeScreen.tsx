@@ -13,30 +13,6 @@ interface Props {
   onUnlock: () => void;
 }
 
-function WorkCalendarIcon({ size }: { size: number }) {
-  const now = new Date();
-  const dayStr = now.toLocaleDateString("en-US", { weekday: "short" });
-  const dayNum = now.getDate();
-  return (
-    <div style={{
-      width: size, height: size, borderRadius: size * 0.2255, overflow: "hidden",
-      background: "white", display: "flex", flexDirection: "column", flexShrink: 0,
-      boxShadow: "0 0 0 0.5px rgba(0,0,0,0.14)",
-    }}>
-      <div style={{ height: size * 0.32, display: "flex", alignItems: "flex-end", justifyContent: "center", paddingBottom: size * 0.015 }}>
-        <span style={{ fontSize: size * 0.14, fontWeight: 700, color: "#FF3B30", fontFamily: "-apple-system, sans-serif", letterSpacing: 0.6, lineHeight: 1 }}>
-          {dayStr.toUpperCase()}
-        </span>
-      </div>
-      <div style={{ flex: 1, display: "flex", alignItems: "flex-start", justifyContent: "center", paddingTop: size * 0.01 }}>
-        <span style={{ fontSize: size * 0.60, fontWeight: 100, color: "#1c1c1e", fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif", lineHeight: 1 }}>
-          {dayNum}
-        </span>
-      </div>
-    </div>
-  );
-}
-
 function AppIcon({
   app,
   size,
@@ -72,19 +48,25 @@ function AppIcon({
             ? "rgba(255,255,255,0.18)"
             : `linear-gradient(145deg, ${app.gradient[0]}, ${app.gradient[1]})`,
           backdropFilter: app.icon ? "blur(18px) saturate(1.8)" : undefined,
-          WebkitBackdropFilter: app.icon ? "blur(18px) saturate(1.8)" : undefined,
+          WebkitBackdropFilter: app.icon
+            ? "blur(18px) saturate(1.8)"
+            : undefined,
           overflow: "hidden",
           flexShrink: 0,
         }}
       >
-        {app.id === "work" ? (
-          <WorkCalendarIcon size={size} />
-        ) : app.icon ? (
+        {app.icon ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={app.icon}
             alt={app.name}
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block", transform: app.id === "settings" ? "scale(1.05)" : undefined }}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+              display: "block",
+              transform: app.id === "settings" ? "scale(1.05)" : undefined,
+            }}
           />
         ) : (
           <span
@@ -125,7 +107,12 @@ function AppIcon({
   );
 }
 
-export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }: Props) {
+export default function HomeScreen({
+  orientation,
+  onOpenApp,
+  locked,
+  onUnlock,
+}: Props) {
   const isLandscape = orientation === "landscape";
 
   const [time, setTime] = useState(new Date());
@@ -150,7 +137,9 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
   const cols = isLandscape ? 5 : 4;
   const iconSize = isLandscape ? 68 : 72;
 
-  const dockAppDefs = dockApps.map((id) => apps.find((a) => a.id === id)!).filter(Boolean);
+  const dockAppDefs = dockApps
+    .map((id) => apps.find((a) => a.id === id)!)
+    .filter(Boolean);
 
   const nonDockApps = apps.filter((app) => !dockApps.includes(app.id));
   const gridItems: (AppDef | null)[] = isLandscape
@@ -166,7 +155,10 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
         const result: (AppDef | null)[] = [];
         for (const app of nonDockApps) {
           const col = result.length % 4;
-          if (col === 1) { result.push(null); result.push(null); }
+          if (col === 1) {
+            result.push(null);
+            result.push(null);
+          }
           result.push(app);
         }
         return result;
@@ -268,7 +260,8 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
                 zIndex: 2,
                 textAlign: "center",
                 color: "white",
-                fontFamily: "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif",
+                fontFamily:
+                  "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif",
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "center",
@@ -297,7 +290,13 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
                 {dateStr}
               </div>
               <div style={{ marginTop: isLandscape ? 14 : 18 }}>
-                <div style={{ fontSize: isLandscape ? 20 : 22, fontWeight: 600, letterSpacing: -0.4 }}>
+                <div
+                  style={{
+                    fontSize: isLandscape ? 20 : 22,
+                    fontWeight: 600,
+                    letterSpacing: -0.4,
+                  }}
+                >
                   Caleb Newton
                 </div>
                 <div style={{ marginTop: 6 }}>
@@ -324,7 +323,11 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
             >
               <motion.div
                 animate={{ y: [-2, 2, -2] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                transition={{
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut",
+                }}
               >
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
                   <path
@@ -377,16 +380,33 @@ export default function HomeScreen({ orientation, onOpenApp, locked, onUnlock }:
           >
             {gridItems.map((app, i) =>
               app === null ? (
-                <div key={`spacer-${i}`} style={{ width: iconSize + 20, height: iconSize + 24, visibility: "hidden" }} />
+                <div
+                  key={`spacer-${i}`}
+                  style={{
+                    width: iconSize + 20,
+                    height: iconSize + 24,
+                    visibility: "hidden",
+                  }}
+                />
               ) : (
-                <AppIcon key={app.id} app={app} size={iconSize} onTap={(e) => handleOpen(app, e)} />
-              )
+                <AppIcon
+                  key={app.id}
+                  app={app}
+                  size={iconSize}
+                  onTap={(e) => handleOpen(app, e)}
+                />
+              ),
             )}
           </motion.div>
         </div>
 
         {/* Liquid Glass Dock */}
-        <div style={{ padding: isLandscape ? "0 20px 8px" : "0 14px 10px", flexShrink: 0 }}>
+        <div
+          style={{
+            padding: isLandscape ? "0 20px 8px" : "0 14px 10px",
+            flexShrink: 0,
+          }}
+        >
           <div
             className="dock"
             style={{
