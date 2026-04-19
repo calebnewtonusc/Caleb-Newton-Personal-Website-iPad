@@ -14,18 +14,26 @@ interface Props {
 }
 
 function LiveCalendarIcon({ size }: { size: number }) {
-  const [now, setNow] = useState(() => new Date());
+  const [now, setNow] = useState<Date | null>(null);
+
   useEffect(() => {
-    const tick = () => setNow(new Date());
+    setNow(new Date());
+  }, []);
+
+  useEffect(() => {
+    if (!now) return;
     const msUntilMidnight = new Date(now).setHours(24, 0, 0, 0) - now.getTime();
-    const timeout = setTimeout(tick, msUntilMidnight + 1000);
+    const timeout = setTimeout(
+      () => setNow(new Date()),
+      msUntilMidnight + 1000,
+    );
     return () => clearTimeout(timeout);
   }, [now]);
 
   const dayStr = now
-    .toLocaleDateString("en-US", { weekday: "short" })
-    .toUpperCase();
-  const dayNum = now.getDate();
+    ? now.toLocaleDateString("en-US", { weekday: "short" }).toUpperCase()
+    : "";
+  const dayNum = now ? now.getDate() : "";
 
   return (
     <div
