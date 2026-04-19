@@ -13,6 +13,82 @@ interface Props {
   onUnlock: () => void;
 }
 
+function LiveCalendarIcon({ size }: { size: number }) {
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const tick = () => setNow(new Date());
+    const msUntilMidnight = new Date(now).setHours(24, 0, 0, 0) - now.getTime();
+    const timeout = setTimeout(tick, msUntilMidnight + 1000);
+    return () => clearTimeout(timeout);
+  }, [now]);
+
+  const dayStr = now
+    .toLocaleDateString("en-US", { weekday: "short" })
+    .toUpperCase();
+  const dayNum = now.getDate();
+
+  return (
+    <div
+      style={{
+        width: size,
+        height: size,
+        borderRadius: size * 0.2255,
+        overflow: "hidden",
+        background: "white",
+        display: "flex",
+        flexDirection: "column",
+        flexShrink: 0,
+        boxShadow: "0 0 0 0.5px rgba(0,0,0,0.14)",
+      }}
+    >
+      <div
+        style={{
+          height: size * 0.32,
+          display: "flex",
+          alignItems: "flex-end",
+          justifyContent: "center",
+          paddingBottom: size * 0.015,
+        }}
+      >
+        <span
+          style={{
+            fontSize: size * 0.14,
+            fontWeight: 700,
+            color: "#FF3B30",
+            fontFamily: "-apple-system, sans-serif",
+            letterSpacing: 0.6,
+            lineHeight: 1,
+          }}
+        >
+          {dayStr}
+        </span>
+      </div>
+      <div
+        style={{
+          flex: 1,
+          display: "flex",
+          alignItems: "flex-start",
+          justifyContent: "center",
+          paddingTop: size * 0.01,
+        }}
+      >
+        <span
+          style={{
+            fontSize: size * 0.6,
+            fontWeight: 100,
+            color: "#1c1c1e",
+            fontFamily:
+              "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif",
+            lineHeight: 1,
+          }}
+        >
+          {dayNum}
+        </span>
+      </div>
+    </div>
+  );
+}
+
 function AppIcon({
   app,
   size,
@@ -44,18 +120,27 @@ function AppIcon({
         style={{
           width: size,
           height: size,
-          background: app.icon
-            ? "rgba(255,255,255,0.18)"
-            : `linear-gradient(145deg, ${app.gradient[0]}, ${app.gradient[1]})`,
-          backdropFilter: app.icon ? "blur(18px) saturate(1.8)" : undefined,
-          WebkitBackdropFilter: app.icon
-            ? "blur(18px) saturate(1.8)"
-            : undefined,
+          background:
+            app.id === "calendar"
+              ? "transparent"
+              : app.icon
+                ? "rgba(255,255,255,0.18)"
+                : `linear-gradient(145deg, ${app.gradient[0]}, ${app.gradient[1]})`,
+          backdropFilter:
+            app.id !== "calendar" && app.icon
+              ? "blur(18px) saturate(1.8)"
+              : undefined,
+          WebkitBackdropFilter:
+            app.id !== "calendar" && app.icon
+              ? "blur(18px) saturate(1.8)"
+              : undefined,
           overflow: "hidden",
           flexShrink: 0,
         }}
       >
-        {app.icon ? (
+        {app.id === "calendar" ? (
+          <LiveCalendarIcon size={size} />
+        ) : app.icon ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={app.icon}

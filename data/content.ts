@@ -88,30 +88,6 @@ export const experience = [
     photos: [],
   },
   {
-    id: "beamlink",
-    title: "Cybersecurity Consultant",
-    company: "Beamlink",
-    period: "Feb 2026 - Present",
-    year: "2026",
-    logo: "/assets/logos/beamlink.png",
-    color: "#FF3B30",
-    website: "https://beamlink.io/",
-    description:
-      "Conducting an end-to-end security assessment of Bentocell IoT cellular hardware and cloud infrastructure for a next-generation cellular technology startup.",
-    achievements: [
-      "Assessing REST API, WebSocket command channels, and Prometheus/Grafana monitoring stack across Heroku/AWS infrastructure",
-      "Testing OWASP API Security Top 10 vulnerabilities including BOLA, BOPLA, broken authentication, and cross-organization data isolation failures",
-      "Delivering risk-ranked findings, sandboxed exploit demonstrations, and a full remediation roadmap with API key lifecycle best practices",
-    ],
-    skills: [
-      "Penetration Testing",
-      "OWASP API Security",
-      "IoT Security",
-      "Network Security",
-    ],
-    photos: [],
-  },
-  {
     id: "pallas-care",
     title: "Data Analytics & Financial Consultant",
     company: "Pallas Care",
@@ -1193,6 +1169,7 @@ export const apps: AppDef[] = [
 ];
 
 export const dockApps: AppId[] = [
+  "calendar",
   "projects",
   "linkedin",
   "github",
