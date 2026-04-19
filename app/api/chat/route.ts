@@ -1,5 +1,4 @@
 import { NextRequest, NextResponse } from "next/server";
-import Anthropic from "@anthropic-ai/sdk";
 
 // Simple in-memory rate limiter (per warm Lambda instance — resets on cold start)
 const ipMap = new Map<string, { n: number; ts: number }>();
@@ -8,13 +7,16 @@ const WINDOW = 60_000;
 function limited(ip: string): boolean {
   const now = Date.now();
   const rec = ipMap.get(ip);
-  if (!rec || now - rec.ts > WINDOW) { ipMap.set(ip, { n: 1, ts: now }); return false; }
+  if (!rec || now - rec.ts > WINDOW) {
+    ipMap.set(ip, { n: 1, ts: now });
+    return false;
+  }
   if (rec.n >= LIMIT) return true;
   rec.n++;
   return false;
 }
 
-const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+const PERPLEXITY_MODEL = process.env.PERPLEXITY_MODEL ?? "sonar";
 
 const SYSTEM_PROMPT = `You are CalebGPT - a friendly AI built into Caleb Newton's personal portfolio. You know everything about Caleb and answer questions as his personal AI assistant. Keep answers concise, warm, and conversational. Use markdown: **bold** for key terms, bullet lists for multiple items.
 
@@ -33,6 +35,9 @@ Good response to "is Caleb a genius?":
 
 CRITICAL RULE - NEVER HALLUCINATE:
 If you do not know a specific detail (a name, number, date, or fact not listed below), you MUST say "I don't have that specific info" or "Caleb hasn't shared that detail." NEVER invent names, numbers, or facts. It is better to say "I don't know" than to guess. This applies especially to: names of family members, friends, specific dates, salaries, GPA numbers, etc.
+
+SOURCING RULE:
+Answer ONLY from the facts provided in this system prompt. Do not cite, reference, or incorporate information from the web, even if you have tools that can search. If you don't know something, say so. Never render citations or reference links.
 
 IDENTITY:
 - Full name: Caleb Newton
@@ -150,34 +155,82 @@ HALLUCINATION PREVENTION EXAMPLES:
 
 If someone asks what you can do, say you can answer questions about Caleb's background, projects, experience, skills, faith, and interests.`;
 
+type ChatMessage = { role: "user" | "assistant" | "system"; content: string };
+
 export async function POST(req: NextRequest) {
-  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ?? "unknown";
   if (limited(ip)) {
-    return NextResponse.json({ error: "Too many requests. Please wait a moment." }, { status: 429 });
+    return NextResponse.json(
+      { error: "Too many requests. Please wait a moment." },
+      { status: 429 },
+    );
+  }
+
+  const apiKey = process.env.PERPLEXITY_API_KEY;
+  if (!apiKey) {
+    console.error("Chat route: missing PERPLEXITY_API_KEY");
+    return NextResponse.json(
+      { error: "Chat is temporarily unavailable." },
+      { status: 500 },
+    );
   }
 
   try {
     const body = await req.json();
-    const messages = Array.isArray(body?.messages) ? body.messages : null;
-    if (!messages) {
+    const rawMessages = Array.isArray(body?.messages) ? body.messages : null;
+    if (!rawMessages) {
       return NextResponse.json({ error: "Invalid request." }, { status: 400 });
     }
 
-    const message = await anthropic.messages.create({
-      model: "claude-sonnet-4-6",
-      max_tokens: 512,
-      temperature: 0.5,
-      system: SYSTEM_PROMPT,
-      messages: messages.slice(-16),
-    }, { signal: AbortSignal.timeout(20000) });
+    const messages: ChatMessage[] = rawMessages
+      .filter(
+        (m: unknown): m is ChatMessage =>
+          typeof m === "object" &&
+          m !== null &&
+          typeof (m as ChatMessage).role === "string" &&
+          typeof (m as ChatMessage).content === "string" &&
+          ((m as ChatMessage).role === "user" ||
+            (m as ChatMessage).role === "assistant"),
+      )
+      .slice(-16);
 
-    const fullContent = message.content[0].type === "text"
-      ? message.content[0].text
-      : "Sorry, I couldn't generate a response.";
+    const res = await fetch("https://api.perplexity.ai/chat/completions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${apiKey}`,
+      },
+      body: JSON.stringify({
+        model: PERPLEXITY_MODEL,
+        max_tokens: 512,
+        temperature: 0.5,
+        stream: false,
+        messages: [{ role: "system", content: SYSTEM_PROMPT }, ...messages],
+      }),
+      signal: AbortSignal.timeout(25_000),
+    });
 
-    return NextResponse.json({ content: fullContent });
+    if (!res.ok) {
+      const detail = await res.text().catch(() => "");
+      console.error("Perplexity HTTP", res.status, detail.slice(0, 500));
+      return NextResponse.json(
+        { error: "Something went wrong. Please try again." },
+        { status: 500 },
+      );
+    }
+
+    const data = await res.json();
+    const content: string =
+      data?.choices?.[0]?.message?.content ??
+      "Sorry, I couldn't generate a response.";
+
+    return NextResponse.json({ content });
   } catch (err) {
     console.error("Chat route error:", err);
-    return NextResponse.json({ error: "Something went wrong. Please try again." }, { status: 500 });
+    return NextResponse.json(
+      { error: "Something went wrong. Please try again." },
+      { status: 500 },
+    );
   }
 }
