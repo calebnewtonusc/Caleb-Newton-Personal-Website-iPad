@@ -1,0 +1,14 @@
+node_modules
+.next
+.git
+.env
+.env.local
+.env.*.local
+.vercel
+.DS_Store
+npm-debug.log
+Dockerfile
+.dockerignore
+README.md
+TODO_3D_IPAD.md
+tsconfig.tsbuildinfo
