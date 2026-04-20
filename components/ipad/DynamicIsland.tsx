@@ -55,8 +55,7 @@ export default function DynamicIsland() {
                   width: 36,
                   height: 36,
                   borderRadius: "50%",
-                  background:
-                    "linear-gradient(135deg, #34c759, #30d158)",
+                  background: "linear-gradient(135deg, #34c759, #30d158)",
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "center",
@@ -84,7 +83,8 @@ export default function DynamicIsland() {
                     letterSpacing: 0.1,
                   }}
                 >
-                  Innovation · ML · Math · Cyber · Entrepreneurship
+                  Innovation · AI · Math · Physics · Neuroscience ·
+                  Cinematography · Entrepreneurship
                 </div>
               </div>
             </motion.div>

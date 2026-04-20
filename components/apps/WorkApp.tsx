@@ -16,6 +16,70 @@ type ViewState = { mode: "list" } | { mode: "doc"; expId: string };
 const GDOCS_BLUE = "#1a73e8";
 const GDOCS_LIGHT_BLUE = "#e8f0fe";
 
+/* ── Company logo with initials fallback ── */
+function CompanyLogo({
+  logo,
+  company,
+  color,
+  size,
+}: {
+  logo: string | null;
+  company: string;
+  color: string;
+  size: number;
+}) {
+  if (logo) {
+    return (
+      <div
+        style={{
+          width: size,
+          height: size,
+          position: "relative",
+          borderRadius: size * 0.18,
+          overflow: "hidden",
+          background: "white",
+          border: "1px solid rgba(0,0,0,0.06)",
+          flexShrink: 0,
+        }}
+      >
+        <Image
+          src={logo}
+          alt={company}
+          fill
+          sizes={`${size}px`}
+          style={{ objectFit: "contain", padding: Math.max(2, size * 0.08) }}
+        />
+      </div>
+    );
+  }
+  const initials = company
+    .split(/\s+/)
+    .slice(0, 2)
+    .map((w) => w[0])
+    .join("")
+    .toUpperCase();
+  return (
+    <div
+      style={{
+        width: size,
+        height: size,
+        borderRadius: size * 0.18,
+        background: color,
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        color: "white",
+        fontSize: size * 0.4,
+        fontWeight: 700,
+        fontFamily: "'Google Sans', -apple-system, sans-serif",
+        flexShrink: 0,
+      }}
+    >
+      {initials}
+    </div>
+  );
+}
+
 /* ── Toolbar button (File, Edit, etc.) ── */
 function MenuButton({ label }: { label: string }) {
   const [hovered, setHovered] = useState(false);
@@ -85,16 +149,34 @@ const DocCard = memo(function DocCard({
           boxShadow: hovered ? "0 2px 8px rgba(26,115,232,0.18)" : "none",
         }}
       >
+        {/* Logo badge centered at top of thumbnail */}
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            paddingTop: 18,
+            paddingBottom: 10,
+          }}
+        >
+          <CompanyLogo
+            logo={exp.logo}
+            company={exp.company}
+            color={exp.color}
+            size={56}
+          />
+        </div>
         {/* Mini doc preview */}
-        <div style={{ padding: "16px 14px 0", flex: 1 }}>
+        <div style={{ padding: "0 14px 0", flex: 1 }}>
           <div
             style={{
               fontSize: 10,
               fontWeight: 700,
               color: "#202124",
-              marginBottom: 6,
+              marginBottom: 4,
               fontFamily: "'Google Sans', -apple-system, sans-serif",
               lineHeight: 1.3,
+              textAlign: "center",
             }}
           >
             {exp.company}
@@ -103,9 +185,10 @@ const DocCard = memo(function DocCard({
             style={{
               fontSize: 8,
               color: "#5f6368",
-              marginBottom: 8,
+              marginBottom: 10,
               fontFamily: "-apple-system, sans-serif",
               lineHeight: 1.4,
+              textAlign: "center",
             }}
           >
             {exp.title}
@@ -166,18 +249,18 @@ const DocCard = memo(function DocCard({
       >
         <div
           style={{
-            width: 20,
-            height: 20,
+            width: 22,
+            height: 22,
             flexShrink: 0,
             position: "relative",
             marginTop: 1,
           }}
         >
-          <Image
-            src="/assets/icons/googledocs.png"
-            alt="Doc"
-            fill
-            style={{ objectFit: "contain" }}
+          <CompanyLogo
+            logo={exp.logo}
+            company={exp.company}
+            color={exp.color}
+            size={22}
           />
         </div>
         <div style={{ flex: 1, minWidth: 0 }}>
@@ -219,8 +302,15 @@ function DocView({
   exp: (typeof experience)[0];
   onBack: () => void;
 }) {
+  const hasContributions = exp.achievements.length > 0;
+  const hasExtras =
+    exp.skills.length > 0 ||
+    (exp.photos?.length ?? 0) > 0 ||
+    Boolean(exp.website);
+
   return (
     <div
+      className="app-window"
       style={{
         display: "flex",
         flexDirection: "column",
@@ -237,6 +327,8 @@ function DocView({
           display: "flex",
           flexDirection: "column",
           flexShrink: 0,
+          zIndex: 2,
+          boxShadow: "0 1px 0 rgba(0,0,0,0.04), 0 2px 6px rgba(0,0,0,0.04)",
         }}
       >
         {/* Row 1: back arrow + doc icon + title */}
@@ -419,204 +511,228 @@ function DocView({
           flex: 1,
           overflowY: "auto",
           display: "flex",
-          justifyContent: "center",
-          padding: "24px 12px",
+          flexDirection: "column",
+          alignItems: "center",
+          gap: 18,
+          padding: "24px 12px 40px",
+          userSelect: "text",
+          WebkitUserSelect: "text",
         }}
       >
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ type: "spring", stiffness: 300, damping: 28 }}
-          style={{
-            width: "100%",
-            maxWidth: 560,
-            background: "white",
-            borderRadius: 2,
-            boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08)",
-            padding: "40px 40px 60px",
-            minHeight: 500,
-            fontFamily: "Arial, -apple-system, sans-serif",
-          }}
-        >
-          {/* Title */}
-          <h1
-            style={{
-              fontSize: 22,
-              fontWeight: 700,
-              color: "#202124",
-              marginBottom: 4,
-              lineHeight: 1.3,
-            }}
-          >
-            {exp.title}
-          </h1>
+        {/* Page 1: Title + description */}
+        <DocPage index={0}>
           <div
             style={{
-              fontSize: 15,
-              color: GDOCS_BLUE,
-              fontWeight: 500,
-              marginBottom: 2,
               display: "flex",
               alignItems: "center",
-              gap: 6,
+              gap: 16,
+              marginBottom: 16,
             }}
           >
-            {exp.logo && (
-              <span
+            <CompanyLogo
+              logo={exp.logo}
+              company={exp.company}
+              color={exp.color}
+              size={64}
+            />
+            <div style={{ flex: 1, minWidth: 0 }}>
+              <h1
                 style={{
-                  width: 18,
-                  height: 18,
-                  position: "relative",
-                  display: "inline-block",
-                  flexShrink: 0,
+                  fontSize: 22,
+                  fontWeight: 700,
+                  color: "#202124",
+                  marginBottom: 4,
+                  lineHeight: 1.3,
                 }}
               >
-                <Image
-                  src={exp.logo}
-                  alt=""
-                  fill
-                  style={{ objectFit: "contain" }}
-                />
-              </span>
-            )}
-            {exp.company}
-          </div>
-          <div style={{ fontSize: 13, color: "#5f6368", marginBottom: 20 }}>
-            {exp.period}
+                {exp.title}
+              </h1>
+              <div
+                style={{
+                  fontSize: 15,
+                  color: GDOCS_BLUE,
+                  fontWeight: 500,
+                  marginBottom: 2,
+                }}
+              >
+                {exp.company}
+              </div>
+              <div style={{ fontSize: 13, color: "#5f6368" }}>{exp.period}</div>
+            </div>
           </div>
 
-          {/* Horizontal rule */}
           <div style={{ height: 1, background: "#dadce0", marginBottom: 20 }} />
 
-          {/* Description */}
           <p
             style={{
               fontSize: 14,
               color: "#3c4043",
               lineHeight: 1.7,
-              marginBottom: 20,
+              marginBottom: 0,
             }}
           >
             {exp.description}
           </p>
+        </DocPage>
 
-          {/* Achievements */}
-          {exp.achievements.length > 0 && (
-            <>
-              <h2
+        {/* Page 2: Key Contributions */}
+        {hasContributions && (
+          <DocPage index={1}>
+            <h2
+              style={{
+                fontSize: 15,
+                fontWeight: 700,
+                color: "#202124",
+                marginBottom: 10,
+              }}
+            >
+              Key Contributions
+            </h2>
+            <ul style={{ paddingLeft: 20, margin: 0 }}>
+              {exp.achievements.map((a, i) => (
+                <li
+                  key={i}
+                  style={{
+                    fontSize: 13,
+                    color: "#3c4043",
+                    lineHeight: 1.65,
+                    marginBottom: 8,
+                  }}
+                >
+                  {a}
+                </li>
+              ))}
+            </ul>
+          </DocPage>
+        )}
+
+        {/* Page 3: Technologies + photos + website */}
+        {hasExtras && (
+          <DocPage index={hasContributions ? 2 : 1}>
+            {exp.skills.length > 0 && (
+              <div>
+                <h2
+                  style={{
+                    fontSize: 15,
+                    fontWeight: 700,
+                    color: "#202124",
+                    marginBottom: 10,
+                  }}
+                >
+                  Technologies
+                </h2>
+                <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
+                  {exp.skills.map((s) => (
+                    <span
+                      key={s}
+                      style={{
+                        fontSize: 12,
+                        fontWeight: 500,
+                        color: GDOCS_BLUE,
+                        background: GDOCS_LIGHT_BLUE,
+                        borderRadius: 12,
+                        padding: "3px 10px",
+                      }}
+                    >
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {exp.photos && exp.photos.length > 0 && (
+              <div
                 style={{
-                  fontSize: 15,
-                  fontWeight: 700,
-                  color: "#202124",
-                  marginBottom: 10,
+                  marginTop: 24,
+                  display: "flex",
+                  gap: 10,
+                  overflowX: "auto",
+                  paddingBottom: 4,
                 }}
               >
-                Key Contributions
-              </h2>
-              <ul style={{ paddingLeft: 20, margin: 0 }}>
-                {exp.achievements.map((a, i) => (
-                  <li
-                    key={i}
+                {exp.photos.map((src, pi) => (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    key={pi}
+                    src={src}
+                    alt=""
                     style={{
-                      fontSize: 13,
-                      color: "#3c4043",
-                      lineHeight: 1.65,
-                      marginBottom: 8,
+                      height: 120,
+                      width: 190,
+                      borderRadius: 4,
+                      objectFit: "cover",
+                      flexShrink: 0,
+                      border: "1px solid #dadce0",
                     }}
-                  >
-                    {a}
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-
-          {/* Skills */}
-          {exp.skills.length > 0 && (
-            <div style={{ marginTop: 20 }}>
-              <h2
-                style={{
-                  fontSize: 15,
-                  fontWeight: 700,
-                  color: "#202124",
-                  marginBottom: 10,
-                }}
-              >
-                Technologies
-              </h2>
-              <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                {exp.skills.map((s) => (
-                  <span
-                    key={s}
-                    style={{
-                      fontSize: 12,
-                      fontWeight: 500,
-                      color: GDOCS_BLUE,
-                      background: GDOCS_LIGHT_BLUE,
-                      borderRadius: 12,
-                      padding: "3px 10px",
-                    }}
-                  >
-                    {s}
-                  </span>
+                  />
                 ))}
               </div>
-            </div>
-          )}
+            )}
 
-          {/* Photos */}
-          {exp.photos && exp.photos.length > 0 && (
-            <div
-              style={{
-                marginTop: 24,
-                display: "flex",
-                gap: 10,
-                overflowX: "auto",
-                paddingBottom: 4,
-              }}
-            >
-              {exp.photos.map((src, pi) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
-                  key={pi}
-                  src={src}
-                  alt=""
-                  style={{
-                    height: 120,
-                    width: 190,
-                    borderRadius: 4,
-                    objectFit: "cover",
-                    flexShrink: 0,
-                    border: "1px solid #dadce0",
-                  }}
-                />
-              ))}
-            </div>
-          )}
-
-          {/* Website link */}
-          {exp.website && (
-            <a
-              href={exp.website}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 4,
-                marginTop: 24,
-                fontSize: 13,
-                fontWeight: 500,
-                color: GDOCS_BLUE,
-                textDecoration: "none",
-              }}
-            >
-              {exp.website} {"\u2197"}
-            </a>
-          )}
-        </motion.div>
+            {exp.website && (
+              <a
+                href={exp.website}
+                target="_blank"
+                rel="noopener noreferrer"
+                onMouseDown={(e) => e.stopPropagation()}
+                onClick={(e) => e.stopPropagation()}
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  gap: 4,
+                  marginTop: 24,
+                  fontSize: 13,
+                  fontWeight: 500,
+                  color: GDOCS_BLUE,
+                  textDecoration: "none",
+                  cursor: "pointer",
+                  position: "relative",
+                  zIndex: 1,
+                }}
+              >
+                {exp.website} {"\u2197"}
+              </a>
+            )}
+          </DocPage>
+        )}
       </div>
     </div>
+  );
+}
+
+/* ── Individual Google Docs-style page card ── */
+function DocPage({
+  children,
+  index,
+}: {
+  children: React.ReactNode;
+  index: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{
+        type: "spring",
+        stiffness: 300,
+        damping: 28,
+        delay: index * 0.05,
+      }}
+      style={{
+        width: "100%",
+        maxWidth: 560,
+        background: "white",
+        borderRadius: 2,
+        boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08)",
+        padding: "40px 40px 60px",
+        fontFamily: "Arial, -apple-system, sans-serif",
+        userSelect: "text",
+        WebkitUserSelect: "text",
+      }}
+    >
+      {children}
+    </motion.div>
   );
 }
 
@@ -676,7 +792,7 @@ export default function WorkApp({ onClose: _onClose }: Props) {
             fontFamily: "'Google Sans', -apple-system, sans-serif",
           }}
         >
-          Docs
+          Work
         </span>
       </div>
 
