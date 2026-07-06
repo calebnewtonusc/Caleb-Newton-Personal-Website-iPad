@@ -8,7 +8,7 @@ export const profile = {
   photo: "/assets/CalebAtBeachUSCHoodie.jpg",
   photoAlt: "/assets/CalebAtUSC.jpg",
   skills: ["Machine Learning", "Data Engineering", "Computer Vision"],
-  bio: "Hello! I'm Caleb Newton, a follower of Jesus and USC freshman. I'm passionate about building AI systems that serve people, grounded in my Christian faith and commitment to human-centered technology. Currently diving deep into the technical foundations of machine learning: PyTorch, transformers, computer vision, and ranking systems. Outside of code, I'm into vinyl records, board games, hiking, skateboarding, baseball, and making learning joyful.",
+  bio: "Hello! I'm Caleb Newton, a follower of Jesus and USC sophomore. I'm passionate about building AI systems that serve people, grounded in my Christian faith and commitment to human-centered technology. Currently diving deep into the technical foundations of machine learning: PyTorch, transformers, computer vision, and ranking systems. Outside of code, I'm into vinyl records, board games, hiking, skateboarding, baseball, and making learning joyful.",
   roles: [
     "Follower of Jesus",
     "Aspiring AI Engineer",
@@ -38,12 +38,8 @@ export const experience = [
     logo: "/assets/logos/nalana.jpeg",
     color: "#1a4a2e",
     website: "https://nalana.vercel.app/",
-    description:
-      "3D AI design startup building a voice-driven Blender workflow for 3D designers.",
-    achievements: [
-      "Building the Nalana IDE, a voice-driven Blender tool for 3D designers, powered by a multi-agent workflow that combines local speech recognition, rules-based parsing, and LLM fallback with live scene context",
-      "Built Nalana's outbound GTM stack, generating a 16,000-contact pipeline across 9 footwear brands from public 3D tooling signals and uncovering warm Nike intros for fundraising and partnership outreach",
-    ],
+    description: "Creating the future workflow for 3d designers.",
+    achievements: [] as string[],
     skills: [
       "TypeScript",
       "Python",
@@ -63,12 +59,8 @@ export const experience = [
     logo: "/assets/logos/loopmessage.svg",
     color: "#5856D6",
     website: "",
-    description:
-      "iMessage platform for developers. Built Loop's SDK and brokered a strategic partnership with Amber.",
-    achievements: [
-      "Built Loop Message's fully typed TypeScript SDK in Bun and Node.js, spanning 20+ methods across 6 resource areas and 4 messaging channels, with typed webhooks, async pagination, and retry logic that streamlined customer integrations",
-      "Brokered and closed a strategic partnership between Loop Message and Amber, converting Amber's student onboarding funnel into a developer acquisition and distribution channel for Loop's iMessage platform",
-    ],
+    description: "Bringing iMessage to every developer.",
+    achievements: [] as string[],
     skills: ["TypeScript", "Bun", "Node.js", "SDK", "Webhooks", "Partnerships"],
     photos: [],
   },
@@ -81,14 +73,8 @@ export const experience = [
     logo: null,
     color: "#F59E0B",
     website: "",
-    description:
-      "The first decentralized digital health network. Architecting backend, intelligence, and trust infrastructure across Apple platforms, hardware, and web.",
-    achievements: [
-      "Architected and shipped 2 production backend services on Railway using Fastify and Node.js 20, powering Amber across Apple platforms, hardware, and web; built 14 REST route groups and 48+ modules across auth, data, and external services",
-      "Built and deployed a Python coding-agent service on GCP with Docker-sandboxed execution, turning iMessage into a code-execution and deployment channel for building and shipping projects over text",
-      "Built Amber's intelligence layer for a 6-dimension health graph, combining 4 ingestion pipelines, NLP-based relationship graph extraction, workflow orchestration, and nightly training jobs over core AI systems",
-      "Designed Amber's trust and platform layer across verifiable identity, KYC, and immutable graph infrastructure; also sourced and negotiated founder-level partnerships for App Store publishing and iMessage delivery",
-    ],
+    description: "Engineering Perplexity for people & securing clients.",
+    achievements: [] as string[],
     skills: [
       "Fastify",
       "Node.js",
@@ -110,12 +96,8 @@ export const experience = [
     logo: null,
     color: "#16A34A",
     website: "",
-    description:
-      "Food marketplace startup for home-cooked meals. Built and shipped the MVP to the App Store as sole engineer.",
-    achievements: [
-      "Built and launched Silo's MVP to the App Store as sole engineer, developing the full mobile and backend stack for a home-cooked meal marketplace with payments, pickup verification, and phone-based authentication",
-      "Won 1st place at USC Marshall's High Tech Association New Venture Pitch Competition alongside CEO Shirley Park; led Silo's regulatory architecture, monetization model, and technical roadmap ahead of investor outreach",
-    ],
+    description: "Building a marketplace for home-cooked meals.",
+    achievements: [] as string[],
     skills: [
       "Swift",
       "iOS",
@@ -135,12 +117,8 @@ export const experience = [
     logo: "/assets/logos/pallas.png",
     color: "#5856D6",
     website: "https://www.pallas.care/",
-    description:
-      "Home care services company. Built analytics models surfacing caregiver-message patterns from 11 months of CareQB data.",
-    achievements: [
-      "Built 10 features from 11 months of CareQB data (24,391 messages, 2,318 shifts), including an urgency classifier, disruption taxonomy, and response-time model linking caregiver messages to shift outcomes",
-      "Found family-emergency messages had a 1.6x higher callout rate (9.82% vs 6.05%) and that 97% of inbound messages were low-urgency AI-draftable; recommended a 5-point triage plan to cut critical response delays",
-    ],
+    description: "Finding the story in home-care data.",
+    achievements: [] as string[],
     skills: [
       "Python",
       "Data Analytics",
@@ -159,13 +137,8 @@ export const experience = [
     logo: "/assets/icons/aina.png",
     color: "#007AFF",
     website: "https://www.ainatech.ai/",
-    description:
-      "Volumetric AI & immersive media company. Building a 4D Gaussian Splatting pipeline producing photorealistic human rendering from real-world volumetric capture.",
-    achievements: [
-      "Contributing to a 4D Gaussian Splatting pipeline trained on real-world volumetric capture from a 75-camera RED Komodo array, producing photorealistic human rendering beyond synthetic-data baselines",
-      "Architected AlgoRun, an internal orchestration platform that automates a 72-100+ hour multi-stage 3D reconstruction workflow across GPU VMs, replacing manual SSH coordination and improving visibility, consistency, and reliability across the production pipeline",
-      "Built validation, storage, distribution, and agentic knowledge infrastructure for multi-terabyte FSx Lustre datasets and a 35+ repository codebase, improving accessibility across teams and enabling natural-language architecture and pipeline queries via a three-tier retrieval protocol",
-    ],
+    description: "Building the future of holographic video.",
+    achievements: [] as string[],
     skills: [
       "Computer Vision",
       "4D Gaussian Splatting",
@@ -189,12 +162,8 @@ export const experience = [
     logo: "/assets/logos/cosasco.png",
     color: "#0f2a4a",
     website: "https://cosasco.vercel.app",
-    description:
-      "Rohrback Cosasco Systems: a 70+ year industrial company operating in 110+ countries. Designed and shipped a full Next.js website weeks ahead of schedule.",
-    achievements: [
-      "Built a 66-page Next.js 15 site from scratch covering 11 industry verticals and 10 product lines for a 70+ year industrial company operating in 110+ countries; shipped an AI-powered chatbot alongside structured support pathways including a searchable FAQ, SLA-tiered support form, 3-step RMA wizard, and software activation portal all wired to live API routes",
-      "Redesigned Find-a-Rep as a 7-region interactive accordion directory covering 110+ countries with per-rep email routing; ran 5 audit passes eliminating 100+ UX, accessibility, content, and technical issues before first client presentation",
-    ],
+    description: "Corrosion Management Pipelines.",
+    achievements: [] as string[],
     skills: [
       "Next.js",
       "TypeScript",
@@ -214,12 +183,8 @@ export const experience = [
     logo: "/assets/fleursetsel_logo.png",
     color: "#FF9500",
     website: "https://www.fleursetsel.com/",
-    description:
-      "Produced a scaling strategy for a founder-led premium bakery without losing brand identity.",
-    achievements: [
-      "Produced a scaling strategy for a founder-led premium bakery without losing brand identity; delivered social media feed and packaging mockups plus an implementation roadmap",
-      "Built partnership and marketing recommendations using case studies (Sprinkles, Glossier) and corporate partnership research (Marriott, Delta), including QR-driven acquisition concepts",
-    ],
+    description: "Helped scale a founder-centric premium bakery.",
+    achievements: [] as string[],
     skills: ["Strategy", "Marketing", "Business Development"],
     photos: [],
   },
@@ -232,12 +197,8 @@ export const experience = [
     logo: "/assets/logos/sgvchristiancc.png",
     color: "#34C759",
     website: "",
-    description:
-      "Built a coalition of 18+ high school Christian clubs across the San Gabriel Valley and ran Everything Night, a regional 200+ student event.",
-    achievements: [
-      "Built a coalition of 18+ high school Christian clubs across the San Gabriel Valley, creating a scalable model for collaboration, fundraising, media coordination, and sustained regional community-building across separate groups",
-      "Conceived and executed a regional event attracting 200+ students to 20 breakout sessions by curating, refining, and integrating student-led ideas into a cohesive, high-impact program centered on faith, connection, and community",
-    ],
+    description: "Co-founded an 18+ school Christian club coalition.",
+    achievements: [] as string[],
     skills: ["Leadership", "Community Building", "Event Coordination", "Faith"],
     photos: [
       "/assets/everything_night_main.jpg",
@@ -263,11 +224,8 @@ export const experience = [
     color: "#FF6B35",
     website: "https://www.caltech.edu",
     description:
-      "Collaborated with Taylan Kargin, Ph.D., on control theory research for aerospace, autonomous systems, and robotics.",
-    achievements: [
-      "Built MATLAB and Python simulations comparing Taylan Kargin's control model against three alternatives; produced analyses and visualizations to evaluate stability, efficiency, and scalability trade-offs across different control approaches",
-      "Created system models and plots to support evaluation of aerospace and robotics control strategies across operating conditions",
-    ],
+      "Created control theory simulations and analyzed trade-offs under Ph.D. Taylan Kargin.",
+    achievements: [] as string[],
     skills: [
       "Python",
       "MATLAB",
@@ -368,12 +326,12 @@ export const education = [
     subtitle: "Jimmy Iovine & André Young Academy",
     degree: "Bachelor of Science",
     period: "Aug 2025 – May 2029",
-    status: "Current · Freshman",
+    status: "Current · Sophomore",
     logo: "/assets/logos/usc.png",
     color: "#990000",
     website: "https://www.usc.edu",
     description:
-      "Currently taking Multivariable Calculus, Linear Algebra, C++, and Discrete Methods.",
+      "Built the technical foundation freshman year: Multivariable Calculus, Linear Algebra, C++, and Discrete Methods.",
     highlights: [
       "CSCI 103 -Introduction to Programming (C++)",
       "CSCI 170 -Discrete Methods",
@@ -677,7 +635,7 @@ export const personalSettings = [
       {
         label: "Software Version",
         type: "info",
-        detail: "USC Freshman OS 25.1.0",
+        detail: "USC Sophomore OS 26.1.0",
       },
       { label: "Serial Number", type: "info", detail: "calebnew@usc.edu" },
       {

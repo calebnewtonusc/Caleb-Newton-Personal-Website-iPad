@@ -30,7 +30,7 @@ const INBOX: Email[] = [
       "Hi! I'm actively looking for AI engineering, data engineering, and software internships...",
     body: `Hi there,
 
-I'm Caleb Newton -a freshman at USC's Jimmy Iovine & André Young Academy, currently building at the intersection of machine learning and real-world systems.
+I'm Caleb Newton -a sophomore at USC's Jimmy Iovine & André Young Academy, currently building at the intersection of machine learning and real-world systems.
 
 I'm actively looking for internships and research positions in:
 • Machine Learning Engineering
