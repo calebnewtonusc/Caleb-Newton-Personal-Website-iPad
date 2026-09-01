@@ -18,8 +18,9 @@ function limited(ip: string): boolean {
 }
 
 const CLAUDE_MODEL = process.env.CLAUDE_MODEL ?? "claude-sonnet-4-6";
-const AMBER_ID_BASE_URL =
-  process.env.AMBER_ID_BASE_URL ?? "https://amber-id-production.up.railway.app";
+const CONTEXT_BASE_URL =
+  process.env.CALEB_CONTEXT_BASE_URL ??
+  "https://medha-id-production.up.railway.app";
 const CONTEXT_CACHE_MS = 60_000;
 
 const BASE_SYSTEM_PROMPT = `You are CalebGPT on Caleb Newton's personal site. You answer questions about Caleb using the CANONICAL CONTEXT block below as your sole source of truth.
@@ -41,8 +42,8 @@ If the user just says "hi", "hey", "yo", or similar, respond with a short friend
 
 If asked what you can do, say you can answer questions about Caleb's background, projects, experience, skills, faith, and interests.`;
 
-const FALLBACK_CONTEXT = `CANONICAL CONTEXT (fallback — amber-id unreachable):
-Caleb Newton is a sophomore at the USC Jimmy Iovine and Andre Young Academy (Innovation), class of 2029. He is a follower of Jesus and President of USC Trojan Technology Solutions (TTS). He works as a Software Engineer at AINA Tech on 4D Gaussian Splatting, as a Founding Engineer at Amber (the first decentralized digital health network), as a GTM & Product Engineer at Nalana (3D AI design) and Loop Message (iMessage platform for developers), as Founder & CTO at Silo (food marketplace), and as a Data Analytics consultant at Pallas Care. He studies Multivariable Calculus, Linear Algebra, Discrete Methods, and C++ in Spring 2026. He is from San Marino, CA, half-Filipino half-White, 2e autistic (diagnosed senior year), and a former varsity baseball player.`;
+const FALLBACK_CONTEXT = `CANONICAL CONTEXT (fallback — medha-id unreachable):
+Caleb Newton is a sophomore at the USC Jimmy Iovine and Andre Young Academy (Innovation), class of 2029. He is a follower of Jesus and President of USC Trojan Technology Solutions (TTS). He works as a Software Engineer and Immersive Studio Production Assistant at AINA Tech on 4D Gaussian Splatting, as an AI and Data Engineer at Blue Modern Advisory building Amber (a relationship-centric health platform), as a GTM & Product Engineer at Nalana (3D AI design) and Loop Message (iMessage platform for developers), as Co-Founder & CTO at Silo (a marketplace for home-cooked meals, where Shirley Park is Founder & CEO), and as a Data Analytics consultant at Pallas Care. He completed Multivariable Calculus, Linear Algebra, Discrete Methods, and C++ during his freshman year. He is from San Marino, CA, half-Filipino half-White, 2e autistic (diagnosed senior year), and a former varsity baseball player.`;
 
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
@@ -54,7 +55,7 @@ async function fetchCalebContext(): Promise<string> {
     return contextCache.body;
   }
   try {
-    const res = await fetch(`${AMBER_ID_BASE_URL}/public/caleb-context`, {
+    const res = await fetch(`${CONTEXT_BASE_URL}/public/caleb-context`, {
       headers: { accept: "text/markdown, text/plain;q=0.9, */*;q=0.5" },
       signal: AbortSignal.timeout(5_000),
       cache: "no-store",
@@ -65,7 +66,7 @@ async function fetchCalebContext(): Promise<string> {
     contextCache = { body, ts: now };
     return body;
   } catch (err) {
-    console.error("amber-id context fetch failed:", err);
+    console.error("medha-id context fetch failed:", err);
     return FALLBACK_CONTEXT;
   }
 }
@@ -147,7 +148,7 @@ export async function POST(req: NextRequest) {
         },
         {
           type: "text",
-          text: `--- CANONICAL CONTEXT (from amber-id, source of truth) ---\n${canonicalContext}\n--- END CANONICAL CONTEXT ---`,
+          text: `--- CANONICAL CONTEXT (from medha-id, source of truth) ---\n${canonicalContext}\n--- END CANONICAL CONTEXT ---`,
           cache_control: { type: "ephemeral" },
         },
       ],

@@ -66,14 +66,14 @@ export const experience = [
   },
   {
     id: "amber",
-    title: "Founding Engineer",
-    company: "Amber",
+    title: "AI & Data Engineer",
+    company: "Blue Modern Advisory",
     period: "Feb 2026 - Present",
     year: "2026",
-    logo: null,
+    logo: "/assets/logos/bluemodern.png",
     color: "#F59E0B",
     website: "",
-    description: "Engineering Perplexity for people & securing clients.",
+    description: "Engineering Amber, a relationship-centric health platform.",
     achievements: [] as string[],
     skills: [
       "Fastify",
@@ -89,7 +89,7 @@ export const experience = [
   },
   {
     id: "silo",
-    title: "Founder & CTO",
+    title: "Co-Founder & CTO",
     company: "Silo",
     period: "Feb 2026 - Present",
     year: "2026",

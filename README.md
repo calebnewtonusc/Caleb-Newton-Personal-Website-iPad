@@ -17,7 +17,7 @@ A personal portfolio site designed as an interactive iPad simulator. Browse work
 
 - **Realistic iPad Shell:** pixel-accurate frame with Dynamic Island, status bar, Home indicator, and a power button that actually turns the screen off
 - **iOS Home Screen:** app icon grid with a tap-to-open Projects folder, Dock, and swipe-to-unlock lock screen; fully responsive between landscape and portrait
-- **17 Interactive Apps:** Work, Projects, Education, Photos, Organizations, Mail/Contact, Settings (About Me), CalebGPT, Spotify player, Bible, and social link apps (GitHub, LinkedIn, YouTube, Letterboxd, X, Substack, RateYourMusic)
+- **18 Interactive Apps:** Work, Projects, Education, Photos, Organizations, Mail/Contact, Settings (About Me), CalebGPT, Spotify player, Bible, and social link apps (GitHub, LinkedIn, YouTube, Letterboxd, X, Substack, RateYourMusic)
 - **Framer Motion Physics:** spring-based orientation transitions, pinch-scale corner-drag resize, app open/close zoom animations, and ambient scroll gestures to close Spotify
 - **Spotify App:** embedded live Spotify player with favorite new and classic albums
 - **CalebGPT:** in-app AI assistant for answering questions about Caleb's background and work
