@@ -21,6 +21,21 @@ Involved in GenCollege Christians, Troy Philippines, Flavors Food Culture, Drago
 
 The academics gave me the foundation; everything else gave me the character.`,
   },
+  huntington: {
+    body: `Middle school was the hard part. I got bullied, and it taught me early that being the smart kid and being liked were not the same thing.
+
+What I actually took from it: stop performing for rooms that were never going to clap, and pay attention to who shows up when there is nothing in it for them. I still sort people that way.`,
+  },
+  carver: {
+    body: `Peak nerd era, and I would not trade it. I memorized 200 digits of pi at ten, solved Rubik's cubes, and built Lego robotics.
+
+The part worth keeping is that none of it was self-conscious. I liked what I liked at full volume. Getting back to that has been most of the work of the last few years.`,
+  },
+  stjohns: {
+    body: `Where it started. Block towers, the tricycle racing league, and roughly 47 uses of the word why per day.
+
+The curiosity has not changed. Only the tools.`,
+  },
 };
 
 // Format date for notes
@@ -182,7 +197,9 @@ export default function EducationApp({ onClose }: Props) {
                     }}
                   >
                     {/* List rows */}
-                    {education.map((ed, i) => (
+                    {education
+                      .filter((ed) => ed.id !== recent.id)
+                      .map((ed, i) => (
                       <m.div
                         key={ed.id}
                         initial={{ opacity: 0 }}

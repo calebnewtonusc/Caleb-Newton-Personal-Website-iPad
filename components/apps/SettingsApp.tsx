@@ -267,7 +267,7 @@ const PROFILE_SECTION = "__profile__";
 const SECTION_GROUPS = [
   ["family"],
   ["bluetooth", "screentime"],
-  ["faith", "music", "sports"],
+  ["faith", "music"],
   ["film", "runtime"],
   ["system", "device"],
 ];

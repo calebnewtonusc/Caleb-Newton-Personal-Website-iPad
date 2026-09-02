@@ -8,7 +8,7 @@ export const profile = {
   photo: "/assets/CalebAtBeachUSCHoodie.jpg",
   photoAlt: "/assets/CalebAtUSC.jpg",
   skills: ["Python", "C++", "CUDA", "TypeScript", "Swift", "SQL"],
-  bio: "Hello! I'm Caleb Newton, a follower of Jesus and a USC sophomore.\n\nFor most of my life, you think too much, kid was something people said to me as a criticism. I was diagnosed autistic my senior year of high school, and it reframed the whole thing. The systematic thinking was never the problem. It was the point.\n\nI pitched in high school until a hamstring injury took my velocity from 84 down to 70. I spent a year reading sports science papers and rebuilding my mechanics, and I got it back. That was the first time research stopped being homework and became something I could actually use.\n\nIn 2022 I played baseball in a junkyard in the Dominican Republic. The people there had close to nothing and were the most joyful I had ever met. It rearranged what I thought joy came from.\n\nSenior year I led a Christian club of 90+ students, then went looking for the other clubs like it. That turned into a coalition across 20+ schools in the San Gabriel Valley and one night where 200 students showed up.\n\nThese days I collect vinyl, beatbox in the car, take board games far too seriously, and have not paid retail in years. I care about building things that put people in the same room, and about telling the truth even when a softer version would land easier.",
+  bio: "Hello! I'm Caleb Newton, a follower of Jesus and a USC sophomore.\n\nFor most of my life, you think too much, kid was something people said to me as a criticism. I was diagnosed autistic at the start of my senior year of high school, and it reframed the whole thing. The systematic thinking was never the problem. It was the point.\n\nI threw 84 as a closer until my arm gave out and I dropped to 70. I spent a year reading sports science papers and rebuilding my mechanics, and I got back to 81. Not all the way. But that was the first time research stopped being homework and turned into something I could actually use on myself.\n\nIn 2022 I played baseball in a junkyard in the Dominican Republic. The people there had close to nothing and were the most joyful I had ever met. It rearranged what I thought joy came from.\n\nThose three things, in that order, are most of why I build what I build.",
   roles: [
     "Follower of Jesus",
     "Founder",
@@ -105,7 +105,7 @@ export const experience = [
     title: "Software Engineer",
     company: "AINA Tech",
     period: "Sep 2025 - Dec 2025",
-    year: "2026",
+    year: "2025",
     location: "Santa Monica, CA",
     logo: "/assets/icons/aina.png",
     color: "#007AFF",
@@ -277,6 +277,61 @@ export const education = [
       "Screen Time League Founder",
     ],
   },
+{
+    id: "huntington",
+    school: "Huntington Middle School",
+    subtitle: "",
+    degree: "The hard years",
+    period: "Aug 2018 - Jun 2021",
+    status: "Survived",
+    logo: null,
+    color: "#5856D6",
+    website: "",
+    description:
+      "Got bullied. Learned early that being the smart kid and being liked were not the same thing.",
+    highlights: [
+      "Learned who actually shows up",
+      "Stopped performing for rooms that were never going to clap",
+      "Found the people who liked the real version",
+    ],
+  },
+  {
+    id: "carver",
+    school: "Carver Elementary School",
+    subtitle: "",
+    degree: "Peak nerd era",
+    period: "Aug 2012 - Jun 2018",
+    status: "Unbothered",
+    logo: null,
+    color: "#34C759",
+    website: "",
+    description:
+      "Memorized 200 digits of pi at ten, solved Rubik's cubes, built Lego robotics. No self-consciousness about any of it.",
+    highlights: [
+      "200 digits of pi, age 10",
+      "Rubik's cubes",
+      "Lego robotics",
+      "Asked why until adults ran out of answers",
+    ],
+  },
+  {
+    id: "stjohns",
+    school: "St. John's Nursery School",
+    subtitle: "Certified juice box connoisseur",
+    degree: "Fundamentals of sharing and naptime negotiation",
+    period: "Aug 2010 - Jun 2011",
+    status: "Graduated with honors",
+    logo: "/assets/stjohns.jpg",
+    color: "#FF9500",
+    website: "https://www.stjohnsnurseryla.com",
+    description:
+      "Tested gravity with block towers, raced tricycles, and asked why roughly 47 times a day.",
+    highlights: [
+      "Block tower construction",
+      "Tricycle racing league",
+      "Story time enthusiast",
+    ],
+  },
 ];
 
 export const skills = {
@@ -366,7 +421,7 @@ export const personalSettings = [
       {
         label: "WHOOP",
         type: "toggle-on",
-        detail: "Connected · knows how bad the sleep is",
+        detail: "Connected · recovery score is the only metric he trusts",
       },
       {
         label: "JBL Speaker",
@@ -396,14 +451,9 @@ export const personalSettings = [
       {
         label: "Phone In Another Room",
         type: "toggle-on",
-        detail: "During deep work",
+        detail: "More often than not",
       },
       { label: "Doomscrolling", type: "toggle-off", detail: "Nothing good is down there" },
-      {
-        label: "Screen Time League",
-        type: "info",
-        detail: "Founded one in high school",
-      },
     ],
   },
   {
@@ -412,14 +462,14 @@ export const personalSettings = [
     items: [
       { label: "Follower of Jesus", type: "toggle-on", detail: "Non-negotiable" },
       {
-        label: "Favorite Verse",
+        label: "Like A Tree Planted By Water",
         type: "info",
-        detail: "1 Thessalonians 5:17, pray without ceasing",
+        detail: "Psalm 1:3, whose delight is in the law of the Lord",
       },
       {
-        label: "Rejoice Always",
+        label: "I Will Not Let You Go",
         type: "info",
-        detail: "1 Thessalonians 5:16",
+        detail: "Genesis 32:26, Jacob wrestling until the blessing",
       },
       {
         label: "Give Thanks In All Circumstances",
@@ -439,7 +489,7 @@ export const personalSettings = [
       {
         label: "Five-Fold Ministry",
         type: "info",
-        detail: "Ephesians 4:11, how he built the ACTS cabinet",
+        detail: "Ephesians 4:11, the framework he leads by",
       },
       { label: "Church", type: "info", detail: "GenCollege Christians @ USC" },
       { label: "In The Word Daily", type: "toggle-on", detail: "An hour or more, every day" },
@@ -459,12 +509,6 @@ export const personalSettings = [
         type: "toggle-on",
         detail: "Will stand against the crowd when it matters",
       },
-      {
-        label: "Human-Centered Technology",
-        type: "toggle-on",
-        detail: "Tech should serve people, not farm them",
-      },
-      { label: "IRL Connection > Social Media", type: "toggle-on", detail: "Always" },
     ],
   },
   {
@@ -488,13 +532,13 @@ export const personalSettings = [
     ],
   },
   {
-    section: "Hobbies",
-    icon: "sports",
+    section: "Interests",
+    icon: "film",
     items: [
       {
-        label: "Baseball",
-        type: "toggle-off",
-        detail: "Team Captain, San Marino HS. Retired",
+        label: "Dodger Games",
+        type: "toggle-on",
+        detail: "Watching with friends beats playing alone",
       },
       { label: "Wrestling", type: "toggle-off", detail: "Two years. Grit Award" },
       { label: "Dragon Boat", type: "toggle-on", detail: "Paddling with Troy" },
@@ -517,12 +561,6 @@ export const personalSettings = [
       { label: "Thrifting", type: "toggle-on", detail: "Finds are undefeated" },
       { label: "Improv", type: "toggle-on", detail: "Say yes, and" },
       { label: "Paying Retail", type: "toggle-off", detail: "Not in years" },
-    ],
-  },
-  {
-    section: "Interests",
-    icon: "film",
-    items: [
       { label: "Letterboxd", type: "info", detail: "cnewt" },
       {
         label: "Favorites",
@@ -573,19 +611,9 @@ export const personalSettings = [
         detail: "Two hours, no tabs, no exceptions",
       },
       {
-        label: "Hyperfocus",
-        type: "toggle-on",
-        detail: "Cannot be scheduled, only survived",
-      },
-      {
         label: "Context Switching",
         type: "toggle-off",
         detail: "Please do not do this to me",
-      },
-      {
-        label: "Weekly Shipping",
-        type: "toggle-on",
-        detail: "Something merged every week. Non-negotiable",
       },
       {
         label: "Replies Same Day",
@@ -616,6 +644,8 @@ export const personalSettings = [
         detail: "Beats guessing confidently",
       },
       { label: "Hype", type: "toggle-off", detail: "Show me the thing working" },
+      { label: "Weekly Shipping", type: "toggle-on", detail: "Something merged every week" },
+      { label: "Tech That Serves People", type: "toggle-on", detail: "Rather than farms them" },
       {
         label: "Vague Feedback",
         type: "toggle-off",
@@ -626,7 +656,6 @@ export const personalSettings = [
         type: "toggle-on",
         detail: "Then complains about the docs",
       },
-      { label: "Do Not Disturb", type: "toggle-off", detail: "People keep texting" },
       {
         label: "Public GitHub, Private Thoughts",
         type: "toggle-on",
@@ -643,7 +672,7 @@ export const personalSettings = [
       { label: "Personality", type: "info", detail: "ENTJ-A · Commander" },
       { label: "Origin", type: "info", detail: "San Marino, CA → USC" },
       { label: "Software Version", type: "info", detail: "USC Sophomore OS 26.1.0" },
-      { label: "Serial Number", type: "info", detail: "calebnew@usc.edu" },
+      { label: "Hyperfocus", type: "toggle-on", detail: "Cannot be scheduled, only survived" },
       {
         label: "Contrarian Mode",
         type: "toggle-on",
@@ -655,12 +684,12 @@ export const personalSettings = [
         type: "info",
         detail: "Is your mind more like a tower or a river?",
       },
-      { label: "Battery", type: "info", detail: "Charged by faith and coffee" },
+      { label: "Battery", type: "info", detail: "Recharges one conversation at a time" },
       { label: "Storage", type: "info", detail: "∞ Curiosity · 20TB Work Ethic" },
       {
         label: "Background Process",
         type: "info",
-        detail: "Head-bobbing may occur during vinyl sessions",
+        detail: "Silently rewriting the sentence he just said",
       },
     ],
   },
@@ -909,6 +938,69 @@ export const organizations = [
   },
 ];
 
+export const mentors = [
+  {
+    id: "nick-boyer",
+    name: "Nick Boyer",
+    role: "Mentor",
+    color: "#007AFF",
+    gratitude:
+      "One of the people I am most grateful for. He gets a real line here once I write it properly.",
+    link: "",
+    linkLabel: "",
+  },
+  {
+    id: "erik-fish",
+    name: "Erik Fish",
+    role: "Spiritual mentor",
+    color: "#FF9500",
+    gratitude:
+      "Thirty years of mentoring leaders and multiplying movements, and he still made room for me when I had nowhere else to be. Most of what I believe about calling I got from watching him work.",
+    link: "https://erikfish.com",
+    linkLabel: "erikfish.com",
+  },
+  {
+    id: "sagar-tiwari",
+    name: "Sagar Tiwari",
+    role: "Amber",
+    color: "#F59E0B",
+    gratitude:
+      "Handed me real responsibility long before I had done anything to earn it, then expected me to rise to it. Most of what I know about building for actual users, I learned standing next to him.",
+    link: "",
+    linkLabel: "",
+  },
+  {
+    id: "joel-george",
+    name: "Joel George",
+    role: "Spiritual mentor",
+    color: "#5856D6",
+    gratitude:
+      "Has walked with me through the parts of my life that never make it onto a resume.",
+    link: "",
+    linkLabel: "",
+  },
+  {
+    id: "duncan-inganji",
+    name: "Duncan Inganji",
+    role: "Spiritual mentor",
+    color: "#34C759",
+    gratitude:
+      "Asks the question underneath the question, and waits for the honest answer.",
+    link: "",
+    linkLabel: "",
+  },
+  {
+    id: "josh-patingo",
+    name: "Josh Patingo",
+    role: "Mentor",
+    color: "#FF3B30",
+    gratitude:
+      "One of the people I am most grateful for. He gets a real line here once I write it properly.",
+    link: "",
+    linkLabel: "",
+  },
+];
+
 export const music = {
   currentlyPlaying: {
     title: "Praise",
@@ -990,6 +1082,7 @@ export type AppId =
   | "substack"
   | "calebgpt"
   | "bible"
+  | "mentors"
   | "calendar";
 
 export interface AppDef {
@@ -1058,6 +1151,13 @@ export const apps: AppDef[] = [
     emoji: "S",
     icon: "/assets/icons/spotify.png",
     gradient: ["#1DB954", "#157A37"],
+  },
+  {
+    id: "mentors",
+    name: "Mentors",
+    emoji: "M",
+    icon: "/assets/icons/mentors.png",
+    gradient: ["#FF9500", "#FF3B30"],
   },
   {
     id: "bible",
