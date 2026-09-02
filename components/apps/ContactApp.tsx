@@ -27,12 +27,12 @@ const INBOX: Email[] = [
     fromShort: "CN",
     subject: "Open to opportunities",
     preview:
-      "I'm building Amber Intelligence and Silo, and I'm always up for a conversation...",
+      "I'm building Amber Intelligence, and I'm always up for a conversation...",
     body: `Hi there,
 
 I'm Caleb Newton, a sophomore at USC's Jimmy Iovine & Dr. Dre Young Innovation Academy, studying Machine Learning Engineering, Entrepreneurship & Design with a minor in Neuroscience.
 
-Right now I'm Founding GTM & Product Lead at Amber Intelligence, a relationship and health AI startup, and the founder of Silo, a marketplace for California's permitted home cooks.
+Right now I'm Founding GTM & Product Lead at Amber Intelligence, a relationship and health AI startup.
 
 Before that I was a GTM Engineer at Blue Modern Advisory and at Nalana, a software engineer at AINA Tech, and a control theory research assistant at Caltech.
 
@@ -46,12 +46,11 @@ Feel free to reach out. I respond to everything.`,
     fromShort: "CN",
     subject: "Let's build something together",
     preview:
-      "Relationship graphs, a home-cook marketplace, an ASL wearable, and control theory...",
+      "Relationship graphs, an ASL wearable, GTM engines, and control theory...",
     body: `What I've built:
 
 Amber Intelligence. Led the repositioning around user-owned contact data, which became the core product differentiation and fundraising thesis. Opened 12 VC conversations. Built PeopleRank, a 3-stage retrieval engine that ranks relationships even when the underlying data is incomplete.
 
-Silo. Secured an official Cooks Alliance partnership unlocking 1,000+ permitted cooks for statewide expansion, and won the USC New Venture Pitch Competition.
 
 Blue Modern Advisory. Rebuilt the outbound engine across 147,000+ monthly emails, increasing booked meetings 6.3x and generating $350K+ in pipeline across 8 clients.
 

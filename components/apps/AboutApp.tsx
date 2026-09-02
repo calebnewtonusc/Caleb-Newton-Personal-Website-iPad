@@ -195,7 +195,7 @@ export default function AboutApp({ onClose }: Props) {
               "Hiking trails and finding God in creation",
               "Playing board games, spikeball, and pickleball",
               "Exploring biohacking and optimizing daily routines",
-              "Building Amber Intelligence and Silo",
+              "Building Amber Intelligence",
             ].map((item, i, arr) => (
               <div
                 key={i}

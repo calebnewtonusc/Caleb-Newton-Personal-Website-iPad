@@ -574,7 +574,7 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                   {[
                     {
                       label: "Building",
-                      value: "Amber Intelligence · Silo",
+                      value: "Amber Intelligence",
                     },
                     {
                       label: "Studying",
