@@ -352,7 +352,7 @@ function DocView({
               flexShrink: 0,
             }}
           >
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+            <svg aria-hidden="true" width="18" height="18" viewBox="0 0 24 24" fill="none">
               <path
                 d="M15 19l-7-7 7-7"
                 stroke="#5f6368"

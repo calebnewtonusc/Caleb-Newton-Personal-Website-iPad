@@ -41,7 +41,7 @@ const SECTIONS = [
 
 function FolderSVG({ color, size = 36 }: { color: string; size?: number }) {
   return (
-    <svg
+    <svg aria-hidden="true"
       width={size}
       height={size * 0.8}
       viewBox="0 0 46 37"
@@ -135,7 +135,7 @@ function OrgDetail({
               fontFamily: "-apple-system, sans-serif",
             }}
           >
-            <svg width="8" height="13" viewBox="0 0 8 13" fill="none">
+            <svg aria-hidden="true" width="8" height="13" viewBox="0 0 8 13" fill="none">
               <path
                 d="M7 1L1 6.5L7 12"
                 stroke="#007aff"
@@ -664,7 +664,7 @@ export default function FilesApp({ orientation }: Props) {
                     >
                       {folder.ids.length}
                     </span>
-                    <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
+                    <svg aria-hidden="true" width="7" height="12" viewBox="0 0 7 12" fill="none">
                       <path
                         d="M1 1l5 5L1 11"
                         stroke="#c7c7cc"
@@ -705,7 +705,7 @@ export default function FilesApp({ orientation }: Props) {
                   fontFamily: "-apple-system, sans-serif",
                 }}
               >
-                <svg width="8" height="13" viewBox="0 0 8 13" fill="none">
+                <svg aria-hidden="true" width="8" height="13" viewBox="0 0 8 13" fill="none">
                   <path
                     d="M7 1L1 6.5L7 12"
                     stroke="#007aff"

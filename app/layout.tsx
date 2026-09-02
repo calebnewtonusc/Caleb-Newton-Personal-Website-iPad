@@ -43,7 +43,12 @@ export default function RootLayout({
         <link rel="preload" href="/assets/icons/github.webp" as="image" />
         <link rel="preload" href="/assets/icons/linkedin.jpg" as="image" />
       </head>
-      <body>{children}</body>
+      <body>
+        <a href="#ipad" className="skip-link">
+          Skip to content
+        </a>
+        <main id="ipad">{children}</main>
+      </body>
     </html>
   );
 }

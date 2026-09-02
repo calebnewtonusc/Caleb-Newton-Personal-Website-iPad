@@ -62,7 +62,20 @@ export default function IPadFrame({ orientation, children, onPowerPress }: Props
       {/* ── Side / Top Buttons ── */}
       {/* Power button (right side landscape / top-right portrait) */}
       <motion.div
+        role={onPowerPress ? "button" : undefined}
+        tabIndex={onPowerPress ? 0 : undefined}
+        aria-label={onPowerPress ? "Turn the screen off" : undefined}
         onClick={onPowerPress}
+        onKeyDown={
+          onPowerPress
+            ? (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                  e.preventDefault();
+                  onPowerPress();
+                }
+              }
+            : undefined
+        }
         whileTap={onPowerPress ? { scale: 0.9 } : undefined}
         style={{
           position: "absolute",

@@ -47,7 +47,7 @@ const SECTION_ICONS: Record<
   family: {
     bg: "#34C759",
     render: () => (
-      <svg width="19" height="15" viewBox="0 0 19 15" fill="none">
+      <svg aria-hidden="true" width="19" height="15" viewBox="0 0 19 15" fill="none">
         <circle cx="6.5" cy="4.5" r="3.2" fill="white" />
         <circle cx="14" cy="5.5" r="2.4" fill="white" />
         <path
@@ -68,7 +68,7 @@ const SECTION_ICONS: Record<
   bluetooth: {
     bg: "#007AFF",
     render: () => (
-      <svg width="13" height="18" viewBox="0 0 13 18" fill="none">
+      <svg aria-hidden="true" width="13" height="18" viewBox="0 0 13 18" fill="none">
         <path
           d="M2 5l9 8-4.5 4V1L11 5l-9 8"
           stroke="white"
@@ -82,7 +82,7 @@ const SECTION_ICONS: Record<
   screentime: {
     bg: "#5E5CE6",
     render: () => (
-      <svg width="14" height="18" viewBox="0 0 14 18" fill="none">
+      <svg aria-hidden="true" width="14" height="18" viewBox="0 0 14 18" fill="none">
         <path
           d="M2 1h10M2 17h10M3 1c0 4 8 4 8 8s-8 4-8 8"
           stroke="white"
@@ -96,7 +96,7 @@ const SECTION_ICONS: Record<
   faith: {
     bg: "#5856D6",
     render: () => (
-      <svg width="15" height="19" viewBox="0 0 15 19" fill="none">
+      <svg aria-hidden="true" width="15" height="19" viewBox="0 0 15 19" fill="none">
         <rect x="6" y="0" width="3" height="19" rx="1.5" fill="white" />
         <rect x="0" y="5" width="15" height="3" rx="1.5" fill="white" />
       </svg>
@@ -105,7 +105,7 @@ const SECTION_ICONS: Record<
   music: {
     bg: "#FF2D55",
     render: () => (
-      <svg width="17" height="16" viewBox="0 0 17 16" fill="none">
+      <svg aria-hidden="true" width="17" height="16" viewBox="0 0 17 16" fill="none">
         <path
           d="M5.5 13V4.5L15 3v7.5"
           stroke="white"
@@ -121,7 +121,7 @@ const SECTION_ICONS: Record<
   sports: {
     bg: "#FF6B2B",
     render: () => (
-      <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
+      <svg aria-hidden="true" width="18" height="18" viewBox="0 0 18 18" fill="none">
         {/* Basketball circle */}
         <circle
           cx="9"
@@ -160,7 +160,7 @@ const SECTION_ICONS: Record<
   film: {
     bg: "#007AFF",
     render: () => (
-      <svg width="18" height="14" viewBox="0 0 18 14" fill="none">
+      <svg aria-hidden="true" width="18" height="14" viewBox="0 0 18 14" fill="none">
         <rect
           x="1"
           y="1"
@@ -189,7 +189,7 @@ const SECTION_ICONS: Record<
   runtime: {
     bg: "#FFD60A",
     render: () => (
-      <svg width="13" height="18" viewBox="0 0 13 18" fill="none">
+      <svg aria-hidden="true" width="13" height="18" viewBox="0 0 13 18" fill="none">
         <path
           d="M7.5 0.5L0.5 10H6L5.5 17.5L12.5 7H7L7.5 0.5Z"
           fill="#1c1c1e"
@@ -203,7 +203,7 @@ const SECTION_ICONS: Record<
   system: {
     bg: "#636366",
     render: () => (
-      <svg width="17" height="17" viewBox="0 0 17 17" fill="none">
+      <svg aria-hidden="true" width="17" height="17" viewBox="0 0 17 17" fill="none">
         <circle cx="8.5" cy="8.5" r="2.8" stroke="white" strokeWidth="1.5" />
         <path
           d="M8.5 1v2.2M8.5 13.8V16M1 8.5h2.2M13.8 8.5H16"
@@ -223,7 +223,7 @@ const SECTION_ICONS: Record<
   device: {
     bg: "#8E8E93",
     render: () => (
-      <svg width="12" height="18" viewBox="0 0 12 18" fill="none">
+      <svg aria-hidden="true" width="12" height="18" viewBox="0 0 12 18" fill="none">
         <rect
           x="1"
           y="1"
@@ -375,7 +375,7 @@ export default function SettingsApp({ orientation }: Props) {
                       {profile.tagline}
                     </p>
                   </div>
-                  <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
+                  <svg aria-hidden="true" width="7" height="12" viewBox="0 0 7 12" fill="none">
                     <path
                       d="M1 1l5 5L1 11"
                       stroke="#c7c7cc"
@@ -435,7 +435,7 @@ export default function SettingsApp({ orientation }: Props) {
                           >
                             {sec.section}
                           </span>
-                          <svg
+                          <svg aria-hidden="true"
                             width="7"
                             height="12"
                             viewBox="0 0 7 12"
@@ -495,7 +495,7 @@ export default function SettingsApp({ orientation }: Props) {
                       fontFamily: "-apple-system, sans-serif",
                     }}
                   >
-                    <svg width="8" height="14" viewBox="0 0 8 14" fill="none">
+                    <svg aria-hidden="true" width="8" height="14" viewBox="0 0 8 14" fill="none">
                       <path
                         d="M7 1L1 7l6 6"
                         stroke="#007aff"
@@ -734,7 +734,7 @@ export default function SettingsApp({ orientation }: Props) {
                         fontFamily: "-apple-system, sans-serif",
                       }}
                     >
-                      <svg width="8" height="14" viewBox="0 0 8 14" fill="none">
+                      <svg aria-hidden="true" width="8" height="14" viewBox="0 0 8 14" fill="none">
                         <path
                           d="M7 1L1 7l6 6"
                           stroke="#007aff"

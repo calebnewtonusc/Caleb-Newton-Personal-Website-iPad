@@ -139,7 +139,7 @@ export default function PhotosApp({ orientation }: Props) {
                     fontFamily: "-apple-system, sans-serif",
                   }}
                 >
-                  <svg width="8" height="13" viewBox="0 0 10 17" fill="none">
+                  <svg aria-hidden="true" width="8" height="13" viewBox="0 0 10 17" fill="none">
                     <path
                       d="M8.5 1L1 8.5L8.5 16"
                       stroke="#007aff"

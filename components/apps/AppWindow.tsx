@@ -138,7 +138,16 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
       {/* Home indicator — centered pill-width hit area only */}
       <div
         ref={pillRef}
+        role="button"
+        tabIndex={0}
+        aria-label="Close app and return to the home screen"
         onClick={safeClose}
+        onKeyDown={(e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            safeClose();
+          }
+        }}
         onWheel={() => safeClose()}
         style={{
           position: "absolute",

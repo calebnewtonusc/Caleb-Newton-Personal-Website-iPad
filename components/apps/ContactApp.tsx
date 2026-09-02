@@ -273,7 +273,7 @@ export default function ContactApp({}: Props) {
                   fontFamily: "-apple-system, sans-serif",
                 }}
               >
-                <svg width="8" height="14" viewBox="0 0 8 14" fill="none">
+                <svg aria-hidden="true" width="8" height="14" viewBox="0 0 8 14" fill="none">
                   <path
                     d="M7 1L1 7l6 6"
                     stroke="#007aff"
@@ -385,7 +385,7 @@ export default function ContactApp({}: Props) {
                     fontFamily: "-apple-system, sans-serif",
                   }}
                 >
-                  <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+                  <svg aria-hidden="true" width="16" height="12" viewBox="0 0 16 12" fill="none">
                     <rect
                       x="0.75"
                       y="0.75"

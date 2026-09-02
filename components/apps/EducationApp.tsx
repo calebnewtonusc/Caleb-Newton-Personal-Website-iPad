@@ -262,7 +262,7 @@ export default function EducationApp({}: Props) {
                         >
                           {noteDate(ed.period)}
                         </span>
-                        <svg
+                        <svg aria-hidden="true"
                           width="8"
                           height="13"
                           viewBox="0 0 8 13"
@@ -315,7 +315,7 @@ export default function EducationApp({}: Props) {
                     padding: 0,
                   }}
                 >
-                  <svg width="8" height="13" viewBox="0 0 8 13" fill="none">
+                  <svg aria-hidden="true" width="8" height="13" viewBox="0 0 8 13" fill="none">
                     <path
                       d="M7 1L1 6.5L7 12"
                       stroke="#8e8e93"

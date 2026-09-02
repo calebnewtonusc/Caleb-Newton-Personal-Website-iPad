@@ -93,15 +93,19 @@ function AppIcon({
 }: {
   app: AppDef;
   size: number;
-  onTap: (e: React.MouseEvent) => void;
+  onTap: () => void;
   showLabel?: boolean;
 }) {
   return (
-    <motion.div
+    <motion.button
+      type="button"
+      aria-label={
+        app.external ? `${app.name}, opens in a new tab` : `Open ${app.name}`
+      }
       whileTap={{ scale: 0.85 }}
       whileHover={{ scale: 1.08 }}
       transition={{ type: "spring", stiffness: 500, damping: 28 }}
-      onClick={(e) => onTap(e)}
+      onClick={() => onTap()}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -109,6 +113,11 @@ function AppIcon({
         gap: 5,
         cursor: "pointer",
         width: size + 20,
+        background: "none",
+        border: "none",
+        padding: 0,
+        font: "inherit",
+        color: "inherit",
       }}
     >
       <div
@@ -184,7 +193,7 @@ function AppIcon({
           {app.name}
         </span>
       )}
-    </motion.div>
+    </motion.button>
   );
 }
 
@@ -300,7 +309,16 @@ export default function HomeScreen({
             animate={{ y: "0%" }}
             exit={{ y: "-100%" }}
             transition={{ duration: 0.55, ease: [0.25, 0.46, 0.45, 0.94] }}
+            role="button"
+            tabIndex={0}
+            aria-label="Unlock and open the home screen"
             onClick={onUnlock}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onUnlock();
+              }
+            }}
             style={{
               position: "absolute",
               inset: 0,
@@ -414,7 +432,7 @@ export default function HomeScreen({
                   ease: "easeInOut",
                 }}
               >
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                <svg aria-hidden="true" width="22" height="22" viewBox="0 0 24 24" fill="none">
                   <path
                     d="M18 15l-6-6-6 6"
                     stroke="rgba(255,255,255,0.55)"

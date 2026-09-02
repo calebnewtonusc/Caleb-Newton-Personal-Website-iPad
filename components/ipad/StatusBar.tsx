@@ -49,7 +49,7 @@ export default function StatusBar({}: Props) {
       {/* Right icons */}
       <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
         {/* WiFi */}
-        <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+        <svg aria-hidden="true" width="16" height="12" viewBox="0 0 16 12" fill="none">
           <path
             d="M8 9.5C8.83 9.5 9.5 10.17 9.5 11C9.5 11.83 8.83 12.5 8 12.5C7.17 12.5 6.5 11.83 6.5 11C6.5 10.17 7.17 9.5 8 9.5Z"
             fill="white"
@@ -70,7 +70,7 @@ export default function StatusBar({}: Props) {
           <span style={{ fontSize: 12, fontWeight: 500, color: "white" }}>
             100%
           </span>
-          <svg width="25" height="12" viewBox="0 0 25 12" fill="none">
+          <svg aria-hidden="true" width="25" height="12" viewBox="0 0 25 12" fill="none">
             <rect
               x="0.5"
               y="0.5"

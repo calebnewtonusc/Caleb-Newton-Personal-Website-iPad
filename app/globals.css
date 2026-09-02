@@ -370,3 +370,43 @@ button {
 .font-poppins {
   font-family: "Poppins", var(--font-sf);
 }
+
+/* ─── Accessibility ─────────────────────────────────────────────────────── */
+
+/* Visible focus for keyboard users only, never on mouse click. */
+:focus-visible {
+  outline: 3px solid #0a84ff;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* Skip link: first stop for keyboard and screen reader users. */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 1000;
+}
+.skip-link:focus {
+  left: 12px;
+  top: 12px;
+  padding: 10px 16px;
+  background: #0a84ff;
+  color: #fff;
+  border-radius: 10px;
+  font-family: -apple-system, sans-serif;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+/* Respect the OS reduced-motion setting: the iPad is heavily animated. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}

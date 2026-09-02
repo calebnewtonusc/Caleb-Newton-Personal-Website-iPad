@@ -348,7 +348,7 @@ export default function CalebGPTApp() {
               flexShrink: 0, transition: "background 0.2s", margin: "3px",
             }}
           >
-            <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+            <svg aria-hidden="true" width="14" height="14" viewBox="0 0 14 14" fill="none">
               <path d="M7 11.5V2.5M7 2.5L3 6.5M7 2.5L11 6.5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </motion.button>

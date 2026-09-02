@@ -83,7 +83,7 @@ function MentorDetail({
               fontFamily: "-apple-system, sans-serif",
             }}
           >
-            <svg width="8" height="13" viewBox="0 0 8 13" fill="none">
+            <svg aria-hidden="true" width="8" height="13" viewBox="0 0 8 13" fill="none">
               <path
                 d="M7 1L1 6.5L7 12"
                 stroke="#007aff"

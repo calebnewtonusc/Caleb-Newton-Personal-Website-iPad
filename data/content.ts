@@ -763,7 +763,7 @@ export const mentors = [
     role: "Mentor",
     color: "#007AFF",
     gratitude:
-      "One of the people I am most grateful for. He gets a real line here once I write it properly.",
+      "One of the people I am most grateful for, and one of the reasons I did not go through last year alone.",
     link: "",
     linkLabel: "",
   },
@@ -843,7 +843,7 @@ export const mentors = [
     role: "Mentor",
     color: "#FF3B30",
     gratitude:
-      "One of the people I am most grateful for. He gets a real line here once I write it properly.",
+      "One of the people I am most grateful for, and one of the reasons I did not go through last year alone.",
     link: "",
     linkLabel: "",
   },

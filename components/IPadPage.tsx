@@ -8,6 +8,7 @@ import {
   useSpring,
   useTransform,
   useMotionTemplate,
+  MotionConfig,
   animate as fmAnimate,
 } from "framer-motion";
 import IPadFrame from "./ipad/IPadFrame";
@@ -233,6 +234,15 @@ export default function IPadPage() {
   }, [scaleMotionValue, calcScale, getOrientation]);
 
   // 3D drag handlers
+  // Escape closes the open app, matching every other windowed UI
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpenApp(null);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, []);
+
   const lockedRef = useRef(true);
   useEffect(() => {
     lockedRef.current = locked;
@@ -429,6 +439,7 @@ export default function IPadPage() {
   void userScale;
 
   return (
+    <MotionConfig reducedMotion="user">
     <div className="ipad-viewport">
       <div className="page-bg" aria-hidden="true" />
 
@@ -708,5 +719,6 @@ export default function IPadPage() {
         </motion.div>
       </div>
     </div>
+    </MotionConfig>
   );
 }
