@@ -37,11 +37,6 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.png" type="image/png" />
         <link rel="shortcut icon" href="/favicon.png" type="image/png" />
         <link rel="apple-touch-icon" href="/favicon.png" />
-        {/* Preload critical above-the-fold assets */}
-        <link rel="preload" href="/assets/CalebAtBeachUSCHoodie.jpg" as="image" />
-        <link rel="preload" href="/assets/icons/spotify.png" as="image" />
-        <link rel="preload" href="/assets/icons/github.webp" as="image" />
-        <link rel="preload" href="/assets/icons/linkedin.jpg" as="image" />
       </head>
       <body>
         <a href="#ipad" className="skip-link">
