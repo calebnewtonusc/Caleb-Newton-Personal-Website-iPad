@@ -12,29 +12,14 @@ interface Props {
 // Map each education entry to a full-text "note"
 const noteContent: Record<string, { body: string }> = {
   usc: {
-    body: `Aug 2025 - May 2029. Sophomore at USC. Took Multivariable Calculus, Linear Algebra, C++, and Discrete Methods together freshman year - dense, but each course fed the others.
+    body: `B.S. Machine Learning Engineering, Entrepreneurship & Design, with a minor in Neuroscience. Graduating May 2029. GPA 4.00/4.00.
 
-C++ is making me think about memory in ways Python never did. Linear algebra shows up in every AI paper. Building things here that I couldn't have imagined in high school.`,
+Involved in GenCollege Christians, Troy Philippines, Flavors Food Culture, Dragon Boat, SC Board Games, and Marshall AI Biotech.`,
   },
   smhs: {
-    body: `Aug 2021 - June 2025. Graduated with 4.0+ GPA, AP Scholar with Distinction, and the Promethean Award - highest honor for a graduating student.
+    body: `Christian Club President, 90+ members. 1570 SAT. Baseball Team Captain. Founded the Screen Time League.
 
-Led ACTS Christian Club, pitched for the baseball team, and wrestled. The academics gave me the foundation; everything else gave me the character.`,
-  },
-  berkeley: {
-    body: `Summer CS Academy at UC Berkeley, June 2024. Covered abstraction, recursion, and algorithms through Snap! and Python.
-
-The intro AI module lit a spark - seeing how a model learns patterns from data felt like discovering a superpower. Confirmed CS was my path.`,
-  },
-  cnsi: {
-    body: `Two-week nanotechnology + entrepreneurship program at UCLA's CNSI in July 2023. Our team built AquaShield, a hydrophobic self-cleaning water bottle.
-
-Handled MATLAB contact angle analysis and pitched to investors. Learned that great technical ideas die without clear communication.`,
-  },
-  stjohns: {
-    body: `August 2010 to June 2011. Where it all began.
-
-I tested gravity with block towers, competed in the Tricycle Racing League, and graduated with honors in Naptime Negotiation. The curiosity hasn't changed - just the tools.`,
+The academics gave me the foundation; everything else gave me the character.`,
   },
 };
 
