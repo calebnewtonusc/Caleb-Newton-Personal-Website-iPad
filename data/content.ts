@@ -38,7 +38,7 @@ export const experience = [
     location: "Remote",
     logo: "/assets/logos/amber.png",
     color: "#F59E0B",
-    website: "",
+    website: "https://www.amberintelligence.ai/",
     description: "Relationship & Health AI Startup.",
     achievements: [
       "Led Amber's strategic repositioning around user-owned contact data, making it the company's core product differentiation & fundraising thesis; opened 12 VC conversations & sustained 4+ investor & partner meetings weekly.",
@@ -64,7 +64,7 @@ export const experience = [
     location: "New York City, NY",
     logo: "/assets/logos/bluemodern.png",
     color: "#0A66C2",
-    website: "",
+    website: "https://www.bluemodernadvisory.com/",
     description: "Official Perplexity & Clay Partner Agency.",
     achievements: [
       "Rebuilt the firm's outbound engine across 147,000+ monthly emails, increasing booked meetings 6.3x, generating $350K+ pipeline & 193 opportunities across 8 clients, & cutting costs 66% while leading 4 interns.",
@@ -92,7 +92,7 @@ export const experience = [
     location: "Remote",
     logo: "/assets/logos/nalana.jpeg",
     color: "#1a4a2e",
-    website: "https://nalana.vercel.app/",
+    website: "https://www.nalana.io/",
     description: "Cursor for Blender.",
     achievements: [
       "Built Nalana's GTM infrastructure across sourcing, enrichment, outbound, CRM & onboarding, reaching 3,200+ prospects, booking 150+ demos, & activating 40 customers for its 3D AI platform.",
@@ -246,17 +246,10 @@ export const education = [
     status: "GPA 4.00/4.00",
     logo: "/assets/logos/usc.png",
     color: "#990000",
-    website: "https://www.usc.edu",
+    website: "https://iovine-young.usc.edu/",
     description:
-      "Involvements: GenCollege Christians, Troy Philippines, Flavors Food Culture, Dragon Boat, SC Board Games, Marshall AI Biotech.",
-    highlights: [
-      "GenCollege Christians",
-      "Troy Philippines",
-      "Flavors Food Culture",
-      "Dragon Boat",
-      "SC Board Games",
-      "Marshall AI Biotech",
-    ],
+      "A door I did not open myself. Thirty or so students a year, built for people who do not fit one department.",
+    highlights: [] as string[],
   },
   {
     id: "smhs",
@@ -267,7 +260,7 @@ export const education = [
     status: "1570 SAT",
     logo: "/assets/education/smhs.png",
     color: "#007AFF",
-    website: "https://www.sanmarinohs.org",
+    website: "https://www.sanmarinohs.org/",
     description:
       "Christian Club President (90+ members), Baseball Team Captain, Screen Time League Founder.",
     highlights: [
@@ -286,7 +279,7 @@ export const education = [
     status: "Survived",
     logo: null,
     color: "#5856D6",
-    website: "",
+    website: "https://www.hehms.us/",
     description:
       "Got bullied. Learned early that being the smart kid and being liked were not the same thing.",
     highlights: [
@@ -304,7 +297,7 @@ export const education = [
     status: "Unbothered",
     logo: null,
     color: "#34C759",
-    website: "",
+    website: "https://www.carverschool.us/",
     description:
       "Memorized 200 digits of pi at ten, solved Rubik's cubes, built Lego robotics. No self-consciousness about any of it.",
     highlights: [
@@ -323,7 +316,7 @@ export const education = [
     status: "Graduated with honors",
     logo: "/assets/stjohns.jpg",
     color: "#FF9500",
-    website: "https://www.stjohnsnurseryla.com",
+    website: "https://www.stjohnsnurseryla.com/",
     description:
       "Tested gravity with block towers, raced tricycles, and asked why roughly 47 times a day.",
     highlights: [
@@ -512,26 +505,6 @@ export const personalSettings = [
     ],
   },
   {
-    section: "Music",
-    icon: "music",
-    items: [
-      {
-        label: "Stevie Wonder Is The Ceiling",
-        type: "toggle-on",
-        detail: "This is not up for debate",
-      },
-      {
-        label: "Electro Sleaze",
-        type: "toggle-on",
-        detail: "The genre, unapologetically",
-      },
-      { label: "Concert-Goer", type: "toggle-on", detail: "LA has good venues" },
-      { label: "Skipping The Intro", type: "toggle-off", detail: "Let the song breathe" },
-      { label: "Genres", type: "info", detail: "Jazz · Hip-Hop · Gospel · R&B · Indie" },
-      { label: "RateYourMusic", type: "info", detail: "~cnewt" },
-    ],
-  },
-  {
     section: "Interests",
     icon: "film",
     items: [
@@ -585,15 +558,37 @@ export const personalSettings = [
     ],
   },
   {
-    section: "Daily Runtime",
-    icon: "runtime",
+    section: "About This Device",
+    icon: "device",
     items: [
+      { label: "Edition", type: "info", detail: "2006 (Caleb Newton)" },
+      { label: "Personality", type: "info", detail: "ENTJ-A · Commander" },
+      { label: "Origin", type: "info", detail: "San Marino, CA → USC" },
+      { label: "Software Version", type: "info", detail: "USC Sophomore OS 26.1.0" },
+      { label: "Hyperfocus", type: "toggle-on", detail: "Cannot be scheduled, only survived" },
+      {
+        label: "Contrarian Mode",
+        type: "toggle-on",
+        detail: "Enabled by default, cannot be disabled",
+      },
+      { label: "Small Talk", type: "toggle-off", detail: "Ask me something real" },
+      {
+        label: "Favorite Question",
+        type: "info",
+        detail: "Is your mind more like a tower or a river?",
+      },
+      { label: "Battery", type: "info", detail: "Recharges one conversation at a time" },
+      { label: "Storage", type: "info", detail: "∞ Curiosity · 20TB Work Ethic" },
+      {
+        label: "Background Process",
+        type: "info",
+        detail: "Silently rewriting the sentence he just said",
+      },
       {
         label: "Sleep Schedule",
         type: "toggle-on",
         detail: "9 PM to 5 AM. Yes, on purpose",
       },
-      { label: "Boot Time", type: "info", detail: "5 AM. The alarm is a formality" },
       { label: "Snooze Button", type: "toggle-off", detail: "Uninstalled" },
       {
         label: "Peak Hours",
@@ -621,21 +616,10 @@ export const personalSettings = [
         detail: "It was read. That was the entire event",
       },
       {
-        label: "Texts After 9 PM",
-        type: "toggle-off",
-        detail: "Genuinely asleep, not ignoring you",
-      },
-      {
         label: "Meal Prep",
         type: "toggle-off",
         detail: "Dining hall, and I have made peace with it",
       },
-    ],
-  },
-  {
-    section: "Preferences",
-    icon: "system",
-    items: [
       { label: "Em Dashes", type: "toggle-off", detail: "Never. Not once" },
       { label: "Emojis In Commit Messages", type: "toggle-off", detail: "Absolutely not" },
       {
@@ -662,35 +646,6 @@ export const personalSettings = [
         detail: "Both on purpose",
       },
       { label: "Brain Backup", type: "info", detail: "GitHub + Obsidian" },
-    ],
-  },
-  {
-    section: "About This Device",
-    icon: "device",
-    items: [
-      { label: "Edition", type: "info", detail: "2006 (Caleb Newton)" },
-      { label: "Personality", type: "info", detail: "ENTJ-A · Commander" },
-      { label: "Origin", type: "info", detail: "San Marino, CA → USC" },
-      { label: "Software Version", type: "info", detail: "USC Sophomore OS 26.1.0" },
-      { label: "Hyperfocus", type: "toggle-on", detail: "Cannot be scheduled, only survived" },
-      {
-        label: "Contrarian Mode",
-        type: "toggle-on",
-        detail: "Enabled by default, cannot be disabled",
-      },
-      { label: "Small Talk", type: "toggle-off", detail: "Ask me something real" },
-      {
-        label: "Favorite Question",
-        type: "info",
-        detail: "Is your mind more like a tower or a river?",
-      },
-      { label: "Battery", type: "info", detail: "Recharges one conversation at a time" },
-      { label: "Storage", type: "info", detail: "∞ Curiosity · 20TB Work Ethic" },
-      {
-        label: "Background Process",
-        type: "info",
-        detail: "Silently rewriting the sentence he just said",
-      },
     ],
   },
 ];
@@ -938,6 +893,15 @@ export const organizations = [
   },
 ];
 
+export const musicTaste = [
+  { label: "All-Time Ceiling", value: "Stevie Wonder. Not up for debate" },
+  { label: "Genres", value: "Jazz · Hip-Hop · Gospel · R&B · Indie" },
+  { label: "Electro Sleaze", value: "The genre, unapologetically" },
+  { label: "Concerts", value: "LA has good venues" },
+  { label: "Skipping The Intro", value: "Never. Let the song breathe" },
+  { label: "RateYourMusic", value: "~cnewt" },
+];
+
 export const mentors = [
   {
     id: "nick-boyer",
@@ -986,6 +950,36 @@ export const mentors = [
     color: "#34C759",
     gratitude:
       "Asks the question underneath the question, and waits for the honest answer.",
+    link: "",
+    linkLabel: "",
+  },
+  {
+    id: "lorenzo-ametrano",
+    name: "Lorenzo Ametrano",
+    role: "IYA mentor",
+    color: "#AF52DE",
+    gratitude:
+      "When I insisted I was not a design kid or a tech kid or a business kid, he told me to keep saying leadership. That one word gave me somewhere to stand.",
+    link: "",
+    linkLabel: "",
+  },
+  {
+    id: "jet-jadeja",
+    name: "Jet Jadeja",
+    role: "Mentor",
+    color: "#0A84FF",
+    gratitude:
+      "Someone I spent too long comparing myself to before I had the sense to just learn from him instead.",
+    link: "",
+    linkLabel: "",
+  },
+  {
+    id: "daniel-murakami",
+    name: "Daniel Murakami",
+    role: "Big in AGO, brother at A2F",
+    color: "#30B0C7",
+    gratitude:
+      "An architect who has been a steady older-brother presence through the years I needed one most.",
     link: "",
     linkLabel: "",
   },

@@ -32,53 +32,32 @@ const INBOX: Email[] = [
 
 The fastest way to reach me is calebnew@usc.edu. I read everything, and I write back, usually within a day or two.
 
-Good reasons to send something:
-
-You are building a thing and want another pair of hands on it.
-You want to argue with me about an idea.
-You are a USC student trying to get a project off the ground.
-You want to tell me my favorite album is overrated.
+If it is easier, the calendar app on this iPad books time with me directly.
 
 I would rather have a real conversation than a polished one. Send me the messy version.`,
     time: "Now",
     unread: true,
   },
   {
-    id: "collab",
+    id: "what",
     from: "Caleb Newton",
     fromShort: "CN",
-    subject: "What I'm good for, and what I'm not",
-    preview:
-      "Worth knowing before you write, so neither of us wastes the other's time...",
-    body: `Worth knowing before you write.
+    subject: "Good reasons to write",
+    preview: "Building something, arguing with me, or needing a hand...",
+    body: `Things worth sending:
 
-What I am good for:
+You are building something and want another pair of hands on it.
 
-Problems where the hard part is deciding what to build, not just how to build it. Early things with no obvious playbook. Anything where I get to talk to the people who will actually use it. Being the person who says the uncomfortable thing in the room.
+You want to argue with me about an idea. I will enjoy it more than you expect.
 
-What I am not good for:
+You are a USC student trying to get a project off the ground and need someone who has done it badly a few times already.
 
-Work that needs someone who has done exactly this for ten years. Projects where the decision is already made and someone just needs hands. I will ask too many questions and it will slow you down.
+You want to tell me my favorite album is overrated.
 
-If the first list sounds like your thing, write me.`,
+You have a question and no obvious person to ask.
+
+That is genuinely the whole list. Write me.`,
     time: "Today",
-    unread: false,
-  },
-  {
-    id: "faith",
-    from: "Caleb Newton",
-    fromShort: "CN",
-    subject: "What drives me",
-    preview:
-      "I'm a follower of Jesus, and that shapes how I work more than anything else...",
-    body: `A bit about what drives me:
-
-I'm a follower of Jesus, and that isn't a side note. It's the core of how I approach my work. I believe technology is most powerful when it serves people rather than farming them.
-
-Practically that comes out in a few ways. I would rather tell you an uncomfortable truth than a comfortable maybe. I care more about whether something is real than whether it demos well. And I think the best thing you can build for someone is a reason to be in the same room as other people.
-
-If you're building something meaningful and think I could help, I'd genuinely love to talk.`,
-    time: "Yesterday",
     unread: false,
   },
 ];
@@ -122,77 +101,7 @@ const SOCIALS = [
   },
 ];
 
-type Folder = "inbox" | "reach-out";
-
-function MailboxIcon({ name, color }: { name: string; color: string }) {
-  return (
-    <div
-      style={{
-        width: 32,
-        height: 32,
-        borderRadius: 8,
-        background: color,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexShrink: 0,
-      }}
-    >
-      {name === "inbox" && (
-        <svg width="17" height="14" viewBox="0 0 17 14" fill="none">
-          <rect
-            x="0.75"
-            y="0.75"
-            width="15.5"
-            height="12.5"
-            rx="1.75"
-            stroke="white"
-            strokeWidth="1.4"
-          />
-          <path
-            d="M0.75 8.5h4l1.5 2.5h4.5l1.5-2.5h4"
-            stroke="white"
-            strokeWidth="1.4"
-            strokeLinecap="round"
-          />
-        </svg>
-      )}
-      {name === "reach-out" && (
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <path
-            d="M14 2L9 7M14 2H10M14 2V6"
-            stroke="white"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            d="M7 3H3a1 1 0 00-1 1v9a1 1 0 001 1h9a1 1 0 001-1V9"
-            stroke="white"
-            strokeWidth="1.4"
-            strokeLinecap="round"
-          />
-        </svg>
-      )}
-      {name === "social" && (
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-          <circle cx="8" cy="5" r="2.5" stroke="white" strokeWidth="1.4" />
-          <circle cx="3" cy="12" r="1.75" stroke="white" strokeWidth="1.4" />
-          <circle cx="13" cy="12" r="1.75" stroke="white" strokeWidth="1.4" />
-          <path
-            d="M5.5 6.5L3.5 10.5M10.5 6.5L12.5 10.5"
-            stroke="white"
-            strokeWidth="1.2"
-            strokeLinecap="round"
-          />
-        </svg>
-      )}
-    </div>
-  );
-}
-
 export default function ContactApp({ onClose: _onClose }: Props) {
-  const [activeFolder, setActiveFolder] = useState<Folder>("inbox");
   const [selectedEmail, setSelectedEmail] = useState<Email | null>(null);
   const isLandscape = false; // handled below via orientation prop
 
@@ -236,99 +145,8 @@ export default function ContactApp({ onClose: _onClose }: Props) {
               className="ios-scroll"
               style={{ flex: 1, overflowY: "auto", padding: "0 16px 32px" }}
             >
-              {/* Mailboxes section */}
-              <p
-                style={{
-                  fontSize: 13,
-                  fontWeight: 500,
-                  color: "#6e6e73",
-                  letterSpacing: 0.3,
-                  marginBottom: 8,
-                  marginTop: 8,
-                  textTransform: "uppercase",
-                }}
-              >
-                Mailboxes
-              </p>
-
-              <div
-                style={{
-                  background: "white",
-                  borderRadius: 10,
-                  overflow: "hidden",
-                  marginBottom: 8,
-                }}
-              >
-                {[
-                  {
-                    id: "inbox" as Folder,
-                    label: "Inbox",
-                    count: 1,
-                    color: "#007AFF",
-                  },
-                  {
-                    id: "reach-out" as Folder,
-                    label: "Reach Out",
-                    count: 0,
-                    color: "#34C759",
-                  },
-                ].map((folder, i) => (
-                  <motion.div
-                    key={folder.id}
-                    onClick={() => setActiveFolder(folder.id)}
-                    whileTap={{ backgroundColor: "#ebebeb" }}
-                    style={{
-                      display: "flex",
-                      alignItems: "center",
-                      gap: 12,
-                      padding: "12px 16px",
-                      borderTop:
-                        i > 0 ? "0.5px solid rgba(60,60,67,0.18)" : "none",
-                      cursor: "pointer",
-                      background:
-                        activeFolder === folder.id
-                          ? "rgba(0,122,255,0.06)"
-                          : "white",
-                    }}
-                  >
-                    <MailboxIcon name={folder.id} color={folder.color} />
-                    <span
-                      style={{
-                        fontSize: 17,
-                        color: "#1c1c1e",
-                        flex: 1,
-                        fontFamily: "-apple-system, sans-serif",
-                      }}
-                    >
-                      {folder.label}
-                    </span>
-                    {folder.count > 0 && (
-                      <span
-                        style={{
-                          fontSize: 15,
-                          fontWeight: 600,
-                          color: "#007AFF",
-                          fontFamily: "-apple-system, sans-serif",
-                        }}
-                      >
-                        {folder.count}
-                      </span>
-                    )}
-                    <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
-                      <path
-                        d="M1 1l5 5L1 11"
-                        stroke="#c7c7cc"
-                        strokeWidth="1.8"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </motion.div>
-                ))}
-              </div>
-
-              {/* Content for selected folder */}
-              {activeFolder === "inbox" && (
+              {/* Inbox */}
+              {(
                 <>
                   <p
                     style={{
@@ -432,7 +250,7 @@ export default function ContactApp({ onClose: _onClose }: Props) {
                 </>
               )}
 
-              {activeFolder === "reach-out" && (
+              {(
                 <>
                   <p
                     style={{

@@ -12,9 +12,11 @@ interface Props {
 // Map each education entry to a full-text "note"
 const noteContent: Record<string, { body: string }> = {
   usc: {
-    body: `B.S. Machine Learning Engineering, Entrepreneurship & Design, with a minor in Neuroscience. Graduating May 2029. GPA 4.00/4.00.
+    body: `I did not open this door myself.
 
-Involved in GenCollege Christians, Troy Philippines, Flavors Food Culture, Dragon Boat, SC Board Games, and Marshall AI Biotech.`,
+The Iovine and Young Academy takes roughly thirty students a year. It is built for people who do not fit cleanly into art, technology, or business, which was exactly my problem when I applied. I did not have a tidy story for why I belonged there.
+
+I got in anyway. I believe God opened that door, and I have not stopped being grateful for it.`,
   },
   smhs: {
     body: `Christian Club President, 90+ members. 1570 SAT. Baseball Team Captain. Founded the Screen Time League.
@@ -441,6 +443,26 @@ export default function EducationApp({ onClose }: Props) {
                           </p>
                         </div>
                       ))}
+
+                    {selectedEd.website && (
+                      <a
+                        href={selectedEd.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{
+                          display: "inline-flex",
+                          alignItems: "center",
+                          gap: 6,
+                          marginTop: 18,
+                          fontSize: 15,
+                          fontWeight: 600,
+                          color: "#007aff",
+                          textDecoration: "none",
+                        }}
+                      >
+                        {selectedEd.school} {"\u2197"}
+                      </a>
+                    )}
                     </div>
                   )}
                 </div>

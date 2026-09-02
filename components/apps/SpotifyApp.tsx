@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { music, social } from "@/data/content";
+import { music, musicTaste, social } from "@/data/content";
 
 type Tab = "new" | "old";
 
@@ -206,6 +206,70 @@ export default function SpotifyApp({ onClose: _onClose }: Props) {
             ))}
           </motion.div>
         </AnimatePresence>
+
+        {/* Taste notes */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.15 }}
+          style={{ padding: "26px 16px 4px" }}
+        >
+          <p
+            style={{
+              color: "#b3b3b3",
+              fontSize: 11,
+              fontWeight: 700,
+              textTransform: "uppercase",
+              letterSpacing: 0.8,
+              marginBottom: 10,
+              fontFamily: "-apple-system, sans-serif",
+            }}
+          >
+            The taste, briefly
+          </p>
+          <div
+            style={{
+              background: "#181818",
+              borderRadius: 12,
+              overflow: "hidden",
+            }}
+          >
+            {musicTaste.map((row, i) => (
+              <div
+                key={row.label}
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  alignItems: "center",
+                  gap: 14,
+                  padding: "12px 14px",
+                  borderTop: i > 0 ? "0.5px solid rgba(255,255,255,0.07)" : "none",
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: 13,
+                    color: "#fff",
+                    fontFamily: "-apple-system, sans-serif",
+                    flexShrink: 0,
+                  }}
+                >
+                  {row.label}
+                </span>
+                <span
+                  style={{
+                    fontSize: 13,
+                    color: "#b3b3b3",
+                    fontFamily: "-apple-system, sans-serif",
+                    textAlign: "right",
+                  }}
+                >
+                  {row.value}
+                </span>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </div>
   );

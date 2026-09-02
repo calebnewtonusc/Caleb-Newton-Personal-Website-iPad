@@ -267,9 +267,8 @@ const PROFILE_SECTION = "__profile__";
 const SECTION_GROUPS = [
   ["family"],
   ["bluetooth", "screentime"],
-  ["faith", "music"],
-  ["film", "runtime"],
-  ["system", "device"],
+  ["faith", "film"],
+  ["device"],
 ];
 
 export default function SettingsApp({ onClose, orientation }: Props) {
