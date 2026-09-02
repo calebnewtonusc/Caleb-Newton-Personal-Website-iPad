@@ -12,11 +12,27 @@ interface Props {
 // Map each education entry to a full-text "note"
 const noteContent: Record<string, { body: string }> = {
   usc: {
-    body: `I did not open this door myself.
+    body: `I did not open this door myself. The Iovine and Young Academy takes roughly thirty students a year, and I got one of the spots. I believe God opened that door, and I have not stopped being grateful for it.
 
-The Iovine and Young Academy takes roughly thirty students a year. It is built for people who do not fit cleanly into art, technology, or business, which was exactly my problem when I applied. I did not have a tidy story for why I belonged there.
+The most important lesson in my education so far has been the terrifying, awesome reality of infinite paths in college.
 
-I got in anyway. I believe God opened that door, and I have not stopped being grateful for it.`,
+At my academically intense high school, the path to success seemed direct, because variability was not an option. All the nerds took the same AP classes, and there was no need to discern what I was actually interested in. My time was defined by factors the culture around me had already decided, so I never developed a sense of agency from my education. I led my baseball team and reached out to schools to form a 20 school Christian club coalition, but that was ambition pointed down siloed paths. It did not take creativity or agency to succeed in those avenues. It only took discipline.
+
+When I got into the Iovine and Young Academy it was a no brainer. I knew I wanted to use redemptive faith-based entrepreneurship to fight the attention economy and help people, and I was a naturally ambitious leader, so it seemed like the best fit. What I did not realize was that being a naturally ambitious leader was not enough. For the first time I had to decide the direction myself. The ball was in my court on how to define my own reality. I remember looking forward to the freedom. I did not yet know the weight of it.
+
+College has no defined rules and no correct way to channel ambition. Yes, there are pre-defined paths: doctor, lawyer, engineer. But even those require you to choose them for yourself. Being in IYA, I knew I was choosing not to have a traditional job. I did not realize it would take building my security and identity to the point where I could actually immerse myself in the world around me. Being a leader is only the starting point. What am I to lead? How? What skills should I learn? What opportunities should I explore? Where should I even start? What, what, what.
+
+My brain, facing all these new questions, reached for the old pattern and decided that getting into an entrepreneurial club was the right next step. Instead of using the new freedom to define my own guidelines for the first time, I did not learn the lesson. I could not accept that the world was not binary. So when I got rejected from every club, I thought it was the end of the world. What was I supposed to do when the only door I believed in was closed?
+
+I started losing track of my identity, because I had put so much of it into applying ambition to a track. With no track in front of me for the first time, I was so used to being low agency that I could not even fathom how blessed I was to have no pre-determined one. That was the beginning of a spiral into depression, which ended in hospitalization.
+
+Even then I did not learn. When I came back in the spring my medication dosage was too high and it sent me into mania. In mania, everything feels right. I claimed insane things with confidence and did insane things with confidence, and once again I did not have to discern my own path. The chemicals did it for me. Medication brought me down from the mania, back into depression, and finally back to a normal state going into sophomore year.
+
+Praise the Lord. For the first time, I have finally learned the lesson. A year ago people told me you do not need to do X, and you have plenty of time to do Y, and spend this time figuring out who you are. It went in one ear and out the other. I could not let go of my rigidity. Now, after everything, I know there is no other option. Life is not what it seemed to be in high school, and it never will be.
+
+This lesson is reshaping my entire outlook. For once I can give my brain the freedom to think for itself. I am not comparing myself to other people to figure out my path. And most of all, I am loving the process of defining myself instead of missing the time when my environment defined me.
+
+It took a hospitalization and a manic episode to learn it, and I would not have it any other way. I am forever grateful for the outlook God gave me through it, and I am still terrified of what is coming. Life is awesome.`,
   },
   smhs: {
     body: `Christian Club President, 90+ members. 1570 SAT. Baseball Team Captain. Founded the Screen Time League.
