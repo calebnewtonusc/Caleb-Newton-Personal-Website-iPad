@@ -69,7 +69,7 @@ function noteDate(period: string): string {
   return `${month.slice(0, 3)} ${year}`;
 }
 
-export default function EducationApp({ onClose }: Props) {
+export default function EducationApp({}: Props) {
   const [selected, setSelected] = useState<string | null>(null);
   const selectedEd = education.find((e) => e.id === selected);
   const recent = education[0]; // USC is most recent

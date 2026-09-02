@@ -5,11 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { profile } from "@/data/content";
 
-interface Props {
-  onClose: () => void;
-  orientation: string;
-}
-
 interface Message {
   role: "user" | "assistant";
   content: string;
@@ -78,7 +73,7 @@ function TypingDots() {
   );
 }
 
-export default function CalebGPTApp(_props: Props) {
+export default function CalebGPTApp() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);

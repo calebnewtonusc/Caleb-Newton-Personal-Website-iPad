@@ -153,88 +153,6 @@ export const experience = [
   },
 ];
 
-export const projects = [
-  {
-    id: "isaac-newton",
-    title: "I.N.S.",
-    logo: "/assets/ventures/isaac-newton.png",
-    logoBg: "white",
-    live: "https://isaacnewtonstudios.com/",
-    color: "#1a1a2e",
-  },
-  {
-    id: "serutnev",
-    title: "serutneV",
-    logo: "/assets/ventures/serutnev.png",
-    logoBg: "white",
-    live: "https://serutnev.co/",
-    color: "#0f0f23",
-  },
-  {
-    id: "fiduciaryos",
-    title: "FiduciaryOS",
-    logo: null,
-    live: "https://fiduciary.cash/",
-    color: "#0a3d55",
-  },
-  {
-    id: "nalana",
-    title: "Nalana",
-    logo: "/assets/ventures/nalana.svg",
-    live: "https://nalana.vercel.app/",
-    color: "#1a4a2e",
-  },
-  {
-    id: "clearout",
-    title: "ClearOut",
-    logo: null,
-    live: "https://clearout.xyz/",
-    color: "#3a1a4a",
-  },
-  {
-    id: "astroshockdiaper",
-    title: "Astro Overnight",
-    logo: null,
-    live: "https://astroovernight.com/",
-    color: "#1a2a4a",
-    comingSoon: false,
-  },
-  {
-    id: "vapedestroyer",
-    title: "VapeDestroyer",
-    logo: null,
-    live: "https://vapedestroyer.com/",
-    color: "#1a4a1a",
-    comingSoon: false,
-  },
-  {
-    id: "marrow",
-    title: "Marrow",
-    logo: null,
-    live: "https://marrow.love/",
-    color: "#8b1a1a",
-    comingSoon: false,
-  },
-  {
-    id: "amber",
-    title: "Amber",
-    logo: null,
-    live: "#",
-    color: "#7a4a0a",
-    comingSoon: true,
-  },
-  // Page 2
-  {
-    id: "civicq",
-    title: "CivicQ",
-    logo: null,
-    live: "https://civicq.vote/",
-    color: "#1a3a5c",
-    comingSoon: false,
-    page: 2,
-  },
-];
-
 export const education = [
   {
     id: "usc",
@@ -326,37 +244,6 @@ export const education = [
     ],
   },
 ];
-
-export const skills = {
-  languages: [
-    { name: "Python", level: 95, color: "#3776AB" },
-    { name: "C++", level: 80, color: "#00599C" },
-    { name: "CUDA", level: 72, color: "#76B900" },
-    { name: "TypeScript/JavaScript", level: 90, color: "#3178C6" },
-    { name: "Swift", level: 75, color: "#FA7343" },
-    { name: "SQL", level: 85, color: "#336791" },
-    { name: "Bash", level: 80, color: "#4EAA25" },
-  ],
-  frameworks: [] as { name: string; level: number; color: string }[],
-  tools: [
-    { name: "Excel", level: 88, color: "#217346" },
-    { name: "PowerPoint", level: 88, color: "#D24726" },
-    { name: "Adobe Creative Cloud", level: 75, color: "#FF0000" },
-    { name: "Figma", level: 85, color: "#F24E1E" },
-    { name: "Clay", level: 90, color: "#6C47FF" },
-  ],
-  domains: [
-    "Spirituality",
-    "Beatboxing",
-    "Improv",
-    "Hiking",
-    "Electro Sleaze",
-    "Vinyl Records",
-    "Thrifting",
-    "Unconventional Icebreakers",
-    "Fitness",
-  ],
-};
 
 export const personalSettings = [
   {

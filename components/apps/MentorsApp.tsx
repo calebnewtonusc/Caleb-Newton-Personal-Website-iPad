@@ -191,65 +191,73 @@ function MentorDetail({
   );
 }
 
+function MentorList({
+  compact,
+  selectedId,
+  onSelect,
+}: {
+  compact?: boolean;
+  selectedId: string | null;
+  onSelect: (id: string) => void;
+}) {
+  return (
+    <>
+      {mentors.map((m, i) => (
+        <motion.button
+          key={m.id}
+          type="button"
+          whileTap={{ backgroundColor: "#f2f2f7" }}
+          onClick={() => onSelect(m.id)}
+          aria-label={`${m.name}, ${m.role}`}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: compact ? 10 : 13,
+            padding: compact ? "10px 12px" : "12px 16px",
+            cursor: "pointer",
+            width: "100%",
+            textAlign: "left",
+            border: "none",
+            font: "inherit",
+            borderTop: i > 0 ? "0.5px solid rgba(60,60,67,0.08)" : "none",
+            background:
+              selectedId === m.id ? "rgba(0,122,255,0.07)" : "transparent",
+          }}
+        >
+          <Avatar name={m.name} color={m.color} size={compact ? 34 : 44} />
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <p
+              style={{
+                fontSize: compact ? 13 : 16,
+                fontWeight: selectedId === m.id ? 600 : 400,
+                color: "#1c1c1e",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "nowrap",
+                fontFamily: "-apple-system, sans-serif",
+              }}
+            >
+              {m.name}
+            </p>
+            <p style={{ fontSize: compact ? 11 : 13, color: "#8e8e93" }}>
+              {m.role}
+            </p>
+          </div>
+          <svg width="7" height="11" viewBox="0 0 7 11" fill="none" aria-hidden="true">
+            <path d="M1 1l5 5L1 10" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+          </svg>
+        </motion.button>
+      ))}
+    </>
+  );
+}
+
 export default function MentorsApp({ orientation }: Props) {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const isLandscape = orientation === "landscape";
   const selected = selectedId
     ? (mentors.find((m) => m.id === selectedId) ?? null)
     : null;
-
-  function List({ compact }: { compact?: boolean }) {
-    return (
-      <>
-        {mentors.map((m, i) => (
-          <motion.div
-            key={m.id}
-            whileTap={{ backgroundColor: "#f2f2f7" }}
-            onClick={() => setSelectedId(m.id)}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: compact ? 10 : 13,
-              padding: compact ? "10px 12px" : "12px 16px",
-              cursor: "pointer",
-              borderTop: i > 0 ? "0.5px solid rgba(60,60,67,0.08)" : "none",
-              background:
-                selectedId === m.id ? "rgba(0,122,255,0.07)" : "transparent",
-            }}
-          >
-            <Avatar name={m.name} color={m.color} size={compact ? 34 : 44} />
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <p
-                style={{
-                  fontSize: compact ? 13 : 16,
-                  fontWeight: selectedId === m.id ? 600 : 400,
-                  color: "#1c1c1e",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                  fontFamily: "-apple-system, sans-serif",
-                }}
-              >
-                {m.name}
-              </p>
-              <p style={{ fontSize: compact ? 11 : 13, color: "#8e8e93" }}>
-                {m.role}
-              </p>
-            </div>
-            <svg width="7" height="11" viewBox="0 0 7 11" fill="none">
-              <path
-                d="M1 1l5 5L1 10"
-                stroke="#c7c7cc"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </motion.div>
-        ))}
-      </>
-    );
-  }
 
   if (isLandscape) {
     return (
@@ -285,7 +293,7 @@ export default function MentorsApp({ orientation }: Props) {
             </p>
           </div>
           <div className="ios-scroll" style={{ flex: 1, overflowY: "auto" }}>
-            <List compact />
+            <MentorList compact selectedId={selectedId} onSelect={setSelectedId} />
           </div>
         </div>
 
@@ -394,7 +402,7 @@ export default function MentorsApp({ orientation }: Props) {
                   overflow: "hidden",
                 }}
               >
-                <List />
+                <MentorList selectedId={selectedId} onSelect={setSelectedId} />
               </div>
             </div>
           </motion.div>

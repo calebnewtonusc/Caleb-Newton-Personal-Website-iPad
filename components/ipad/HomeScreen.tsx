@@ -1,9 +1,10 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import type { AppId, AppDef } from "@/data/content";
 import { apps, dockApps } from "@/data/content";
+import { useClock } from "../useClock";
 import TypedGreeting from "@/components/TypedGreeting";
 
 interface Props {
@@ -14,21 +15,7 @@ interface Props {
 }
 
 function LiveCalendarIcon({ size }: { size: number }) {
-  const [now, setNow] = useState<Date | null>(null);
-
-  useEffect(() => {
-    setNow(new Date());
-  }, []);
-
-  useEffect(() => {
-    if (!now) return;
-    const msUntilMidnight = new Date(now).setHours(24, 0, 0, 0) - now.getTime();
-    const timeout = setTimeout(
-      () => setNow(new Date()),
-      msUntilMidnight + 1000,
-    );
-    return () => clearTimeout(timeout);
-  }, [now]);
+  const now = useClock();
 
   const dayStr = now
     ? now.toLocaleDateString("en-US", { weekday: "short" }).toUpperCase()
@@ -208,16 +195,8 @@ export default function HomeScreen({
 }: Props) {
   const isLandscape = orientation === "landscape";
 
-  // Null until mounted: seeding with new Date() renders a different clock on the
-  // server than the client and trips a hydration mismatch (React #418).
-  const [time, setTime] = useState<Date | null>(null);
+  const time = useClock();
   const containerRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    setTime(new Date());
-    const timer = setInterval(() => setTime(new Date()), 1000);
-    return () => clearInterval(timer);
-  }, []);
 
   const timeStr = time
     ? time.toLocaleTimeString("en-US", {
@@ -264,7 +243,7 @@ export default function HomeScreen({
         return result;
       })();
 
-  const handleOpen = (app: AppDef, _e: React.MouseEvent) => {
+  const handleOpen = (app: AppDef) => {
     if (app.external) {
       window.open(app.external, "_blank", "noopener,noreferrer");
     } else {
@@ -493,7 +472,7 @@ export default function HomeScreen({
                   key={app.id}
                   app={app}
                   size={iconSize}
-                  onTap={(e) => handleOpen(app, e)}
+                  onTap={() => handleOpen(app)}
                 />
               ),
             )}
@@ -521,7 +500,7 @@ export default function HomeScreen({
                 key={app.id}
                 app={app}
                 size={isLandscape ? 48 : 52}
-                onTap={(e) => handleOpen(app, e)}
+                onTap={() => handleOpen(app)}
                 showLabel={false}
               />
             ))}

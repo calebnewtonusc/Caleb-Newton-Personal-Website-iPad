@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { useRef, useEffect, useCallback, useState } from "react";
 import type { AppId } from "@/data/content";
 
@@ -50,11 +50,6 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
       onClose();
     }
   }, [onClose]);
-
-  useEffect(() => {
-    closedRef.current = false;
-    setPillHovered(false);
-  }, [appId]);
 
   useEffect(() => {
     const container = containerRef.current;

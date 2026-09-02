@@ -97,26 +97,14 @@ export default function IPadPage() {
     };
   }, []);
 
-  // Preload all images on mount
+  // Preload the two above-the-fold portraits
   useEffect(() => {
-    const urls = [
-      "/assets/CalebAtBeachUSCHoodie.jpg",
-      "/assets/CalebAtUSC.jpg",
-      "/assets/icons/modellab.png",
-      "/assets/icons/tech16-logo.png",
-      "/assets/icons/foodvision-logo.png",
-      "/assets/projects/modellab.jpg",
-      "/assets/projects/tech16personalities.jpg",
-      "/assets/projects/foodvision.jpg",
-      "/assets/projects/la-healthcare.png",
-      "/assets/projects/nba-prediction.png",
-      "/assets/projects/usc-cook-scale.png",
-      "/assets/projects/thelines.jpg",
-    ];
-    urls.forEach((url) => {
-      const img = new Image();
-      img.src = url;
-    });
+    ["/assets/CalebAtBeachUSCHoodie.jpg", "/assets/CalebAtUSC.jpg"].forEach(
+      (url) => {
+        const img = new window.Image();
+        img.src = url;
+      },
+    );
   }, []);
 
   const calcScale = useCallback((orient: "landscape" | "portrait") => {
@@ -242,7 +230,7 @@ export default function IPadPage() {
       window.removeEventListener("mousemove", handleMouseMove);
       window.removeEventListener("mouseup", handleMouseUp);
     };
-  }, [scaleMotionValue]);
+  }, [scaleMotionValue, calcScale, getOrientation]);
 
   // 3D drag handlers
   const lockedRef = useRef(true);

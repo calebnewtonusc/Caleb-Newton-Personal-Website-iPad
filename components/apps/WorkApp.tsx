@@ -2,7 +2,7 @@
 
 import { memo, useState } from "react";
 import Image from "next/image";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, } from "framer-motion";
 import { experience } from "@/data/content";
 
 interface Props {
@@ -14,7 +14,6 @@ type ViewState = { mode: "list" } | { mode: "doc"; expId: string };
 
 /* ── Google Docs blue ── */
 const GDOCS_BLUE = "#1a73e8";
-const GDOCS_LIGHT_BLUE = "#e8f0fe";
 
 /* ── Company logo with initials fallback ── */
 function CompanyLogo({
@@ -712,7 +711,7 @@ function DocPage({
 }
 
 /* ── Main WorkApp ── */
-export default function WorkApp({ onClose: _onClose }: Props) {
+export default function WorkApp({}: Props) {
   const [view, setView] = useState<ViewState>({ mode: "list" });
 
   if (view.mode === "doc") {

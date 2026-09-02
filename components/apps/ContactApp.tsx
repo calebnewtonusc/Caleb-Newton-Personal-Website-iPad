@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { profile, social } from "@/data/content";
+import { profile, } from "@/data/content";
 
 interface Props {
   onClose: () => void;
@@ -62,48 +62,8 @@ That is genuinely the whole list. Write me.`,
   },
 ];
 
-const SOCIALS = [
-  {
-    label: "Email",
-    value: profile.email,
-    href: `mailto:${profile.email}`,
-    color: "#007AFF",
-  },
-  {
-    label: "LinkedIn",
-    value: "caleb-newton-3680041a5",
-    href: social.linkedin,
-    color: "#0A66C2",
-  },
-  {
-    label: "GitHub",
-    value: "calebnewtonusc",
-    href: social.github,
-    color: "#1c1c1e",
-  },
-  {
-    label: "YouTube",
-    value: "@caleebnewtown",
-    href: social.youtube,
-    color: "#FF0000",
-  },
-  {
-    label: "X (Twitter)",
-    value: "@klubnootuhn",
-    href: social.x,
-    color: "#000000",
-  },
-  {
-    label: "Letterboxd",
-    value: "cnewt",
-    href: social.letterboxd,
-    color: "#FF8000",
-  },
-];
-
-export default function ContactApp({ onClose: _onClose }: Props) {
+export default function ContactApp({}: Props) {
   const [selectedEmail, setSelectedEmail] = useState<Email | null>(null);
-  const isLandscape = false; // handled below via orientation prop
 
   return (
     <div

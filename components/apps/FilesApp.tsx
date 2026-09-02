@@ -348,6 +348,67 @@ function sortByIds(
     .filter(Boolean) as typeof organizations;
 }
 
+function ColHeader({ title }: { title: string }) {
+  return (
+    <div style={{ padding: "10px 12px 8px", borderBottom: "0.5px solid rgba(60,60,67,0.1)", flexShrink: 0 }}>
+      <h3 style={{ fontSize: 13, fontWeight: 600, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>{title}</h3>
+    </div>
+  );
+}
+
+function EmptyColHint({ label }: { label: string }) {
+  return (
+    <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8, height: "100%" }}>
+      <FolderSVG color="#d1d1d6" size={34} />
+      <p style={{ fontSize: 11, color: "#c7c7cc", fontFamily: "-apple-system, sans-serif", textAlign: "center" }}>{label}</p>
+    </div>
+  );
+}
+
+function OrgList({
+  items,
+  compact,
+  selectedId,
+  onSelect,
+}: {
+  items: typeof organizations;
+  compact?: boolean;
+  selectedId: string | null;
+  onSelect: (id: string) => void;
+}) {
+  const pad = compact ? "9px 10px" : "12px 16px";
+  const iconSz = compact ? 32 : 42;
+  return (
+    <>
+      {items.map((org, i) => (
+        <motion.button
+          key={org.id}
+          type="button"
+          whileTap={{ backgroundColor: "#f2f2f7" }}
+          onClick={() => onSelect(org.id)}
+          aria-label={`${org.name}, ${org.role}`}
+          style={{
+            display: "flex", alignItems: "center", gap: compact ? 8 : 12, padding: pad,
+            cursor: "pointer", width: "100%", textAlign: "left", border: "none",
+            borderTop: i > 0 ? "0.5px solid rgba(60,60,67,0.08)" : "none",
+            background: selectedId === org.id ? "rgba(0,122,255,0.07)" : "transparent",
+            font: "inherit",
+          }}
+        >
+          <OrgIcon org={org} size={iconSz} />
+          <div style={{ flex: 1, minWidth: 0 }}>
+            <p style={{ fontSize: compact ? 12 : 15, fontWeight: selectedId === org.id ? 600 : 400, color: "#1c1c1e", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontFamily: "-apple-system, sans-serif" }}>
+              {org.name}
+            </p>
+            <p style={{ fontSize: compact ? 10 : 12, color: "#8e8e93" }}>{org.role}</p>
+          </div>
+          <svg width="7" height="11" viewBox="0 0 7 11" fill="none" aria-hidden="true"><path d="M1 1l5 5L1 10" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
+        </motion.button>
+      ))}
+    </>
+  );
+}
+
 export default function FilesApp({ orientation }: Props) {
   const [topFolder, setTopFolder] = useState<string | null>(null);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -369,120 +430,6 @@ export default function FilesApp({ orientation }: Props) {
 
   const showCol2 = topFolder !== null;
   const portraitDepth = selectedId ? 2 : topFolder ? 1 : 0;
-
-  // ─── Shared mini-components ────────────────────────────────────────────────
-
-  function ColHeader({ title }: { title: string }) {
-    return (
-      <div
-        style={{
-          padding: "10px 12px 8px",
-          borderBottom: "0.5px solid rgba(60,60,67,0.1)",
-          flexShrink: 0,
-        }}
-      >
-        <h3
-          style={{
-            fontSize: 13,
-            fontWeight: 600,
-            color: "#1c1c1e",
-            fontFamily: "-apple-system, sans-serif",
-          }}
-        >
-          {title}
-        </h3>
-      </div>
-    );
-  }
-
-  function EmptyColHint({ label }: { label: string }) {
-    return (
-      <div
-        style={{
-          flex: 1,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 8,
-          height: "100%",
-        }}
-      >
-        <FolderSVG color="#d1d1d6" size={34} />
-        <p
-          style={{
-            fontSize: 11,
-            color: "#c7c7cc",
-            fontFamily: "-apple-system, sans-serif",
-            textAlign: "center",
-          }}
-        >
-          {label}
-        </p>
-      </div>
-    );
-  }
-
-  function OrgList({
-    items,
-    compact,
-  }: {
-    items: typeof organizations;
-    compact?: boolean;
-  }) {
-    const pad = compact ? "9px 10px" : "12px 16px";
-    const iconSz = compact ? 32 : 42;
-    return (
-      <>
-        {items.map((org, i) => (
-          <motion.div
-            key={org.id}
-            whileTap={{ backgroundColor: "#f2f2f7" }}
-            onClick={() => setSelectedId(org.id)}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: compact ? 8 : 12,
-              padding: pad,
-              cursor: "pointer",
-              borderTop: i > 0 ? "0.5px solid rgba(60,60,67,0.08)" : "none",
-              background:
-                selectedId === org.id ? "rgba(0,122,255,0.07)" : "transparent",
-            }}
-          >
-            <OrgIcon org={org} size={iconSz} />
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <p
-                style={{
-                  fontSize: compact ? 12 : 15,
-                  fontWeight: selectedId === org.id ? 600 : 400,
-                  color: "#1c1c1e",
-                  overflow: "hidden",
-                  textOverflow: "ellipsis",
-                  whiteSpace: "nowrap",
-                  fontFamily: "-apple-system, sans-serif",
-                }}
-              >
-                {org.name}
-              </p>
-              <p style={{ fontSize: compact ? 10 : 12, color: "#8e8e93" }}>
-                {org.role}
-              </p>
-            </div>
-            <svg width="7" height="11" viewBox="0 0 7 11" fill="none">
-              <path
-                d="M1 1l5 5L1 10"
-                stroke="#c7c7cc"
-                strokeWidth="1.8"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
-            </svg>
-          </motion.div>
-        ))}
-      </>
-    );
-  }
 
   // ─── Landscape: progressive columns ─────────────────────────────────────────
   if (isLandscape) {
@@ -583,7 +530,7 @@ export default function FilesApp({ orientation }: Props) {
                 {sectionOrgs.length === 0 ? (
                   <EmptyColHint label="No items" />
                 ) : (
-                  <OrgList items={sectionOrgs} compact />
+                  <OrgList items={sectionOrgs} compact selectedId={selectedId} onSelect={setSelectedId} />
                 )}
               </div>
             </motion.div>
@@ -791,7 +738,7 @@ export default function FilesApp({ orientation }: Props) {
                   overflow: "hidden",
                 }}
               >
-                <OrgList items={sectionOrgs} />
+                <OrgList items={sectionOrgs} selectedId={selectedId} onSelect={setSelectedId} />
               </div>
             </div>
           </motion.div>

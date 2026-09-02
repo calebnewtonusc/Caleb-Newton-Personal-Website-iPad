@@ -271,7 +271,7 @@ const SECTION_GROUPS = [
   ["device"],
 ];
 
-export default function SettingsApp({ onClose, orientation }: Props) {
+export default function SettingsApp({ orientation }: Props) {
   const [selectedSection, setSelectedSection] = useState<string | null>(
     PROFILE_SECTION,
   );
@@ -780,7 +780,7 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                       marginBottom: 8,
                     }}
                   >
-                    {section.items.map((item, i, arr) => (
+                    {section.items.map((item, i) => (
                       <div
                         key={item.label}
                         style={{

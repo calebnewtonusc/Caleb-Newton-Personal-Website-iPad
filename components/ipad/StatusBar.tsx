@@ -1,29 +1,21 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useClock } from "../useClock";
+
 
 interface Props {
   orientation: "landscape" | "portrait";
 }
 
-export default function StatusBar({ orientation: _orientation }: Props) {
-  const [time, setTime] = useState("");
-
-  useEffect(() => {
-    const update = () => {
-      const now = new Date();
-      setTime(
-        now.toLocaleTimeString("en-US", {
-          hour: "numeric",
-          minute: "2-digit",
-          hour12: true,
-        })
-      );
-    };
-    update();
-    const interval = setInterval(update, 1000);
-    return () => clearInterval(interval);
-  }, []);
+export default function StatusBar({}: Props) {
+  const now = useClock();
+  const time = now
+    ? now.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      })
+    : "";
 
   return (
     <div

@@ -17,7 +17,7 @@ function preloadSrc(src: string) {
   img.src = src;
 }
 
-export default function PhotosApp({ onClose, orientation }: Props) {
+export default function PhotosApp({ orientation }: Props) {
   const [selected, setSelected] = useState<number | null>(null);
   const [loaded, setLoaded] = useState<Set<number>>(new Set());
   const isLandscape = orientation === "landscape";

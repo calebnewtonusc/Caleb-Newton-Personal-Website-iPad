@@ -11,7 +11,7 @@ interface Props {
   orientation: string;
 }
 
-export default function SpotifyApp({ onClose: _onClose }: Props) {
+export default function SpotifyApp({}: Props) {
   const [tab, setTab] = useState<Tab>("new");
 
   const albums = tab === "new" ? music.favoriteNewAlbums : music.favoriteOldAlbums;

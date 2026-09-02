@@ -40,7 +40,7 @@ const VERSES = [
 
 const HIGHLIGHT = 17;
 
-export default function BibleApp({ onClose: _onClose }: Props) {
+export default function BibleApp({}: Props) {
   return (
     <div
       className="app-window"
