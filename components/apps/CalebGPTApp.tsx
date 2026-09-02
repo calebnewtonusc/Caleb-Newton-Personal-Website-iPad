@@ -77,6 +77,8 @@ export default function CalebGPTApp() {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [lastPrompt, setLastPrompt] = useState<string | null>(null);
   const [showSuggestions, setShowSuggestions] = useState(true);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -92,21 +94,43 @@ export default function CalebGPTApp() {
     setMessages(newMessages);
     setInput("");
     setLoading(true);
+    setError(null);
+    setLastPrompt(text.trim());
     setShowSuggestions(false);
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ messages: newMessages }),
+        signal: AbortSignal.timeout(45_000),
       });
-      const data = await res.json();
-      const reply = data.content ?? data.error ?? "Something went wrong.";
-      setMessages([...newMessages, { role: "assistant", content: reply }]);
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.content) {
+        setError(
+          res.status === 429
+            ? "That was a lot of questions at once. Give it a minute."
+            : "CalebGPT could not answer just then.",
+        );
+        return;
+      }
+      setMessages([...newMessages, { role: "assistant", content: data.content }]);
     } catch {
-      setMessages([...newMessages, { role: "assistant", content: "Network error - check your connection." }]);
+      setError("Could not reach CalebGPT. Check your connection.");
     } finally {
       setLoading(false);
     }
+  };
+
+  const retry = () => {
+    if (!lastPrompt) return;
+    // Drop the user turn that failed so it is not sent twice
+    setMessages((prev) =>
+      prev.length && prev[prev.length - 1].role === "user"
+        ? prev.slice(0, -1)
+        : prev,
+    );
+    setError(null);
+    void send(lastPrompt);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -197,6 +221,44 @@ export default function CalebGPTApp() {
             )}
           </motion.div>
         ))}
+
+        {/* Error state with retry */}
+        {error && (
+          <div
+            role="alert"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              gap: 10,
+              padding: "10px 14px",
+              marginBottom: 14,
+              borderRadius: 14,
+              background: "#fff2f2",
+              border: "1px solid #ffd4d4",
+            }}
+          >
+            <span style={{ fontSize: 13, color: "#8a1f1f", flex: 1 }}>
+              {error}
+            </span>
+            <button
+              type="button"
+              onClick={retry}
+              style={{
+                border: "none",
+                background: "#8a1f1f",
+                color: "white",
+                borderRadius: 10,
+                padding: "6px 12px",
+                fontSize: 13,
+                fontWeight: 600,
+                cursor: "pointer",
+                fontFamily: "-apple-system, sans-serif",
+              }}
+            >
+              Try again
+            </button>
+          </div>
+        )}
 
         {/* Typing indicator */}
         <AnimatePresence>

@@ -626,11 +626,12 @@ function DocView({
                 }}
               >
                 {exp.photos.map((src, pi) => (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
+                  <Image
                     key={pi}
                     src={src}
                     alt=""
+                    width={190}
+                    height={120}
                     style={{
                       height: 120,
                       width: 190,

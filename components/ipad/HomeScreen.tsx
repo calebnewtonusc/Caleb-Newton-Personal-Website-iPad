@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import type { AppId, AppDef } from "@/data/content";
 import { apps, dockApps } from "@/data/content";
@@ -136,13 +137,13 @@ function AppIcon({
         {app.id === "calendar" ? (
           <LiveCalendarIcon size={size} />
         ) : app.icon ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+           
+          <Image
             src={app.icon}
-            alt={app.name}
+            alt=""
+            fill
+            sizes="96px"
             style={{
-              width: "100%",
-              height: "100%",
               objectFit: "cover",
               display: "block",
               transform: app.id === "settings" ? "scale(1.05)" : undefined,
@@ -264,10 +265,13 @@ export default function HomeScreen({
       }}
     >
       {/* Wallpaper */}
-      {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img
+      { }
+      <Image
         src="/assets/CalebAtBeachUSCHoodie.jpg"
         alt=""
+        fill
+        priority
+        sizes="100vw"
         style={{
           position: "absolute",
           inset: 0,
@@ -311,10 +315,12 @@ export default function HomeScreen({
             }}
           >
             {/* Lock wallpaper */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            { }
+            <Image
               src="/assets/everything_night_main.jpg"
               alt=""
+              fill
+              sizes="200px"
               style={{
                 position: "absolute",
                 inset: 0,

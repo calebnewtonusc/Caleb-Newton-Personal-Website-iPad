@@ -294,11 +294,12 @@ function OrgDetail({
               }}
             >
               {(org.photos as string[]).map((src, pi) => (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img
+                <Image
                   key={pi}
                   src={src}
                   alt=""
+                  width={160}
+                  height={110}
                   style={{
                     height: 110,
                     width: "auto",

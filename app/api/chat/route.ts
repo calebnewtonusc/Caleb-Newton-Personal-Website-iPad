@@ -1,12 +1,24 @@
 import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
+import { z } from "zod";
 
-// Simple in-memory rate limiter (per warm process — resets on cold start)
+// In-memory rate limiter, bounded so a flood of unique IPs cannot grow the map
+// without limit. Resets on cold start, which is acceptable for a personal site.
 const ipMap = new Map<string, { n: number; ts: number }>();
 const LIMIT = 15;
 const WINDOW = 60_000;
+const MAX_TRACKED_IPS = 5_000;
+
 function limited(ip: string): boolean {
   const now = Date.now();
+
+  if (ipMap.size > MAX_TRACKED_IPS) {
+    for (const [key, rec] of ipMap) {
+      if (now - rec.ts > WINDOW) ipMap.delete(key);
+    }
+    if (ipMap.size > MAX_TRACKED_IPS) ipMap.clear();
+  }
+
   const rec = ipMap.get(ip);
   if (!rec || now - rec.ts > WINDOW) {
     ipMap.set(ip, { n: 1, ts: now });
@@ -45,7 +57,16 @@ If asked what you can do, say you can answer questions about Caleb's background,
 const FALLBACK_CONTEXT = `CANONICAL CONTEXT (fallback — medha-id unreachable):
 Caleb Newton is a sophomore at the USC Jimmy Iovine & Dr. Dre Young Innovation Academy, class of 2029, studying B.S. Machine Learning Engineering, Entrepreneurship & Design with a minor in Neuroscience, GPA 4.00/4.00. He is a follower of Jesus and Co-President of USC Trojan Technology Solutions (TTS). He is Founding GTM & Product Lead at Amber Intelligence (Jul 2026 to present). Previously: GTM Engineer at Blue Modern Advisory (May to Jul 2026), GTM Engineer at Nalana (Feb to Jun 2026), Software Engineer at AINA Tech (Sep 2025 to Dec 2025), and Control Theory Research Assistant at Caltech (Aug 2024 to Jun 2025). He co-founded Echo AI, an EMG wearable translating ASL into speech, and founded the San Gabriel Valley Christian Club Collective. He is from San Marino, CA, half-Filipino half-White, 2e autistic (diagnosed senior year), and was his high school baseball team captain.`;
 
-type ChatMessage = { role: "user" | "assistant"; content: string };
+const ChatMessageSchema = z.object({
+  role: z.enum(["user", "assistant"]),
+  content: z.string().min(1).max(4000),
+});
+
+const ChatRequestSchema = z.object({
+  messages: z.array(ChatMessageSchema).min(1).max(40),
+});
+
+type ChatMessage = z.infer<typeof ChatMessageSchema>;
 
 let contextCache: { body: string; ts: number } | null = null;
 
@@ -113,24 +134,23 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const body = await req.json();
-    const rawMessages = Array.isArray(body?.messages) ? body.messages : null;
-    if (!rawMessages) {
+    let raw: unknown;
+    try {
+      raw = await req.json();
+    } catch {
+      return NextResponse.json(
+        { error: "Invalid request." },
+        { status: 400 },
+      );
+    }
+
+    const parsed = ChatRequestSchema.safeParse(raw);
+    if (!parsed.success) {
       return NextResponse.json({ error: "Invalid request." }, { status: 400 });
     }
 
     const messages: ChatMessage[] = normalizeMessages(
-      rawMessages
-        .filter(
-          (m: unknown): m is ChatMessage =>
-            typeof m === "object" &&
-            m !== null &&
-            typeof (m as ChatMessage).role === "string" &&
-            typeof (m as ChatMessage).content === "string" &&
-            ((m as ChatMessage).role === "user" ||
-              (m as ChatMessage).role === "assistant"),
-        )
-        .slice(-16),
+      parsed.data.messages.slice(-16),
     );
 
     const canonicalContext = await fetchCalebContext();
