@@ -509,7 +509,7 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                       fontFamily: "-apple-system, sans-serif",
                     }}
                   >
-                    USC · Jimmy Iovine & André Young Academy
+                    USC · Jimmy Iovine & Dr. Dre Young Innovation Academy
                   </p>
                 </div>
 
@@ -574,14 +574,14 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                   {[
                     {
                       label: "Building",
-                      value: "Holographic video @ AINA Tech",
+                      value: "Amber Intelligence · Silo",
                     },
                     {
                       label: "Studying",
                       value:
-                        "Innovation · AI · Math · Physics · Neuroscience · Cinematography · Entrepreneurship",
+                        "Machine Learning Engineering · Entrepreneurship & Design · Neuroscience",
                     },
-                    { label: "Learning", value: "PyTorch · 4DGS · Guitar" },
+                    { label: "Learning", value: "Neuroscience · Guitar" },
                   ].map((item, i) => (
                     <div
                       key={item.label}

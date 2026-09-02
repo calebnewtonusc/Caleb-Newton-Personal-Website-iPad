@@ -8,11 +8,11 @@ export const profile = {
   photo: "/assets/CalebAtBeachUSCHoodie.jpg",
   photoAlt: "/assets/CalebAtUSC.jpg",
   skills: ["Python", "C++", "CUDA", "TypeScript", "Swift", "SQL"],
-  bio: "Hello! I'm Caleb Newton, a follower of Jesus and USC sophomore. I'm passionate about building AI systems that serve people, grounded in my Christian faith and commitment to human-centered technology. Currently diving deep into the technical foundations of machine learning: PyTorch, transformers, computer vision, and ranking systems. Outside of code, I'm into vinyl records, board games, hiking, skateboarding, baseball, and making learning joyful.",
+  bio: "Hello! I'm Caleb Newton, a follower of Jesus and a USC sophomore at the Iovine & Young Academy, studying machine learning engineering, entrepreneurship and design with a minor in neuroscience. Right now I'm Founding GTM & Product Lead at Amber Intelligence and the founder of Silo, a marketplace for California's permitted home cooks. Before that I built GTM systems at Blue Modern Advisory and Nalana, volumetric capture tooling at AINA Tech, and control theory simulations at Caltech. Outside of work I'm into vinyl, beatboxing, improv, hiking, and thrifting.",
   roles: [
     "Follower of Jesus",
-    "Aspiring AI Engineer",
-    "Aspiring Data Engineer",
+    "Founder",
+    "GTM & Product Engineer",
     "USC Student",
   ],
 };
@@ -365,7 +365,7 @@ export const personalSettings = [
         detail: "Non-negotiable",
       },
       { label: "Favorite Verse", type: "info", detail: "1 Thessalonians 5:17" },
-      { label: "Church", type: "info", detail: "ACTS2 Fellowship @ USC" },
+      { label: "Church", type: "info", detail: "GenCollege Christians @ USC" },
       {
         label: "Ministry",
         type: "info",
@@ -415,11 +415,6 @@ export const personalSettings = [
         detail: "Jazz · Hip-Hop · Gospel · R&B · Indie",
       },
       { label: "All-Time Favorite", type: "info", detail: "Stevie Wonder" },
-      {
-        label: "Current Rotation",
-        type: "info",
-        detail: "Little Simz, Quadeca, Will Reagan",
-      },
       { label: "Plays Guitar", type: "info", detail: "Learning worship songs" },
     ],
   },
@@ -430,7 +425,7 @@ export const personalSettings = [
       {
         label: "Baseball",
         type: "toggle-off",
-        detail: "Retired · Pitcher · San Marino HS",
+        detail: "Team Captain · San Marino HS",
       },
       {
         label: "Wrestling",
@@ -443,14 +438,14 @@ export const personalSettings = [
         detail: "Hollywood Hills, mountains, anywhere",
       },
       { label: "Board Games", type: "toggle-on", detail: "Serious about this" },
-      { label: "Spikeball & Pickleball", type: "toggle-on", detail: "Active" },
+      { label: "Fitness", type: "toggle-on", detail: "Active" },
     ],
   },
   {
     section: "Film & Culture",
     icon: "film",
     items: [
-      { label: "Letterboxd", type: "info", detail: "cnewt · 55 films logged" },
+      { label: "Letterboxd", type: "info", detail: "cnewt" },
       {
         label: "Favorites",
         type: "info",
@@ -459,7 +454,7 @@ export const personalSettings = [
       {
         label: "Rating Style",
         type: "info",
-        detail: "Generous - 59% five stars. If it's good it's good",
+        detail: "Generous. If it's good it's good",
       },
       { label: "On Watchlist", type: "info", detail: "Parasite · Dune" },
       {
@@ -481,7 +476,7 @@ export const personalSettings = [
       {
         label: "Reading",
         type: "info",
-        detail: "Non-fiction · theology · AI alignment",
+        detail: "Non-fiction · theology · neuroscience",
       },
     ],
   },
@@ -511,13 +506,11 @@ export const personalSettings = [
         type: "toggle-off",
         detail: "People keep texting",
       },
-      { label: "Location", type: "info", detail: "Leavey Library" },
       {
         label: "Brain Backup",
         type: "info",
-        detail: "GitHub + Todoist + Poke Agent",
+        detail: "GitHub + Obsidian",
       },
-      { label: "Dictation", type: "info", detail: "WillowVoice - goes faster" },
       {
         label: "Privacy",
         type: "info",

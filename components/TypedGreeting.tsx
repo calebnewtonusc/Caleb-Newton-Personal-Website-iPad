@@ -21,7 +21,7 @@ export default function TypedGreeting({
     typedRef.current = new Typed(elRef.current, {
       strings: [
         "Hey, I'm Caleb.",
-        "Innovation · AI · Math · Physics · Neuroscience · Cinematography · Entrepreneurship.",
+        "Machine Learning Engineering · Entrepreneurship & Design · Neuroscience.",
         "Let's build something.",
       ],
       typeSpeed: 48,

@@ -25,22 +25,18 @@ const INBOX: Email[] = [
     id: "open",
     from: "Caleb Newton",
     fromShort: "CN",
-    subject: "Open to opportunities -AI & Software",
+    subject: "Open to opportunities",
     preview:
-      "Hi! I'm actively looking for AI engineering, data engineering, and software internships...",
+      "I'm building Amber Intelligence and Silo, and I'm always up for a conversation...",
     body: `Hi there,
 
-I'm Caleb Newton -a sophomore at USC's Jimmy Iovine & André Young Academy, currently building at the intersection of machine learning and real-world systems.
+I'm Caleb Newton, a sophomore at USC's Jimmy Iovine & Dr. Dre Young Innovation Academy, studying Machine Learning Engineering, Entrepreneurship & Design with a minor in Neuroscience.
 
-I'm actively looking for internships and research positions in:
-• Machine Learning Engineering
-• Data Engineering / Analytics
-• Full-Stack Development (AI-focused)
-• Computer Vision
+Right now I'm Founding GTM & Product Lead at Amber Intelligence, a relationship and health AI startup, and the founder of Silo, a marketplace for California's permitted home cooks.
 
-Current work: Holographic video processing at AINA Tech (4D Gaussian Splatting), and KTP client projects in data analytics and AI strategy.
+Before that I was a GTM Engineer at Blue Modern Advisory and at Nalana, a software engineer at AINA Tech, and a control theory research assistant at Caltech.
 
-Feel free to reach out -I respond to everything.`,
+Feel free to reach out. I respond to everything.`,
     time: "Now",
     unread: true,
   },
@@ -50,20 +46,18 @@ Feel free to reach out -I respond to everything.`,
     fromShort: "CN",
     subject: "Let's build something together",
     preview:
-      "I've shipped production AI systems, full-stack apps, and data pipelines...",
+      "Relationship graphs, a home-cook marketplace, an ASL wearable, and control theory...",
     body: `What I've built:
 
-ModelLab -AI experiment tracking platform with dataset versioning and reproducibility exports. Production-grade Python EvalHarness computing ROC-AUC, PR-AUC, calibration metrics.
+Amber Intelligence. Led the repositioning around user-owned contact data, which became the core product differentiation and fundraising thesis. Opened 12 VC conversations. Built PeopleRank, a 3-stage retrieval engine that ranks relationships even when the underlying data is incomplete.
 
-Food Vision -97.20% accurate food classifier using EfficientNetB2 + PyTorch. 29.65MB weights with FastAPI + React frontend.
+Silo. Secured an official Cooks Alliance partnership unlocking 1,000+ permitted cooks for statewide expansion, and won the USC New Venture Pitch Competition.
 
-16 Tech Personalities -Rule-based career matching platform. 40-question quiz, 16 personality types, 42 tech role matches. 100% test accuracy.
+Blue Modern Advisory. Rebuilt the outbound engine across 147,000+ monthly emails, increasing booked meetings 6.3x and generating $350K+ in pipeline across 8 clients.
 
-NBA Prediction -72.3% accuracy across 6 trained models. Real-time dashboard, 2,788+ games, 200+ players.
+Echo AI. Co-founded an EMG wearable translating ASL into speech, with a 1,900-sample proprietary dataset and 99.5% gesture recognition accuracy. Won the Marshall AI Summit.
 
-LA Healthcare Access -Geospatial analytics across 2,498 census tracts. Identified $645M investment opportunity.
-
-Everything I build is production-quality, documented, and deployed.`,
+Caltech. 18 MATLAB and Python simulations stress-testing research on reliable autonomy under uncertainty, with visualizations presented in a 2025 doctoral thesis defense and to JPL.`,
     time: "Today",
     unread: false,
   },
@@ -76,11 +70,11 @@ Everything I build is production-quality, documented, and deployed.`,
       "I'm a follower of Jesus, and that shapes everything about how I work and build...",
     body: `A bit about what drives me:
 
-I'm a follower of Jesus, and that's not a side note -it's the core of how I approach my work. I believe technology is most powerful when it serves people, not the other way around.
+I'm a follower of Jesus, and that's not a side note. It's the core of how I approach my work. I believe technology is most powerful when it serves people, not the other way around.
 
-I co-founded the SGV Christian Club Collective in high school -uniting 15+ campus ministries across the San Gabriel Valley. I know what it means to build something from nothing and lead with integrity.
+I founded the San Gabriel Valley Christian Club Collective in high school, a coalition of 20+ campus Christian clubs that ended in a 200+ student summit with 20 breakout sessions. I know what it means to build something from nothing and lead with integrity.
 
-At USC, I'm involved with ACTS2 Fellowship, KTP, and several other communities. I care about IRL connection over metrics, quality over speed, and building things that actually matter.
+At USC I'm involved with GenCollege Christians, Troy Philippines, Flavors, Dragon Boat, SC Board Games, and Marshall AI Biotech. I care about IRL connection over metrics, quality over speed, and building things that actually matter.
 
 If you're building something meaningful and think I could help, I'd genuinely love to talk.`,
     time: "Yesterday",

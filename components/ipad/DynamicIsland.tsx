@@ -83,8 +83,8 @@ export default function DynamicIsland() {
                     letterSpacing: 0.1,
                   }}
                 >
-                  Innovation · AI · Math · Physics · Neuroscience ·
-                  Cinematography · Entrepreneurship
+                  Machine Learning Engineering · Entrepreneurship & Design ·
+                  Neuroscience
                 </div>
               </div>
             </motion.div>
