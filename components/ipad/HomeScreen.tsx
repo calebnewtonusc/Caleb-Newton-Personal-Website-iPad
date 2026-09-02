@@ -340,8 +340,9 @@ export default function HomeScreen({
               src="/assets/everything_night_main.jpg"
               alt=""
               fill
-              quality={90}
-              sizes="300px"
+              priority
+              quality={92}
+              sizes="100vw"
               style={{
                 position: "absolute",
                 inset: 0,
