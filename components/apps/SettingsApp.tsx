@@ -573,15 +573,14 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                 >
                   {[
                     {
-                      label: "Building",
-                      value: "Amber Intelligence",
+                      label: "Reading",
+                      value: "Non-fiction · theology · neuroscience",
                     },
+                    { label: "Learning", value: "Guitar, slowly" },
                     {
-                      label: "Studying",
-                      value:
-                        "Machine Learning Engineering · Entrepreneurship & Design · Neuroscience",
+                      label: "Lately",
+                      value: "Board games nobody else wants to play",
                     },
-                    { label: "Learning", value: "Neuroscience · Guitar" },
                   ].map((item, i) => (
                     <div
                       key={item.label}

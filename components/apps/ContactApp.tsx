@@ -25,38 +25,42 @@ const INBOX: Email[] = [
     id: "open",
     from: "Caleb Newton",
     fromShort: "CN",
-    subject: "Open to opportunities",
+    subject: "The fastest way to reach me",
     preview:
-      "I'm building Amber Intelligence, and I'm always up for a conversation...",
+      "calebnew@usc.edu. I read everything and I actually write back...",
     body: `Hi there,
 
-I'm Caleb Newton, a sophomore at USC's Jimmy Iovine & Dr. Dre Young Innovation Academy, studying Machine Learning Engineering, Entrepreneurship & Design with a minor in Neuroscience.
+The fastest way to reach me is calebnew@usc.edu. I read everything, and I write back, usually within a day or two.
 
-Right now I'm Founding GTM & Product Lead at Amber Intelligence, a relationship and health AI startup.
+Good reasons to send something:
 
-Before that I was a GTM Engineer at Blue Modern Advisory and at Nalana, a software engineer at AINA Tech, and a control theory research assistant at Caltech.
+You are building a thing and want another pair of hands on it.
+You want to argue with me about an idea.
+You are a USC student trying to get a project off the ground.
+You want to tell me my favorite album is overrated.
 
-Feel free to reach out. I respond to everything.`,
+I would rather have a real conversation than a polished one. Send me the messy version.`,
     time: "Now",
     unread: true,
   },
   {
-    id: "projects",
+    id: "collab",
     from: "Caleb Newton",
     fromShort: "CN",
-    subject: "Let's build something together",
+    subject: "What I'm good for, and what I'm not",
     preview:
-      "Relationship graphs, an ASL wearable, GTM engines, and control theory...",
-    body: `What I've built:
+      "Worth knowing before you write, so neither of us wastes the other's time...",
+    body: `Worth knowing before you write.
 
-Amber Intelligence. Led the repositioning around user-owned contact data, which became the core product differentiation and fundraising thesis. Opened 12 VC conversations. Built PeopleRank, a 3-stage retrieval engine that ranks relationships even when the underlying data is incomplete.
+What I am good for:
 
+Problems where the hard part is deciding what to build, not just how to build it. Early things with no obvious playbook. Anything where I get to talk to the people who will actually use it. Being the person who says the uncomfortable thing in the room.
 
-Blue Modern Advisory. Rebuilt the outbound engine across 147,000+ monthly emails, increasing booked meetings 6.3x and generating $350K+ in pipeline across 8 clients.
+What I am not good for:
 
-Echo AI. Co-founded an EMG wearable translating ASL into speech, with a 1,900-sample proprietary dataset and 99.5% gesture recognition accuracy. Won the Marshall AI Summit.
+Work that needs someone who has done exactly this for ten years. Projects where the decision is already made and someone just needs hands. I will ask too many questions and it will slow you down.
 
-Caltech. 18 MATLAB and Python simulations stress-testing research on reliable autonomy under uncertainty, with visualizations presented in a 2025 doctoral thesis defense and to JPL.`,
+If the first list sounds like your thing, write me.`,
     time: "Today",
     unread: false,
   },
@@ -66,14 +70,12 @@ Caltech. 18 MATLAB and Python simulations stress-testing research on reliable au
     fromShort: "CN",
     subject: "What drives me",
     preview:
-      "I'm a follower of Jesus, and that shapes everything about how I work and build...",
+      "I'm a follower of Jesus, and that shapes how I work more than anything else...",
     body: `A bit about what drives me:
 
-I'm a follower of Jesus, and that's not a side note. It's the core of how I approach my work. I believe technology is most powerful when it serves people, not the other way around.
+I'm a follower of Jesus, and that isn't a side note. It's the core of how I approach my work. I believe technology is most powerful when it serves people rather than farming them.
 
-I founded the San Gabriel Valley Christian Club Collective in high school, a coalition of 20+ campus Christian clubs that ended in a 200+ student summit with 20 breakout sessions. I know what it means to build something from nothing and lead with integrity.
-
-At USC I'm involved with GenCollege Christians, Troy Philippines, Flavors, Dragon Boat, SC Board Games, and Marshall AI Biotech. I care about IRL connection over metrics, quality over speed, and building things that actually matter.
+Practically that comes out in a few ways. I would rather tell you an uncomfortable truth than a comfortable maybe. I care more about whether something is real than whether it demos well. And I think the best thing you can build for someone is a reason to be in the same room as other people.
 
 If you're building something meaningful and think I could help, I'd genuinely love to talk.`,
     time: "Yesterday",

@@ -304,9 +304,7 @@ function DocView({
 }) {
   const hasContributions = exp.achievements.length > 0;
   const hasExtras =
-    exp.skills.length > 0 ||
-    (exp.photos?.length ?? 0) > 0 ||
-    Boolean(exp.website);
+    (exp.photos?.length ?? 0) > 0 || Boolean(exp.website);
 
   return (
     <div
@@ -588,7 +586,14 @@ function DocView({
             >
               Key Contributions
             </h2>
-            <ul style={{ paddingLeft: 20, margin: 0 }}>
+            <ul
+              style={{
+                paddingLeft: 22,
+                margin: 0,
+                listStyleType: "disc",
+                listStylePosition: "outside",
+              }}
+            >
               {exp.achievements.map((a, i) => (
                 <li
                   key={i}
@@ -597,6 +602,8 @@ function DocView({
                     color: "#3c4043",
                     lineHeight: 1.65,
                     marginBottom: 8,
+                    display: "list-item",
+                    listStyleType: "disc",
                   }}
                 >
                   {a}
@@ -606,41 +613,9 @@ function DocView({
           </DocPage>
         )}
 
-        {/* Page 3: Technologies + photos + website */}
+        {/* Page 3: photos + website */}
         {hasExtras && (
           <DocPage index={hasContributions ? 2 : 1}>
-            {exp.skills.length > 0 && (
-              <div>
-                <h2
-                  style={{
-                    fontSize: 15,
-                    fontWeight: 700,
-                    color: "#202124",
-                    marginBottom: 10,
-                  }}
-                >
-                  Technologies
-                </h2>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 6 }}>
-                  {exp.skills.map((s) => (
-                    <span
-                      key={s}
-                      style={{
-                        fontSize: 12,
-                        fontWeight: 500,
-                        color: GDOCS_BLUE,
-                        background: GDOCS_LIGHT_BLUE,
-                        borderRadius: 12,
-                        padding: "3px 10px",
-                      }}
-                    >
-                      {s}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            )}
-
             {exp.photos && exp.photos.length > 0 && (
               <div
                 style={{

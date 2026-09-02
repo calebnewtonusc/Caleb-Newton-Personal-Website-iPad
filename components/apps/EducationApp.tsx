@@ -86,11 +86,11 @@ export default function EducationApp({ onClose }: Props) {
                     className="ios-large-title font-poppins"
                     style={{ color: "#1c1c1e" }}
                   >
-                    Notes
+                    Education
                   </h1>
                 </m.div>
 
-                {/* Recent Note featured card */}
+                {/* Featured card */}
                 <m.div
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -105,20 +105,6 @@ export default function EducationApp({ onClose }: Props) {
                       boxShadow: "0 1px 8px rgba(0,0,0,0.07)",
                     }}
                   >
-                    {/* Label */}
-                    <div style={{ marginBottom: 10 }}>
-                      <span
-                        style={{
-                          fontSize: 12,
-                          fontWeight: 600,
-                          color: "#8e8e93",
-                          letterSpacing: 0.2,
-                        }}
-                      >
-                        Recent Note
-                      </span>
-                    </div>
-
                     {/* Title */}
                     <h2
                       style={{
@@ -180,7 +166,7 @@ export default function EducationApp({ onClose }: Props) {
                   </div>
                 </m.div>
 
-                {/* All Notes section */}
+                {/* Entries */}
                 <m.div
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -195,31 +181,6 @@ export default function EducationApp({ onClose }: Props) {
                       boxShadow: "0 1px 8px rgba(0,0,0,0.07)",
                     }}
                   >
-                    {/* Section header */}
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        padding: "14px 16px 10px",
-                        borderBottom: "0.5px solid rgba(60,60,67,0.12)",
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontSize: 16,
-                          fontWeight: 700,
-                          color: "#1c1c1e",
-                          fontFamily: "-apple-system, sans-serif",
-                        }}
-                      >
-                        All Notes
-                      </span>
-                      <span style={{ fontSize: 13, color: "#8e8e93" }}>
-                        {education.length} total
-                      </span>
-                    </div>
-
                     {/* List rows */}
                     {education.map((ed, i) => (
                       <m.div
