@@ -6,6 +6,7 @@ const nextConfig: NextConfig = {
     formats: ["image/avif", "image/webp"],
     deviceSizes: [375, 640, 828, 1080, 1200, 1920],
     imageSizes: [32, 48, 64, 96, 128, 256],
+    qualities: [75, 90, 92, 95],
   },
 
   // Aggressive caching for static assets - icons and images load once then serve from cache

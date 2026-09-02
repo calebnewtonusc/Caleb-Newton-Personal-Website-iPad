@@ -151,7 +151,8 @@ function AppIcon({
             src={app.icon}
             alt=""
             fill
-            sizes="96px"
+            quality={95}
+            sizes="256px"
             style={{
               objectFit: "cover",
               display: "block",
@@ -280,6 +281,7 @@ export default function HomeScreen({
         alt=""
         fill
         priority
+        quality={92}
         sizes="100vw"
         style={{
           position: "absolute",
@@ -338,7 +340,8 @@ export default function HomeScreen({
               src="/assets/everything_night_main.jpg"
               alt=""
               fill
-              sizes="200px"
+              quality={90}
+              sizes="300px"
               style={{
                 position: "absolute",
                 inset: 0,
