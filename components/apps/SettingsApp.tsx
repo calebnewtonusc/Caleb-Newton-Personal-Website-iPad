@@ -372,7 +372,7 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                         marginTop: 1,
                       }}
                     >
-                      USC · Iovine & Young Academy
+                      {profile.tagline}
                     </p>
                   </div>
                   <svg width="7" height="12" viewBox="0 0 7 12" fill="none">
@@ -559,7 +559,7 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                       fontFamily: "-apple-system, sans-serif",
                     }}
                   >
-                    USC · Jimmy Iovine & Dr. Dre Young Innovation Academy
+                    {profile.tagline}
                   </p>
                 </div>
 

@@ -11,9 +11,9 @@ export const profile = {
   bio: "Hello! I'm Caleb Newton, a follower of Jesus and a USC sophomore.\n\nFor most of my life, you think too much, kid was something people said to me as a criticism. I was diagnosed autistic at the start of my senior year of high school, and it reframed the whole thing. The systematic thinking was never the problem. It was the point.\n\nI threw 84 as a closer until my arm gave out and I dropped to 70. I spent a year reading sports science papers and rebuilding my mechanics, and I got back to 81. Not all the way. But that was the first time research stopped being homework and turned into something I could actually use on myself.\n\nIn 2022 I played baseball in a junkyard in the Dominican Republic. The people there had close to nothing and were the most joyful I had ever met. It rearranged what I thought joy came from.\n\nThose three things, in that order, are most of why I build what I build.",
   roles: [
     "Autistic Jesus Follower",
-    "Founder",
-    "GTM & Product Engineer",
-    "USC Student",
+    "Founding GTM & Product Lead",
+    "Co-President, TTS",
+    "USC Sophomore",
   ],
 };
 

@@ -58,31 +58,15 @@ The curiosity has not changed. Only the tools.`,
   },
 };
 
-// Format date for notes
+// Format date for notes: use the END of the period, which is when he left
 function noteDate(period: string): string {
-  const yearMatch = period.match(/\d{4}/);
-  const year = yearMatch ? yearMatch[0] : "2025";
-  const months: Record<string, string> = {
-    Jan: "Jan",
-    Feb: "Feb",
-    Mar: "Mar",
-    Apr: "Apr",
-    May: "May",
-    Jun: "Jun",
-    July: "Jul",
-    Aug: "Aug",
-    Sep: "Sep",
-    Oct: "Oct",
-    Nov: "Nov",
-    Dec: "Dec",
-    August: "Aug",
-    June: "Jun",
-    January: "Jan",
-  };
-  for (const [k, v] of Object.entries(months)) {
-    if (period.includes(k)) return `${v} ${year}`;
+  const pairs = [...period.matchAll(/([A-Z][a-z]{2,8})\s+(\d{4})/g)];
+  if (pairs.length === 0) {
+    const y = period.match(/\d{4}/);
+    return y ? y[0] : "";
   }
-  return year;
+  const [, month, year] = pairs[pairs.length - 1];
+  return `${month.slice(0, 3)} ${year}`;
 }
 
 export default function EducationApp({ onClose }: Props) {
