@@ -1,12 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
-import { Analytics } from "@vercel/analytics/next";
 
 export const metadata: Metadata = {
   title: "Caleb Newton",
   description:
-    "Caleb Newton - CS + Applied Mathematics @ USC. Machine Learning, Data Engineering, Computer Vision.",
-  keywords: ["Caleb Newton", "USC", "Machine Learning", "Computer Science", "Portfolio"],
+    "Caleb Newton. Autistic Jesus follower and USC sophomore at the Iovine & Young Academy. Founding GTM and Product Lead at Amber Intelligence.",
+  keywords: ["Caleb Newton", "USC", "Iovine & Young Academy", "Amber Intelligence", "GTM"],
   authors: [{ name: "Caleb Newton" }],
   icons: {
     icon: "/favicon.png",
@@ -14,7 +13,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: "Caleb Newton",
-    description: "CS + Applied Mathematics @ USC. Building AI systems that serve people.",
+    description: "Autistic Jesus follower. USC Iovine & Young Academy. Founding GTM and Product Lead at Amber Intelligence.",
     url: "https://calebnewton.me",
     siteName: "Caleb Newton",
     type: "website",
@@ -22,7 +21,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Caleb Newton",
-    description: "CS + Applied Mathematics @ USC. Building AI systems that serve people.",
+    description: "Autistic Jesus follower. USC Iovine & Young Academy. Founding GTM and Product Lead at Amber Intelligence.",
   },
 };
 
@@ -40,17 +39,11 @@ export default function RootLayout({
         <link rel="apple-touch-icon" href="/favicon.png" />
         {/* Preload critical above-the-fold assets */}
         <link rel="preload" href="/assets/CalebAtBeachUSCHoodie.jpg" as="image" />
-        <link rel="preload" href="/assets/icons/contacts_ios.png" as="image" />
-        <link rel="preload" href="/assets/icons/appstore_ios.png" as="image" />
-        <link rel="preload" href="/assets/icons/applemusic_ios.png" as="image" />
-        <link rel="preload" href="/assets/icons/settings_ios.png" as="image" />
-        <link rel="preload" href="/assets/icons/photos_ios.png" as="image" />
         <link rel="preload" href="/assets/icons/spotify.png" as="image" />
         <link rel="preload" href="/assets/icons/github.webp" as="image" />
         <link rel="preload" href="/assets/icons/linkedin.jpg" as="image" />
       </head>
-      <body>{children}  <Analytics />
-</body>
+      <body>{children}</body>
     </html>
   );
 }

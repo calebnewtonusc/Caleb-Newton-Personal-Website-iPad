@@ -208,24 +208,31 @@ export default function HomeScreen({
 }: Props) {
   const isLandscape = orientation === "landscape";
 
-  const [time, setTime] = useState(new Date());
+  // Null until mounted: seeding with new Date() renders a different clock on the
+  // server than the client and trips a hydration mismatch (React #418).
+  const [time, setTime] = useState<Date | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    setTime(new Date());
     const timer = setInterval(() => setTime(new Date()), 1000);
     return () => clearInterval(timer);
   }, []);
 
-  const timeStr = time.toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: false,
-  });
-  const dateStr = time.toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-  });
+  const timeStr = time
+    ? time.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: false,
+      })
+    : "";
+  const dateStr = time
+    ? time.toLocaleDateString("en-US", {
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+      })
+    : "";
 
   const cols = isLandscape ? 5 : 4;
   const iconSize = isLandscape ? 68 : 72;
