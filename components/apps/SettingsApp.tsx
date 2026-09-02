@@ -44,6 +44,55 @@ const SECTION_ICONS: Record<
   string,
   { bg: string; render: () => React.ReactNode }
 > = {
+  family: {
+    bg: "#34C759",
+    render: () => (
+      <svg width="19" height="15" viewBox="0 0 19 15" fill="none">
+        <circle cx="6.5" cy="4.5" r="3.2" fill="white" />
+        <circle cx="14" cy="5.5" r="2.4" fill="white" />
+        <path
+          d="M1 14.5c0-3 2.5-5 5.5-5s5.5 2 5.5 5"
+          stroke="white"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+        <path
+          d="M13 10c2.8 0 5 1.8 5 4.5"
+          stroke="white"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+  },
+  bluetooth: {
+    bg: "#007AFF",
+    render: () => (
+      <svg width="13" height="18" viewBox="0 0 13 18" fill="none">
+        <path
+          d="M2 5l9 8-4.5 4V1L11 5l-9 8"
+          stroke="white"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
+  },
+  screentime: {
+    bg: "#5E5CE6",
+    render: () => (
+      <svg width="14" height="18" viewBox="0 0 14 18" fill="none">
+        <path
+          d="M2 1h10M2 17h10M3 1c0 4 8 4 8 8s-8 4-8 8"
+          stroke="white"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    ),
+  },
   faith: {
     bg: "#5856D6",
     render: () => (
@@ -216,6 +265,8 @@ const PROFILE_SECTION = "__profile__";
 
 // Group sections for iOS-style grouped lists
 const SECTION_GROUPS = [
+  ["family"],
+  ["bluetooth", "screentime"],
   ["faith", "music", "sports"],
   ["film", "runtime"],
   ["system", "device"],
@@ -542,6 +593,7 @@ export default function SettingsApp({ onClose, orientation }: Props) {
                       color: "#3a3a3c",
                       lineHeight: 1.6,
                       fontFamily: "-apple-system, sans-serif",
+                      whiteSpace: "pre-line",
                     }}
                   >
                     {profile.bio}

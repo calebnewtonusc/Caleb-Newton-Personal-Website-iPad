@@ -8,7 +8,7 @@ export const profile = {
   photo: "/assets/CalebAtBeachUSCHoodie.jpg",
   photoAlt: "/assets/CalebAtUSC.jpg",
   skills: ["Python", "C++", "CUDA", "TypeScript", "Swift", "SQL"],
-  bio: "Hello! I'm Caleb Newton, a follower of Jesus and a USC sophomore. I think in systems, ask too many questions, and get genuinely obsessive about the things I love. I collect vinyl, beatbox in the car, take board games far too seriously, and have not paid retail for clothes in years. I care about building things that put people in the same room, and about telling the truth even when a softer version would land easier.",
+  bio: "Hello! I'm Caleb Newton, a follower of Jesus and a USC sophomore.\n\nFor most of my life, you think too much, kid was something people said to me as a criticism. I was diagnosed autistic my senior year of high school, and it reframed the whole thing. The systematic thinking was never the problem. It was the point.\n\nI pitched in high school until a hamstring injury took my velocity from 84 down to 70. I spent a year reading sports science papers and rebuilding my mechanics, and I got it back. That was the first time research stopped being homework and became something I could actually use.\n\nIn 2022 I played baseball in a junkyard in the Dominican Republic. The people there had close to nothing and were the most joyful I had ever met. It rearranged what I thought joy came from.\n\nSenior year I led a Christian club of 90+ students, then went looking for the other clubs like it. That turned into a coalition across 20+ schools in the San Gabriel Valley and one night where 200 students showed up.\n\nThese days I collect vinyl, beatbox in the car, take board games far too seriously, and have not paid retail in years. I care about building things that put people in the same room, and about telling the truth even when a softer version would land easier.",
   roles: [
     "Follower of Jesus",
     "Founder",
@@ -312,12 +312,137 @@ export const skills = {
 
 export const personalSettings = [
   {
+    section: "Family",
+    icon: "family",
+    items: [
+      {
+        label: "Siblings",
+        type: "info",
+        detail: "Three younger. Two sisters, one brother",
+      },
+      {
+        label: "Oldest Of Four",
+        type: "toggle-on",
+        detail: "Comes with a job description",
+      },
+      { label: "Heritage", type: "info", detail: "Half Filipino, half White" },
+      {
+        label: "Trojan Family, Literally",
+        type: "info",
+        detail: "Dad and Uncle Chad are USC alumni",
+      },
+      {
+        label: "Family Group Chat",
+        type: "toggle-on",
+        detail: "Chaotic. Never muted",
+      },
+      {
+        label: "Sunday Lunch After Church",
+        type: "toggle-on",
+        detail: "Standing appointment",
+      },
+      {
+        label: "Coaches His Siblings",
+        type: "toggle-on",
+        detail: "Whether or not they asked",
+      },
+      {
+        label: "Sibling Names",
+        type: "toggle-off",
+        detail: "Kept off the internet on purpose",
+      },
+    ],
+  },
+  {
+    section: "Bluetooth",
+    icon: "bluetooth",
+    items: [
+      { label: "Bluetooth", type: "toggle-on", detail: "On" },
+      {
+        label: "AirPods Pro",
+        type: "toggle-on",
+        detail: "Connected · in constantly",
+      },
+      {
+        label: "WHOOP",
+        type: "toggle-on",
+        detail: "Connected · knows how bad the sleep is",
+      },
+      {
+        label: "JBL Speaker",
+        type: "toggle-on",
+        detail: "Connected · the one everyone borrows",
+      },
+      {
+        label: "Honda Accord",
+        type: "toggle-on",
+        detail: "CarPlay · aux privileges are earned",
+      },
+    ],
+  },
+  {
+    section: "Screen Time",
+    icon: "screentime",
+    items: [
+      { label: "App Limits", type: "toggle-on", detail: "Set, and actually kept" },
+      { label: "Social Media", type: "toggle-off", detail: "All of it. On purpose" },
+      { label: "Safari", type: "toggle-off", detail: "The browser is blocked too" },
+      { label: "Notifications", type: "toggle-off", detail: "Nearly all of them" },
+      {
+        label: "Basically A Flip Phone",
+        type: "toggle-on",
+        detail: "That is the goal",
+      },
+      {
+        label: "Phone In Another Room",
+        type: "toggle-on",
+        detail: "During deep work",
+      },
+      { label: "Doomscrolling", type: "toggle-off", detail: "Nothing good is down there" },
+      {
+        label: "Screen Time League",
+        type: "info",
+        detail: "Founded one in high school",
+      },
+    ],
+  },
+  {
     section: "Faith & Identity",
     icon: "faith",
     items: [
       { label: "Follower of Jesus", type: "toggle-on", detail: "Non-negotiable" },
-      { label: "Favorite Verse", type: "info", detail: "1 Thessalonians 5:17" },
+      {
+        label: "Favorite Verse",
+        type: "info",
+        detail: "1 Thessalonians 5:17, pray without ceasing",
+      },
+      {
+        label: "Rejoice Always",
+        type: "info",
+        detail: "1 Thessalonians 5:16",
+      },
+      {
+        label: "Give Thanks In All Circumstances",
+        type: "info",
+        detail: "1 Thessalonians 5:18",
+      },
+      {
+        label: "Praying In Tongues",
+        type: "toggle-on",
+        detail: "1 Corinthians 14:15, I will pray with my spirit",
+      },
+      {
+        label: "Spiritual Gifts",
+        type: "toggle-on",
+        detail: "Still being given. 1 Corinthians 12",
+      },
+      {
+        label: "Five-Fold Ministry",
+        type: "info",
+        detail: "Ephesians 4:11, how he built the ACTS cabinet",
+      },
       { label: "Church", type: "info", detail: "GenCollege Christians @ USC" },
+      { label: "In The Word Daily", type: "toggle-on", detail: "An hour or more, every day" },
       { label: "Sunday Mornings", type: "toggle-on", detail: "Already booked" },
       {
         label: "Talks About It Unprompted",
@@ -346,14 +471,11 @@ export const personalSettings = [
     section: "Music",
     icon: "music",
     items: [
-      { label: "Vinyl Collector", type: "toggle-on", detail: "Growing steadily" },
       {
         label: "Stevie Wonder Is The Ceiling",
         type: "toggle-on",
         detail: "This is not up for debate",
       },
-      { label: "Beatboxing", type: "toggle-on", detail: "Yes, really" },
-      { label: "Plays Guitar", type: "toggle-on", detail: "Learning worship songs" },
       {
         label: "Electro Sleaze",
         type: "toggle-on",
@@ -366,7 +488,7 @@ export const personalSettings = [
     ],
   },
   {
-    section: "Sports & Activities",
+    section: "Hobbies",
     icon: "sports",
     items: [
       {
@@ -389,10 +511,16 @@ export const personalSettings = [
         detail: "It is a work in progress",
       },
       { label: "Down For Pickup Anything", type: "toggle-on", detail: "Just text me" },
+      { label: "Beatboxing", type: "toggle-on", detail: "Yes, really" },
+      { label: "Guitar", type: "toggle-on", detail: "Learning worship songs" },
+      { label: "Vinyl Records", type: "toggle-on", detail: "Collection growing steadily" },
+      { label: "Thrifting", type: "toggle-on", detail: "Finds are undefeated" },
+      { label: "Improv", type: "toggle-on", detail: "Say yes, and" },
+      { label: "Paying Retail", type: "toggle-off", detail: "Not in years" },
     ],
   },
   {
-    section: "Film & Culture",
+    section: "Interests",
     icon: "film",
     items: [
       { label: "Letterboxd", type: "info", detail: "cnewt" },
@@ -411,9 +539,6 @@ export const personalSettings = [
         type: "toggle-on",
         detail: "Will share unprompted",
       },
-      { label: "Improv", type: "toggle-on", detail: "Say yes, and" },
-      { label: "Thrifting", type: "toggle-on", detail: "Finds are undefeated" },
-      { label: "Paying Retail", type: "toggle-off", detail: "Not in years" },
       {
         label: "Reading",
         type: "info",
@@ -425,22 +550,58 @@ export const personalSettings = [
     section: "Daily Runtime",
     icon: "runtime",
     items: [
-      { label: "Peak Hours", type: "info", detail: "11 PM to 3 AM" },
-      { label: "Sleep Schedule", type: "toggle-off", detail: "Cooked" },
-      { label: "Coffee", type: "toggle-on", detail: "Critical dependency" },
+      {
+        label: "Sleep Schedule",
+        type: "toggle-on",
+        detail: "9 PM to 5 AM. Yes, on purpose",
+      },
+      { label: "Boot Time", type: "info", detail: "5 AM. The alarm is a formality" },
+      { label: "Snooze Button", type: "toggle-off", detail: "Uninstalled" },
+      {
+        label: "Peak Hours",
+        type: "info",
+        detail: "Before the group chat wakes up",
+      },
+      {
+        label: "Coffee",
+        type: "toggle-on",
+        detail: "Critical dependency, no fallback path",
+      },
       {
         label: "Deep Work Blocks",
         type: "toggle-on",
-        detail: "90 to 120 minutes, notifications off",
+        detail: "Two hours, no tabs, no exceptions",
       },
-      { label: "Hyperfocus", type: "toggle-on", detail: "The whole personality" },
-      { label: "Weekly Shipping", type: "toggle-on", detail: "Non-negotiable" },
+      {
+        label: "Hyperfocus",
+        type: "toggle-on",
+        detail: "Cannot be scheduled, only survived",
+      },
+      {
+        label: "Context Switching",
+        type: "toggle-off",
+        detail: "Please do not do this to me",
+      },
+      {
+        label: "Weekly Shipping",
+        type: "toggle-on",
+        detail: "Something merged every week. Non-negotiable",
+      },
       {
         label: "Replies Same Day",
         type: "toggle-off",
-        detail: "Eventually. Genuinely sorry",
+        detail: "It was read. That was the entire event",
       },
-      { label: "Meal Prep", type: "toggle-off", detail: "Dining hall" },
+      {
+        label: "Texts After 9 PM",
+        type: "toggle-off",
+        detail: "Genuinely asleep, not ignoring you",
+      },
+      {
+        label: "Meal Prep",
+        type: "toggle-off",
+        detail: "Dining hall, and I have made peace with it",
+      },
     ],
   },
   {
