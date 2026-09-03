@@ -563,43 +563,41 @@ export default function SettingsApp({ orientation }: Props) {
                   </p>
                 </div>
 
-                {/* Bio */}
-                <p
-                  style={{
-                    fontSize: 13,
-                    color: "#6e6e73",
-                    fontFamily: "-apple-system, sans-serif",
-                    fontWeight: 500,
-                    letterSpacing: 0.3,
-                    marginBottom: 6,
-                    marginLeft: 16,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  About
-                </p>
+                {/* The hook */}
                 <div
                   style={{
                     background: "white",
                     borderRadius: 10,
-                    padding: "14px 16px",
+                    padding: "16px 18px",
                     marginBottom: 8,
                   }}
                 >
                   <p
                     style={{
-                      fontSize: 15,
-                      color: "#3a3a3c",
-                      lineHeight: 1.6,
+                      fontSize: 19,
+                      color: "#1c1c1e",
+                      lineHeight: 1.4,
+                      fontWeight: 600,
+                      letterSpacing: -0.2,
                       fontFamily: "-apple-system, sans-serif",
-                      whiteSpace: "pre-line",
                     }}
                   >
-                    {profile.bio}
+                    {profile.headline}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: 15,
+                      color: "#6e6e73",
+                      lineHeight: 1.5,
+                      marginTop: 10,
+                      fontFamily: "-apple-system, sans-serif",
+                    }}
+                  >
+                    {profile.greeting}
                   </p>
                 </div>
 
-                {/* Currently */}
+                {/* What shaped him */}
                 <p
                   style={{
                     fontSize: 13,
@@ -608,11 +606,12 @@ export default function SettingsApp({ orientation }: Props) {
                     fontWeight: 500,
                     letterSpacing: 0.3,
                     marginBottom: 6,
+                    marginTop: 22,
                     marginLeft: 16,
                     textTransform: "uppercase",
                   }}
                 >
-                  Currently
+                  What shaped me
                 </p>
                 <div
                   style={{
@@ -622,23 +621,102 @@ export default function SettingsApp({ orientation }: Props) {
                     marginBottom: 8,
                   }}
                 >
-                  {[
-                    {
-                      label: "Reading",
-                      value: "Non-fiction · theology · neuroscience",
-                    },
-                    { label: "Learning", value: "Guitar, slowly" },
-                    {
-                      label: "Lately",
-                      value: "Board games nobody else wants to play",
-                    },
-                  ].map((item, i) => (
+                  {profile.shaped.map((item, i) => (
+                    <div
+                      key={item.title}
+                      style={{
+                        padding: "14px 16px",
+                        borderTop:
+                          i > 0 ? "0.5px solid rgba(60,60,67,0.18)" : "none",
+                      }}
+                    >
+                      <div
+                        style={{
+                          display: "flex",
+                          alignItems: "baseline",
+                          gap: 8,
+                          flexWrap: "wrap",
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: 17,
+                            fontWeight: 600,
+                            color: "#1c1c1e",
+                            fontFamily: "-apple-system, sans-serif",
+                          }}
+                        >
+                          {item.title}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: 12,
+                            fontWeight: 600,
+                            color: "#8e8e93",
+                            fontFamily: "-apple-system, sans-serif",
+                          }}
+                        >
+                          {item.period}
+                        </span>
+                      </div>
+                      <p
+                        style={{
+                          fontSize: 15,
+                          color: "#3a3a3c",
+                          lineHeight: 1.55,
+                          marginTop: 5,
+                          fontFamily: "-apple-system, sans-serif",
+                        }}
+                      >
+                        {item.body}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+                <p
+                  style={{
+                    fontSize: 13,
+                    color: "#6e6e73",
+                    lineHeight: 1.45,
+                    margin: "0 16px 8px",
+                    fontFamily: "-apple-system, sans-serif",
+                  }}
+                >
+                  {profile.shapedClose}
+                </p>
+
+                {/* Now */}
+                <p
+                  style={{
+                    fontSize: 13,
+                    color: "#6e6e73",
+                    fontFamily: "-apple-system, sans-serif",
+                    fontWeight: 500,
+                    letterSpacing: 0.3,
+                    marginBottom: 6,
+                    marginTop: 22,
+                    marginLeft: 16,
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Now
+                </p>
+                <div
+                  style={{
+                    background: "white",
+                    borderRadius: 10,
+                    overflow: "hidden",
+                    marginBottom: 8,
+                  }}
+                >
+                  {profile.now.map((item, i) => (
                     <div
                       key={item.label}
                       style={{
                         display: "flex",
                         justifyContent: "space-between",
                         alignItems: "center",
+                        gap: 12,
                         padding: "13px 16px",
                         borderTop:
                           i > 0 ? "0.5px solid rgba(60,60,67,0.18)" : "none",
