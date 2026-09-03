@@ -15,6 +15,7 @@ import CalebGPTApp from "./CalebGPTApp";
 import SpotifyApp from "./SpotifyApp";
 import BibleApp from "./BibleApp";
 import MentorsApp from "./MentorsApp";
+import HealthApp from "./HealthApp";
 
 interface Props {
   appId: AppId;
@@ -29,6 +30,7 @@ const appMap: Record<string, React.ComponentType<{ onClose: () => void; orientat
   photos: PhotosApp,
   contact: ContactApp,
   settings: SettingsApp,
+  health: HealthApp,
   calebgpt: CalebGPTApp,
   spotify: SpotifyApp,
   bible: BibleApp,
@@ -40,7 +42,7 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const pillRef = useRef<HTMLDivElement>(null);
   const dragRef = useRef({ active: false, startY: 0, startX: 0 });
-  const touchRef = useRef({ startY: 0, startX: 0 });
+  const touchRef = useRef({ startY: 0, startX: 0, eligible: false });
   const closedRef = useRef(false);
   const [pillHovered, setPillHovered] = useState(false);
 
@@ -62,6 +64,18 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
       return clientX >= pr.left && clientX <= pr.right && clientY >= pr.top && clientY <= pr.bottom;
     };
 
+    // Swiping up closes the app, but only from the home-indicator strip along the
+    // bottom edge, the way it works on a real iPad. Started anywhere else, an
+    // upward drag is the user scrolling the app's content, not dismissing it.
+    const startedOnHomeStrip = (clientY: number) => {
+      const r = container.getBoundingClientRect();
+      return clientY >= r.bottom - Math.max(44, r.height * 0.12);
+    };
+
+    // The iPad is scaled, so a fixed pixel threshold is huge on a phone
+    const closeThreshold = () =>
+      Math.max(32, container.getBoundingClientRect().height * 0.08);
+
     const onWheel = (e: WheelEvent) => {
       if (!container.contains(e.target as Node)) return;
       if (overPill(e.clientX, e.clientY)) safeClose();
@@ -72,7 +86,7 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
 
       if (dragRef.current.active) {
         const dy = dragRef.current.startY - e.clientY;
-        if (dy > 80) {
+        if (dy > closeThreshold()) {
           dragRef.current.active = false;
           safeClose();
         }
@@ -80,20 +94,27 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
     };
 
     const onMouseDown = (e: MouseEvent) => {
-      if (container.contains(e.target as Node)) {
-        dragRef.current = { active: true, startY: e.clientY, startX: e.clientX };
-      }
+      if (!container.contains(e.target as Node)) return;
+      if (!startedOnHomeStrip(e.clientY)) return;
+      dragRef.current = { active: true, startY: e.clientY, startX: e.clientX };
     };
 
     const onMouseUp = () => { dragRef.current.active = false; };
 
     const onTouchStart = (e: TouchEvent) => {
-      touchRef.current = { startY: e.touches[0].clientY, startX: e.touches[0].clientX };
+      const t = e.touches[0];
+      touchRef.current = {
+        startY: t.clientY,
+        startX: t.clientX,
+        eligible: startedOnHomeStrip(t.clientY),
+      };
     };
     const onTouchEnd = (e: TouchEvent) => {
-      const dy = touchRef.current.startY - e.changedTouches[0].clientY;
-      const dx = Math.abs(touchRef.current.startX - e.changedTouches[0].clientX);
-      if (dy > 80 && dy > dx) safeClose();
+      if (!touchRef.current.eligible) return;
+      const t = e.changedTouches[0];
+      const dy = touchRef.current.startY - t.clientY;
+      const dx = Math.abs(touchRef.current.startX - t.clientX);
+      if (dy > closeThreshold() && dy > dx) safeClose();
     };
 
     window.addEventListener("wheel", onWheel, { passive: true, capture: true });

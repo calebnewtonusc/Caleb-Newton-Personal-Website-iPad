@@ -9,9 +9,6 @@ export const profile = {
   photoAlt: "/assets/CalebAtUSC.jpg",
   skills: ["Python", "C++", "CUDA", "TypeScript", "Swift", "SQL"],
   bio: "Hello! I'm Caleb Newton, a follower of Jesus and a USC sophomore.\n\nFor most of my life, you think too much, kid was something people said to me as a criticism. I was diagnosed autistic at the start of my senior year of high school, and it reframed the whole thing. The systematic thinking was never the problem. It was the point.\n\nI threw 84 as a closer until my arm gave out and I dropped to 70. I spent a year reading sports science papers and rebuilding my mechanics, and I got back to 81. Not all the way. But that was the first time research stopped being homework and turned into something I could actually use on myself.\n\nIn 2022 I played baseball in a junkyard in the Dominican Republic. The people there had close to nothing and were the most joyful I had ever met. It rearranged what I thought joy came from.\n\nThose three things, in that order, are most of why I build what I build.",
-  storyTitle: "The most important lesson so far",
-  story:
-    "The most important lesson in my education so far has been the terrifying, awesome reality of infinite paths in college.\n\nAt my academically intense high school, the path to success looked like a straight line, because variability was not on offer. Every nerd took the same AP classes. There was no reason to discern what I actually cared about, because the culture around me had already decided how my time would be spent. I never developed any real agency from my education. I led my baseball team and cold-called schools until we had a twenty school Christian club coalition, but even that was ambition running down a siloed path. It did not take creativity. It only took discipline.\n\nSo getting into the Iovine and Young Academy felt like a no brainer. I knew I wanted to use redemptive, faith-based entrepreneurship to fight the attention economy and help people, and I was a naturally ambitious leader. It seemed like the obvious fit.\n\nWhat I did not understand was that being a naturally ambitious leader was not enough. For the first time, I had to choose the direction myself. The ball was in my court on how to define my own reality, and I remember looking forward to that freedom without having any idea what it weighed.\n\nCollege has no defined rules and no correct way to channel ambition. There are pre-set paths, doctor and lawyer and engineer, but even those you have to choose on purpose. Being in IYA, I already knew I was choosing not to have a traditional job. What I had not counted on was how much security and identity I would need to build before I could actually immerse myself in the world around me. Being a leader turned out to be the starting line, not the answer. Lead what? Lead how? Which skills, which opportunities, which direction, starting where.\n\nFacing all of that at once, my brain reached for the only pattern it knew and decided that getting into an entrepreneurship club was the right next step. The freedom was sitting right there and I refused to use it. I still could not accept that the world was not binary. So when every club rejected me, it felt like the end of everything. What was I supposed to do when the one door I believed in had closed?\n\nI started losing track of who I was, because I had poured so much of my identity into pointing ambition at a track. With no track in front of me for the first time in my life, I was so used to being low agency that I could not fathom how blessed I was to have none. That was the beginning of a spiral into depression, and it ended in hospitalization.\n\nEven then, I did not learn. I came back in the spring on a dosage that was too high, and it sent me into mania. In mania, everything feels right. I said insane things with total confidence and did insane things with total confidence, and once again I never had to discern my own path. The chemicals did it for me. Medication brought me down from the mania, back through depression, and finally to steady ground going into sophomore year.\n\nPraise the Lord, I have finally learned it. A year ago people told me I did not need to do this, that I had plenty of time for that, that I should spend this season figuring out who I am. It went in one ear and out the other, because I could not let go of my rigidity. Now, after all of it, I know there was never another option. Life is not what it looked like in high school, and it never will be again.\n\nThat lesson is reshaping how I see everything. I can finally let my brain think for itself. I have stopped mining other people's lives for a path to copy. Best of all, I am enjoying the work of defining myself instead of missing the years when my environment did it for me.\n\nIt took a hospitalization and a manic episode to teach me, and I would not trade it. I am grateful for the outlook God gave me through all of it, and I am still terrified of what is coming. Life is awesome.",
   roles: [
     "Autistic Jesus Follower",
     "Founding GTM & Product Lead",
@@ -248,6 +245,55 @@ export const education = [
   },
 ];
 
+export const health = {
+  storyTitle: "The most important lesson so far",
+  story:
+    "The most important lesson in my education so far has been the terrifying, awesome reality of infinite paths in college.\n\nAt my academically intense high school, the path to success looked like a straight line, because variability was not on offer. Every nerd took the same AP classes. There was no reason to discern what I actually cared about, because the culture around me had already decided how my time would be spent. I never developed any real agency from my education. I led my baseball team and cold-called schools until we had a twenty school Christian club coalition, but even that was ambition running down a siloed path. It did not take creativity. It only took discipline.\n\nSo getting into the Iovine and Young Academy felt like a no brainer. I knew I wanted to use redemptive, faith-based entrepreneurship to fight the attention economy and help people, and I was a naturally ambitious leader. It seemed like the obvious fit.\n\nWhat I did not understand was that being a naturally ambitious leader was not enough. For the first time, I had to choose the direction myself. The ball was in my court on how to define my own reality, and I remember looking forward to that freedom without having any idea what it weighed.\n\nCollege has no defined rules and no correct way to channel ambition. There are pre-set paths, doctor and lawyer and engineer, but even those you have to choose on purpose. Being in IYA, I already knew I was choosing not to have a traditional job. What I had not counted on was how much security and identity I would need to build before I could actually immerse myself in the world around me. Being a leader turned out to be the starting line, not the answer. Lead what? Lead how? Which skills, which opportunities, which direction, starting where.\n\nFacing all of that at once, my brain reached for the only pattern it knew and decided that getting into an entrepreneurship club was the right next step. The freedom was sitting right there and I refused to use it. I still could not accept that the world was not binary. So when every club rejected me, it felt like the end of everything. What was I supposed to do when the one door I believed in had closed?\n\nI started losing track of who I was, because I had poured so much of my identity into pointing ambition at a track. With no track in front of me for the first time in my life, I was so used to being low agency that I could not fathom how blessed I was to have none. That was the beginning of a spiral into depression, and it ended in hospitalization.\n\nEven then, I did not learn. I came back in the spring on a dosage that was too high, and it sent me into mania. In mania, everything feels right. I said insane things with total confidence and did insane things with total confidence, and once again I never had to discern my own path. The chemicals did it for me. Medication brought me down from the mania, back through depression, and finally to steady ground going into sophomore year.\n\nPraise the Lord, I have finally learned it. A year ago people told me I did not need to do this, that I had plenty of time for that, that I should spend this season figuring out who I am. It went in one ear and out the other, because I could not let go of my rigidity. Now, after all of it, I know there was never another option. Life is not what it looked like in high school, and it never will be again.\n\nThat lesson is reshaping how I see everything. I can finally let my brain think for itself. I have stopped mining other people's lives for a path to copy. Best of all, I am enjoying the work of defining myself instead of missing the years when my environment did it for me.\n\nIt took a hospitalization and a manic episode to teach me, and I would not trade it. I am grateful for the outlook God gave me through all of it, and I am still terrified of what is coming. Life is awesome.",
+  sections: [
+    {
+      section: "Rhythms",
+      items: [
+        {
+          label: "Sleep Schedule",
+          type: "toggle-on",
+          detail: "9 PM to 5 AM. Yes, on purpose",
+        },
+        {
+          label: "WHOOP",
+          type: "toggle-on",
+          detail: "Recovery score is the only metric I trust",
+        },
+        {
+          label: "Coffee",
+          type: "toggle-on",
+          detail: "Critical dependency, no fallback path",
+        },
+        {
+          label: "Deep Work Blocks",
+          type: "toggle-on",
+          detail: "Two hours, no tabs, no exceptions",
+        },
+        { label: "Fitness", type: "toggle-on", detail: "Active" },
+      ],
+    },
+    {
+      section: "How My Brain Works",
+      items: [
+        {
+          label: "Hyperfocus",
+          type: "toggle-on",
+          detail: "Cannot be scheduled, only survived",
+        },
+        {
+          label: "Context Switching",
+          type: "toggle-off",
+          detail: "Please do not do this to me",
+        },
+      ],
+    },
+  ],
+};
+
 export const personalSettings = [
   {
     section: "Family",
@@ -300,11 +346,6 @@ export const personalSettings = [
         label: "AirPods Pro",
         type: "toggle-on",
         detail: "Connected · in constantly",
-      },
-      {
-        label: "WHOOP",
-        type: "toggle-on",
-        detail: "Connected · recovery score is the only metric he trusts",
       },
       {
         label: "JBL Speaker",
@@ -406,7 +447,6 @@ export const personalSettings = [
       { label: "Wrestling", type: "toggle-off", detail: "Two years. Grit Award" },
       { label: "Dragon Boat", type: "toggle-on", detail: "Paddling with Troy" },
       { label: "Hiking", type: "toggle-on", detail: "Anywhere with elevation" },
-      { label: "Fitness", type: "toggle-on", detail: "Active" },
       {
         label: "Board Games",
         type: "toggle-on",
@@ -455,31 +495,6 @@ export const personalSettings = [
       { label: "Personality", type: "info", detail: "ENTJ-A · Commander" },
       { label: "Origin", type: "info", detail: "San Marino, CA → USC" },
       { label: "Software Version", type: "info", detail: "USC Sophomore OS 26.1.0" },
-      {
-        label: "Sleep Schedule",
-        type: "toggle-on",
-        detail: "9 PM to 5 AM. Yes, on purpose",
-      },
-      {
-        label: "Coffee",
-        type: "toggle-on",
-        detail: "Critical dependency, no fallback path",
-      },
-      {
-        label: "Deep Work Blocks",
-        type: "toggle-on",
-        detail: "Two hours, no tabs, no exceptions",
-      },
-      {
-        label: "Hyperfocus",
-        type: "toggle-on",
-        detail: "Cannot be scheduled, only survived",
-      },
-      {
-        label: "Context Switching",
-        type: "toggle-off",
-        detail: "Please do not do this to me",
-      },
       {
         label: "Contrarian Mode",
         type: "toggle-on",
@@ -935,6 +950,7 @@ export const music = {
 
 export type AppId =
   | "work"
+  | "health"
   | "projects"
   | "education"
   | "files"
@@ -970,6 +986,13 @@ export const apps: AppDef[] = [
     emoji: "S",
     icon: "/assets/icons/settingsapp.png",
     gradient: ["#8E8E93", "#636366"],
+  },
+  {
+    id: "health",
+    name: "Health",
+    emoji: "H",
+    icon: "/assets/icons/healthapp.png",
+    gradient: ["#FF2D55", "#FF375F"],
   },
   {
     id: "work",

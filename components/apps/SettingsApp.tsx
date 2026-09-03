@@ -599,42 +599,6 @@ export default function SettingsApp({ orientation }: Props) {
                   </p>
                 </div>
 
-                {/* The long version of the story */}
-                <p
-                  style={{
-                    fontSize: 13,
-                    color: "#6e6e73",
-                    fontFamily: "-apple-system, sans-serif",
-                    fontWeight: 500,
-                    letterSpacing: 0.3,
-                    marginBottom: 6,
-                    marginLeft: 16,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {profile.storyTitle}
-                </p>
-                <div
-                  style={{
-                    background: "white",
-                    borderRadius: 10,
-                    padding: "14px 16px",
-                    marginBottom: 8,
-                  }}
-                >
-                  <p
-                    style={{
-                      fontSize: 15,
-                      color: "#3a3a3c",
-                      lineHeight: 1.6,
-                      fontFamily: "-apple-system, sans-serif",
-                      whiteSpace: "pre-line",
-                    }}
-                  >
-                    {profile.story}
-                  </p>
-                </div>
-
                 {/* Currently */}
                 <p
                   style={{
