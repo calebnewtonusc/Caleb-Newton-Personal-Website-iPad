@@ -116,7 +116,7 @@ export default function HealthApp({ orientation }: Props) {
               {health.intro}
             </p>
 
-            <p style={groupLabel}>Freshman year, in eight parts</p>
+            <p style={groupLabel}>The story</p>
             <div style={card}>
               {health.chapters.map((c, i) => (
                 <button
@@ -173,16 +173,6 @@ export default function HealthApp({ orientation }: Props) {
                         }}
                       >
                         {c.title}
-                      </span>
-                      <span
-                        style={{
-                          fontSize: 12,
-                          color: c.color,
-                          fontFamily: "-apple-system, sans-serif",
-                          fontWeight: 600,
-                        }}
-                      >
-                        {c.period}
                       </span>
                     </div>
                     <p
@@ -275,26 +265,13 @@ export default function HealthApp({ orientation }: Props) {
               Health
             </button>
 
-            <p
-              style={{
-                fontSize: 13,
-                color: chapter.color,
-                fontWeight: 600,
-                letterSpacing: 0.3,
-                textTransform: "uppercase",
-                marginTop: 18,
-                fontFamily: "-apple-system, sans-serif",
-              }}
-            >
-              {chapter.period}
-            </p>
             <h2
               style={{
                 fontSize: 30,
                 fontWeight: 700,
                 color: "#1c1c1e",
                 letterSpacing: -0.4,
-                marginTop: 2,
+                marginTop: 20,
                 fontFamily: "-apple-system, sans-serif",
               }}
             >
