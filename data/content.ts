@@ -587,6 +587,24 @@ export const organizations = [
     category: "Leadership",
   },
   {
+    id: "silo",
+    name: "Silo",
+    shortName: "Silo",
+    role: "Founder",
+    period: "Jul 2026 - Present",
+    logo: "",
+    color: "#E07A3F",
+    description:
+      "Pickup-first marketplace for California MEHKO-permitted home cooks, Los Angeles, CA.",
+    achievements: [
+      "Founded a pickup-first marketplace connecting permitted home cooks with neighbors who pre-order their meals, shipping V1 to the App Store & taking 1st place at the USC Marshall High Tech Association New Venture Pitch Competition.",
+      "Secured a Cooks Alliance partnership unlocking 1,000+ permitted cooks & built toward a statewide California launch with USC Annenberg & SCA, with Praxis support.",
+    ],
+    photos: [] as string[],
+    link: "https://silo.market",
+    category: "Leadership",
+  },
+  {
     id: "echo-ai",
     name: "Echo AI",
     shortName: "Echo AI",
