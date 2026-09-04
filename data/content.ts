@@ -8,40 +8,35 @@ export const profile = {
   photo: "/assets/CalebAtBeachUSCHoodie.jpg",
   photoAlt: "/assets/CalebAtUSC.jpg",
   skills: ["Python", "C++", "CUDA", "TypeScript", "Swift", "SQL"],
-  intro:
-    "I'm Caleb. Autistic, follower of Jesus, sophomore at USC's Iovine and Young Academy.",
-  journey: [
+  hook: "I'm Caleb. Autistic, follower of Jesus, and my phone lives in another room.",
+  highlights: [
     {
-      id: "thinking",
-      title: "Being told I think too much",
-      years: "most of my life",
-      color: "#8E8E93",
-      body: "People said it as a complaint. I got diagnosed autistic at the start of senior year of high school, which explained a lot, and I stopped trying to think less.",
-    },
-    {
-      id: "arm",
-      title: "My arm giving out",
-      years: "high school",
-      color: "#FF9500",
-      body: "I threw 84 as a closer until it went, and I dropped to 70. Getting back to 81 took a year of sports science papers and rebuilding my mechanics from scratch. I liked that year more than I liked pitching. It was the first time I ran an experiment on myself instead of turning one in.",
-    },
-    {
-      id: "calls",
-      title: "A lot of cold calls",
-      years: "2024 - 2025",
-      color: "#34C759",
-      body: "I wanted the Christian clubs around the San Gabriel Valley to actually know each other, so I called schools until enough of them said yes. Nobody warns you that the vision takes an afternoon and the phone calls take a year.",
-    },
-    {
-      id: "echo",
-      title: "Watching a machine understand someone",
-      years: "2026",
+      id: "diagnosis",
+      icon: "brain",
       color: "#5856D6",
-      body: "We built a wearable that reads the muscle signals in your forearm and turns sign language into speech. Seeing it work on a person, not a dataset, made what I want to do a lot more specific.",
+      label: "Senior year of high school",
+      value: "Diagnosed autistic",
+      body: "People had been telling me I think too much since I was small, always as a complaint. Once it had a name I stopped trying to think less.",
+    },
+    {
+      id: "coalition",
+      icon: "people",
+      color: "#34C759",
+      label: "Cold calls",
+      value: "20 schools",
+      body: "I wanted the Christian clubs across the San Gabriel Valley to know each other, so I called schools until enough said yes. The vision took an afternoon. The phone calls took a year.",
+    },
+    {
+      id: "attention",
+      icon: "phone",
+      color: "#FF2D55",
+      label: "Social media",
+      value: "None of it",
+      body: "No apps, browser blocked, notifications off, phone in another room. I want to build against the attention economy, so I do not get to be a hypocrite about it.",
     },
   ],
   thesis:
-    "I want to use redemptive, faith-based entrepreneurship to fight the attention economy and help people. I keep my phone in another room and social media off my devices, so this is not an abstract opinion I hold. The work history is in the other apps. This is the part that explains it.",
+    "The plan is redemptive, faith-based entrepreneurship that helps people instead of harvesting them. Where I have worked and what I have shipped is in the other apps. This is the part that explains why.",
   roles: [
     "Autistic Jesus Follower",
     "Founding GTM & Product Lead",
@@ -213,12 +208,11 @@ export const education = [
     color: "#007AFF",
     website: "https://www.sanmarinohs.org/",
     description:
-      "Christian Club President (90+ members), Baseball Team Captain, Screen Time League Founder.",
+      "Christian Club President (90+ members), Baseball Team Captain.",
     highlights: [
       "Christian Club President (90+ members)",
       "1570 SAT",
       "Baseball Team Captain",
-      "Screen Time League Founder",
     ],
   },
 {
@@ -341,7 +335,39 @@ export const health = {
   ],
   categories: [
     {
+      id: "history",
+      icon: "history",
+      name: "History",
+      color: "#FF9500",
+      blurb: "What my body used to do",
+      items: [
+        {
+          label: "Baseball",
+          value: "84 \u2192 70 \u2192 81",
+          detail: "Closer and team captain until my arm gave out and took 14 mph with it. Getting most of it back took a year of sports science papers and rebuilt mechanics.",
+        },
+        {
+          label: "Coaching",
+          value: "2022 - 2025",
+          detail: "Clinics for kids with physical and developmental disabilities, and a junkyard field in the Dominican Republic.",
+        },
+        {
+          label: "Wrestling",
+          value: "Two years",
+          detail: "Won the Grit Award, which tells you how the matches went.",
+        },
+        { label: "Football", value: "Played", detail: "" },
+        { label: "Mother's Day hike", value: "", detail: "" },
+        {
+          label: "Hiking",
+          value: "Still going",
+          detail: "Anywhere with elevation.",
+        },
+      ],
+    },
+    {
       id: "mental",
+      icon: "brain",
       name: "Mental Wellbeing",
       color: "#5E5CE6",
       blurb: "The freshman year article",
@@ -360,6 +386,7 @@ export const health = {
     },
     {
       id: "sleep",
+      icon: "bed",
       name: "Sleep",
       color: "#32ADE6",
       blurb: "9 PM to 5 AM",
@@ -373,6 +400,7 @@ export const health = {
     },
     {
       id: "activity",
+      icon: "rings",
       name: "Activity",
       color: "#FA114F",
       blurb: "Recovery over volume",
@@ -387,6 +415,7 @@ export const health = {
     },
     {
       id: "mindfulness",
+      icon: "mindful",
       name: "Mindfulness",
       color: "#00C7BE",
       blurb: "Two hours at a time",
@@ -475,6 +504,11 @@ export const personalSettings = [
     section: "Screen Time",
     icon: "screentime",
     items: [
+      {
+        label: "Screen Time League",
+        type: "toggle-on",
+        detail: "Founded it in high school",
+      },
       { label: "App Limits", type: "toggle-on", detail: "Set, and actually kept" },
       { label: "Social Media", type: "toggle-off", detail: "All of it. On purpose" },
       { label: "Safari", type: "toggle-off", detail: "The browser is blocked too" },

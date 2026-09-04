@@ -261,6 +261,46 @@ function SectionIcon({ iconId }: { iconId: string }) {
   );
 }
 
+const PROFILE_GLYPHS: Record<string, () => React.ReactNode> = {
+  baseball: () => (
+    <svg aria-hidden="true" width="17" height="17" viewBox="0 0 18 18" fill="none">
+      <circle cx="9" cy="9" r="7.2" stroke="white" strokeWidth="1.6" />
+      <path d="M4.2 3.6C5.9 5.4 6.6 7.1 6.6 9s-.7 3.6-2.4 5.4" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
+      <path d="M13.8 3.6C12.1 5.4 11.4 7.1 11.4 9s.7 3.6 2.4 5.4" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
+    </svg>
+  ),
+  brain: () => (
+    <svg aria-hidden="true" width="17" height="17" viewBox="0 0 18 18" fill="none">
+      <path
+        d="M11.4 2.3c1.9 0 3.2 1.2 3.2 2.8 1 .5 1.5 1.4 1.5 2.5 0 .9-.4 1.7-1.1 2.2.2.4.3.8.3 1.2 0 1.7-1.4 3-3.3 3-.6 1.1-1.7 1.7-3 1.7-2.2 0-3.8-1.5-3.8-3.5v-.2c-1.5-.5-2.5-1.8-2.5-3.4 0-1 .4-1.9 1-2.5-.1-.3-.2-.7-.2-1C3.5 3.4 5 2 7 2c.7 0 1.3.2 1.8.5.6-.800000000000001 1.5-1.2 2.6-1.2z"
+        stroke="white"
+        strokeWidth="1.4"
+        strokeLinejoin="round"
+      />
+      <path d="M8.8 2.5v12.9" stroke="white" strokeWidth="1.3" strokeLinecap="round" />
+    </svg>
+  ),
+  wave: () => (
+    <svg aria-hidden="true" width="18" height="16" viewBox="0 0 20 16" fill="none">
+      <path d="M2 8h2.2l1.6-4.6L8.2 12l2-8.4L12.4 12l1.5-4h4.1" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+    </svg>
+  ),
+  people: () => (
+    <svg aria-hidden="true" width="19" height="15" viewBox="0 0 19 15" fill="none">
+      <circle cx="6.5" cy="4.5" r="3.2" fill="white" />
+      <circle cx="14" cy="5.5" r="2.4" fill="white" />
+      <path d="M1 14.5c0-3 2.5-5 5.5-5s5.5 2 5.5 5" stroke="white" strokeWidth="1.6" strokeLinecap="round" />
+      <path d="M13 10c2.8 0 5 1.8 5 4.5" stroke="white" strokeWidth="1.6" strokeLinecap="round" />
+    </svg>
+  ),
+  phone: () => (
+    <svg aria-hidden="true" width="14" height="18" viewBox="0 0 14 18" fill="none">
+      <rect x="2.2" y="1.4" width="9.6" height="15.2" rx="2.2" stroke="white" strokeWidth="1.6" />
+      <path d="M1 1l12 16" stroke="white" strokeWidth="1.7" strokeLinecap="round" />
+    </svg>
+  ),
+};
+
 const PROFILE_SECTION = "__profile__";
 
 // Group sections for iOS-style grouped lists
@@ -563,22 +603,21 @@ export default function SettingsApp({ orientation }: Props) {
                   </p>
                 </div>
 
-                {/* Who he is, in one line */}
+                {/* The hook */}
                 <p
                   style={{
-                    fontSize: 20,
+                    fontSize: 22,
                     color: "#1c1c1e",
-                    lineHeight: 1.4,
-                    fontWeight: 600,
-                    letterSpacing: -0.3,
-                    margin: "4px 16px 0",
+                    lineHeight: 1.35,
+                    fontWeight: 700,
+                    letterSpacing: -0.4,
+                    margin: "6px 16px 0",
                     fontFamily: "-apple-system, sans-serif",
                   }}
                 >
-                  {profile.intro}
+                  {profile.hook}
                 </p>
 
-                {/* The journey */}
                 <p
                   style={{
                     fontSize: 13,
@@ -586,132 +625,94 @@ export default function SettingsApp({ orientation }: Props) {
                     fontFamily: "-apple-system, sans-serif",
                     fontWeight: 500,
                     letterSpacing: 0.3,
-                    marginBottom: 6,
-                    marginTop: 24,
+                    marginBottom: 8,
+                    marginTop: 26,
                     marginLeft: 16,
                     textTransform: "uppercase",
                   }}
                 >
-                  How I got like this
+                  Highlights
                 </p>
                 <div
                   style={{
-                    background: "white",
-                    borderRadius: 10,
-                    overflow: "hidden",
-                    marginBottom: 8,
+                    display: "grid",
+                    gridTemplateColumns: isLandscape
+                      ? "repeat(auto-fill, minmax(268px, 1fr))"
+                      : "1fr",
+                    gap: 10,
                   }}
                 >
-                  {profile.journey.map((stop, i) => (
+                  {profile.highlights.map((h) => (
                     <div
-                      key={stop.id}
+                      key={h.id}
                       style={{
-                        display: "flex",
-                        gap: 13,
-                        padding: "14px 16px",
-                        borderTop:
-                          i > 0 ? "0.5px solid rgba(60,60,67,0.18)" : "none",
+                        background: "white",
+                        borderRadius: 12,
+                        padding: "14px 16px 15px",
                       }}
                     >
-                      {/* timeline rail */}
                       <div
-                        aria-hidden="true"
-                        style={{
-                          display: "flex",
-                          flexDirection: "column",
-                          alignItems: "center",
-                          flexShrink: 0,
-                          paddingTop: 4,
-                        }}
+                        style={{ display: "flex", alignItems: "center", gap: 8 }}
                       >
                         <div
                           style={{
-                            width: 11,
-                            height: 11,
-                            borderRadius: "50%",
-                            background: stop.color,
-                          }}
-                        />
-                        {i < profile.journey.length - 1 && (
-                          <div
-                            style={{
-                              width: 2,
-                              flex: 1,
-                              marginTop: 4,
-                              background: "rgba(60,60,67,0.15)",
-                            }}
-                          />
-                        )}
-                      </div>
-                      <div style={{ minWidth: 0 }}>
-                        <div
-                          style={{
+                            width: 24,
+                            height: 24,
+                            borderRadius: 6,
+                            background: h.color,
                             display: "flex",
-                            alignItems: "baseline",
-                            gap: 8,
-                            flexWrap: "wrap",
+                            alignItems: "center",
+                            justifyContent: "center",
+                            flexShrink: 0,
                           }}
                         >
-                          <span
-                            style={{
-                              fontSize: 17,
-                              fontWeight: 600,
-                              color: "#1c1c1e",
-                              fontFamily: "-apple-system, sans-serif",
-                            }}
-                          >
-                            {stop.title}
-                          </span>
-                          <span
-                            style={{
-                              fontSize: 12,
-                              fontWeight: 600,
-                              color: "#8e8e93",
-                              fontFamily: "-apple-system, sans-serif",
-                            }}
-                          >
-                            {stop.years}
-                          </span>
+                          {PROFILE_GLYPHS[h.icon]?.()}
                         </div>
-                        <p
+                        <span
                           style={{
-                            fontSize: 15,
-                            color: "#3a3a3c",
-                            lineHeight: 1.55,
-                            marginTop: 4,
+                            fontSize: 14,
+                            fontWeight: 600,
+                            color: h.color,
                             fontFamily: "-apple-system, sans-serif",
                           }}
                         >
-                          {stop.body}
-                        </p>
+                          {h.label}
+                        </span>
                       </div>
+                      <p
+                        style={{
+                          fontSize: 25,
+                          fontWeight: 700,
+                          color: "#1c1c1e",
+                          letterSpacing: -0.6,
+                          marginTop: 9,
+                          lineHeight: 1.15,
+                          fontFamily: "-apple-system, sans-serif",
+                        }}
+                      >
+                        {h.value}
+                      </p>
+                      <p
+                        style={{
+                          fontSize: 14,
+                          color: "#6e6e73",
+                          lineHeight: 1.5,
+                          marginTop: 7,
+                          fontFamily: "-apple-system, sans-serif",
+                        }}
+                      >
+                        {h.body}
+                      </p>
                     </div>
                   ))}
                 </div>
 
-                {/* Where it is going */}
-                <p
-                  style={{
-                    fontSize: 13,
-                    color: "#6e6e73",
-                    fontFamily: "-apple-system, sans-serif",
-                    fontWeight: 500,
-                    letterSpacing: 0.3,
-                    marginBottom: 6,
-                    marginTop: 24,
-                    marginLeft: 16,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Where it is going
-                </p>
                 <div
                   style={{
                     background: "white",
-                    borderRadius: 10,
+                    borderRadius: 12,
                     padding: "16px 18px",
-                    marginBottom: 8,
-                    borderLeft: "3px solid #FF9500",
+                    marginTop: 20,
                   }}
                 >
                   <p
