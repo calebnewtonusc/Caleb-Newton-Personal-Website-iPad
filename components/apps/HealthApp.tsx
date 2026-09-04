@@ -469,9 +469,6 @@ export default function HealthApp({ orientation }: Props) {
           <p style={{ fontSize: 17, color: "#1c1c1e", marginTop: 4, fontFamily: "-apple-system, sans-serif" }}>
             My freshman year at USC
           </p>
-          <p style={{ fontSize: 13, color: "#8e8e93", marginTop: 3, fontFamily: "-apple-system, sans-serif" }}>
-            Depression, a hospitalization, mania, and steady ground.
-          </p>
         </button>
       )}
     </div>

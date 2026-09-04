@@ -588,6 +588,7 @@ export const personalSettings = [
     icon: "device",
     items: [
       { label: "Personality", type: "info", detail: "ENTJ-A" },
+      { label: "Battery", type: "info", detail: "Recharged by nature" },
       {
         label: "Asking why",
         type: "toggle-on",
@@ -722,6 +723,8 @@ export const organizations = [
       "Christian clubs across the San Gabriel Valley all had the same problem, which was that each of them was small and none of them knew each other. I cold-called schools until twenty of them agreed to stop running separately, then built the leadership, fundraising and programming to hold a coalition of that size together.",
       "Everything Night was the point of all of it. Over 200 students from schools that had never been in a room together came for one night: a live worship band, twenty breakout sessions, dinner, dodgeball, and a lot of kids realizing their club was not the only one. Planning it took months and it is still the best thing I have been part of.",
       "I ran ACTS alongside it, our own club, and grew it past 90 members.",
+      "Fifteen people applied for leadership at once and I had no idea how to organize them, so I built the cabinet on Ephesians 4:11 instead of guessing. Apostles set direction, prophets led worship, evangelists brought people in, pastors took care of everyone, teachers trained the rest. I interviewed all fifteen one on one to work out where each of them actually fit rather than where I needed a body.",
+      "The lesson came from a member who pitched something that cut against my whole vision for the year. I ran it anyway, and it turned into the most impactful event we did. Every role matters is easy to say. Handing the plan to someone who disagrees with you is the part that costs something.",
       "Ephesians 4:11 gave me the model I still lead by. Apostles, prophets, evangelists, shepherds and teachers, five different gifts and not one of them optional. I stopped trying to be all five and started building teams where other people carried what I could not.",
     ],
     photos: [
