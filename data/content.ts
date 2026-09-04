@@ -1264,3 +1264,89 @@ export const dockApps: AppId[] = [
   "letterboxd",
   "rateyourmusic",
 ];
+
+// ─── Notification Center ─────────────────────────────────────────────────────
+// Every line here has to be true. A notification that oversells is worse than
+// no notification, and this is the first thing a stranger reads.
+
+export interface NotificationDef {
+  id: string;
+  app: AppId;
+  title: string;
+  body: string;
+  /** Minutes before the page was opened. Rendered as "now", "12m ago", "2h ago". */
+  minutesAgo: number;
+}
+
+export const notifications: NotificationDef[] = [
+  {
+    id: "gpt-ask",
+    app: "calebgpt",
+    title: "Ask me anything about Caleb",
+    body: "I have read everything on this iPad. Start with what he actually does at Amber.",
+    minutesAgo: 0,
+  },
+  {
+    id: "gpt-hard",
+    app: "calebgpt",
+    title: "Or ask the harder one",
+    body: "Ask what freshman year cost him. He wrote the whole answer into the Health app.",
+    minutesAgo: 26,
+  },
+  {
+    id: "health-intro",
+    app: "health",
+    title: "Health",
+    body: health.intro,
+    minutesAgo: 8,
+  },
+  {
+    id: "work-now",
+    app: "work",
+    title: `${experience[0].title}, ${experience[0].company}`,
+    body: `${experience[0].period}. ${experience[0].description}`,
+    minutesAgo: 14,
+  },
+  {
+    id: "work-prev",
+    app: "work",
+    title: `${experience[1].title}, ${experience[1].company}`,
+    body: `${experience[1].period}. ${experience[1].description}`,
+    minutesAgo: 51,
+  },
+  {
+    id: "mail-open",
+    app: "contact",
+    title: profile.email,
+    body: "Cold emails from strangers are on. No reason required.",
+    minutesAgo: 3,
+  },
+  {
+    id: "mail-reply",
+    app: "contact",
+    title: "Reply time",
+    body: "A day or two, honestly. He does write back.",
+    minutesAgo: 47,
+  },
+  {
+    id: "bible-verse",
+    app: "bible",
+    title: "1 Thessalonians 5:17",
+    body: "pray without ceasing,",
+    minutesAgo: 19,
+  },
+  {
+    id: "spotify-now",
+    app: "spotify",
+    title: "Now Playing",
+    body: `${music.currentlyPlaying.title} · ${music.currentlyPlaying.artist}`,
+    minutesAgo: 5,
+  },
+  {
+    id: "calendar-30",
+    app: "calendar",
+    title: "Thirty minutes, whenever",
+    body: "He keeps a Calendly open. Take it if you want to talk about any of this.",
+    minutesAgo: 92,
+  },
+];

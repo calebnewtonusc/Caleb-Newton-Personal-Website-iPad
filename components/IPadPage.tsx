@@ -19,6 +19,7 @@ import type { AppId } from "@/data/content";
 import ParticlesBackground from "./ParticlesBackground";
 import Spotlight from "./Spotlight";
 import ControlCenter from "./ControlCenter";
+import NotificationCenter from "./NotificationCenter";
 import ScreenTimeNotice from "./ScreenTimeNotice";
 
 const IPAD_LANDSCAPE = { w: 900, h: 630 };
@@ -35,6 +36,7 @@ export default function IPadPage() {
   const [mounted, setMounted] = useState(false);
   const [spotlightOpen, setSpotlightOpen] = useState(false);
   const [controlCenterOpen, setControlCenterOpen] = useState(false);
+  const [notifCenterOpen, setNotifCenterOpen] = useState(false);
   const [brightness, setBrightness] = useState(1);
   const [openOrigin, setOpenOrigin] = useState<{ x: number; y: number } | null>(null);
 
@@ -105,16 +107,18 @@ export default function IPadPage() {
     };
   }, []);
 
-  // Swipe down from the top right corner opens Control Center, like the real thing
+  // Swipe down from the top right corner opens Control Center, top left opens
+  // Notification Center. Same split iPadOS uses.
   useEffect(() => {
     if (locked) return;
     const onWheel = (e: WheelEvent) => {
-      if (
-        e.deltaY > 12 &&
-        e.clientX > window.innerWidth * 0.62 &&
-        e.clientY < window.innerHeight * 0.22
-      ) {
+      if (e.deltaY <= 12 || e.clientY >= window.innerHeight * 0.22) return;
+      if (e.clientX > window.innerWidth * 0.62) {
+        setNotifCenterOpen(false);
         setControlCenterOpen(true);
+      } else if (e.clientX < window.innerWidth * 0.38) {
+        setControlCenterOpen(false);
+        setNotifCenterOpen(true);
       }
     };
     window.addEventListener("wheel", onWheel, { passive: true });
@@ -123,16 +127,31 @@ export default function IPadPage() {
 
   useEffect(() => {
     if (locked) return;
-    let sx = 0, sy = 0, corner = false;
+    let sx = 0, sy = 0;
+    let corner: "left" | "right" | null = null;
     const onStart = (e: TouchEvent) => {
       sx = e.touches[0].clientX;
       sy = e.touches[0].clientY;
-      corner = sx > window.innerWidth * 0.62 && sy < window.innerHeight * 0.26;
+      const top = sy < window.innerHeight * 0.26;
+      corner = !top
+        ? null
+        : sx > window.innerWidth * 0.62
+          ? "right"
+          : sx < window.innerWidth * 0.38
+            ? "left"
+            : null;
     };
     const onEnd = (e: TouchEvent) => {
       if (!corner) return;
       const dy = e.changedTouches[0].clientY - sy;
-      if (dy > 55) setControlCenterOpen(true);
+      if (dy <= 55) return;
+      if (corner === "right") {
+        setNotifCenterOpen(false);
+        setControlCenterOpen(true);
+      } else {
+        setControlCenterOpen(false);
+        setNotifCenterOpen(true);
+      }
     };
     window.addEventListener("touchstart", onStart, { passive: true });
     window.addEventListener("touchend", onEnd, { passive: true });
@@ -343,25 +362,35 @@ export default function IPadPage() {
         e.preventDefault();
         setLocked(false);
         setSpotlightOpen(false);
+        setNotifCenterOpen(false);
         setControlCenterOpen((v) => !v);
+        return;
+      }
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "i") {
+        e.preventDefault();
+        setLocked(false);
+        setSpotlightOpen(false);
+        setControlCenterOpen(false);
+        setNotifCenterOpen((v) => !v);
         return;
       }
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
         setLocked(false);
         setControlCenterOpen(false);
+        setNotifCenterOpen(false);
         setSpotlightOpen((v) => !v);
         return;
       }
       if (e.key === "Escape") {
         // Only the top layer closes. The overlays handle their own Escape.
-        if (controlCenterOpen || spotlightOpen) return;
+        if (controlCenterOpen || spotlightOpen || notifCenterOpen) return;
         setOpenApp(null);
       }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [controlCenterOpen, spotlightOpen]);
+  }, [controlCenterOpen, spotlightOpen, notifCenterOpen]);
 
   const lockedRef = useRef(true);
   useEffect(() => {
@@ -826,6 +855,31 @@ export default function IPadPage() {
                 />
               )}
 
+              {/* Notification Center lives in the other top corner, same reason:
+                  a trackpad never fires the swipe. */}
+              {!locked && !screenOff && (
+                <button
+                  onClick={() => {
+                    setSpotlightOpen(false);
+                    setControlCenterOpen(false);
+                    setNotifCenterOpen(true);
+                  }}
+                  aria-label="Open Notification Center"
+                  title="Notification Center"
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: 132,
+                    height: 34,
+                    zIndex: 120,
+                    border: "none",
+                    background: "transparent",
+                    cursor: "pointer",
+                  }}
+                />
+              )}
+
               <ScreenTimeNotice active={!locked && !screenOff} />
 
               {/* Brightness is real: it dims the screen the way the slider says it will */}
@@ -851,6 +905,12 @@ export default function IPadPage() {
                   setControlCenterOpen(false);
                   setOpenApp("spotify");
                 }}
+              />
+
+              <NotificationCenter
+                open={notifCenterOpen}
+                onClose={() => setNotifCenterOpen(false)}
+                onOpenApp={setOpenApp}
               />
 
               <Spotlight
