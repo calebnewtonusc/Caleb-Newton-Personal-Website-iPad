@@ -87,7 +87,19 @@ export default function IPadFrame({ orientation, children, onPowerPress }: Props
           boxShadow: "2px 0 6px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)",
           cursor: onPowerPress ? "pointer" : "default",
         }}
-      />
+      >
+        {/* The button should look like 3px of hardware and tap like a finger */}
+        {onPowerPress && (
+          <span
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              inset: "-12px -16px",
+              borderRadius: 10,
+            }}
+          />
+        )}
+      </motion.div>
       {/* Volume Up */}
       <div
         style={{
