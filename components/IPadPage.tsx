@@ -18,6 +18,7 @@ import SpotifyApp from "./apps/SpotifyApp";
 import type { AppId } from "@/data/content";
 import ParticlesBackground from "./ParticlesBackground";
 import Spotlight from "./Spotlight";
+import ControlCenter from "./ControlCenter";
 
 const IPAD_LANDSCAPE = { w: 900, h: 630 };
 const IPAD_PORTRAIT = { w: 630, h: 900 };
@@ -32,6 +33,8 @@ export default function IPadPage() {
   const [screenOff, setScreenOff] = useState(false);
   const [mounted, setMounted] = useState(false);
   const [spotlightOpen, setSpotlightOpen] = useState(false);
+  const [controlCenterOpen, setControlCenterOpen] = useState(false);
+  const [brightness, setBrightness] = useState(1);
 
   const scaleMotionValue = useMotionValue(0.97);
 
@@ -99,6 +102,28 @@ export default function IPadPage() {
       window.removeEventListener("mousemove", onMouseMove);
     };
   }, []);
+
+  // Swipe down from the top right corner opens Control Center, like the real thing
+  useEffect(() => {
+    if (locked) return;
+    let sx = 0, sy = 0, corner = false;
+    const onStart = (e: TouchEvent) => {
+      sx = e.touches[0].clientX;
+      sy = e.touches[0].clientY;
+      corner = sx > window.innerWidth * 0.62 && sy < window.innerHeight * 0.26;
+    };
+    const onEnd = (e: TouchEvent) => {
+      if (!corner) return;
+      const dy = e.changedTouches[0].clientY - sy;
+      if (dy > 55) setControlCenterOpen(true);
+    };
+    window.addEventListener("touchstart", onStart, { passive: true });
+    window.addEventListener("touchend", onEnd, { passive: true });
+    return () => {
+      window.removeEventListener("touchstart", onStart);
+      window.removeEventListener("touchend", onEnd);
+    };
+  }, [locked]);
 
   // Swipe down on the home screen opens search, since Cmd+K does not exist on a phone
   useEffect(() => {
@@ -297,6 +322,12 @@ export default function IPadPage() {
   // Escape closes the open app, matching every other windowed UI
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "j") {
+        e.preventDefault();
+        setLocked(false);
+        setControlCenterOpen((v) => !v);
+        return;
+      }
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
         setLocked(false);
@@ -742,6 +773,31 @@ export default function IPadPage() {
                   Search
                 </button>
               )}
+
+              {/* Brightness is real: it dims the screen the way the slider says it will */}
+              <div
+                aria-hidden="true"
+                style={{
+                  position: "absolute",
+                  inset: 0,
+                  zIndex: 205,
+                  pointerEvents: "none",
+                  background: "#000",
+                  opacity: 1 - brightness,
+                  transition: "opacity 0.08s linear",
+                }}
+              />
+
+              <ControlCenter
+                open={controlCenterOpen}
+                onClose={() => setControlCenterOpen(false)}
+                brightness={brightness}
+                onBrightness={setBrightness}
+                onOpenSpotify={() => {
+                  setControlCenterOpen(false);
+                  setOpenApp("spotify");
+                }}
+              />
 
               <Spotlight
                 open={spotlightOpen}
