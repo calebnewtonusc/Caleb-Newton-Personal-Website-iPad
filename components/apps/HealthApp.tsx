@@ -307,43 +307,7 @@ export default function HealthApp({ orientation }: Props) {
 
   const profileView = (
     <div className="ios-scroll" style={{ flex: 1, overflowY: "auto", padding: "24px 20px 40px" }}>
-      <div style={{ background: "white", borderRadius: 12, padding: "22px 18px", textAlign: "center" }}>
-        <div
-          style={{
-            width: 92,
-            height: 92,
-            borderRadius: "50%",
-            overflow: "hidden",
-            position: "relative",
-            margin: "0 auto",
-          }}
-        >
-          <Image
-            src={profile.photoAlt}
-            alt="Caleb Newton"
-            fill
-            sizes="92px"
-            style={{ objectFit: "cover", objectPosition: "center 25%" }}
-          />
-        </div>
-        <p
-          style={{
-            fontSize: 22,
-            fontWeight: 700,
-            color: "#1c1c1e",
-            marginTop: 12,
-            letterSpacing: -0.3,
-            fontFamily: "-apple-system, sans-serif",
-          }}
-        >
-          Caleb Newton
-        </p>
-        <p style={{ fontSize: 13, color: "#636366", marginTop: 2, fontFamily: "-apple-system, sans-serif" }}>
-          {profile.tagline}
-        </p>
-      </div>
-
-      <p style={sectionLabel}>Health Details</p>
+      <p style={{ ...sectionLabel, marginTop: 0 }}>Health Details</p>
       <div style={{ background: "white", borderRadius: 10, overflow: "hidden" }}>
         {health.details.map((d, i) => (
           <div
