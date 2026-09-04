@@ -20,7 +20,7 @@ export const profile = {
           type: "info",
           detail: "USC \u00b7 Jimmy Iovine & Dr. Dre Young Innovation Academy",
         },
-        { label: "Year", type: "info", detail: "Sophomore" },
+        { label: "Graduating", type: "info", detail: "2029" },
         {
           label: "Major",
           type: "info",
