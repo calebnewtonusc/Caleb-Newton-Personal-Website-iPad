@@ -8,35 +8,13 @@ export const profile = {
   photo: "/assets/CalebAtBeachUSCHoodie.jpg",
   photoAlt: "/assets/CalebAtUSC.jpg",
   skills: ["Python", "C++", "CUDA", "TypeScript", "Swift", "SQL"],
-  hook: "I'm Caleb. Autistic, follower of Jesus, and my phone lives in another room.",
-  highlights: [
-    {
-      id: "diagnosis",
-      icon: "brain",
-      color: "#5856D6",
-      label: "Senior year of high school",
-      value: "Diagnosed autistic",
-      body: "People had been telling me I think too much since I was small, always as a complaint. Once it had a name I stopped trying to think less.",
-    },
-    {
-      id: "coalition",
-      icon: "people",
-      color: "#34C759",
-      label: "Cold calls",
-      value: "20 schools",
-      body: "I wanted the Christian clubs across the San Gabriel Valley to know each other, so I called schools until enough said yes. The vision took an afternoon. The phone calls took a year.",
-    },
-    {
-      id: "attention",
-      icon: "phone",
-      color: "#FF2D55",
-      label: "Social media",
-      value: "None of it",
-      body: "No apps, browser blocked, notifications off, phone in another room. I want to build against the attention economy, so I do not get to be a hypocrite about it.",
-    },
+  hook:
+    "Most software this decade got rich by making people worse. I do not think that trade was ever necessary.",
+  statement: [
+    "That is the whole reason I build. I want companies that leave people healthier and better connected than they found them, and I would rather be small and right about that than large and wrong.",
+    "I am nineteen, so I am aware that is easy to say and hard to do. It is still the only thing I am interested in doing.",
+    "Everything else on this iPad is evidence. This part is the argument.",
   ],
-  thesis:
-    "The plan is redemptive, faith-based entrepreneurship that helps people instead of harvesting them. Where I have worked and what I have shipped is in the other apps. This is the part that explains why.",
   roles: [
     "Autistic Jesus Follower",
     "Founding GTM & Product Lead",
@@ -273,6 +251,11 @@ export const education = [
 ];
 
 export const health = {
+  details: [
+    { label: "Born", value: "2006" },
+    { label: "From", value: "San Marino, CA" },
+    { label: "Diagnosed", value: "Autistic, senior year of high school" },
+  ],
   intro:
     "The most important lesson in my education so far has been the terrifying, awesome reality of infinite paths in college.",
   chapters: [

@@ -403,55 +403,30 @@ export default function HealthApp({ orientation }: Props) {
 
       <p style={sectionLabel}>Health Details</p>
       <div style={{ background: "white", borderRadius: 10, overflow: "hidden" }}>
-        {health.categories.flatMap((c) =>
-          c.items.map((item) => ({ c, item })),
-        ).map(({ c, item }, i) => (
+        {health.details.map((d, i) => (
           <div
-            key={c.id + item.label}
+            key={d.label}
             style={{
               display: "flex",
               alignItems: "center",
+              justifyContent: "space-between",
               gap: 12,
-              padding: "12px 16px",
+              padding: "13px 16px",
               borderTop: i === 0 ? "none" : "0.5px solid rgba(60,60,67,0.18)",
             }}
           >
-            <div
-              aria-hidden="true"
-              style={{
-                width: 24,
-                height: 24,
-                borderRadius: 6,
-                background: c.color,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexShrink: 0,
-                transform: "scale(0.86)",
-              }}
-            >
-              {GLYPHS[c.icon]?.()}
-            </div>
-            <div style={{ flex: 1, minWidth: 0 }}>
-              <p style={{ fontSize: 16, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>
-                {item.label}
-              </p>
-              {item.detail && (
-                <p style={{ fontSize: 12, color: "#8e8e93", marginTop: 1, fontFamily: "-apple-system, sans-serif" }}>
-                  {item.detail}
-                </p>
-              )}
-            </div>
+            <span style={{ fontSize: 16, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>
+              {d.label}
+            </span>
             <span
               style={{
                 fontSize: 15,
                 color: "#636366",
                 textAlign: "right",
-                flexShrink: 0,
                 fontFamily: "-apple-system, sans-serif",
               }}
             >
-              {item.value}
+              {d.value}
             </span>
           </div>
         ))}

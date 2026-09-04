@@ -10,34 +10,30 @@ interface Props {
   orientation: string;
 }
 
-// Sections mirror the resume: Leadership, Volunteering, and USC Involvements.
+// Two folders, not three overlapping ones: what he is doing now, and what he did.
 const SECTIONS = [
   {
-    id: "leadership",
-    label: "Leadership",
-    color: "#6C47FF",
-    ids: ["usctts", "echo-ai", "sgvccc"],
-  },
-  {
-    id: "volunteering",
-    label: "Volunteering",
-    color: "#34C759",
-    ids: ["okb-hope", "youth-baseball"],
-  },
-  {
-    id: "involvements",
-    label: "Involvements",
-    color: "#FF9500",
+    id: "current",
+    label: "Current",
+    color: "#007AFF",
     ids: [
+      "usctts",
       "gencollege",
-      "troy-philippines",
-      "flavors",
-      "dragon-boat",
-      "boardgames",
       "maai",
+      "troy-philippines",
+      "dragon-boat",
+      "flavors",
+      "boardgames",
     ],
   },
+  {
+    id: "past",
+    label: "Past",
+    color: "#8E8E93",
+    ids: ["okb-hope", "echo-ai", "sgvccc", "youth-baseball"],
+  },
 ];
+
 
 function FolderSVG({ color, size = 36 }: { color: string; size?: number }) {
   return (

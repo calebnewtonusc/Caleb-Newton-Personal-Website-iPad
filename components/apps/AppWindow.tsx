@@ -20,10 +20,18 @@ import HealthApp from "./HealthApp";
 interface Props {
   appId: AppId;
   onClose: () => void;
+  onOpenApp?: (id: AppId) => void;
   orientation: "landscape" | "portrait";
 }
 
-const appMap: Record<string, React.ComponentType<{ onClose: () => void; orientation: string }>> = {
+const appMap: Record<
+  string,
+  React.ComponentType<{
+    onClose: () => void;
+    orientation: string;
+    onOpenApp?: (id: AppId) => void;
+  }>
+> = {
   work: WorkApp,
   education: EducationApp,
   files: FilesApp,
@@ -37,7 +45,7 @@ const appMap: Record<string, React.ComponentType<{ onClose: () => void; orientat
   mentors: MentorsApp,
 };
 
-export default function AppWindow({ appId, onClose, orientation }: Props) {
+export default function AppWindow({ appId, onClose, onOpenApp, orientation }: Props) {
   const AppComponent = appMap[appId];
   const containerRef = useRef<HTMLDivElement>(null);
   const pillRef = useRef<HTMLDivElement>(null);
@@ -153,7 +161,7 @@ export default function AppWindow({ appId, onClose, orientation }: Props) {
     >
       {/* App content */}
       <div style={{ position: "absolute", inset: 0 }}>
-        <AppComponent onClose={onClose} orientation={orientation} />
+        <AppComponent onClose={onClose} orientation={orientation} onOpenApp={onOpenApp} />
       </div>
 
       {/* Home indicator — centered pill-width hit area only */}

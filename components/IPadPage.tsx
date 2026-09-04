@@ -635,6 +635,7 @@ export default function IPadPage() {
                     key={openApp}
                     appId={openApp}
                     onClose={() => setOpenApp(null)}
+                    onOpenApp={setOpenApp}
                     orientation={orientation}
                   />
                 )}

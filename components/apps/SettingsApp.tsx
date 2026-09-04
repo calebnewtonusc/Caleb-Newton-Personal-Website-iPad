@@ -261,45 +261,6 @@ function SectionIcon({ iconId }: { iconId: string }) {
   );
 }
 
-const PROFILE_GLYPHS: Record<string, () => React.ReactNode> = {
-  baseball: () => (
-    <svg aria-hidden="true" width="17" height="17" viewBox="0 0 18 18" fill="none">
-      <circle cx="9" cy="9" r="7.2" stroke="white" strokeWidth="1.6" />
-      <path d="M4.2 3.6C5.9 5.4 6.6 7.1 6.6 9s-.7 3.6-2.4 5.4" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
-      <path d="M13.8 3.6C12.1 5.4 11.4 7.1 11.4 9s.7 3.6 2.4 5.4" stroke="white" strokeWidth="1.4" strokeLinecap="round" />
-    </svg>
-  ),
-  brain: () => (
-    <svg aria-hidden="true" width="17" height="17" viewBox="0 0 18 18" fill="none">
-      <path
-        d="M11.4 2.3c1.9 0 3.2 1.2 3.2 2.8 1 .5 1.5 1.4 1.5 2.5 0 .9-.4 1.7-1.1 2.2.2.4.3.8.3 1.2 0 1.7-1.4 3-3.3 3-.6 1.1-1.7 1.7-3 1.7-2.2 0-3.8-1.5-3.8-3.5v-.2c-1.5-.5-2.5-1.8-2.5-3.4 0-1 .4-1.9 1-2.5-.1-.3-.2-.7-.2-1C3.5 3.4 5 2 7 2c.7 0 1.3.2 1.8.5.6-.800000000000001 1.5-1.2 2.6-1.2z"
-        stroke="white"
-        strokeWidth="1.4"
-        strokeLinejoin="round"
-      />
-      <path d="M8.8 2.5v12.9" stroke="white" strokeWidth="1.3" strokeLinecap="round" />
-    </svg>
-  ),
-  wave: () => (
-    <svg aria-hidden="true" width="18" height="16" viewBox="0 0 20 16" fill="none">
-      <path d="M2 8h2.2l1.6-4.6L8.2 12l2-8.4L12.4 12l1.5-4h4.1" stroke="white" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
-    </svg>
-  ),
-  people: () => (
-    <svg aria-hidden="true" width="19" height="15" viewBox="0 0 19 15" fill="none">
-      <circle cx="6.5" cy="4.5" r="3.2" fill="white" />
-      <circle cx="14" cy="5.5" r="2.4" fill="white" />
-      <path d="M1 14.5c0-3 2.5-5 5.5-5s5.5 2 5.5 5" stroke="white" strokeWidth="1.6" strokeLinecap="round" />
-      <path d="M13 10c2.8 0 5 1.8 5 4.5" stroke="white" strokeWidth="1.6" strokeLinecap="round" />
-    </svg>
-  ),
-  phone: () => (
-    <svg aria-hidden="true" width="14" height="18" viewBox="0 0 14 18" fill="none">
-      <rect x="2.2" y="1.4" width="9.6" height="15.2" rx="2.2" stroke="white" strokeWidth="1.6" />
-      <path d="M1 1l12 16" stroke="white" strokeWidth="1.7" strokeLinecap="round" />
-    </svg>
-  ),
-};
 
 const PROFILE_SECTION = "__profile__";
 
@@ -603,128 +564,36 @@ export default function SettingsApp({ orientation }: Props) {
                   </p>
                 </div>
 
-                {/* The hook */}
+                {/* The one thing no other app holds: why he builds */}
                 <p
                   style={{
-                    fontSize: 22,
+                    fontSize: 27,
                     color: "#1c1c1e",
-                    lineHeight: 1.35,
+                    lineHeight: 1.26,
                     fontWeight: 700,
-                    letterSpacing: -0.4,
-                    margin: "6px 16px 0",
+                    letterSpacing: -0.7,
+                    margin: "10px 16px 0",
                     fontFamily: "-apple-system, sans-serif",
                   }}
                 >
                   {profile.hook}
                 </p>
 
-                <p
-                  style={{
-                    fontSize: 13,
-                    color: "#6e6e73",
-                    fontFamily: "-apple-system, sans-serif",
-                    fontWeight: 500,
-                    letterSpacing: 0.3,
-                    marginBottom: 8,
-                    marginTop: 26,
-                    marginLeft: 16,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Highlights
-                </p>
-                <div
-                  style={{
-                    display: "grid",
-                    gridTemplateColumns: isLandscape
-                      ? "repeat(auto-fill, minmax(268px, 1fr))"
-                      : "1fr",
-                    gap: 10,
-                  }}
-                >
-                  {profile.highlights.map((h) => (
-                    <div
-                      key={h.id}
+                <div style={{ marginTop: 20 }}>
+                  {profile.statement.map((para, i) => (
+                    <p
+                      key={i}
                       style={{
-                        background: "white",
-                        borderRadius: 12,
-                        padding: "14px 16px 15px",
+                        fontSize: 17,
+                        color: i === profile.statement.length - 1 ? "#8e8e93" : "#3a3a3c",
+                        lineHeight: 1.6,
+                        margin: "0 16px 14px",
+                        fontFamily: "-apple-system, sans-serif",
                       }}
                     >
-                      <div
-                        style={{ display: "flex", alignItems: "center", gap: 8 }}
-                      >
-                        <div
-                          style={{
-                            width: 24,
-                            height: 24,
-                            borderRadius: 6,
-                            background: h.color,
-                            display: "flex",
-                            alignItems: "center",
-                            justifyContent: "center",
-                            flexShrink: 0,
-                          }}
-                        >
-                          {PROFILE_GLYPHS[h.icon]?.()}
-                        </div>
-                        <span
-                          style={{
-                            fontSize: 14,
-                            fontWeight: 600,
-                            color: h.color,
-                            fontFamily: "-apple-system, sans-serif",
-                          }}
-                        >
-                          {h.label}
-                        </span>
-                      </div>
-                      <p
-                        style={{
-                          fontSize: 25,
-                          fontWeight: 700,
-                          color: "#1c1c1e",
-                          letterSpacing: -0.6,
-                          marginTop: 9,
-                          lineHeight: 1.15,
-                          fontFamily: "-apple-system, sans-serif",
-                        }}
-                      >
-                        {h.value}
-                      </p>
-                      <p
-                        style={{
-                          fontSize: 14,
-                          color: "#6e6e73",
-                          lineHeight: 1.5,
-                          marginTop: 7,
-                          fontFamily: "-apple-system, sans-serif",
-                        }}
-                      >
-                        {h.body}
-                      </p>
-                    </div>
+                      {para}
+                    </p>
                   ))}
-                </div>
-
-                <div
-                  style={{
-                    background: "white",
-                    borderRadius: 12,
-                    padding: "16px 18px",
-                    marginTop: 20,
-                  }}
-                >
-                  <p
-                    style={{
-                      fontSize: 16,
-                      color: "#1c1c1e",
-                      lineHeight: 1.6,
-                      fontFamily: "-apple-system, sans-serif",
-                    }}
-                  >
-                    {profile.thesis}
-                  </p>
                 </div>
 
                 {/* Roles */}
