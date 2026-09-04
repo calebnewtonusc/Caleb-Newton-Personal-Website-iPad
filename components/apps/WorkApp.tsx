@@ -67,7 +67,7 @@ function CompanyLogo({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        color: "var(--surface)",
+        color: "white",
         fontSize: size * 0.4,
         fontWeight: 700,
         fontFamily: "'Google Sans', -apple-system, sans-serif",

@@ -166,7 +166,7 @@ function AppIcon({
               zIndex: 2,
               fontSize: size * 0.4,
               fontWeight: 600,
-              color: "var(--surface)",
+              color: "white",
               fontFamily: "-apple-system, sans-serif",
             }}
           >
@@ -179,7 +179,7 @@ function AppIcon({
         <span
           style={{
             fontSize: 11,
-            color: "var(--surface)",
+            color: "white",
             textAlign: "center",
             fontWeight: 500,
             letterSpacing: -0.1,
@@ -366,7 +366,7 @@ export default function HomeScreen({
                 position: "relative",
                 zIndex: 2,
                 textAlign: "center",
-                color: "var(--surface)",
+                color: "white",
                 fontFamily:
                   "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif",
                 display: "flex",

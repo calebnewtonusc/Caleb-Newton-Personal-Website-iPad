@@ -6,7 +6,7 @@
   --label: #1c1c1e;
   --label-2: #3a3a3c;
   --label-3: #636366;
-  --label-4: #8e8e93;
+  --label-4: #6e6e73;
   --separator: rgba(60, 60, 67, 0.22);
 }
 
@@ -17,7 +17,7 @@
     --label: #f5f5f7;
     --label-2: #d8d8dc;
     --label-3: #a1a1a6;
-    --label-4: #8e8e93;
+    --label-4: #a1a1a6;
     --separator: rgba(255, 255, 255, 0.16);
     --ios-bg: #000000;
     --ios-bg2: #1c1c1e;

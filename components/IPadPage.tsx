@@ -729,7 +729,7 @@ export default function IPadPage() {
                     background: "rgba(255,255,255,0.22)",
                     backdropFilter: "blur(14px)",
                     WebkitBackdropFilter: "blur(14px)",
-                    color: "var(--surface)",
+                    color: "white",
                     fontSize: 13,
                     fontWeight: 500,
                     fontFamily: "-apple-system, sans-serif",

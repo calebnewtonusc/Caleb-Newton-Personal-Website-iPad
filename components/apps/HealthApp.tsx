@@ -680,7 +680,7 @@ export default function HealthApp({ orientation }: Props) {
               onClick={() => setStoryOk(true)}
               style={{
                 background: "#5E5CE6",
-                color: "var(--surface)",
+                color: "white",
                 border: "none",
                 borderRadius: 10,
                 padding: "11px 20px",

@@ -307,7 +307,7 @@ export default function ContactApp({}: Props) {
                   }}
                 >
                   <span
-                    style={{ fontSize: 16, fontWeight: 700, color: "var(--surface)" }}
+                    style={{ fontSize: 16, fontWeight: 700, color: "white" }}
                   >
                     CN
                   </span>
@@ -354,7 +354,7 @@ export default function ContactApp({}: Props) {
                     alignItems: "center",
                     gap: 8,
                     background: "#007AFF",
-                    color: "var(--surface)",
+                    color: "white",
                     borderRadius: 12,
                     padding: "12px 20px",
                     fontSize: 15,
@@ -499,7 +499,7 @@ function ComposeForm() {
         style={{
           width: "100%",
           background: sent ? "#34c759" : "#007aff",
-          color: "var(--surface)",
+          color: "white",
           borderRadius: 10,
           padding: "14px",
           fontSize: 17,

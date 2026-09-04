@@ -91,7 +91,7 @@ function OrgIcon({
           style={{
             fontSize: size * 0.34,
             fontWeight: 800,
-            color: "var(--surface)",
+            color: "white",
             fontFamily: "-apple-system, sans-serif",
           }}
         >
@@ -320,7 +320,7 @@ function OrgDetail({
               justifyContent: "center",
               gap: 8,
               background: "#1c1c1e",
-              color: "var(--surface)",
+              color: "white",
               borderRadius: 14,
               padding: "13px",
               fontSize: 15,

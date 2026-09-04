@@ -44,7 +44,7 @@ function Avatar({
         style={{
           fontSize: size * 0.36,
           fontWeight: 700,
-          color: "var(--surface)",
+          color: "white",
           fontFamily: "-apple-system, sans-serif",
           letterSpacing: 0.3,
         }}
@@ -175,7 +175,7 @@ function MentorDetail({
               justifyContent: "center",
               gap: 8,
               background: "#1c1c1e",
-              color: "var(--surface)",
+              color: "white",
               borderRadius: 14,
               padding: "13px",
               fontSize: 15,

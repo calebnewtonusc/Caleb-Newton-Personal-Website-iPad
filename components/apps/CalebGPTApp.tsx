@@ -246,7 +246,7 @@ export default function CalebGPTApp() {
               style={{
                 border: "none",
                 background: "#8a1f1f",
-                color: "var(--surface)",
+                color: "white",
                 borderRadius: 10,
                 padding: "6px 12px",
                 fontSize: 13,

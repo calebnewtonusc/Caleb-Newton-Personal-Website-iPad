@@ -186,7 +186,7 @@ export default function PhotosApp({ orientation }: Props) {
                     padding: "40px 20px 20px",
                   }}
                 >
-                  <p style={{ color: "var(--surface)", fontSize: 16, fontWeight: 600, marginBottom: 4 }}>
+                  <p style={{ color: "white", fontSize: 16, fontWeight: 600, marginBottom: 4 }}>
                     {photos[selected].caption}
                   </p>
                   <p style={{ color: "rgba(255,255,255,0.7)", fontSize: 13 }}>
