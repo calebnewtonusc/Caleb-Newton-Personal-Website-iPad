@@ -526,7 +526,7 @@ export const personalSettings = [
     section: "Faith & Identity",
     icon: "faith",
     items: [
-      { label: "Jesus follower", type: "toggle-on", detail: "" },
+      { label: "Jesus", type: "info", detail: "My firm foundation" },
       {
         label: "Talking to God",
         type: "info",
@@ -582,6 +582,7 @@ export const personalSettings = [
       { label: "Improv", type: "toggle-on", detail: "" },
       { label: "Dragon boat", type: "toggle-on", detail: "" },
       { label: "Hiking", type: "toggle-on", detail: "" },
+      { label: "Concerts", type: "toggle-on", detail: "" },
       {
         label: "Dodger games",
         type: "toggle-on",
@@ -593,9 +594,9 @@ export const personalSettings = [
         detail: "Peanut Butter Falcon, Inception, Dumb and Dumber, Cars 2",
       },
       {
-        label: "Favorite book",
+        label: "Favorite books",
         type: "info",
-        detail: "The Great Divorce, C.S. Lewis",
+        detail: "The Great Divorce by C.S. Lewis, and Hug",
       },
     ],
   },

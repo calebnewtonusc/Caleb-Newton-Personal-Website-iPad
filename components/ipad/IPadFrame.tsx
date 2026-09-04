@@ -54,7 +54,7 @@ export default function IPadFrame({ orientation, children, onPowerPress }: Props
           0 50px 120px rgba(0,0,0,0.55),
           0 20px 60px rgba(0,0,0,0.35),
           0 8px 24px rgba(0,0,0,0.25),
-          inset 0 1px 0 rgba(255,255,255,0.9),
+          inset 0 1px 0 rgba(255,255,255,0.28),
           inset 0 -1px 0 rgba(0,0,0,0.15)
         `,
       }}

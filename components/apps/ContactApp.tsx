@@ -38,28 +38,6 @@ You do not need to polish it before you send it.`,
     time: "Now",
     unread: true,
   },
-  {
-    id: "what",
-    from: "Caleb Newton",
-    fromShort: "CN",
-    subject: "Good reasons to write",
-    preview: "Building something, arguing with me, or needing a hand...",
-    body: `Things worth sending:
-
-You are building something and want another pair of hands on it.
-
-You want to argue with me about an idea. I will enjoy it more than you expect.
-
-You are a USC student trying to get a project off the ground and need someone who has done it badly a few times already.
-
-You want to tell me my favorite album is overrated.
-
-You have a question and no obvious person to ask.
-
-That is the whole list. Write me.`,
-    time: "Today",
-    unread: false,
-  },
 ];
 
 export default function ContactApp({}: Props) {

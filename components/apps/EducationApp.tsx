@@ -19,9 +19,7 @@ The Iovine and Young Academy takes seventy students a year. It is built for peop
 I got in anyway. I believe God opened that door, and I have not stopped being grateful for it.`,
   },
   smhs: {
-    body: `I ran the Christian club at over 90 members, captained the baseball team, founded the Screen Time Reduction League, and scored a 1570.
-
-Almost everything I actually learned in those four years happened outside a classroom.`,
+    body: `Almost everything I actually learned in those four years happened outside a classroom.`,
   },
   huntington: {
     body: `Middle school was the hard part. I got bullied, and it taught me early that being the smart kid and being liked were not the same thing.
