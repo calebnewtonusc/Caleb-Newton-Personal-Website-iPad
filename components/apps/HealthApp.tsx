@@ -295,9 +295,6 @@ export default function HealthApp({ orientation }: Props) {
               <p style={{ fontSize: 16, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>
                 {c.name}
               </p>
-              <p style={{ fontSize: 12, color: "#8e8e93", fontFamily: "-apple-system, sans-serif" }}>
-                {c.blurb}
-              </p>
             </div>
             <svg aria-hidden="true" width="7" height="12" viewBox="0 0 7 12" fill="none">
               <path d="M1 1l5 5-5 5" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
@@ -467,9 +464,6 @@ export default function HealthApp({ orientation }: Props) {
       >
         {category.name}
       </h2>
-      <p style={{ fontSize: 15, color: "#8e8e93", marginTop: 4, fontFamily: "-apple-system, sans-serif" }}>
-        {category.blurb}
-      </p>
       <div
         style={{
           display: "grid",

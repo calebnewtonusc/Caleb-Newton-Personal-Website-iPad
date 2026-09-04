@@ -12,11 +12,9 @@ interface Props {
 // Map each education entry to a full-text "note"
 const noteContent: Record<string, { body: string }> = {
   usc: {
-    body: `I did not open this door myself.
+    body: `The Academy takes seventy students a year and it is built for people who do not fit cleanly into art, technology, or business, which was my exact problem when I applied. I did not have a tidy story for why I belonged there.
 
-The Iovine and Young Academy takes seventy students a year. It is built for people who do not fit cleanly into art, technology, or business, which was exactly my problem when I applied. I did not have a tidy story for why I belonged there.
-
-I got in anyway. I believe God opened that door, and I have not stopped being grateful for it.`,
+I got in anyway, and I credit God for the door being open.`,
   },
   smhs: {
     body: `Almost everything I actually learned in those four years happened outside a classroom.`,

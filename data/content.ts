@@ -13,6 +13,7 @@ export const profile = {
     {
       title: "Basics",
       items: [
+        { label: "Born", type: "info", detail: "2006" },
         { label: "From", type: "info", detail: "San Marino, California" },
         {
           label: "School",
@@ -292,9 +293,9 @@ export const education = [
 
 export const health = {
   details: [
-    { label: "Born", value: "2006" },
-    { label: "From", value: "San Marino, CA" },
-    { label: "Diagnosed", value: "Autistic, senior year of high school" },
+    { label: "Height", value: "6 ft 1" },
+    { label: "Weight", value: "200 lb" },
+    { label: "Overall health", value: "Pretty good" },
   ],
   intro:
     "The most important lesson in my education so far has been the terrifying, awesome reality of infinite paths in college.",
@@ -383,16 +384,7 @@ export const health = {
       color: "#5E5CE6",
       blurb: "The freshman year article",
       items: [
-        {
-          label: "Hyperfocus",
-          value: "On",
-          detail: "Cannot be scheduled, only survived",
-        },
-        {
-          label: "Context Switching",
-          value: "Off",
-          detail: "Please do not do this to me",
-        },
+        { label: "How I'm feeling rn", value: "Grateful", detail: "" },
       ],
     },
     {
@@ -402,11 +394,7 @@ export const health = {
       color: "#32ADE6",
       blurb: "9 PM to 5 AM",
       items: [
-        {
-          label: "Sleep Schedule",
-          value: "9 PM - 5 AM",
-          detail: "Yes, on purpose",
-        },
+        { label: "Sleep Schedule", value: "9 PM - 5 AM", detail: "" },
       ],
     },
     {
@@ -416,7 +404,7 @@ export const health = {
       color: "#FA114F",
       blurb: "Recovery over volume",
       items: [
-        { label: "Fitness", value: "Active", detail: "Most days" },
+        { label: "Lyons gym", value: "6 AM daily", detail: "" },
         {
           label: "Hiking",
           value: "Still going",
