@@ -366,13 +366,8 @@ export const health = {
       items: [
         {
           label: "Baseball",
-          value: "84 \u2192 70 \u2192 81",
-          detail: "I threw 84 as a closer and I was certain that number was going somewhere. Then my arm gave out and took 14 mph with it, and 70 does not get you recruited anywhere. I spent a year in sports science papers rebuilding my mechanics from the ground up and clawed back to 81. Not all the way. Those last three miles an hour are where the Division I version of my life used to be, and letting go of that took a lot longer than the arm did.",
-        },
-        {
-          label: "Coaching",
-          value: "2022 - 2025",
-          detail: "Clinics for kids with physical and developmental disabilities, and a junkyard field in the Dominican Republic.",
+          value: "On pace for D1",
+          detail: "I was on pace to pitch Division I as a sophomore, and then my arm gave out. I spent the next year rebuilding my mechanics and never got all of it back. I believe God used that injury to redirect me, and I would not be doing what I am doing now without it. I am grateful for everything pitching taught me, and for everything being a teammate taught me.",
         },
         {
           label: "Other sports I tried",

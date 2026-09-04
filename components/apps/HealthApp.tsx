@@ -162,6 +162,7 @@ function Tile({
 
 export default function HealthApp({ orientation }: Props) {
   const [selected, setSelected] = useState<string>(PROFILE);
+  const [storyOk, setStoryOk] = useState(false);
   const isLandscape = orientation === "landscape";
   const storyRef = useRef<HTMLDivElement>(null);
 
@@ -254,59 +255,6 @@ export default function HealthApp({ orientation }: Props) {
           <path d="M1 1l5 5L1 11" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       </button>
-
-      {[
-        {
-          id: STORY,
-          name: "My freshman year at USC",
-          icon: "article",
-          color: "#5E5CE6",
-          blurb: "Article \u00b7 6 min",
-        },
-      ].map((row) => (
-        <button
-          key={row.id}
-          onClick={() => setSelected(row.id)}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 11,
-            width: "100%",
-            textAlign: "left",
-            background: selected === row.id ? "rgba(255,45,85,0.1)" : "white",
-            border: "none",
-            borderRadius: 10,
-            padding: "11px 13px",
-            marginBottom: 8,
-            cursor: "pointer",
-            font: "inherit",
-          }}
-        >
-          <div
-            aria-hidden="true"
-            style={{
-              width: 28,
-              height: 28,
-              borderRadius: 7,
-              background: row.color,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
-            }}
-          >
-            {GLYPHS[row.icon]?.()}
-          </div>
-          <div style={{ minWidth: 0 }}>
-            <p style={{ fontSize: 16, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>
-              {row.name}
-            </p>
-            <p style={{ fontSize: 12, color: "#8e8e93", fontFamily: "-apple-system, sans-serif" }}>
-              {row.blurb}
-            </p>
-          </div>
-        </button>
-      ))}
 
       <p style={{ ...sectionLabel, marginTop: 18 }}>Health Categories</p>
       <div style={{ background: "white", borderRadius: 10, overflow: "hidden" }}>
@@ -572,8 +520,99 @@ export default function HealthApp({ orientation }: Props) {
     </div>
   );
 
+  const disclaimer = (
+    <div
+      className="ios-scroll"
+      style={{
+        flex: 1,
+        overflowY: "auto",
+        padding: "20px 20px 40px",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <div style={{ maxWidth: 460 }}>
+        <div
+          style={{
+            background: "white",
+            borderRadius: 14,
+            padding: "22px 22px 20px",
+            borderLeft: "3px solid #5E5CE6",
+          }}
+        >
+          <h2
+            style={{
+              fontSize: 22,
+              fontWeight: 700,
+              color: "#1c1c1e",
+              letterSpacing: -0.4,
+              fontFamily: "-apple-system, sans-serif",
+            }}
+          >
+            Before you read this
+          </h2>
+          <p
+            style={{
+              fontSize: 16,
+              color: "#3a3a3c",
+              lineHeight: 1.6,
+              marginTop: 10,
+              fontFamily: "-apple-system, sans-serif",
+            }}
+          >
+            This one covers depression, a psychiatric hospitalization, and a
+            manic episode during my freshman year. I wrote it down because it
+            happened and because it might be worth something to somebody going
+            through the same thing, not for shock. If now is not the time for
+            it, that is completely fine.
+          </p>
+          <div style={{ display: "flex", gap: 10, marginTop: 18 }}>
+            <button
+              onClick={() => setStoryOk(true)}
+              style={{
+                background: "#5E5CE6",
+                color: "white",
+                border: "none",
+                borderRadius: 10,
+                padding: "11px 20px",
+                fontSize: 16,
+                fontWeight: 600,
+                cursor: "pointer",
+                fontFamily: "-apple-system, sans-serif",
+              }}
+            >
+              Continue
+            </button>
+            <button
+              onClick={() => setSelected(PROFILE)}
+              style={{
+                background: "rgba(120,120,128,0.12)",
+                color: "#1c1c1e",
+                border: "none",
+                borderRadius: 10,
+                padding: "11px 20px",
+                fontSize: 16,
+                cursor: "pointer",
+                fontFamily: "-apple-system, sans-serif",
+              }}
+            >
+              Not right now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
   const main =
-    selected === PROFILE ? profileView : selected === STORY ? story : detail;
+    selected === PROFILE
+      ? profileView
+      : selected === STORY
+        ? storyOk
+          ? story
+          : disclaimer
+        : detail;
 
   return (
     <div className="app-window" style={{ background: "#f2f2f7" }}>
@@ -626,7 +665,20 @@ export default function HealthApp({ orientation }: Props) {
             )}
           </AnimatePresence>
         )}
-        {isLandscape && main}
+        {isLandscape && (
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={selected}
+              initial={{ opacity: 0, x: 18 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -18 }}
+              transition={{ duration: 0.2, ease: [0.32, 0.72, 0, 1] }}
+              style={{ flex: 1, display: "flex", overflow: "hidden", minWidth: 0 }}
+            >
+              {main}
+            </motion.div>
+          </AnimatePresence>
+        )}
       </div>
     </div>
   );
