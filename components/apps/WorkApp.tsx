@@ -192,49 +192,24 @@ const DocCard = memo(function DocCard({
           >
             {exp.title}
           </div>
-          {/* Fake text lines */}
-          <div style={{ display: "flex", flexDirection: "column", gap: 4 }}>
-            <div
-              style={{
-                height: 3,
-                background: "#e0e0e0",
-                borderRadius: 1,
-                width: "100%",
-              }}
-            />
-            <div
-              style={{
-                height: 3,
-                background: "#e0e0e0",
-                borderRadius: 1,
-                width: "90%",
-              }}
-            />
-            <div
-              style={{
-                height: 3,
-                background: "#e0e0e0",
-                borderRadius: 1,
-                width: "75%",
-              }}
-            />
-            <div
-              style={{
-                height: 3,
-                background: "#e0e0e0",
-                borderRadius: 1,
-                width: "85%",
-              }}
-            />
-            <div
-              style={{
-                height: 3,
-                background: "#e0e0e0",
-                borderRadius: 1,
-                width: "60%",
-              }}
-            />
-          </div>
+          {/* The real first line of the document, not grey bars that read as a
+              failed load to anyone who has not seen a Docs thumbnail before */}
+          <p
+            style={{
+              fontSize: 7,
+              lineHeight: 1.55,
+              color: "#8a8a8e",
+              fontFamily: "-apple-system, sans-serif",
+              overflow: "hidden",
+              display: "-webkit-box",
+              WebkitLineClamp: 5,
+              WebkitBoxOrient: "vertical",
+              textAlign: "left",
+              width: "100%",
+            }}
+          >
+            {exp.achievements?.[0] ?? exp.description}
+          </p>
         </div>
       </div>
       {/* Doc title + details */}
@@ -286,6 +261,21 @@ const DocCard = memo(function DocCard({
             }}
           >
             {exp.period}
+          </div>
+          <div
+            style={{
+              fontSize: 10,
+              color: "var(--label-4)",
+              marginTop: 2,
+              lineHeight: 1.35,
+              fontFamily: "-apple-system, sans-serif",
+              overflow: "hidden",
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+            }}
+          >
+            {exp.description}
           </div>
         </div>
       </div>
@@ -791,6 +781,58 @@ export default function WorkApp({}: Props) {
           Work Experience
         </span>
       </div>
+
+      {/* Resume, first thing, because that is what a recruiter came for */}
+      <a
+        href="https://docs.google.com/document/d/1BbwPRdFOPsMvyVyIQIpNwfNJPKM25lMFfRvBrvR8Bqs/edit?usp=sharing"
+        target="_blank"
+        rel="noopener noreferrer"
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: 12,
+          margin: "14px 16px 0",
+          padding: "13px 16px",
+          borderRadius: 10,
+          background: "var(--surface)",
+          border: "1px solid var(--separator)",
+          textDecoration: "none",
+          minHeight: 44,
+        }}
+      >
+        <svg aria-hidden="true" width="22" height="26" viewBox="0 0 22 26" fill="none" style={{ flexShrink: 0 }}>
+          <path d="M2.6 1.4h10.2l6.6 6.6v16.6H2.6z" fill="#4285F4" />
+          <path d="M12.8 1.4l6.6 6.6h-6.6z" fill="#A1C2FA" />
+          <path d="M6 12.4h10v1.5H6zM6 15.6h10v1.5H6zM6 18.8h6.6v1.5H6z" fill="white" />
+        </svg>
+        <span style={{ flex: 1, minWidth: 0 }}>
+          <span
+            style={{
+              display: "block",
+              fontSize: 16,
+              fontWeight: 600,
+              color: "var(--label)",
+              fontFamily: "-apple-system, sans-serif",
+            }}
+          >
+            Caleb Newton, resume
+          </span>
+          <span
+            style={{
+              display: "block",
+              fontSize: 13,
+              color: "var(--label-4)",
+              marginTop: 1,
+              fontFamily: "-apple-system, sans-serif",
+            }}
+          >
+            Google Doc, opens in a new tab
+          </span>
+        </span>
+        <svg aria-hidden="true" width="13" height="13" viewBox="0 0 14 14" fill="none" style={{ flexShrink: 0 }}>
+          <path d="M4 10l6-6M5.4 4H10v4.6" stroke="var(--label-4)" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
+      </a>
 
       {/* Doc list */}
       <div

@@ -21,12 +21,12 @@ export default function TypedGreeting({
     typedRef.current = new Typed(elRef.current, {
       strings: [
         "Hey, I'm Caleb.",
-        "Machine Learning Engineering · Entrepreneurship & Design · Neuroscience.",
+        "Machine Learning Engineering \u00b7 Entrepreneurship & Product Design.",
         "Let's build something.",
       ],
-      typeSpeed: 48,
-      backSpeed: 28,
-      backDelay: 1800,
+      typeSpeed: 42,
+      backSpeed: 22,
+      backDelay: 4200,
       startDelay: 400,
       loop: true,
       cursorChar: "|",
