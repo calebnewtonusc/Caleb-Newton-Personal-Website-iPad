@@ -498,51 +498,6 @@ export default function SettingsApp({ orientation }: Props) {
                   </button>
                 )}
 
-                {/* Profile header */}
-                <div
-                  style={{
-                    background: "white",
-                    borderRadius: 10,
-                    padding: "20px 16px",
-                    marginBottom: 8,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    textAlign: "center",
-                  }}
-                >
-                  <div
-                    style={{
-                      width: 80,
-                      height: 80,
-                      borderRadius: "50%",
-                      overflow: "hidden",
-                      marginBottom: 12,
-                      position: "relative",
-                    }}
-                  >
-                    <Image
-                      src={profile.photoAlt}
-                      alt="Caleb Newton"
-                      fill
-                      style={{
-                        objectFit: "cover",
-                        objectPosition: "center 25%",
-                      }}
-                    />
-                  </div>
-                  <p
-                    style={{
-                      fontSize: 22,
-                      fontWeight: 700,
-                      color: "#1c1c1e",
-                      fontFamily: "-apple-system, sans-serif",
-                      marginBottom: 3,
-                    }}
-                  >
-                    Caleb Newton
-                  </p>                </div>
-
                 {/* The whole intro, told as settings */}
                 <p
                   style={{

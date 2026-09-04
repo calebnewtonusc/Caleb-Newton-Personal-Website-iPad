@@ -27,7 +27,7 @@ export const profile = {
         },
         { label: "Minor", type: "info", detail: "Neuroscience" },
         { label: "Autistic", type: "toggle-on", detail: "" },
-        { label: "Follower of Jesus", type: "toggle-on", detail: "" },
+        { label: "Jesus follower", type: "toggle-on", detail: "" },
       ],
     },
     {
@@ -516,7 +516,7 @@ export const personalSettings = [
     section: "Faith & Identity",
     icon: "faith",
     items: [
-      { label: "Follower of Jesus", type: "toggle-on", detail: "" },
+      { label: "Jesus follower", type: "toggle-on", detail: "" },
       {
         label: "Talking to God",
         type: "info",
