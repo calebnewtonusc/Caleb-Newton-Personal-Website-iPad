@@ -400,9 +400,24 @@ export const health = {
       icon: "bed",
       name: "Sleep",
       color: "#32ADE6",
-      blurb: "9 PM to 5 AM",
+      blurb: "10 PM to 5 AM",
       items: [
-        { label: "Sleep Schedule", value: "9 PM - 5 AM", detail: "" },
+        {
+          label: "College schedule",
+          value: "10 PM - 5 AM",
+          detail: "Less cooked than I used to be",
+        },
+        {
+          label: "High school schedule",
+          value: "8 PM - 3 AM",
+          detail: "Knocked out after baseball practice",
+        },
+        { label: "Naps", value: "Occasional", detail: "" },
+        {
+          label: "Alarm",
+          value: "Waking Up by Kero Kero Bonito",
+          detail: "",
+        },
       ],
     },
     {
@@ -422,25 +437,6 @@ export const health = {
           label: "WHOOP",
           value: "Worn",
           detail: "Recovery score is the only metric I trust",
-        },
-      ],
-    },
-    {
-      id: "mindfulness",
-      icon: "mindful",
-      name: "Mindfulness",
-      color: "#00C7BE",
-      blurb: "Two hours at a time",
-      items: [
-        {
-          label: "Deep Work Blocks",
-          value: "2 hr",
-          detail: "Everything else closed",
-        },
-        {
-          label: "Coffee",
-          value: "Daily",
-          detail: "Critical dependency, no fallback path",
         },
       ],
     },
@@ -596,7 +592,7 @@ export const personalSettings = [
     icon: "device",
     items: [
       { label: "Personality", type: "info", detail: "ENTJ-A" },
-      { label: "Battery", type: "info", detail: "Recharged by nature" },
+      { label: "Battery", type: "info", detail: "Nature and coffee" },
       {
         label: "Asking why",
         type: "toggle-on",
