@@ -364,18 +364,7 @@ export default function SettingsApp({ orientation }: Props) {
                       }}
                     >
                       Caleb Newton
-                    </p>
-                    <p
-                      style={{
-                        fontSize: 13,
-                        color: "#636366",
-                        fontFamily: "-apple-system, sans-serif",
-                        marginTop: 1,
-                      }}
-                    >
-                      {profile.tagline}
-                    </p>
-                  </div>
+                    </p>                  </div>
                   <svg aria-hidden="true" width="7" height="12" viewBox="0 0 7 12" fill="none">
                     <path
                       d="M1 1l5 5L1 11"
@@ -552,145 +541,101 @@ export default function SettingsApp({ orientation }: Props) {
                     }}
                   >
                     Caleb Newton
-                  </p>
-                  <p
-                    style={{
-                      fontSize: 13,
-                      color: "#636366",
-                      fontFamily: "-apple-system, sans-serif",
-                    }}
-                  >
-                    {profile.tagline}
-                  </p>
-                </div>
+                  </p>                </div>
 
-                {/* The intro: hello, then the paragraph, then the basics */}
+                {/* The whole intro, told as settings */}
                 <p
                   style={{
                     fontSize: 30,
                     fontWeight: 700,
                     color: "#1c1c1e",
                     letterSpacing: -0.7,
-                    margin: "20px 0 0 16px",
+                    margin: "20px 0 4px 16px",
                     fontFamily: "-apple-system, sans-serif",
                   }}
                 >
                   {profile.greeting}
                 </p>
 
-                <div
-                  style={{
-                    background: "white",
-                    borderRadius: 10,
-                    padding: "12px 16px",
-                    marginTop: 12,
-                  }}
-                >
-                  <p
-                    style={{
-                      fontSize: 17,
-                      color: "#1c1c1e",
-                      lineHeight: 1.47,
-                      letterSpacing: -0.4,
-                      fontFamily: "-apple-system, sans-serif",
-                    }}
-                  >
-                    {profile.paragraph}
-                  </p>
-                </div>
-
-                <div
-                  style={{
-                    background: "white",
-                    borderRadius: 10,
-                    overflow: "hidden",
-                    marginTop: 20,
-                  }}
-                >
-                  {profile.introFacts.map((f, i) => (
-                    <div
-                      key={f.label}
+                {profile.aboutGroups.map((group) => (
+                  <div key={group.title}>
+                    <p
                       style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        gap: 14,
-                        padding: "11px 16px",
-                        position: "relative",
+                        fontSize: 13,
+                        color: "#6e6e73",
+                        letterSpacing: -0.08,
+                        margin: "24px 0 7px 16px",
+                        textTransform: "uppercase",
+                        fontFamily: "-apple-system, sans-serif",
                       }}
                     >
-                      {i > 0 && (
-                        <span
-                          aria-hidden="true"
+                      {group.title}
+                    </p>
+                    <div
+                      style={{
+                        background: "white",
+                        borderRadius: 10,
+                        overflow: "hidden",
+                      }}
+                    >
+                      {group.items.map((item, i) => (
+                        <div
+                          key={item.label}
                           style={{
-                            position: "absolute",
-                            top: 0,
-                            left: 16,
-                            right: 0,
-                            height: 0.5,
-                            background: "rgba(60,60,67,0.29)",
+                            display: "flex",
+                            alignItems: "center",
+                            justifyContent: "space-between",
+                            gap: 14,
+                            padding: "9px 16px",
+                            minHeight: 44,
+                            position: "relative",
                           }}
-                        />
-                      )}
-                      <span
-                        style={{
-                          fontSize: 17,
-                          color: "#1c1c1e",
-                          letterSpacing: -0.4,
-                          flexShrink: 0,
-                          fontFamily: "-apple-system, sans-serif",
-                        }}
-                      >
-                        {f.label}
-                      </span>
-                      <span
-                        style={{
-                          fontSize: 17,
-                          color: "#8e8e93",
-                          letterSpacing: -0.4,
-                          textAlign: "right",
-                          fontFamily: "-apple-system, sans-serif",
-                        }}
-                      >
-                        {f.value}
-                      </span>
+                        >
+                          {i > 0 && (
+                            <span
+                              aria-hidden="true"
+                              style={{
+                                position: "absolute",
+                                top: 0,
+                                left: 16,
+                                right: 0,
+                                height: 0.5,
+                                background: "rgba(60,60,67,0.29)",
+                              }}
+                            />
+                          )}
+                          <span
+                            style={{
+                              fontSize: 17,
+                              color: "#1c1c1e",
+                              letterSpacing: -0.4,
+                              fontFamily: "-apple-system, sans-serif",
+                            }}
+                          >
+                            {item.label}
+                          </span>
+                          {item.type === "toggle-on" ||
+                          item.type === "toggle-off" ? (
+                            <IOSToggle on={item.type === "toggle-on"} />
+                          ) : (
+                            <span
+                              style={{
+                                fontSize: 17,
+                                color: "#8e8e93",
+                                letterSpacing: -0.4,
+                                textAlign: "right",
+                                maxWidth: "58%",
+                                fontFamily: "-apple-system, sans-serif",
+                              }}
+                            >
+                              {item.detail}
+                            </span>
+                          )}
+                        </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-
-                <p
-                  style={{
-                    fontSize: 13,
-                    color: "#6e6e73",
-                    letterSpacing: -0.08,
-                    margin: "26px 0 7px 16px",
-                    textTransform: "uppercase",
-                    fontFamily: "-apple-system, sans-serif",
-                  }}
-                >
-                  {profile.hereFor.title}
-                </p>
-                <div
-                  style={{
-                    background: "white",
-                    borderRadius: 10,
-                    padding: "12px 16px",
-                    borderLeft: "3px solid #FF9500",
-                  }}
-                >
-                  <p
-                    style={{
-                      fontSize: 17,
-                      color: "#1c1c1e",
-                      lineHeight: 1.47,
-                      letterSpacing: -0.4,
-                      fontFamily: "-apple-system, sans-serif",
-                    }}
-                  >
-                    {profile.hereFor.body}
-                  </p>
-                </div>
-
+                  </div>
+                ))}
 
                 {/* Ways into the rest of him */}
                 <p
@@ -779,32 +724,6 @@ export default function SettingsApp({ orientation }: Props) {
                     })}
                 </div>
 
-                {/* Roles */}
-                <div
-                  style={{
-                    display: "flex",
-                    flexWrap: "wrap",
-                    gap: 8,
-                    padding: "0 4px",
-                  }}
-                >
-                  {profile.roles.map((role) => (
-                    <span
-                      key={role}
-                      style={{
-                        fontSize: 13,
-                        fontWeight: 500,
-                        color: "#007AFF",
-                        background: "rgba(0,122,255,0.1)",
-                        borderRadius: 20,
-                        padding: "4px 12px",
-                        fontFamily: "-apple-system, sans-serif",
-                      }}
-                    >
-                      {role}
-                    </span>
-                  ))}
-                </div>
               </div>
             </motion.div>
           )}

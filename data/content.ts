@@ -8,24 +8,61 @@ export const profile = {
   photo: "/assets/CalebAtBeachUSCHoodie.jpg",
   photoAlt: "/assets/CalebAtUSC.jpg",
   skills: ["Python", "C++", "CUDA", "TypeScript", "Swift", "SQL"],
-  greeting: "Hey, I'm Caleb.",
-  paragraph:
-    "What's up bro! I'm Caleb, an autistic Jesus follower from San Marino, CA. I am also a tech bro who has come to hate most of what tech turned into. I grew up watching the internet get extremely good at holding attention and extremely bad at giving anything back, and I have spent most of my life since fighting that however I can reach it: pulling the apps off my own phone, running a screen time league in high school, and now building software that is supposed to leave people better than it found them.",
-  introFacts: [
-    { label: "Year", value: "Sophomore" },
-    { label: "Studying", value: "Innovation at Iovine and Young, minoring in neuroscience" },
+  greeting: "What's up bro! I'm Caleb :)",
+  aboutGroups: [
+    {
+      title: "The basics",
+      items: [
+        { label: "Autistic", type: "toggle-on", detail: "" },
+        { label: "Follower of Jesus", type: "toggle-on", detail: "" },
+        { label: "From", type: "info", detail: "San Marino, California" },
+        {
+          label: "School",
+          type: "info",
+          detail: "USC \u00b7 Jimmy Iovine & Dr. Dre Young Innovation Academy",
+        },
+        { label: "Year", type: "info", detail: "Sophomore" },
+        { label: "Major", type: "info", detail: "Innovation" },
+        { label: "Minor", type: "info", detail: "Neuroscience" },
+      ],
+    },
+    {
+      title: "Tech bro who hates tech",
+      items: [
+        { label: "Tech bro", type: "toggle-on", detail: "" },
+        { label: "Happy about what tech became", type: "toggle-off", detail: "" },
+        { label: "The attention economy", type: "toggle-off", detail: "" },
+        { label: "Apps on my own phone", type: "toggle-off", detail: "" },
+        {
+          label: "Building the opposite of that",
+          type: "toggle-on",
+          detail: "",
+        },
+      ],
+    },
+    {
+      title: "The plan",
+      items: [
+        { label: "Five year plan", type: "toggle-off", detail: "" },
+        { label: "Worried about not having one", type: "toggle-off", detail: "" },
+        { label: "Getting all the way into the world", type: "toggle-on", detail: "" },
+        { label: "Growing in my walk with God", type: "toggle-on", detail: "" },
+        { label: "Starting companies", type: "info", detail: "Probably" },
+        {
+          label: "Rooms of students praying at midnight",
+          type: "info",
+          detail: "Also probably",
+        },
+        { label: "Picky about which one", type: "toggle-off", detail: "" },
+        {
+          label: "Helping whoever is in front of me",
+          type: "toggle-on",
+          detail: "",
+        },
+      ],
+    },
   ],
-  hereFor: {
-    title: "What I am here for",
-    body: "I did not show up to USC with a five year plan, and I have stopped treating that as a problem. What I want is to get all the way into the world instead of watching it, to keep growing in my walk with God, and to follow that wherever He takes it. Some of it will probably look like building companies. Some of it will look like a room full of college students praying at midnight. I am not picky about the shape as long as it helps the people in front of me.",
-  },
   previewSections: ["faith", "family", "screentime", "film"],
-  roles: [
-    "Autistic Jesus Follower",
-    "Founding GTM & Product Lead",
-    "Co-President, TTS",
-    "USC Sophomore",
-  ],
 };
 
 export const social = {
@@ -495,7 +532,7 @@ export const personalSettings = [
       {
         label: "Talking to God",
         type: "info",
-        detail: "Constantly, all day. It is a relationship, not a scheduled thing",
+        detail: "Constantly",
       },
       {
         label: "Psalm 1:3",
@@ -524,17 +561,6 @@ export const personalSettings = [
         detail: "",
       },
       { label: "Sunday mornings", type: "toggle-on", detail: "" },
-      {
-        label: "Bringing it up",
-        type: "info",
-        detail: "I will not do it unprompted, but I would love the question",
-      },
-      {
-        label: "Hard questions",
-        type: "toggle-on",
-        detail: "",
-      },
-      { label: "Boldness", type: "toggle-on", detail: "" },
     ],
   },
   {
@@ -569,9 +595,9 @@ export const personalSettings = [
         detail: "Peanut Butter Falcon, Inception, Dumb and Dumber, Cars 2",
       },
       {
-        label: "Reading",
+        label: "Favorite book",
         type: "info",
-        detail: "Non-fiction, theology, and neuroscience",
+        detail: "The Great Divorce, C.S. Lewis",
       },
     ],
   },
