@@ -342,20 +342,26 @@ export default function IPadPage() {
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "j") {
         e.preventDefault();
         setLocked(false);
+        setSpotlightOpen(false);
         setControlCenterOpen((v) => !v);
         return;
       }
       if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
         e.preventDefault();
         setLocked(false);
+        setControlCenterOpen(false);
         setSpotlightOpen((v) => !v);
         return;
       }
-      if (e.key === "Escape") setOpenApp(null);
+      if (e.key === "Escape") {
+        // Only the top layer closes. The overlays handle their own Escape.
+        if (controlCenterOpen || spotlightOpen) return;
+        setOpenApp(null);
+      }
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [controlCenterOpen, spotlightOpen]);
 
   const lockedRef = useRef(true);
   useEffect(() => {
@@ -800,7 +806,10 @@ export default function IPadPage() {
                   target and not only a swipe. */}
               {!locked && !screenOff && (
                 <button
-                  onClick={() => setControlCenterOpen(true)}
+                  onClick={() => {
+                    setSpotlightOpen(false);
+                    setControlCenterOpen(true);
+                  }}
                   aria-label="Open Control Center"
                   title="Control Center"
                   style={{

@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import type { AppId, AppDef } from "@/data/content";
@@ -118,6 +118,13 @@ function ContextMenu({
   onOpen: () => void;
 }) {
   const actions = QUICK_ACTIONS[app.id] ?? [];
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onClose();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [onClose]);
   const left = Math.min(rect.left, window.innerWidth - 230);
   const top = Math.min(rect.bottom + 10, window.innerHeight - 190);
   return (
