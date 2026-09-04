@@ -31,22 +31,15 @@ export const profile = {
       ],
     },
     {
-      title: "What I am trying to do",
+      title: "What I am about",
       items: [
+        { label: "Tech bro", type: "toggle-on", detail: "" },
+        { label: "Tech hater", type: "toggle-on", detail: "" },
         {
-          label: "Goal",
+          label: "War against the attention economy",
           type: "info",
-          detail: "Build technology that helps people instead of harvesting their attention",
+          detail: "Life mission",
         },
-        { label: "Social media on my phone", type: "toggle-off", detail: "" },
-        { label: "A five year plan", type: "toggle-off", detail: "" },
-        { label: "Starting companies", type: "info", detail: "Probably" },
-        {
-          label: "Working in ministry",
-          type: "info",
-          detail: "Also probably",
-        },
-        { label: "Open to either", type: "toggle-on", detail: "" },
       ],
     },
   ],
