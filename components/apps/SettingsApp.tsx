@@ -592,7 +592,7 @@ export default function SettingsApp({ orientation }: Props) {
                     textTransform: "uppercase",
                   }}
                 >
-                  What I have tried so far
+                  How I got like this
                 </p>
                 <div
                   style={{
@@ -724,67 +724,6 @@ export default function SettingsApp({ orientation }: Props) {
                   >
                     {profile.thesis}
                   </p>
-                </div>
-
-                {/* Now */}
-                <p
-                  style={{
-                    fontSize: 13,
-                    color: "#6e6e73",
-                    fontFamily: "-apple-system, sans-serif",
-                    fontWeight: 500,
-                    letterSpacing: 0.3,
-                    marginBottom: 6,
-                    marginTop: 22,
-                    marginLeft: 16,
-                    textTransform: "uppercase",
-                  }}
-                >
-                  Now
-                </p>
-                <div
-                  style={{
-                    background: "white",
-                    borderRadius: 10,
-                    overflow: "hidden",
-                    marginBottom: 8,
-                  }}
-                >
-                  {profile.now.map((item, i) => (
-                    <div
-                      key={item.label}
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        gap: 12,
-                        padding: "13px 16px",
-                        borderTop:
-                          i > 0 ? "0.5px solid rgba(60,60,67,0.18)" : "none",
-                      }}
-                    >
-                      <span
-                        style={{
-                          fontSize: 17,
-                          color: "#1c1c1e",
-                          fontFamily: "-apple-system, sans-serif",
-                        }}
-                      >
-                        {item.label}
-                      </span>
-                      <span
-                        style={{
-                          fontSize: 15,
-                          color: "#636366",
-                          fontFamily: "-apple-system, sans-serif",
-                          textAlign: "right",
-                          maxWidth: "60%",
-                        }}
-                      >
-                        {item.value}
-                      </span>
-                    </div>
-                  ))}
                 </div>
 
                 {/* Roles */}
