@@ -379,11 +379,6 @@ export const health = {
           value: "Wrestling, football",
           detail: "Two years on the wrestling mat, where I won the Grit Award, which tells you roughly how the matches themselves went. Football before that.",
         },
-        {
-          label: "Hiking",
-          value: "Still going",
-          detail: "Anywhere with elevation.",
-        },
       ],
     },
     {
@@ -427,6 +422,11 @@ export const health = {
       blurb: "Recovery over volume",
       items: [
         { label: "Fitness", value: "Active", detail: "Most days" },
+        {
+          label: "Hiking",
+          value: "Still going",
+          detail: "Anywhere with elevation",
+        },
         {
           label: "WHOOP",
           value: "Worn",
