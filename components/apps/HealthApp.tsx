@@ -506,8 +506,7 @@ export default function HealthApp({ orientation }: Props) {
             My freshman year at USC
           </p>
           <p style={{ fontSize: 13, color: "#8e8e93", marginTop: 3, fontFamily: "-apple-system, sans-serif" }}>
-            Depression, a hospitalization, mania, and steady ground. Eight parts,
-            about six minutes.
+            Depression, a hospitalization, mania, and steady ground.
           </p>
         </button>
       )}
