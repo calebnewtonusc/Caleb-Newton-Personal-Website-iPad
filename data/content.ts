@@ -40,10 +40,27 @@ export const profile = {
           type: "info",
           detail: "Life mission",
         },
+        {
+          label: "My weapons in this war",
+          type: "info",
+          detail: "Leadership, product sense, GTME, SWE, prayer, patience",
+        },
+        {
+          label: "How long this will take",
+          type: "info",
+          detail: "My whole life",
+        },
+      ],
+    },
+    {
+      title: "Where I'm at",
+      items: [
+        { label: "Starting companies", type: "toggle-on", detail: "" },
+        { label: "Hungry to learn", type: "toggle-on", detail: "" },
+        { label: "Growing in my walk with God", type: "toggle-on", detail: "" },
       ],
     },
   ],
-  previewSections: ["faith", "family", "screentime", "film"],
 };
 
 export const social = {
