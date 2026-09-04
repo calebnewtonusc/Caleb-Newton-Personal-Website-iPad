@@ -19,6 +19,7 @@ import HealthApp from "./HealthApp";
 
 interface Props {
   appId: AppId;
+  origin?: { x: number; y: number } | null;
   onClose: () => void;
   onOpenApp?: (id: AppId) => void;
   orientation: "landscape" | "portrait";
@@ -45,7 +46,7 @@ const appMap: Record<
   mentors: MentorsApp,
 };
 
-export default function AppWindow({ appId, onClose, onOpenApp, orientation }: Props) {
+export default function AppWindow({ appId, origin, onClose, onOpenApp, orientation }: Props) {
   const AppComponent = appMap[appId];
   const containerRef = useRef<HTMLDivElement>(null);
   const pillRef = useRef<HTMLDivElement>(null);
@@ -146,7 +147,6 @@ export default function AppWindow({ appId, onClose, onOpenApp, orientation }: Pr
 
   return (
     <motion.div
-      ref={containerRef}
       style={{
         position: "absolute",
         inset: 0,
@@ -158,6 +158,21 @@ export default function AppWindow({ appId, onClose, onOpenApp, orientation }: Pr
       animate={{ scale: 1, opacity: 1 }}
       exit={{ scale: 0.08, opacity: 0 }}
       transition={{ type: "spring", stiffness: 480, damping: 36 }}
+      ref={(node) => {
+        containerRef.current = node;
+        // Anchor the zoom to the icon so the app grows out of the thing you
+        // touched. Measure the parent, not this node: at mount Framer has
+        // already scaled this one to 8% and its own rect is meaningless.
+        if (node && origin) {
+          const host = node.parentElement;
+          const r = host?.getBoundingClientRect();
+          if (r && r.width > 1 && r.height > 1) {
+            const ox = ((origin.x - r.left) / r.width) * 100;
+            const oy = ((origin.y - r.top) / r.height) * 100;
+            node.style.transformOrigin = `${Math.max(0, Math.min(100, ox)).toFixed(1)}% ${Math.max(0, Math.min(100, oy)).toFixed(1)}%`;
+          }
+        }
+      }}
     >
       {/* App content */}
       <div style={{ position: "absolute", inset: 0 }}>

@@ -10,7 +10,7 @@ import TypedGreeting from "@/components/TypedGreeting";
 
 interface Props {
   orientation: "landscape" | "portrait";
-  onOpenApp: (id: AppId) => void;
+  onOpenApp: (id: AppId, origin?: { x: number; y: number }) => void;
   locked: boolean;
   onUnlock: () => void;
 }
@@ -221,7 +221,7 @@ function AppIcon({
 }: {
   app: AppDef;
   size: number;
-  onTap: () => void;
+  onTap: (rect: DOMRect) => void;
   onHold?: (rect: DOMRect) => void;
   showLabel?: boolean;
 }) {
@@ -256,12 +256,12 @@ function AppIcon({
       onPointerLeave={() => {
         if (holdRef.current) clearTimeout(holdRef.current);
       }}
-      onClick={() => {
+      onClick={(e) => {
         if (heldRef.current) {
           heldRef.current = false;
           return;
         }
-        onTap();
+        onTap(e.currentTarget.getBoundingClientRect());
       }}
       style={{
         display: "flex",
@@ -415,11 +415,11 @@ export default function HomeScreen({
     null,
   );
 
-  const handleOpen = (app: AppDef) => {
+  const handleOpen = (app: AppDef, rect?: DOMRect) => {
     if (app.external) {
       window.open(app.external, "_blank", "noopener,noreferrer");
     } else {
-      onOpenApp(app.id);
+      onOpenApp(app.id, rect ? { x: rect.left + rect.width / 2, y: rect.top + rect.height / 2 } : undefined);
     }
   };
 
@@ -661,7 +661,7 @@ export default function HomeScreen({
                   key={app.id}
                   app={app}
                   size={iconSize}
-                  onTap={() => handleOpen(app)}
+                  onTap={(rect) => handleOpen(app, rect)}
                   onHold={(rect) => setHeldApp({ app, rect })}
                 />
               ),
@@ -690,7 +690,7 @@ export default function HomeScreen({
                 key={app.id}
                 app={app}
                 size={isLandscape ? 48 : 52}
-                onTap={() => handleOpen(app)}
+                onTap={(rect) => handleOpen(app, rect)}
                 onHold={(rect) => setHeldApp({ app, rect })}
                 showLabel={false}
               />
@@ -726,7 +726,7 @@ export default function HomeScreen({
             app={heldApp.app}
             rect={heldApp.rect}
             onClose={() => setHeldApp(null)}
-            onOpen={() => handleOpen(heldApp.app)}
+            onOpen={() => handleOpen(heldApp.app, heldApp.rect)}
           />
         )}
       </AnimatePresence>

@@ -19,6 +19,7 @@ import type { AppId } from "@/data/content";
 import ParticlesBackground from "./ParticlesBackground";
 import Spotlight from "./Spotlight";
 import ControlCenter from "./ControlCenter";
+import ScreenTimeNotice from "./ScreenTimeNotice";
 
 const IPAD_LANDSCAPE = { w: 900, h: 630 };
 const IPAD_PORTRAIT = { w: 630, h: 900 };
@@ -35,6 +36,7 @@ export default function IPadPage() {
   const [spotlightOpen, setSpotlightOpen] = useState(false);
   const [controlCenterOpen, setControlCenterOpen] = useState(false);
   const [brightness, setBrightness] = useState(1);
+  const [openOrigin, setOpenOrigin] = useState<{ x: number; y: number } | null>(null);
 
   const scaleMotionValue = useMotionValue(0.97);
 
@@ -668,7 +670,10 @@ export default function IPadPage() {
             >
               <HomeScreen
                 orientation={orientation}
-                onOpenApp={setOpenApp}
+                onOpenApp={(id, origin) => {
+                  setOpenOrigin(origin ?? null);
+                  setOpenApp(id);
+                }}
                 locked={locked}
                 onUnlock={() => setLocked(false)}
               />
@@ -748,6 +753,7 @@ export default function IPadPage() {
                     appId={openApp}
                     onClose={() => setOpenApp(null)}
                     onOpenApp={setOpenApp}
+                    origin={openOrigin}
                     orientation={orientation}
                   />
                 )}
@@ -810,6 +816,8 @@ export default function IPadPage() {
                   }}
                 />
               )}
+
+              <ScreenTimeNotice active={!locked && !screenOff} />
 
               {/* Brightness is real: it dims the screen the way the slider says it will */}
               <div
