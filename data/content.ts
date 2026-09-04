@@ -392,7 +392,7 @@ export const health = {
       color: "#5E5CE6",
       blurb: "The freshman year article",
       items: [
-        { label: "How I'm feeling rn", value: "Grateful", detail: "" },
+        { label: "Current state", value: "Grateful", detail: "" },
       ],
     },
     {
