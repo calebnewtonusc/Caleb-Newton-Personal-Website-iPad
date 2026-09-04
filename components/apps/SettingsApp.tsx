@@ -691,18 +691,6 @@ export default function SettingsApp({ orientation }: Props) {
                   </p>
                 </div>
 
-                <p
-                  style={{
-                    fontSize: 17,
-                    color: "#3a3a3c",
-                    lineHeight: 1.47,
-                    letterSpacing: -0.4,
-                    margin: "20px 16px 0",
-                    fontFamily: "-apple-system, sans-serif",
-                  }}
-                >
-                  {profile.funFacts}
-                </p>
 
                 {/* Ways into the rest of him */}
                 <p

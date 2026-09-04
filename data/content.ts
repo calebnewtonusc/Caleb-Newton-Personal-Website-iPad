@@ -19,8 +19,6 @@ export const profile = {
     title: "What I am here for",
     body: "I did not show up to USC with a five year plan, and I have stopped treating that as a problem. What I want is to get all the way into the world instead of watching it, to keep growing in my walk with God, and to follow that wherever He takes it. Some of it will probably look like building companies. Some of it will look like a room full of college students praying at midnight. I am not picky about the shape as long as it helps the people in front of me.",
   },
-  funFacts:
-    "Outside of class you will find me beatboxing, taking a board game far too seriously, or somewhere in a thrift store.",
   previewSections: ["faith", "family", "screentime", "film"],
   roles: [
     "Autistic Jesus Follower",
@@ -568,7 +566,7 @@ export const personalSettings = [
       {
         label: "Favorite films",
         type: "info",
-        detail: "Peanut Butter Falcon, Inception, Dumb and Dumber, Toy Story",
+        detail: "Peanut Butter Falcon, Inception, Dumb and Dumber, Cars 2",
       },
       {
         label: "Reading",
