@@ -19,9 +19,9 @@ The Iovine and Young Academy takes seventy students a year. It is built for peop
 I got in anyway. I believe God opened that door, and I have not stopped being grateful for it.`,
   },
   smhs: {
-    body: `Christian Club President, 90+ members. 1570 SAT. Baseball Team Captain. Founded the Screen Time League.
+    body: `I ran the Christian club at over 90 members, captained the baseball team, founded the Screen Time Reduction League, and scored a 1570.
 
-The academics gave me the foundation; everything else gave me the character.`,
+Almost everything I actually learned in those four years happened outside a classroom.`,
   },
   huntington: {
     body: `Middle school was the hard part. I got bullied, and it taught me early that being the smart kid and being liked were not the same thing.
@@ -36,7 +36,7 @@ The part worth keeping is that none of it was self-conscious. I liked what I lik
   stjohns: {
     body: `Where it started. Block towers, the tricycle racing league, and roughly 47 uses of the word why per day.
 
-The curiosity has not changed. Only the tools.`,
+I ask about the same number of questions now, just about different things.`,
   },
 };
 

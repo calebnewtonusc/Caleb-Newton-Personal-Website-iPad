@@ -34,7 +34,7 @@ The fastest way to reach me is calebnew@usc.edu. I read everything, and I write 
 
 If it is easier, the calendar app on this iPad books time with me directly.
 
-I would rather have a real conversation than a polished one. Send me the messy version.`,
+You do not need to polish it before you send it.`,
     time: "Now",
     unread: true,
   },
@@ -56,7 +56,7 @@ You want to tell me my favorite album is overrated.
 
 You have a question and no obvious person to ask.
 
-That is genuinely the whole list. Write me.`,
+That is the whole list. Write me.`,
     time: "Today",
     unread: false,
   },

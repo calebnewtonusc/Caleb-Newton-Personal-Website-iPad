@@ -486,7 +486,7 @@ export const personalSettings = [
     icon: "screentime",
     items: [
       {
-        label: "Screen Time League",
+        label: "Screen Time Reduction League",
         type: "info",
         detail: "Started one in high school",
       },
