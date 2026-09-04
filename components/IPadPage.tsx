@@ -144,7 +144,14 @@ export default function IPadPage() {
     };
   }, []);
 
+  // Do not write the hash until the initial one has been read, or the first
+  // render wipes an incoming deep link before it is applied.
+  const hashReadyRef = useRef(false);
   useEffect(() => {
+    if (!hashReadyRef.current) {
+      hashReadyRef.current = true;
+      if (window.location.hash) return;
+    }
     const want = openApp ? `#${openApp}` : "";
     if (window.location.hash !== want) {
       window.history.replaceState(null, "", want || window.location.pathname);

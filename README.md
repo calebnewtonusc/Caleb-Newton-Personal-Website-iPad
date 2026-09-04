@@ -9,6 +9,18 @@
 
 Live at [calebnewton.me](https://calebnewton.me).
 
+## What this site is for
+
+One sentence, decided by Caleb, that every change here has to serve:
+
+> "Caleb is the coolest, most ambitious, most humble, most faithful, funniest,
+> most genuine person I have ever seen. I have to reach out to this guy! Also
+> this is the coolest portfolio site I've ever seen."
+
+If a row, a paragraph, an animation or an app does not move a stranger toward
+that, cut it. The last clause is a feature request, not flattery: reaching out
+has to be the easiest thing on the whole iPad.
+
 A personal portfolio site designed as an interactive iPad simulator. Browse work experience, projects, education, and personal details through a fully functional iOS-inspired interface with real app icons, a lock screen, Dock, home screen folders, and springy Framer Motion animations.
 
 ## Features

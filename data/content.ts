@@ -54,6 +54,15 @@ export const profile = {
       ],
     },
     {
+      title: "Reaching me",
+      items: [
+        { label: "Email", type: "info", detail: "calebnew@usc.edu" },
+        { label: "Reply time", type: "info", detail: "A day or two" },
+        { label: "Reason required", type: "toggle-off", detail: "" },
+        { label: "Cold emails from strangers", type: "toggle-on", detail: "" },
+      ],
+    },
+    {
       title: "Where I'm at",
       items: [
         { label: "Starting companies", type: "toggle-on", detail: "" },
