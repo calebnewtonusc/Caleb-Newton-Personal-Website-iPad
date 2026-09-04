@@ -267,7 +267,7 @@ const PROFILE_SECTION = "__profile__";
 // Group sections for iOS-style grouped lists
 const SECTION_GROUPS = [
   ["family"],
-  ["bluetooth", "screentime"],
+  ["screentime"],
   ["faith", "film"],
   ["device"],
 ];
@@ -564,36 +564,124 @@ export default function SettingsApp({ orientation }: Props) {
                   </p>
                 </div>
 
-                {/* The one thing no other app holds: why he builds */}
+                {/* About: body copy in a grouped card, the way Settings does it */}
                 <p
                   style={{
-                    fontSize: 27,
-                    color: "#1c1c1e",
-                    lineHeight: 1.26,
-                    fontWeight: 700,
-                    letterSpacing: -0.7,
-                    margin: "10px 16px 0",
+                    fontSize: 13,
+                    color: "#6e6e73",
                     fontFamily: "-apple-system, sans-serif",
+                    letterSpacing: -0.08,
+                    margin: "22px 0 7px 16px",
+                    textTransform: "uppercase",
                   }}
                 >
-                  {profile.hook}
+                  About
                 </p>
+                <div
+                  style={{
+                    background: "white",
+                    borderRadius: 10,
+                    padding: "12px 16px",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontSize: 17,
+                      color: "#1c1c1e",
+                      lineHeight: 1.47,
+                      letterSpacing: -0.4,
+                      fontFamily: "-apple-system, sans-serif",
+                    }}
+                  >
+                    {profile.paragraph}
+                  </p>
+                </div>
 
-                <div style={{ marginTop: 20 }}>
-                  {profile.statement.map((para, i) => (
-                    <p
-                      key={i}
-                      style={{
-                        fontSize: 17,
-                        color: i === profile.statement.length - 1 ? "#8e8e93" : "#3a3a3c",
-                        lineHeight: 1.6,
-                        margin: "0 16px 14px",
-                        fontFamily: "-apple-system, sans-serif",
-                      }}
-                    >
-                      {para}
-                    </p>
-                  ))}
+                {/* Ways into the rest of him */}
+                <p
+                  style={{
+                    fontSize: 13,
+                    color: "#6e6e73",
+                    fontFamily: "-apple-system, sans-serif",
+                    letterSpacing: -0.08,
+                    margin: "26px 0 7px 16px",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  More about me
+                </p>
+                <div
+                  style={{
+                    background: "white",
+                    borderRadius: 10,
+                    overflow: "hidden",
+                  }}
+                >
+                  {profile.previewSections
+                    .map((id) => personalSettings.find((sec) => sec.icon === id))
+                    .filter(Boolean)
+                    .map((sec, i) => {
+                      const section = sec as (typeof personalSettings)[number];
+                      return (
+                        <button
+                          key={section.icon}
+                          onClick={() => setSelectedSection(section.icon)}
+                          style={{
+                            display: "flex",
+                            alignItems: "center",
+                            gap: 12,
+                            width: "100%",
+                            background: "none",
+                            border: "none",
+                            padding: "7px 16px 7px 12px",
+                            cursor: "pointer",
+                            font: "inherit",
+                            textAlign: "left",
+                            position: "relative",
+                          }}
+                        >
+                          {/* separator inset to the label, like iOS */}
+                          {i > 0 && (
+                            <span
+                              aria-hidden="true"
+                              style={{
+                                position: "absolute",
+                                top: 0,
+                                left: 53,
+                                right: 0,
+                                height: 0.5,
+                                background: "rgba(60,60,67,0.29)",
+                              }}
+                            />
+                          )}
+                          <SectionIcon iconId={section.icon} />
+                          <span
+                            style={{
+                              flex: 1,
+                              fontSize: 17,
+                              color: "#1c1c1e",
+                              letterSpacing: -0.4,
+                              fontFamily: "-apple-system, sans-serif",
+                            }}
+                          >
+                            {section.section}
+                          </span>
+                          <span
+                            style={{
+                              fontSize: 17,
+                              color: "#8e8e93",
+                              letterSpacing: -0.4,
+                              fontFamily: "-apple-system, sans-serif",
+                            }}
+                          >
+                            {section.items.length}
+                          </span>
+                          <svg aria-hidden="true" width="7" height="12" viewBox="0 0 7 12" fill="none">
+                            <path d="M1 1l5 5L1 11" stroke="#c4c4c6" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </button>
+                      );
+                    })}
                 </div>
 
                 {/* Roles */}

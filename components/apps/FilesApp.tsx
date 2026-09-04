@@ -421,12 +421,31 @@ export default function FilesApp({ orientation }: Props) {
     : null;
 
   const handleTopFolder = (folder: string) => {
+    setNavDir(1);
     setTopFolder(folder);
     setSelectedId(null);
   };
 
   const showCol2 = topFolder !== null;
   const portraitDepth = selectedId ? 2 : topFolder ? 1 : 0;
+
+  // Push slides the new pane in from the right, pop brings it back from the left
+  const [navDir, setNavDir] = useState(1);
+  const enterX = 24 * navDir;
+  const exitX = -24 * navDir;
+
+  const openOrg = (id: string) => {
+    setNavDir(1);
+    setSelectedId(id);
+  };
+  const backToList = () => {
+    setNavDir(-1);
+    setSelectedId(null);
+  };
+  const backToFolders = () => {
+    setNavDir(-1);
+    setTopFolder(null);
+  };
 
   // ─── Landscape: progressive columns ─────────────────────────────────────────
   if (isLandscape) {
@@ -503,7 +522,7 @@ export default function FilesApp({ orientation }: Props) {
         <AnimatePresence>
           {showCol2 && (
             <motion.div
-              key={`col2-${topFolder}`}
+              key="col2"
               initial={{ width: 0, opacity: 0 }}
               animate={{ width: 190, opacity: 1 }}
               exit={{ width: 0, opacity: 0 }}
@@ -527,7 +546,7 @@ export default function FilesApp({ orientation }: Props) {
                 {sectionOrgs.length === 0 ? (
                   <EmptyColHint label="No items" />
                 ) : (
-                  <OrgList items={sectionOrgs} compact selectedId={selectedId} onSelect={setSelectedId} />
+                  <OrgList items={sectionOrgs} compact selectedId={selectedId} onSelect={openOrg} />
                 )}
               </div>
             </motion.div>
@@ -556,7 +575,7 @@ export default function FilesApp({ orientation }: Props) {
               >
                 <OrgDetail
                   org={selectedOrg}
-                  onBack={() => setSelectedId(null)}
+                  onBack={backToList}
                   showBack={false}
                 />
               </motion.div>
@@ -601,9 +620,9 @@ export default function FilesApp({ orientation }: Props) {
         {portraitDepth === 0 && (
           <motion.div
             key="p0"
-            initial={{ opacity: 0, x: -20 }}
+            initial={{ opacity: 0, x: enterX }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
+            exit={{ opacity: 0, x: exitX }}
             style={{ display: "flex", flexDirection: "column", height: "100%" }}
           >
             <div
@@ -680,14 +699,14 @@ export default function FilesApp({ orientation }: Props) {
         {portraitDepth === 1 && (
           <motion.div
             key={`p1-${topFolder}`}
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: enterX }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
+            exit={{ opacity: 0, x: exitX }}
             style={{ display: "flex", flexDirection: "column", height: "100%" }}
           >
             <div style={{ padding: "14px 16px 8px", flexShrink: 0 }}>
               <button
-                onClick={() => setTopFolder(null)}
+                onClick={backToFolders}
                 style={{
                   display: "flex",
                   alignItems: "center",
@@ -735,7 +754,7 @@ export default function FilesApp({ orientation }: Props) {
                   overflow: "hidden",
                 }}
               >
-                <OrgList items={sectionOrgs} selectedId={selectedId} onSelect={setSelectedId} />
+                <OrgList items={sectionOrgs} selectedId={selectedId} onSelect={openOrg} />
               </div>
             </div>
           </motion.div>
@@ -745,14 +764,14 @@ export default function FilesApp({ orientation }: Props) {
         {portraitDepth === 2 && selectedOrg && (
           <motion.div
             key={`p2-${selectedOrg.id}`}
-            initial={{ opacity: 0, x: 20 }}
+            initial={{ opacity: 0, x: enterX }}
             animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: 20 }}
+            exit={{ opacity: 0, x: exitX }}
             style={{ height: "100%" }}
           >
             <OrgDetail
               org={selectedOrg}
-              onBack={() => setSelectedId(null)}
+              onBack={backToList}
               showBack
               backLabel={sectionTitle}
             />
