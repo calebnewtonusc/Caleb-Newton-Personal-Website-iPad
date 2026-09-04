@@ -8,7 +8,54 @@ export const profile = {
   photo: "/assets/CalebAtBeachUSCHoodie.jpg",
   photoAlt: "/assets/CalebAtUSC.jpg",
   skills: ["Python", "C++", "CUDA", "TypeScript", "Swift", "SQL"],
-  bio: "Hello! I'm Caleb Newton, a follower of Jesus and a USC sophomore.\n\nFor most of my life, you think too much, kid was something people said to me as a criticism. I was diagnosed autistic at the start of my senior year of high school, and it reframed the whole thing. The systematic thinking was never the problem. It was the point.\n\nI threw 84 as a closer until my arm gave out and I dropped to 70. I spent a year reading sports science papers and rebuilding my mechanics, and I got back to 81. Not all the way. But that was the first time research stopped being homework and turned into something I could actually use on myself.\n\nIn 2022 I played baseball in a junkyard in the Dominican Republic. The people there had close to nothing and were the most joyful I had ever met. It rearranged what I thought joy came from.\n\nThose three things, in that order, are most of why I build what I build.",
+  intro:
+    "I'm Caleb. Autistic, follower of Jesus, sophomore at USC's Iovine and Young Academy.",
+  journey: [
+    {
+      id: "baseball",
+      title: "Baseball",
+      years: "2012 - 2025",
+      color: "#FF9500",
+      body: "I threw 84 as a closer until my arm gave out and I dropped to 70. I spent a year reading sports science papers and rebuilding my mechanics, and got back to 81. Not all the way, but it was the first time I ran research on myself instead of turning it in. I captained the team, coached kids with disabilities, and played in a junkyard in the Dominican Republic, where the people with the least were the happiest I had met.",
+    },
+    {
+      id: "clubs",
+      title: "Christian clubs",
+      years: "2022 - 2025",
+      color: "#34C759",
+      body: "I led a 90+ member Christian club, then cold-called schools across the San Gabriel Valley until 20 of them were one coalition. We put 200 students in a room with 20 breakout sessions. Most of that work was phone calls, not vision.",
+    },
+    {
+      id: "caltech",
+      title: "Caltech",
+      years: "2024 - 2025",
+      color: "#007AFF",
+      body: "Two of us were the first from our high school into Caltech's EE department through a new partnership. I spent a year on control theory under a PhD student. That is where I found out how slow real research is, and that I wanted it anyway.",
+    },
+    {
+      id: "echo",
+      title: "Echo AI",
+      years: "2026",
+      color: "#5856D6",
+      body: "We built an EMG wearable that turns ASL into speech and spoken replies back into text. We collected the 1,900-sample dataset ourselves and got gesture recognition to 99.5%. It won the Marshall AI Summit.",
+    },
+    {
+      id: "startups",
+      title: "Startups",
+      years: "2025 - now",
+      color: "#FF2D55",
+      body: "AINA Tech, Nalana, Blue Modern Advisory, and now Amber, where I am the founding GTM and product lead. Four companies in two years taught me I am most useful at the seam between a product and the people who need it.",
+    },
+    {
+      id: "tts",
+      title: "Trojan Technology Solutions",
+      years: "2025 - now",
+      color: "#990000",
+      body: "I took a dormant USC consulting org and rebuilt it to 30+ people in three months. Then I started T Combinator to put USC builders inside venture-backed startups, and lined up seven YC clients for spring.",
+    },
+  ],
+  thesis:
+    "All of it points one direction. I want to use redemptive, faith-based entrepreneurship to fight the attention economy and help people. Baseball taught me to experiment on myself, the clubs taught me that anything worth building has other people inside it, and every company since has been me picking up the mechanics.",
   now: [
     { label: "Building", value: "Amber Intelligence" },
     { label: "Leading", value: "Trojan Technology Solutions" },
@@ -312,45 +359,67 @@ export const health = {
       body: "It took a hospitalization and a manic episode to teach me, and I would not trade it. I am grateful for the outlook God gave me through all of it, and I am still terrified of what is coming. Life is awesome.",
     },
   ],
-  sections: [
+  categories: [
     {
-      section: "Rhythms",
-      items: [
-        {
-          label: "Sleep Schedule",
-          type: "toggle-on",
-          detail: "9 PM to 5 AM. Yes, on purpose",
-        },
-        {
-          label: "WHOOP",
-          type: "toggle-on",
-          detail: "Recovery score is the only metric I trust",
-        },
-        {
-          label: "Coffee",
-          type: "toggle-on",
-          detail: "Critical dependency, no fallback path",
-        },
-        {
-          label: "Deep Work Blocks",
-          type: "toggle-on",
-          detail: "Two hours, no tabs, no exceptions",
-        },
-        { label: "Fitness", type: "toggle-on", detail: "Active" },
-      ],
-    },
-    {
-      section: "How My Brain Works",
+      id: "mental",
+      name: "Mental Wellbeing",
+      color: "#5E5CE6",
+      blurb: "The freshman year article",
       items: [
         {
           label: "Hyperfocus",
-          type: "toggle-on",
+          value: "On",
           detail: "Cannot be scheduled, only survived",
         },
         {
           label: "Context Switching",
-          type: "toggle-off",
+          value: "Off",
           detail: "Please do not do this to me",
+        },
+      ],
+    },
+    {
+      id: "sleep",
+      name: "Sleep",
+      color: "#32ADE6",
+      blurb: "9 PM to 5 AM",
+      items: [
+        {
+          label: "Sleep Schedule",
+          value: "9 PM - 5 AM",
+          detail: "Yes, on purpose",
+        },
+      ],
+    },
+    {
+      id: "activity",
+      name: "Activity",
+      color: "#FA114F",
+      blurb: "Recovery over volume",
+      items: [
+        { label: "Fitness", value: "Active", detail: "Most days" },
+        {
+          label: "WHOOP",
+          value: "Worn",
+          detail: "Recovery score is the only metric I trust",
+        },
+      ],
+    },
+    {
+      id: "mindfulness",
+      name: "Mindfulness",
+      color: "#00C7BE",
+      blurb: "Two hours at a time",
+      items: [
+        {
+          label: "Deep Work Blocks",
+          value: "2 hr",
+          detail: "No tabs, no exceptions",
+        },
+        {
+          label: "Coffee",
+          value: "Daily",
+          detail: "Critical dependency, no fallback path",
         },
       ],
     },

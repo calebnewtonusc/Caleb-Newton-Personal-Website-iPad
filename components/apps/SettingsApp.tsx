@@ -563,73 +563,168 @@ export default function SettingsApp({ orientation }: Props) {
                   </p>
                 </div>
 
-                {/* His bio, his words, one paragraph per card */}
-                {(() => {
-                  const paras = profile.bio.split("\n\n");
-                  const lead = paras[0];
-                  const middle = paras.slice(1, -1);
-                  const close = paras[paras.length - 1];
-                  return (
-                    <>
+                {/* Who he is, in one line */}
+                <p
+                  style={{
+                    fontSize: 20,
+                    color: "#1c1c1e",
+                    lineHeight: 1.4,
+                    fontWeight: 600,
+                    letterSpacing: -0.3,
+                    margin: "4px 16px 0",
+                    fontFamily: "-apple-system, sans-serif",
+                  }}
+                >
+                  {profile.intro}
+                </p>
+
+                {/* The journey */}
+                <p
+                  style={{
+                    fontSize: 13,
+                    color: "#6e6e73",
+                    fontFamily: "-apple-system, sans-serif",
+                    fontWeight: 500,
+                    letterSpacing: 0.3,
+                    marginBottom: 6,
+                    marginTop: 24,
+                    marginLeft: 16,
+                    textTransform: "uppercase",
+                  }}
+                >
+                  What I have tried so far
+                </p>
+                <div
+                  style={{
+                    background: "white",
+                    borderRadius: 10,
+                    overflow: "hidden",
+                    marginBottom: 8,
+                  }}
+                >
+                  {profile.journey.map((stop, i) => (
+                    <div
+                      key={stop.id}
+                      style={{
+                        display: "flex",
+                        gap: 13,
+                        padding: "14px 16px",
+                        borderTop:
+                          i > 0 ? "0.5px solid rgba(60,60,67,0.18)" : "none",
+                      }}
+                    >
+                      {/* timeline rail */}
                       <div
+                        aria-hidden="true"
                         style={{
-                          background: "white",
-                          borderRadius: 10,
-                          padding: "16px 18px",
-                          marginBottom: 8,
+                          display: "flex",
+                          flexDirection: "column",
+                          alignItems: "center",
+                          flexShrink: 0,
+                          paddingTop: 4,
                         }}
                       >
-                        <p
-                          style={{
-                            fontSize: 19,
-                            color: "#1c1c1e",
-                            lineHeight: 1.45,
-                            fontWeight: 600,
-                            letterSpacing: -0.2,
-                            fontFamily: "-apple-system, sans-serif",
-                          }}
-                        >
-                          {lead}
-                        </p>
-                      </div>
-
-                      {middle.map((para, i) => (
                         <div
-                          key={i}
                           style={{
-                            background: "white",
-                            borderRadius: 10,
-                            padding: "15px 18px",
-                            marginBottom: 8,
+                            width: 11,
+                            height: 11,
+                            borderRadius: "50%",
+                            background: stop.color,
+                          }}
+                        />
+                        {i < profile.journey.length - 1 && (
+                          <div
+                            style={{
+                              width: 2,
+                              flex: 1,
+                              marginTop: 4,
+                              background: "rgba(60,60,67,0.15)",
+                            }}
+                          />
+                        )}
+                      </div>
+                      <div style={{ minWidth: 0 }}>
+                        <div
+                          style={{
+                            display: "flex",
+                            alignItems: "baseline",
+                            gap: 8,
+                            flexWrap: "wrap",
                           }}
                         >
-                          <p
+                          <span
                             style={{
-                              fontSize: 16,
-                              color: "#3a3a3c",
-                              lineHeight: 1.6,
+                              fontSize: 17,
+                              fontWeight: 600,
+                              color: "#1c1c1e",
                               fontFamily: "-apple-system, sans-serif",
                             }}
                           >
-                            {para}
-                          </p>
+                            {stop.title}
+                          </span>
+                          <span
+                            style={{
+                              fontSize: 12,
+                              fontWeight: 600,
+                              color: "#8e8e93",
+                              fontFamily: "-apple-system, sans-serif",
+                            }}
+                          >
+                            {stop.years}
+                          </span>
                         </div>
-                      ))}
+                        <p
+                          style={{
+                            fontSize: 15,
+                            color: "#3a3a3c",
+                            lineHeight: 1.55,
+                            marginTop: 4,
+                            fontFamily: "-apple-system, sans-serif",
+                          }}
+                        >
+                          {stop.body}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
 
-                      <p
-                        style={{
-                          fontSize: 15,
-                          color: "#6e6e73",
-                          lineHeight: 1.5,
-                          margin: "10px 16px 4px",
-                          fontFamily: "-apple-system, sans-serif",
-                        }}
-                      >
-                        {close}
-                      </p>
-                    </>
-                  );
-                })()}
+                {/* Where it is going */}
+                <p
+                  style={{
+                    fontSize: 13,
+                    color: "#6e6e73",
+                    fontFamily: "-apple-system, sans-serif",
+                    fontWeight: 500,
+                    letterSpacing: 0.3,
+                    marginBottom: 6,
+                    marginTop: 24,
+                    marginLeft: 16,
+                    textTransform: "uppercase",
+                  }}
+                >
+                  Where it is going
+                </p>
+                <div
+                  style={{
+                    background: "white",
+                    borderRadius: 10,
+                    padding: "16px 18px",
+                    marginBottom: 8,
+                    borderLeft: "3px solid #FF9500",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontSize: 16,
+                      color: "#1c1c1e",
+                      lineHeight: 1.6,
+                      fontFamily: "-apple-system, sans-serif",
+                    }}
+                  >
+                    {profile.thesis}
+                  </p>
+                </div>
 
                 {/* Now */}
                 <p
