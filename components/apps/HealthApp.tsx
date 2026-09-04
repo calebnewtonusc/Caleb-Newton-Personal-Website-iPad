@@ -66,6 +66,99 @@ const GLYPHS: Record<string, () => React.ReactNode> = {
   ),
 };
 
+/* Health is a charts app. These are the two this iPad actually has data for. */
+function VelocityChart() {
+  const pts = [
+    { label: "Sophomore", mph: 84 },
+    { label: "After injury", mph: 70 },
+    { label: "After rebuild", mph: 81 },
+  ];
+  const W = 300, H = 132, PADL = 32, PADR = 34, PADB = 26, PADT = 12;
+  const lo = 66, hi = 88;
+  const x = (i: number) => PADL + (i * (W - PADL - PADR)) / (pts.length - 1);
+  const y = (v: number) => PADT + (1 - (v - lo) / (hi - lo)) * (H - PADT - PADB);
+  return (
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      width="100%"
+      role="img"
+      aria-label="Fastball velocity: 84 miles per hour, down to 70 after the injury, back to 81 after a year of rebuilding."
+      style={{ display: "block" }}
+    >
+      {[70, 75, 80, 85].map((g) => (
+        <g key={g}>
+          <line x1={PADL} x2={W - PADR + 18} y1={y(g)} y2={y(g)} stroke="rgba(60,60,67,0.12)" strokeWidth="1" />
+          <text x={PADL - 6} y={y(g) + 3.5} textAnchor="end" fontSize="9" fill="#8e8e93">{g}</text>
+        </g>
+      ))}
+      <polyline
+        points={pts.map((p2, i) => `${x(i)},${y(p2.mph)}`).join(" ")}
+        fill="none"
+        stroke="#FF9500"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      {pts.map((p2, i) => (
+        <g key={p2.label}>
+          <circle cx={x(i)} cy={y(p2.mph)} r="4.5" fill="#FF9500" />
+          <circle cx={x(i)} cy={y(p2.mph)} r="2" fill="white" />
+          <text x={x(i)} y={y(p2.mph) - 10} textAnchor="middle" fontSize="10" fontWeight="700" fill="#1c1c1e">
+            {p2.mph}
+          </text>
+          <text x={x(i)} y={H - 8} textAnchor="middle" fontSize="9" fill="#8e8e93">
+            {p2.label}
+          </text>
+        </g>
+      ))}
+    </svg>
+  );
+}
+
+function SleepChart() {
+  /* hours plotted from 6 PM through 9 AM, which is the window both schedules live in */
+  const START = 18, SPAN = 15;
+  const rows = [
+    { label: "College", from: 22, to: 29, color: "#32ADE6" },
+    { label: "High school", from: 20, to: 27, color: "rgba(50,173,230,0.45)" },
+  ];
+  const W = 300, ROW = 26, PADL = 68, PADT = 6;
+  const H = PADT + rows.length * ROW + 22;
+  const x = (h: number) => PADL + ((h - START) / SPAN) * (W - PADL - 10);
+  const ticks = [18, 21, 24, 27, 30];
+  const tickLabel = (h: number) => {
+    const hr = h % 24;
+    if (hr === 0) return "12a";
+    return hr > 12 ? `${hr - 12}p` : `${hr}${hr === 12 ? "p" : "a"}`;
+  };
+  return (
+    <svg
+      viewBox={`0 0 ${W} ${H}`}
+      width="100%"
+      role="img"
+      aria-label="Sleep schedules: 10 PM to 5 AM at college, 8 PM to 3 AM in high school."
+      style={{ display: "block" }}
+    >
+      {ticks.map((t) => (
+        <line key={t} x1={x(t)} x2={x(t)} y1={PADT} y2={PADT + rows.length * ROW} stroke="rgba(60,60,67,0.1)" strokeWidth="1" />
+      ))}
+      {rows.map((r, i) => (
+        <g key={r.label}>
+          <text x={PADL - 8} y={PADT + i * ROW + 16} textAnchor="end" fontSize="10" fill="#3a3a3c">
+            {r.label}
+          </text>
+          <rect x={x(r.from)} y={PADT + i * ROW + 5} width={x(r.to) - x(r.from)} height="14" rx="7" fill={r.color} />
+        </g>
+      ))}
+      {ticks.map((t) => (
+        <text key={t} x={x(t)} y={H - 6} textAnchor="middle" fontSize="9" fill="#8e8e93">
+          {tickLabel(t)}
+        </text>
+      ))}
+    </svg>
+  );
+}
+
 const sectionLabel: React.CSSProperties = {
   fontSize: 13,
   color: "#6e6e73",
@@ -465,6 +558,30 @@ export default function HealthApp({ orientation }: Props) {
       >
         {category.name}
       </h2>
+      {(category.id === "history" || category.id === "sleep") && (
+        <div
+          style={{
+            background: "white",
+            borderRadius: 12,
+            padding: "14px 16px 8px",
+            marginTop: 16,
+          }}
+        >
+          <p
+            style={{
+              fontSize: 13,
+              fontWeight: 600,
+              color: category.color,
+              marginBottom: 8,
+              fontFamily: "-apple-system, sans-serif",
+            }}
+          >
+            {category.id === "history" ? "Fastball, mph" : "Time asleep"}
+          </p>
+          {category.id === "history" ? <VelocityChart /> : <SleepChart />}
+        </div>
+      )}
+
       <div
         style={{
           display: "grid",
