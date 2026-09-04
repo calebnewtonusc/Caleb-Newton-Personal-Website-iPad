@@ -381,7 +381,7 @@ export const health = {
         {
           label: "Other sports I tried",
           value: "Wrestling, football",
-          detail: "Two years on the wrestling mat, where I won the Grit Award, which tells you roughly how the matches themselves went. Football before that.",
+          detail: "Two years on the wrestling mat, where I won the Grit Award, which tells you roughly how the matches themselves went. One year of football before that.",
         },
       ],
     },
@@ -607,6 +607,21 @@ export const personalSettings = [
         label: "Big talk",
         type: "toggle-on",
         detail: "",
+      },
+      {
+        label: "Preferred input",
+        type: "info",
+        detail: "Direct. Hedged feedback is worse than none",
+      },
+      {
+        label: "Do not disturb",
+        type: "info",
+        detail: "10 PM to 5 AM, and Sunday mornings",
+      },
+      {
+        label: "Known issues",
+        type: "info",
+        detail: "Changed direction 43 times in one year. I counted",
       },
       {
         label: "Favorite question",

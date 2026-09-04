@@ -100,6 +100,28 @@ export default function IPadPage() {
     };
   }, []);
 
+  // Swipe down on the home screen opens search, since Cmd+K does not exist on a phone
+  useEffect(() => {
+    if (locked || openApp) return;
+    let startY = 0;
+    let startX = 0;
+    const onStart = (e: TouchEvent) => {
+      startY = e.touches[0].clientY;
+      startX = e.touches[0].clientX;
+    };
+    const onEnd = (e: TouchEvent) => {
+      const dy = e.changedTouches[0].clientY - startY;
+      const dx = Math.abs(e.changedTouches[0].clientX - startX);
+      if (dy > 70 && dy > dx * 1.5) setSpotlightOpen(true);
+    };
+    window.addEventListener("touchstart", onStart, { passive: true });
+    window.addEventListener("touchend", onEnd, { passive: true });
+    return () => {
+      window.removeEventListener("touchstart", onStart);
+      window.removeEventListener("touchend", onEnd);
+    };
+  }, [locked, openApp]);
+
   // Deep links: the open app lives in the URL so back works and links are shareable
   useEffect(() => {
     const idFromHash = () =>
@@ -677,6 +699,42 @@ export default function IPadPage() {
                   />
                 )}
               </AnimatePresence>
+
+              {/* Visible search affordance: a hidden gesture nobody knows about is not a feature */}
+              {!locked && !openApp && !screenOff && (
+                <button
+                  onClick={() => setSpotlightOpen(true)}
+                  aria-label="Search this iPad"
+                  style={{
+                    position: "absolute",
+                    bottom: 96,
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    display: "flex",
+                    alignItems: "center",
+                    gap: 6,
+                    zIndex: 30,
+                    border: "none",
+                    cursor: "pointer",
+                    borderRadius: 20,
+                    padding: "6px 14px",
+                    minHeight: 32,
+                    background: "rgba(255,255,255,0.22)",
+                    backdropFilter: "blur(14px)",
+                    WebkitBackdropFilter: "blur(14px)",
+                    color: "white",
+                    fontSize: 13,
+                    fontWeight: 500,
+                    fontFamily: "-apple-system, sans-serif",
+                  }}
+                >
+                  <svg aria-hidden="true" width="12" height="12" viewBox="0 0 18 18" fill="none">
+                    <circle cx="7.8" cy="7.8" r="5.6" stroke="white" strokeWidth="2.2" />
+                    <path d="M12 12l4 4" stroke="white" strokeWidth="2.2" strokeLinecap="round" />
+                  </svg>
+                  Search
+                </button>
+              )}
 
               <Spotlight
                 open={spotlightOpen}

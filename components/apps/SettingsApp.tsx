@@ -4,40 +4,11 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { personalSettings, profile } from "@/data/content";
+import IOSToggle from "@/components/ui/IOSToggle";
 
 interface Props {
   onClose: () => void;
   orientation: string;
-}
-
-function IOSToggle({ on }: { on: boolean }) {
-  return (
-    <div
-      style={{
-        width: 51,
-        height: 31,
-        borderRadius: 15.5,
-        background: on ? "#34C759" : "#e5e5ea",
-        position: "relative",
-        flexShrink: 0,
-        transition: "background 0.2s",
-      }}
-    >
-      <div
-        style={{
-          position: "absolute",
-          top: 2,
-          left: on ? 22 : 2,
-          width: 27,
-          height: 27,
-          borderRadius: "50%",
-          background: "white",
-          boxShadow: "0 1px 4px rgba(0,0,0,0.25)",
-          transition: "left 0.2s",
-        }}
-      />
-    </div>
-  );
 }
 
 const SECTION_ICONS: Record<
