@@ -358,7 +358,7 @@ function EmptyColHint({ label }: { label: string }) {
   return (
     <div style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", gap: 8, height: "100%" }}>
       <FolderSVG color="#d1d1d6" size={34} />
-      <p style={{ fontSize: 11, color: "#c7c7cc", fontFamily: "-apple-system, sans-serif", textAlign: "center" }}>{label}</p>
+      <p style={{ fontSize: 11, color: "var(--label-4)", fontFamily: "-apple-system, sans-serif", textAlign: "center" }}>{label}</p>
     </div>
   );
 }
@@ -460,7 +460,7 @@ export default function FilesApp({ orientation }: Props) {
           style={{
             width: 120,
             borderRight: "0.5px solid var(--separator)",
-            background: "#f7f7f7",
+            background: "var(--surface-sunken)",
             display: "flex",
             flexDirection: "column",
             overflow: "hidden",
@@ -561,7 +561,7 @@ export default function FilesApp({ orientation }: Props) {
             display: "flex",
             flexDirection: "column",
             overflow: "hidden",
-            background: "#f7f7f7",
+            background: "var(--surface-sunken)",
             minWidth: 0,
           }}
         >

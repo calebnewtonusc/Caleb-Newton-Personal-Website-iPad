@@ -303,7 +303,7 @@ export default function MentorsApp({ orientation }: Props) {
             display: "flex",
             flexDirection: "column",
             overflow: "hidden",
-            background: "#f7f7f7",
+            background: "var(--surface-sunken)",
             minWidth: 0,
           }}
         >

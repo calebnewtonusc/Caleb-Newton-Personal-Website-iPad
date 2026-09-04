@@ -24,6 +24,21 @@
   }
 }
 
+
+/* Apps that imitate a white product (Google Docs, a paper Bible) keep their
+   own light surface in dark mode. Their text colours are hardcoded to match
+   the real thing, so flipping the tokens under them makes them unreadable. */
+.force-light {
+  --surface: #ffffff;
+  --surface-sunken: #f2f2f7;
+  --label: #1c1c1e;
+  --label-2: #3a3a3c;
+  --label-3: #636366;
+  --label-4: #6e6e73;
+  --separator: rgba(60, 60, 67, 0.22);
+  color-scheme: light;
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap");
 @import "tailwindcss";
 

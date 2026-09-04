@@ -43,7 +43,7 @@ const HIGHLIGHT = 17;
 export default function BibleApp({}: Props) {
   return (
     <div
-      className="app-window"
+      className="app-window force-light"
       style={{ background: "#faf8f4", display: "flex", flexDirection: "column" }}
     >
       {/* Header */}
@@ -144,7 +144,7 @@ export default function BibleApp({}: Props) {
                   style={{
                     fontSize: 11,
                     fontWeight: 700,
-                    color: isHighlighted ? "#8B6914" : "#b0a090",
+                    color: isHighlighted ? "#8B6914" : "#8a7a68",
                     fontFamily: "-apple-system, sans-serif",
                     lineHeight: 1.8,
                     minWidth: 18,
@@ -194,7 +194,7 @@ export default function BibleApp({}: Props) {
             <p
               style={{
                 fontSize: 11,
-                color: "#aeaeb2",
+                color: "var(--label-4)",
                 fontFamily: "-apple-system, sans-serif",
                 marginTop: 3,
               }}

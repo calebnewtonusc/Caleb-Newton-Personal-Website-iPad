@@ -138,7 +138,7 @@ export default function EducationApp({}: Props) {
                         alignItems: "center",
                       }}
                     >
-                      <span style={{ fontSize: 13, color: "#aeaeb2" }}>
+                      <span style={{ fontSize: 13, color: "var(--label-4)" }}>
                         {recent.period}
                       </span>
                       <m.button
@@ -233,7 +233,7 @@ export default function EducationApp({}: Props) {
                         <span
                           style={{
                             fontSize: 12,
-                            color: "#aeaeb2",
+                            color: "var(--label-4)",
                             flexShrink: 0,
                             whiteSpace: "nowrap",
                           }}
@@ -335,7 +335,7 @@ export default function EducationApp({}: Props) {
                   <p
                     style={{
                       fontSize: 13,
-                      color: "#aeaeb2",
+                      color: "var(--label-4)",
                       marginBottom: 4,
                       letterSpacing: 0.1,
                     }}

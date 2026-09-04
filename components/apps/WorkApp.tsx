@@ -297,7 +297,7 @@ function DocView({
 
   return (
     <div
-      className="app-window"
+      className="app-window force-light"
       style={{
         display: "flex",
         flexDirection: "column",
@@ -719,7 +719,7 @@ export default function WorkApp({}: Props) {
 
   return (
     <div
-      className="app-window"
+      className="app-window force-light"
       style={{
         background: "#f8f9fa",
         display: "flex",
