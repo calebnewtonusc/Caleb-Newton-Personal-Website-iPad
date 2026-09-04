@@ -10,11 +10,10 @@ export const profile = {
   skills: ["Python", "C++", "CUDA", "TypeScript", "Swift", "SQL"],
   greeting: "Hey, I'm Caleb.",
   paragraph:
-    "I am the guy who actually reads the whole thing before he has an opinion about it. When something gets me, I go all the way to the bottom of it, which is excellent for research and rough on whoever is waiting for me to pick a restaurant. I follow Jesus, I have loud opinions about what the last decade of software did to people's attention, and I would like to spend my life building the opposite of that.",
+    "What's up bro! I'm Caleb, an autistic Jesus follower from San Marino, CA. I am also a tech bro who has come to hate most of what tech turned into. I grew up watching the internet get extremely good at holding attention and extremely bad at giving anything back, and I have spent most of my life since fighting that however I can reach it: pulling the apps off my own phone, running a screen time league in high school, and now building software that is supposed to leave people better than it found them.",
   introFacts: [
     { label: "Year", value: "Sophomore" },
     { label: "Studying", value: "Innovation at Iovine and Young, minoring in neuroscience" },
-    { label: "From", value: "San Marino, California" },
   ],
   hereFor: {
     title: "What I am here for",
@@ -335,7 +334,7 @@ export const health = {
         {
           label: "Baseball",
           value: "84 \u2192 70 \u2192 81",
-          detail: "Closer and team captain until my arm gave out and took 14 mph with it. Getting most of it back took a year of sports science papers and rebuilt mechanics.",
+          detail: "I threw 84 as a closer and I was certain that number was going somewhere. Then my arm gave out and took 14 mph with it, and 70 does not get you recruited anywhere. I spent a year in sports science papers rebuilding my mechanics from the ground up and clawed back to 81. Not all the way. Those last three miles an hour are where the Division I version of my life used to be, and letting go of that took a lot longer than the arm did.",
         },
         {
           label: "Coaching",
@@ -343,9 +342,9 @@ export const health = {
           detail: "Clinics for kids with physical and developmental disabilities, and a junkyard field in the Dominican Republic.",
         },
         {
-          label: "Wrestling",
-          value: "Two years",
-          detail: "Won the Grit Award, which tells you how the matches went.",
+          label: "Other sports I tried",
+          value: "Wrestling, football",
+          detail: "Two years on the wrestling mat, where I won the Grit Award, which tells you roughly how the matches themselves went. Football before that.",
         },
         {
           label: "Hiking",
@@ -434,36 +433,18 @@ export const personalSettings = [
         type: "info",
         detail: "Two younger sisters and a younger brother",
       },
-      {
-        label: "Being the oldest",
-        type: "info",
-        detail: "I go first so they can learn from my mistakes",
-      },
       { label: "Heritage", type: "info", detail: "Half Filipino and half White" },
+      { label: "Trojan dad", type: "info", detail: "USC" },
+      { label: "Bruin mom", type: "info", detail: "UCLA" },
       {
-        label: "Trojan family, literally",
-        type: "info",
-        detail: "My dad and my Uncle Chad went to USC too",
-      },
-      {
-        label: "The family group chat",
+        label: "Sunday night family dinner",
         type: "toggle-on",
         detail: "",
       },
       {
-        label: "Sunday lunch",
+        label: "At their games and shows",
         type: "toggle-on",
         detail: "",
-      },
-      {
-        label: "At their games",
-        type: "toggle-on",
-        detail: "",
-      },
-      {
-        label: "Their names",
-        type: "info",
-        detail: "I keep them off the internet on purpose",
       },
     ],
   },
@@ -514,6 +495,11 @@ export const personalSettings = [
     items: [
       { label: "Follower of Jesus", type: "toggle-on", detail: "" },
       {
+        label: "Talking to God",
+        type: "info",
+        detail: "Constantly, all day. It is a relationship, not a scheduled thing",
+      },
+      {
         label: "Psalm 1:3",
         type: "info",
         detail: "Like a tree planted by water, whose delight is in the law of the Lord",
@@ -558,6 +544,11 @@ export const personalSettings = [
     icon: "film",
     items: [
       {
+        label: "Unconventional icebreakers",
+        type: "toggle-on",
+        detail: "",
+      },
+      {
         label: "Board games",
         type: "toggle-on",
         detail: "",
@@ -597,22 +588,12 @@ export const personalSettings = [
         detail: "",
       },
       {
-        label: "Hype",
-        type: "toggle-off",
-        detail: "",
-      },
-      {
-        label: "Saying I don't know",
-        type: "toggle-on",
-        detail: "",
-      },
-      {
         label: "Small talk",
         type: "toggle-off",
         detail: "",
       },
       {
-        label: "Finishing things",
+        label: "Big talk",
         type: "toggle-on",
         detail: "",
       },
@@ -732,7 +713,10 @@ export const organizations = [
     description:
       "A coalition of 20+ high school Christian clubs across the San Gabriel Valley, Pasadena, CA.",
     achievements: [
-      "Founded & scaled a coalition of 20+ high school Christian clubs, coordinating cross-school leadership, fundraising & programming & culminating in a 200+ student summit with 20 breakout sessions.",
+      "Christian clubs across the San Gabriel Valley all had the same problem, which was that each of them was small and none of them knew each other. I cold-called schools until twenty of them agreed to stop running separately, then built the leadership, fundraising and programming to hold a coalition of that size together.",
+      "Everything Night was the point of all of it. Over 200 students from schools that had never been in a room together came for one night: a live worship band, twenty breakout sessions, dinner, dodgeball, and a lot of kids realizing their club was not the only one. Planning it took months and it is still the best thing I have been part of.",
+      "I ran ACTS alongside it, our own club, and grew it past 90 members.",
+      "Ephesians 4:11 gave me the model I still lead by. Apostles, prophets, evangelists, shepherds and teachers, five different gifts and not one of them optional. I stopped trying to be all five and started building teams where other people carried what I could not.",
     ],
     photos: [
       "/assets/everything_night_main.jpg",
@@ -770,17 +754,33 @@ export const organizations = [
     id: "youth-baseball",
     name: "Youth Baseball & Community Service",
     shortName: "Youth Baseball",
-    role: "Mission Team Member & Ambassador",
+    role: "Coach, Mission Team Member & Ambassador",
     period: "Jan 2022 - May 2025",
     logo: "/assets/logos/littleleaguechallenger.jpeg",
     color: "#34C759",
-    description: "Pasadena, CA.",
+    description: "Pasadena, CA and Jarabacoa, Dominican Republic.",
     achievements: [
-      "Led local & international youth baseball initiatives, coaching athletes with physical & developmental disabilities, running clinics in the Dominican Republic & organizing a community-wide equipment drive for underserved players.",
+      "Little League Challenger is the division for kids with physical and developmental disabilities, and I coached it for three years. Nobody on that field is playing for a scholarship. They are playing because it is fun, which is the thing high school baseball had slowly trained out of me.",
+      "In July 2022 I went to Jarabacoa in the Dominican Republic with World Baseball Academy to run clinics. We played on a field cut out of a junkyard. The kids had almost no equipment and were, without exaggeration, the most joyful people I had ever been around. It rearranged what I thought joy was supposed to come from, and I have not really recovered from it.",
+      "So I came home and ran an equipment drive with Turn Two for Youth, collecting gear across the community and getting it back down to the players who needed it.",
     ],
     photos: ["/assets/dominican_republic.jpg"],
     link: "",
     category: "Volunteering",
+  },
+  {
+    id: "scoutfitters",
+    name: "SC Outfitters",
+    shortName: "SCO",
+    role: "Member",
+    period: "2025 - Present",
+    logo: "/assets/logos/scoutfitters.png",
+    color: "#34C759",
+    description: "USC's hiking and outdoors club.",
+    achievements: [] as string[],
+    photos: [] as string[],
+    link: "https://www.scoutfitters.org/",
+    category: "Involvements",
   },
   {
     id: "gencollege",
@@ -881,7 +881,7 @@ export const mentors = [
   {
     id: "nick-boyer",
     name: "Nick Boyer",
-    role: "Mentor",
+    role: "Spiritual mentor",
     color: "#007AFF",
     gratitude:
       "One of the people I am most grateful for, and one of the reasons I did not go through last year alone.",
@@ -901,7 +901,7 @@ export const mentors = [
   {
     id: "sagar-tiwari",
     name: "Sagar Tiwari",
-    role: "Amber",
+    role: "Professional mentor",
     color: "#F59E0B",
     gratitude:
       "Handed me real responsibility long before I had done anything to earn it, then expected me to rise to it. Most of what I know about building for actual users, I learned standing next to him.",
@@ -941,7 +941,7 @@ export const mentors = [
   {
     id: "jet-jadeja",
     name: "Jet Jadeja",
-    role: "Mentor",
+    role: "IYA mentor",
     color: "#0A84FF",
     gratitude:
       "Someone whose way of building taught me a lot, and who quietly raised my sense of what was possible.",
@@ -951,7 +951,7 @@ export const mentors = [
   {
     id: "daniel-murakami",
     name: "Daniel Murakami",
-    role: "Big in AGO, brother at A2F",
+    role: "Spiritual mentor",
     color: "#30B0C7",
     gratitude:
       "An architect who has been a steady older-brother presence through the years I needed one most.",
@@ -961,7 +961,7 @@ export const mentors = [
   {
     id: "josh-patingo",
     name: "Josh Patingo",
-    role: "Mentor",
+    role: "Spiritual mentor",
     color: "#FF3B30",
     gratitude:
       "One of the people I am most grateful for, and one of the reasons I did not go through last year alone.",

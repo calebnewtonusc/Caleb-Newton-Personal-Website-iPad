@@ -22,6 +22,7 @@ const SECTIONS = [
       "maai",
       "troy-philippines",
       "dragon-boat",
+      "scoutfitters",
       "flavors",
       "boardgames",
     ],
