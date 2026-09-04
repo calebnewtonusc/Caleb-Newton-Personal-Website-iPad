@@ -17,6 +17,7 @@ import AppWindow from "./apps/AppWindow";
 import SpotifyApp from "./apps/SpotifyApp";
 import type { AppId } from "@/data/content";
 import ParticlesBackground from "./ParticlesBackground";
+import Spotlight from "./Spotlight";
 
 const IPAD_LANDSCAPE = { w: 900, h: 630 };
 const IPAD_PORTRAIT = { w: 630, h: 900 };
@@ -30,6 +31,7 @@ export default function IPadPage() {
   const [locked, setLocked] = useState(true);
   const [screenOff, setScreenOff] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [spotlightOpen, setSpotlightOpen] = useState(false);
 
   const scaleMotionValue = useMotionValue(0.97);
 
@@ -97,6 +99,35 @@ export default function IPadPage() {
       window.removeEventListener("mousemove", onMouseMove);
     };
   }, []);
+
+  // Deep links: the open app lives in the URL so back works and links are shareable
+  useEffect(() => {
+    const idFromHash = () =>
+      (window.location.hash.replace("#", "") || null) as AppId | null;
+    const apply = () => {
+      const id = idFromHash();
+      if (id) {
+        setOpenApp(id);
+        setLocked(false);
+      } else {
+        setOpenApp(null);
+      }
+    };
+    apply();
+    window.addEventListener("popstate", apply);
+    window.addEventListener("hashchange", apply);
+    return () => {
+      window.removeEventListener("popstate", apply);
+      window.removeEventListener("hashchange", apply);
+    };
+  }, []);
+
+  useEffect(() => {
+    const want = openApp ? `#${openApp}` : "";
+    if (window.location.hash !== want) {
+      window.history.replaceState(null, "", want || window.location.pathname);
+    }
+  }, [openApp]);
 
   // Preload the two above-the-fold portraits
   useEffect(() => {
@@ -237,6 +268,12 @@ export default function IPadPage() {
   // Escape closes the open app, matching every other windowed UI
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === "k") {
+        e.preventDefault();
+        setLocked(false);
+        setSpotlightOpen((v) => !v);
+        return;
+      }
       if (e.key === "Escape") setOpenApp(null);
     };
     window.addEventListener("keydown", onKey);
@@ -640,6 +677,12 @@ export default function IPadPage() {
                   />
                 )}
               </AnimatePresence>
+
+              <Spotlight
+                open={spotlightOpen}
+                onClose={() => setSpotlightOpen(false)}
+                onOpenApp={setOpenApp}
+              />
 
               <AnimatePresence>
                 {screenOff && (
