@@ -10,14 +10,18 @@ export const profile = {
   skills: ["Python", "C++", "CUDA", "TypeScript", "Swift", "SQL"],
   greeting: "Hey, I'm Caleb.",
   paragraph:
-    "I have always gotten obsessive about things, and I would rather understand one all the way down than have opinions about ten of them. I am reliably the person in the group chat who actually read the article. I follow Jesus, I think most software this decade got rich by making people worse, and I would like to spend my life doing the opposite of that. I am also nineteen, so I reserve the right to be wrong about a good amount of this.",
+    "I am the guy who actually reads the whole thing before he has an opinion about it. When something gets me, I go all the way to the bottom of it, which is excellent for research and rough on whoever is waiting for me to pick a restaurant. I follow Jesus, I have loud opinions about what the last decade of software did to people's attention, and I would like to spend my life building the opposite of that.",
   introFacts: [
     { label: "Year", value: "Sophomore" },
     { label: "Studying", value: "Innovation at Iovine and Young, minoring in neuroscience" },
     { label: "From", value: "San Marino, California" },
   ],
+  hereFor: {
+    title: "What I am here for",
+    body: "I did not show up to USC with a five year plan, and I have stopped treating that as a problem. What I want is to get all the way into the world instead of watching it, to keep growing in my walk with God, and to follow that wherever He takes it. Some of it will probably look like building companies. Some of it will look like a room full of college students praying at midnight. I am not picky about the shape as long as it helps the people in front of me.",
+  },
   funFacts:
-    "Outside of class you will find me beatboxing, taking board games far too seriously, or in a thrift store.",
+    "Outside of class you will find me beatboxing, taking a board game far too seriously, or somewhere in a thrift store.",
   previewSections: ["faith", "family", "screentime", "film"],
   roles: [
     "Autistic Jesus Follower",
@@ -343,8 +347,6 @@ export const health = {
           value: "Two years",
           detail: "Won the Grit Award, which tells you how the matches went.",
         },
-        { label: "Football", value: "Played", detail: "" },
-        { label: "Mother's Day hike", value: "", detail: "" },
         {
           label: "Hiking",
           value: "Still going",
@@ -410,7 +412,7 @@ export const health = {
         {
           label: "Deep Work Blocks",
           value: "2 hr",
-          detail: "No tabs, no exceptions",
+          detail: "Everything else closed",
         },
         {
           label: "Coffee",
@@ -446,17 +448,17 @@ export const personalSettings = [
       {
         label: "The family group chat",
         type: "toggle-on",
-        detail: "It never stops and I have never muted it",
+        detail: "",
       },
       {
         label: "Sunday lunch",
         type: "toggle-on",
-        detail: "We go every week after church",
+        detail: "",
       },
       {
         label: "At their games",
         type: "toggle-on",
-        detail: "I try not to miss one",
+        detail: "",
       },
       {
         label: "Their names",
@@ -471,38 +473,38 @@ export const personalSettings = [
     items: [
       {
         label: "Screen Time League",
-        type: "toggle-on",
-        detail: "I started one in high school",
+        type: "info",
+        detail: "Started one in high school",
       },
       {
         label: "App limits",
         type: "toggle-on",
-        detail: "I set them and still break them sometimes",
+        detail: "",
       },
       {
         label: "Social media",
         type: "toggle-off",
-        detail: "I took all of it off my devices on purpose",
+        detail: "",
       },
       {
         label: "Safari",
         type: "toggle-off",
-        detail: "The browser is blocked too",
+        detail: "",
       },
       {
         label: "Notifications",
         type: "toggle-off",
-        detail: "Almost everything is turned off",
+        detail: "",
       },
       {
         label: "Phone in another room",
         type: "toggle-on",
-        detail: "More often than not",
+        detail: "",
       },
       {
         label: "Doomscrolling",
         type: "toggle-off",
-        detail: "I lose an hour if I let myself start",
+        detail: "",
       },
     ],
   },
@@ -510,7 +512,7 @@ export const personalSettings = [
     section: "Faith & Identity",
     icon: "faith",
     items: [
-      { label: "Follower of Jesus", type: "toggle-on", detail: "Non-negotiable" },
+      { label: "Follower of Jesus", type: "toggle-on", detail: "" },
       {
         label: "Psalm 1:3",
         type: "info",
@@ -523,21 +525,21 @@ export const personalSettings = [
       },
       {
         label: "Praying in tongues",
-        type: "toggle-on",
-        detail: "1 Corinthians 14:15, I will pray with my spirit",
+        type: "info",
+        detail: "1 Corinthians 14:15",
       },
       {
         label: "Spiritual gifts",
-        type: "toggle-on",
-        detail: "1 Corinthians 12, and I think they are still being given",
+        type: "info",
+        detail: "1 Corinthians 12",
       },
       { label: "Church", type: "info", detail: "GenCollege Christians at USC" },
       {
         label: "In the Word",
         type: "toggle-on",
-        detail: "An hour or more most days",
+        detail: "",
       },
-      { label: "Sunday mornings", type: "toggle-on", detail: "Already booked" },
+      { label: "Sunday mornings", type: "toggle-on", detail: "" },
       {
         label: "Bringing it up",
         type: "info",
@@ -546,9 +548,9 @@ export const personalSettings = [
       {
         label: "Hard questions",
         type: "toggle-on",
-        detail: "Mine has survived a lot of them",
+        detail: "",
       },
-      { label: "Boldness", type: "toggle-on", detail: "Praying for more of it" },
+      { label: "Boldness", type: "toggle-on", detail: "" },
     ],
   },
   {
@@ -558,19 +560,19 @@ export const personalSettings = [
       {
         label: "Board games",
         type: "toggle-on",
-        detail: "Probably more serious about this than I should be",
+        detail: "",
       },
-      { label: "Beatboxing", type: "toggle-on", detail: "Genuinely, not as a bit" },
-      { label: "Guitar", type: "toggle-on", detail: "Learning worship songs, slowly" },
-      { label: "Vinyl records", type: "toggle-on", detail: "The collection keeps growing" },
-      { label: "Thrifting", type: "toggle-on", detail: "Ruined me for paying retail" },
-      { label: "Improv", type: "toggle-on", detail: "Say yes, and" },
-      { label: "Dragon boat", type: "toggle-on", detail: "Paddling with Troy Philippines" },
-      { label: "Hiking", type: "toggle-on", detail: "Anywhere with elevation" },
+      { label: "Beatboxing", type: "toggle-on", detail: "" },
+      { label: "Guitar", type: "toggle-on", detail: "" },
+      { label: "Vinyl records", type: "toggle-on", detail: "" },
+      { label: "Thrifting", type: "toggle-on", detail: "" },
+      { label: "Improv", type: "toggle-on", detail: "" },
+      { label: "Dragon boat", type: "toggle-on", detail: "" },
+      { label: "Hiking", type: "toggle-on", detail: "" },
       {
         label: "Dodger games",
         type: "toggle-on",
-        detail: "Better with friends than watching alone",
+        detail: "",
       },
       {
         label: "Favorite films",
@@ -592,27 +594,27 @@ export const personalSettings = [
       {
         label: "Asking why",
         type: "toggle-on",
-        detail: "I do it constantly and I am sorry in advance",
+        detail: "",
       },
       {
         label: "Hype",
         type: "toggle-off",
-        detail: "I would rather just see the thing working",
+        detail: "",
       },
       {
         label: "Saying I don't know",
         type: "toggle-on",
-        detail: "It took me a long time to learn",
+        detail: "",
       },
       {
         label: "Small talk",
         type: "toggle-off",
-        detail: "I am bad at it, not above it",
+        detail: "",
       },
       {
         label: "Finishing things",
         type: "toggle-on",
-        detail: "Trying to finish more than I start",
+        detail: "",
       },
       {
         label: "Favorite question",
@@ -868,11 +870,10 @@ export const organizations = [
 ];
 
 export const musicTaste = [
-  { label: "All-Time Ceiling", value: "Stevie Wonder. Not up for debate" },
+  { label: "Favorite artist", value: "Stevie Wonder" },
   { label: "Genres", value: "Jazz · Hip-Hop · Gospel · R&B · Indie" },
-  { label: "Electro Sleaze", value: "The genre, unapologetically" },
-  { label: "Concerts", value: "LA has good venues" },
-  { label: "Skipping The Intro", value: "Never. Let the song breathe" },
+  { label: "Guilty pleasure", value: "Electro sleaze" },
+  { label: "Live shows", value: "As many as I can get to" },
   { label: "RateYourMusic", value: "~cnewt" },
 ];
 

@@ -660,11 +660,44 @@ export default function SettingsApp({ orientation }: Props) {
 
                 <p
                   style={{
+                    fontSize: 13,
+                    color: "#6e6e73",
+                    letterSpacing: -0.08,
+                    margin: "26px 0 7px 16px",
+                    textTransform: "uppercase",
+                    fontFamily: "-apple-system, sans-serif",
+                  }}
+                >
+                  {profile.hereFor.title}
+                </p>
+                <div
+                  style={{
+                    background: "white",
+                    borderRadius: 10,
+                    padding: "12px 16px",
+                    borderLeft: "3px solid #FF9500",
+                  }}
+                >
+                  <p
+                    style={{
+                      fontSize: 17,
+                      color: "#1c1c1e",
+                      lineHeight: 1.47,
+                      letterSpacing: -0.4,
+                      fontFamily: "-apple-system, sans-serif",
+                    }}
+                  >
+                    {profile.hereFor.body}
+                  </p>
+                </div>
+
+                <p
+                  style={{
                     fontSize: 17,
                     color: "#3a3a3c",
                     lineHeight: 1.47,
                     letterSpacing: -0.4,
-                    margin: "18px 16px 0",
+                    margin: "20px 16px 0",
                     fontFamily: "-apple-system, sans-serif",
                   }}
                 >
@@ -896,25 +929,7 @@ export default function SettingsApp({ orientation }: Props) {
                         </div>
                         {item.type === "toggle-on" ||
                         item.type === "toggle-off" ? (
-                          <div
-                            style={{
-                              display: "flex",
-                              flexDirection: "column",
-                              alignItems: "flex-end",
-                              gap: 2,
-                            }}
-                          >
-                            <IOSToggle on={item.type === "toggle-on"} />
-                            <span
-                              style={{
-                                fontSize: 11,
-                                color: "#8e8e93",
-                                fontFamily: "-apple-system, sans-serif",
-                              }}
-                            >
-                              {item.detail}
-                            </span>
-                          </div>
+                          <IOSToggle on={item.type === "toggle-on"} />
                         ) : (
                           <span
                             style={{

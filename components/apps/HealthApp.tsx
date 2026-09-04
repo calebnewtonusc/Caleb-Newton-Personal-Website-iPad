@@ -130,9 +130,6 @@ function Tile({
             {name}
           </p>
         </div>
-        <svg aria-hidden="true" width="7" height="12" viewBox="0 0 7 12" fill="none" style={{ flexShrink: 0 }}>
-          <path d="M1 1l5 5-5 5" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-        </svg>
       </div>
       <p
         style={{
