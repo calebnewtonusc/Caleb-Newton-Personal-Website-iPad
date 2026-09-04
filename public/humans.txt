@@ -1,0 +1,19 @@
+/* THE HUMAN */
+
+  Name: Caleb Newton
+  Site: https://calebnewton.me
+  From: San Marino, California
+  School: USC, Iovine & Young Academy, graduating 2029
+
+/* THE SITE */
+
+  Built with: Next.js, TypeScript, Framer Motion
+  Shape: an iPad, because the thing I am fighting is what devices
+         like this one were turned into
+  Source: https://github.com/calebnewtonusc/Caleb-Newton-Personal-Website-iPad
+
+/* THANKS */
+
+  To the mentors listed in the Mentors app, who are named there for a reason.
+  To the brothers who carried me through a year I could not carry myself.
+  To God, who did not leave.

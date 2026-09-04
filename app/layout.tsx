@@ -37,6 +37,43 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.png" type="image/png" />
         <link rel="shortcut icon" href="/favicon.png" type="image/png" />
         <link rel="apple-touch-icon" href="/favicon.png" />
+
+        {/* Structured data so search engines describe him accurately */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "Person",
+              name: "Caleb Newton",
+              url: "https://calebnewton.me",
+              image: "https://calebnewton.me/assets/CalebAtUSC.jpg",
+              jobTitle: "Founding GTM & Product Lead",
+              worksFor: { "@type": "Organization", name: "Amber Intelligence" },
+              alumniOf: {
+                "@type": "CollegeOrUniversity",
+                name: "University of Southern California, Iovine & Young Academy",
+              },
+              homeLocation: {
+                "@type": "Place",
+                name: "San Marino, California",
+              },
+              sameAs: [
+                "https://github.com/calebnewtonusc",
+                "https://linkedin.com/in/calebnewton-",
+                "https://x.com/klubnootuhn",
+                "https://substack.com/@calebnewton",
+              ],
+            }),
+          }}
+        />
+
+        {/* For anyone who opens dev tools */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `console.log("%cYou opened the console.","font:600 16px -apple-system,sans-serif");console.log("Which means you are the kind of person I built this for.\\nThe source is at github.com/calebnewtonusc/Caleb-Newton-Personal-Website-iPad\\nIf you want to argue with any of it: calebnew@usc.edu");`,
+          }}
+        />
       </head>
       <body>
         <a href="#ipad" className="skip-link">

@@ -412,6 +412,43 @@ export default function HealthApp({ orientation }: Props) {
           </p>
         </div>
       ))}
+
+      <div
+        style={{
+          background: "white",
+          borderRadius: 12,
+          padding: "18px 20px",
+          marginTop: 34,
+          borderLeft: "3px solid #FF2D55",
+        }}
+      >
+        <p
+          style={{
+            fontSize: 16,
+            color: "#1c1c1e",
+            lineHeight: 1.6,
+            fontFamily: "-apple-system, sans-serif",
+          }}
+        >
+          If you are somewhere in the middle of your own version of this, please
+          talk to somebody today. In the US you can call or text{" "}
+          <strong>988</strong> for the Suicide and Crisis Lifeline, any hour of
+          any day. It is not only for the worst moment. It is for the ones
+          before it too.
+        </p>
+        <p
+          style={{
+            fontSize: 15,
+            color: "#6e6e73",
+            lineHeight: 1.6,
+            marginTop: 10,
+            fontFamily: "-apple-system, sans-serif",
+          }}
+        >
+          And if you want to tell somebody who has been there, my email is in
+          the Mail app on this iPad. I answer.
+        </p>
+      </div>
     </div>
   );
 

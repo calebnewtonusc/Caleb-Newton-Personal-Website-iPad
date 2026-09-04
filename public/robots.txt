@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# The freshman year article covers depression, a hospitalization and mania.
+# It is public because it might help somebody. Please do not scrape it into
+# a training set and hand it back to me as a summary of who I am.
+
+Sitemap: https://calebnewton.me/sitemap.xml
