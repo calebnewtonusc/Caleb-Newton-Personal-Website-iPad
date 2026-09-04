@@ -30,7 +30,6 @@ export default function IPadPage() {
     "landscape",
   );
   const [openApp, setOpenApp] = useState<AppId | null>(null);
-  const [userScale, setUserScale] = useState<number | null>(null);
   const [locked, setLocked] = useState(true);
   const [screenOff, setScreenOff] = useState(false);
   const [mounted, setMounted] = useState(false);
@@ -270,7 +269,11 @@ export default function IPadPage() {
     setMounted(true);
   }, [getOrientation, calcScale, scaleMotionValue]);
 
-  // Window resize — proportional, instant for same orientation, spring for orientation flip
+  // Window resize — the iPad refits the window. It used to keep whatever
+  // proportion a corner drag had left it at, which meant one drag locked it to
+  // that ratio forever: every later resize scaled a tiny iPad by a tiny amount
+  // and it never filled the window again. Resizing the window is the user
+  // asking for a refit, so the manual size lasts until they do that.
   useEffect(() => {
     let pending = false;
     const onResize = () => {
@@ -282,12 +285,13 @@ export default function IPadPage() {
         const orientChanged = next !== prevOrientRef.current;
         setOrientation(next);
 
+        // A corner drag in flight owns the scale until the mouse comes up.
         if (!resizeDragRef.current.active) {
           const autoScale = calcScale(next);
+          prevAutoScaleRef.current = autoScale;
 
           if (orientChanged) {
-            setUserScale(null);
-            prevAutoScaleRef.current = autoScale;
+            // A flip is a big visual change, so it springs rather than snaps.
             fmAnimate(scaleMotionValue, autoScale, {
               type: "spring",
               stiffness: 260,
@@ -295,22 +299,11 @@ export default function IPadPage() {
               restDelta: 0.001,
             });
           } else {
-            const prevAuto = prevAutoScaleRef.current;
-            const current = scaleMotionValue.get();
-            const ratio = prevAuto > 0 ? current / prevAuto : 1;
-            const target = Math.max(
-              0.25,
-              Math.min(ratio * autoScale, autoScale),
-            );
-            prevAutoScaleRef.current = autoScale;
-            scaleMotionValue.set(target);
+            scaleMotionValue.set(autoScale);
           }
         }
 
-        if (orientChanged) {
-          prevOrientRef.current = next;
-          setUserScale(null);
-        }
+        if (orientChanged) prevOrientRef.current = next;
       });
     };
     window.addEventListener("resize", onResize);
@@ -341,9 +334,6 @@ export default function IPadPage() {
       scaleMotionValue.set(newScale);
     };
     const handleMouseUp = () => {
-      if (resizeDragRef.current.active) {
-        setUserScale(scaleMotionValue.get());
-      }
       resizeDragRef.current.active = false;
     };
     window.addEventListener("mousemove", handleMouseMove);
@@ -584,8 +574,6 @@ export default function IPadPage() {
     flexShrink: 0,
   };
 
-  // Suppress unused warning — userScale is read by calcScale indirectly via resize handler
-  void userScale;
 
   return (
     <MotionConfig reducedMotion="user">
