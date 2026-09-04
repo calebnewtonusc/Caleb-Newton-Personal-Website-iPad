@@ -46,7 +46,7 @@ export default function ContactApp({}: Props) {
   return (
     <div
       className="app-window"
-      style={{ background: "#f2f2f7", display: "flex", flexDirection: "row" }}
+      style={{ background: "var(--surface-sunken)", display: "flex", flexDirection: "row" }}
     >
       {/* ── Sidebar ── */}
       <AnimatePresence mode="wait" initial={false}>
@@ -61,16 +61,16 @@ export default function ContactApp({}: Props) {
               display: "flex",
               flexDirection: "column",
               overflow: "hidden",
-              background: "#f2f2f7",
+              background: "var(--surface-sunken)",
             }}
           >
             {/* Header */}
-            <div style={{ padding: "20px 16px 8px", background: "#f2f2f7" }}>
+            <div style={{ padding: "20px 16px 8px", background: "var(--surface-sunken)" }}>
               <h1
                 style={{
                   fontSize: 34,
                   fontWeight: 700,
-                  color: "#1c1c1e",
+                  color: "var(--label)",
                   fontFamily: "-apple-system, sans-serif",
                   letterSpacing: -0.5,
                 }}
@@ -90,7 +90,7 @@ export default function ContactApp({}: Props) {
                     style={{
                       fontSize: 13,
                       fontWeight: 500,
-                      color: "#6e6e73",
+                      color: "var(--label-3)",
                       letterSpacing: 0.3,
                       marginBottom: 8,
                       marginTop: 16,
@@ -101,7 +101,7 @@ export default function ContactApp({}: Props) {
                   </p>
                   <div
                     style={{
-                      background: "white",
+                      background: "var(--surface)",
                       borderRadius: 10,
                       overflow: "hidden",
                     }}
@@ -110,11 +110,11 @@ export default function ContactApp({}: Props) {
                       <motion.div
                         key={email.id}
                         onClick={() => setSelectedEmail(email)}
-                        whileTap={{ backgroundColor: "#ebebeb" }}
+                        whileTap={{ opacity: 0.55 }}
                         style={{
                           padding: "12px 16px",
                           borderTop:
-                            i > 0 ? "0.5px solid rgba(60,60,67,0.18)" : "none",
+                            i > 0 ? "0.5px solid var(--separator)" : "none",
                           cursor: "pointer",
                           display: "flex",
                           gap: 12,
@@ -146,13 +146,13 @@ export default function ContactApp({}: Props) {
                               style={{
                                 fontSize: 15,
                                 fontWeight: email.unread ? 700 : 400,
-                                color: "#1c1c1e",
+                                color: "var(--label)",
                                 fontFamily: "-apple-system, sans-serif",
                               }}
                             >
                               {email.from}
                             </span>
-                            <span style={{ fontSize: 12, color: "#8e8e93" }}>
+                            <span style={{ fontSize: 12, color: "var(--label-4)" }}>
                               {email.time}
                             </span>
                           </div>
@@ -160,7 +160,7 @@ export default function ContactApp({}: Props) {
                             style={{
                               fontSize: 14,
                               fontWeight: 600,
-                              color: "#1c1c1e",
+                              color: "var(--label)",
                               marginBottom: 2,
                               fontFamily: "-apple-system, sans-serif",
                               whiteSpace: "nowrap",
@@ -173,7 +173,7 @@ export default function ContactApp({}: Props) {
                           <p
                             style={{
                               fontSize: 13,
-                              color: "#8e8e93",
+                              color: "var(--label-4)",
                               whiteSpace: "nowrap",
                               overflow: "hidden",
                               textOverflow: "ellipsis",
@@ -194,7 +194,7 @@ export default function ContactApp({}: Props) {
                     style={{
                       fontSize: 13,
                       fontWeight: 500,
-                      color: "#6e6e73",
+                      color: "var(--label-3)",
                       letterSpacing: 0.3,
                       marginBottom: 8,
                       marginTop: 16,
@@ -223,7 +223,7 @@ export default function ContactApp({}: Props) {
             style={{
               position: "absolute",
               inset: 0,
-              background: "white",
+              background: "var(--surface)",
               display: "flex",
               flexDirection: "column",
             }}
@@ -232,7 +232,7 @@ export default function ContactApp({}: Props) {
             <div
               style={{
                 padding: "14px 16px 8px",
-                borderBottom: "0.5px solid rgba(60,60,67,0.15)",
+                borderBottom: "0.5px solid var(--separator)",
                 flexShrink: 0,
               }}
             >
@@ -273,7 +273,7 @@ export default function ContactApp({}: Props) {
                 style={{
                   fontSize: 22,
                   fontWeight: 700,
-                  color: "#1c1c1e",
+                  color: "var(--label)",
                   fontFamily: "-apple-system, sans-serif",
                   marginBottom: 12,
                   letterSpacing: -0.3,
@@ -291,7 +291,7 @@ export default function ContactApp({}: Props) {
                   gap: 12,
                   marginBottom: 20,
                   paddingBottom: 16,
-                  borderBottom: "0.5px solid rgba(60,60,67,0.15)",
+                  borderBottom: "0.5px solid var(--separator)",
                 }}
               >
                 <div
@@ -307,7 +307,7 @@ export default function ContactApp({}: Props) {
                   }}
                 >
                   <span
-                    style={{ fontSize: 16, fontWeight: 700, color: "white" }}
+                    style={{ fontSize: 16, fontWeight: 700, color: "var(--surface)" }}
                   >
                     CN
                   </span>
@@ -317,17 +317,17 @@ export default function ContactApp({}: Props) {
                     style={{
                       fontSize: 15,
                       fontWeight: 600,
-                      color: "#1c1c1e",
+                      color: "var(--label)",
                       fontFamily: "-apple-system, sans-serif",
                     }}
                   >
                     Caleb Newton
                   </p>
-                  <p style={{ fontSize: 13, color: "#8e8e93" }}>
+                  <p style={{ fontSize: 13, color: "var(--label-4)" }}>
                     To: You &lt;visitor@caleb.me&gt;
                   </p>
                 </div>
-                <span style={{ fontSize: 12, color: "#8e8e93" }}>
+                <span style={{ fontSize: 12, color: "var(--label-4)" }}>
                   {selectedEmail.time}
                 </span>
               </div>
@@ -337,7 +337,7 @@ export default function ContactApp({}: Props) {
                 style={{
                   fontSize: 16,
                   lineHeight: 1.75,
-                  color: "#1c1c1e",
+                  color: "var(--label)",
                   fontFamily: "-apple-system, BlinkMacSystemFont, sans-serif",
                   whiteSpace: "pre-wrap",
                 }}
@@ -354,7 +354,7 @@ export default function ContactApp({}: Props) {
                     alignItems: "center",
                     gap: 8,
                     background: "#007AFF",
-                    color: "white",
+                    color: "var(--surface)",
                     borderRadius: 12,
                     padding: "12px 20px",
                     fontSize: 15,
@@ -412,7 +412,7 @@ function ComposeForm() {
     <form onSubmit={handleSubmit}>
       <div
         style={{
-          background: "white",
+          background: "var(--surface)",
           borderRadius: 10,
           overflow: "hidden",
           marginBottom: 12,
@@ -421,10 +421,10 @@ function ComposeForm() {
         <div
           style={{
             padding: "12px 16px",
-            borderBottom: "0.5px solid rgba(60,60,67,0.15)",
+            borderBottom: "0.5px solid var(--separator)",
           }}
         >
-          <div style={{ fontSize: 12, color: "#8e8e93", marginBottom: 4 }}>
+          <div style={{ fontSize: 12, color: "var(--label-4)", marginBottom: 4 }}>
             FROM
           </div>
           <input
@@ -437,7 +437,7 @@ function ComposeForm() {
               border: "none",
               outline: "none",
               fontSize: 16,
-              color: "#1c1c1e",
+              color: "var(--label)",
               background: "transparent",
               fontFamily: "var(--font-sf)",
             }}
@@ -446,10 +446,10 @@ function ComposeForm() {
         <div
           style={{
             padding: "12px 16px",
-            borderBottom: "0.5px solid rgba(60,60,67,0.15)",
+            borderBottom: "0.5px solid var(--separator)",
           }}
         >
-          <div style={{ fontSize: 12, color: "#8e8e93", marginBottom: 4 }}>
+          <div style={{ fontSize: 12, color: "var(--label-4)", marginBottom: 4 }}>
             REPLY TO
           </div>
           <input
@@ -463,14 +463,14 @@ function ComposeForm() {
               border: "none",
               outline: "none",
               fontSize: 16,
-              color: "#1c1c1e",
+              color: "var(--label)",
               background: "transparent",
               fontFamily: "var(--font-sf)",
             }}
           />
         </div>
         <div style={{ padding: "12px 16px" }}>
-          <div style={{ fontSize: 12, color: "#8e8e93", marginBottom: 4 }}>
+          <div style={{ fontSize: 12, color: "var(--label-4)", marginBottom: 4 }}>
             MESSAGE
           </div>
           <textarea
@@ -484,7 +484,7 @@ function ComposeForm() {
               border: "none",
               outline: "none",
               fontSize: 16,
-              color: "#1c1c1e",
+              color: "var(--label)",
               background: "transparent",
               fontFamily: "var(--font-sf)",
               resize: "none",
@@ -499,7 +499,7 @@ function ComposeForm() {
         style={{
           width: "100%",
           background: sent ? "#34c759" : "#007aff",
-          color: "white",
+          color: "var(--surface)",
           borderRadius: 10,
           padding: "14px",
           fontSize: 17,

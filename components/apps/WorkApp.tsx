@@ -36,7 +36,7 @@ function CompanyLogo({
           position: "relative",
           borderRadius: size * 0.18,
           overflow: "hidden",
-          background: "white",
+          background: "var(--surface)",
           border: "1px solid rgba(0,0,0,0.06)",
           flexShrink: 0,
         }}
@@ -67,7 +67,7 @@ function CompanyLogo({
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
-        color: "white",
+        color: "var(--surface)",
         fontSize: size * 0.4,
         fontWeight: 700,
         fontFamily: "'Google Sans', -apple-system, sans-serif",
@@ -140,7 +140,7 @@ const DocCard = memo(function DocCard({
           height: 232,
           borderRadius: 8,
           border: hovered ? `2px solid ${GDOCS_BLUE}` : "1px solid #dadce0",
-          background: "white",
+          background: "var(--surface)",
           overflow: "hidden",
           display: "flex",
           flexDirection: "column",
@@ -318,7 +318,7 @@ function DocView({
       {/* Top bar */}
       <div
         style={{
-          background: "white",
+          background: "var(--surface)",
           borderBottom: "1px solid #dadce0",
           padding: "8px 12px 0",
           display: "flex",
@@ -697,7 +697,7 @@ function DocPage({
       style={{
         width: "100%",
         maxWidth: 560,
-        background: "white",
+        background: "var(--surface)",
         borderRadius: 2,
         boxShadow: "0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.08)",
         padding: "40px 40px 60px",
@@ -740,7 +740,7 @@ export default function WorkApp({}: Props) {
       {/* Google Docs header bar */}
       <div
         style={{
-          background: "white",
+          background: "var(--surface)",
           borderBottom: "1px solid #dadce0",
           padding: "12px 16px",
           display: "flex",

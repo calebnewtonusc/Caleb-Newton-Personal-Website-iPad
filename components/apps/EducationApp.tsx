@@ -54,7 +54,7 @@ export default function EducationApp({}: Props) {
 
   return (
     <LazyMotion features={domAnimation}>
-      <div className="app-window" style={{ background: "#f2f2f7" }}>
+      <div className="app-window" style={{ background: "var(--surface-sunken)" }}>
         <AnimatePresence mode="wait">
           {!selected ? (
             /* LIST VIEW */
@@ -81,7 +81,7 @@ export default function EducationApp({}: Props) {
                 >
                   <h1
                     className="ios-large-title font-poppins"
-                    style={{ color: "#1c1c1e" }}
+                    style={{ color: "var(--label)" }}
                   >
                     Education
                   </h1>
@@ -96,7 +96,7 @@ export default function EducationApp({}: Props) {
                 >
                   <div
                     style={{
-                      background: "white",
+                      background: "var(--surface)",
                       borderRadius: 18,
                       padding: 18,
                       boxShadow: "0 1px 8px rgba(0,0,0,0.07)",
@@ -107,7 +107,7 @@ export default function EducationApp({}: Props) {
                       style={{
                         fontSize: 20,
                         fontWeight: 800,
-                        color: "#1c1c1e",
+                        color: "var(--label)",
                         lineHeight: 1.2,
                         marginBottom: 10,
                         fontFamily:
@@ -122,7 +122,7 @@ export default function EducationApp({}: Props) {
                     <p
                       style={{
                         fontSize: 14,
-                        color: "#636366",
+                        color: "var(--label-3)",
                         lineHeight: 1.55,
                         marginBottom: 14,
                       }}
@@ -145,13 +145,13 @@ export default function EducationApp({}: Props) {
                         whileTap={{ scale: 0.95 }}
                         onClick={() => setSelected(recent.id)}
                         style={{
-                          background: "white",
+                          background: "var(--surface)",
                           border: "none",
                           borderRadius: 20,
                           padding: "7px 18px",
                           fontSize: 14,
                           fontWeight: 600,
-                          color: "#1c1c1e",
+                          color: "var(--label)",
                           cursor: "pointer",
                           boxShadow: "0 1px 4px rgba(0,0,0,0.12)",
                           fontFamily: "-apple-system, sans-serif",
@@ -172,7 +172,7 @@ export default function EducationApp({}: Props) {
                 >
                   <div
                     style={{
-                      background: "white",
+                      background: "var(--surface)",
                       borderRadius: 18,
                       overflow: "hidden",
                       boxShadow: "0 1px 8px rgba(0,0,0,0.07)",
@@ -193,7 +193,7 @@ export default function EducationApp({}: Props) {
                           padding: "12px 16px",
                           borderBottom:
                             i < education.length - 1
-                              ? "0.5px solid rgba(60,60,67,0.1)"
+                              ? "0.5px solid var(--separator)"
                               : "none",
                           cursor: "pointer",
                           display: "flex",
@@ -207,7 +207,7 @@ export default function EducationApp({}: Props) {
                               display: "block",
                               fontSize: 14,
                               fontWeight: 700,
-                              color: "#1c1c1e",
+                              color: "var(--label)",
                               overflow: "hidden",
                               textOverflow: "ellipsis",
                               whiteSpace: "nowrap",
@@ -220,7 +220,7 @@ export default function EducationApp({}: Props) {
                           <p
                             style={{
                               fontSize: 13,
-                              color: "#8e8e93",
+                              color: "var(--label-4)",
                               overflow: "hidden",
                               textOverflow: "ellipsis",
                               whiteSpace: "nowrap",
@@ -272,7 +272,7 @@ export default function EducationApp({}: Props) {
                 display: "flex",
                 flexDirection: "column",
                 height: "100%",
-                background: "white",
+                background: "var(--surface)",
               }}
             >
               {/* Back button - floating */}
@@ -283,7 +283,7 @@ export default function EducationApp({}: Props) {
                     display: "flex",
                     alignItems: "center",
                     gap: 4,
-                    color: "#8e8e93",
+                    color: "var(--label-4)",
                     fontSize: 16,
                     fontWeight: 400,
                     background: "none",
@@ -346,7 +346,7 @@ export default function EducationApp({}: Props) {
                     <p
                       style={{
                         fontSize: 13,
-                        color: "#636366",
+                        color: "var(--label-3)",
                         marginBottom: 20,
                         fontStyle: "italic",
                       }}
@@ -361,7 +361,7 @@ export default function EducationApp({}: Props) {
                     style={{
                       fontSize: 16,
                       lineHeight: 1.75,
-                      color: "#1c1c1e",
+                      color: "var(--label)",
                       fontFamily:
                         "-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif",
                     }}
@@ -382,7 +382,7 @@ export default function EducationApp({}: Props) {
                         style={{
                           fontSize: 20,
                           fontWeight: 700,
-                          color: "#1c1c1e",
+                          color: "var(--label)",
                           marginBottom: 10,
                           fontFamily:
                             "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif",
@@ -404,7 +404,7 @@ export default function EducationApp({}: Props) {
                             style={{
                               fontSize: 20,
                               lineHeight: "1.55",
-                              color: "#1c1c1e",
+                              color: "var(--label)",
                               flexShrink: 0,
                               marginTop: -1,
                             }}
@@ -414,7 +414,7 @@ export default function EducationApp({}: Props) {
                           <p
                             style={{
                               fontSize: 16,
-                              color: "#1c1c1e",
+                              color: "var(--label)",
                               lineHeight: 1.55,
                               margin: 0,
                             }}

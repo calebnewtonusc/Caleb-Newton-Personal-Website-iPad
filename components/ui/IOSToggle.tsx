@@ -21,7 +21,7 @@ export default function IOSToggle({ on }: { on: boolean }) {
           width: 27,
           height: 27,
           borderRadius: "50%",
-          background: "white",
+          background: "var(--surface)",
           boxShadow: "0 1px 4px rgba(0,0,0,0.25)",
           transition: "left 0.2s",
         }}

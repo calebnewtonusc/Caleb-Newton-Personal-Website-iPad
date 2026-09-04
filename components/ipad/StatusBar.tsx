@@ -38,7 +38,7 @@ export default function StatusBar({}: Props) {
         style={{
           fontSize: 15,
           fontWeight: 600,
-          color: "white",
+          color: "var(--surface)",
           letterSpacing: "-0.3px",
           fontFamily: "var(--font-sf)",
         }}
@@ -67,7 +67,7 @@ export default function StatusBar({}: Props) {
 
         {/* Battery */}
         <div style={{ display: "flex", alignItems: "center", gap: 2 }}>
-          <span style={{ fontSize: 12, fontWeight: 500, color: "white" }}>
+          <span style={{ fontSize: 12, fontWeight: 500, color: "var(--surface)" }}>
             100%
           </span>
           <svg aria-hidden="true" width="25" height="12" viewBox="0 0 25 12" fill="none">

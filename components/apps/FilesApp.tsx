@@ -66,7 +66,7 @@ function OrgIcon({
         width: size,
         height: size,
         borderRadius: size * 0.22,
-        background: org.logo ? "white" : org.color,
+        background: org.logo ? "var(--surface)" : org.color,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -91,7 +91,7 @@ function OrgIcon({
           style={{
             fontSize: size * 0.34,
             fontWeight: 800,
-            color: "white",
+            color: "var(--surface)",
             fontFamily: "-apple-system, sans-serif",
           }}
         >
@@ -160,7 +160,7 @@ function OrgDetail({
             gap: 16,
             alignItems: "center",
             marginBottom: 16,
-            background: "white",
+            background: "var(--surface)",
             borderRadius: 16,
             padding: "18px 16px",
             boxShadow: "0 1px 8px rgba(0,0,0,0.07)",
@@ -172,7 +172,7 @@ function OrgDetail({
               style={{
                 fontSize: 17,
                 fontWeight: 700,
-                color: "#1c1c1e",
+                color: "var(--label)",
                 lineHeight: 1.2,
                 marginBottom: 4,
                 fontFamily: "-apple-system, sans-serif",
@@ -180,14 +180,14 @@ function OrgDetail({
             >
               {org.name}
             </h2>
-            <p style={{ fontSize: 12, color: "#636366", marginBottom: 6 }}>
+            <p style={{ fontSize: 12, color: "var(--label-3)", marginBottom: 6 }}>
               {org.role} · {org.period}
             </p>
             <span
               style={{
                 fontSize: 11,
                 fontWeight: 500,
-                color: "#8e8e93",
+                color: "var(--label-4)",
                 fontFamily: "-apple-system, sans-serif",
               }}
             >
@@ -198,7 +198,7 @@ function OrgDetail({
 
         <div
           style={{
-            background: "white",
+            background: "var(--surface)",
             borderRadius: 14,
             padding: "14px 16px",
             marginBottom: 10,
@@ -208,7 +208,7 @@ function OrgDetail({
           <p
             style={{
               fontSize: 11,
-              color: "#8e8e93",
+              color: "var(--label-4)",
               fontWeight: 600,
               letterSpacing: 0.5,
               marginBottom: 6,
@@ -220,7 +220,7 @@ function OrgDetail({
           <p
             style={{
               fontSize: 14,
-              color: "#3a3a3c",
+              color: "var(--label-2)",
               lineHeight: 1.65,
               fontFamily: "-apple-system, sans-serif",
             }}
@@ -234,7 +234,7 @@ function OrgDetail({
           (org.achievements as string[]).length > 0 && (
             <div
               style={{
-                background: "white",
+                background: "var(--surface)",
                 borderRadius: 14,
                 padding: "14px 16px",
                 marginBottom: 10,
@@ -244,7 +244,7 @@ function OrgDetail({
               <p
                 style={{
                   fontSize: 11,
-                  color: "#8e8e93",
+                  color: "var(--label-4)",
                   fontWeight: 600,
                   letterSpacing: 0.5,
                   marginBottom: 8,
@@ -260,7 +260,7 @@ function OrgDetail({
                 >
                   <span
                     style={{
-                      color: "#8e8e93",
+                      color: "var(--label-4)",
                       fontWeight: 700,
                       flexShrink: 0,
                       fontSize: 14,
@@ -269,7 +269,7 @@ function OrgDetail({
                     ·
                   </span>
                   <p
-                    style={{ fontSize: 13, color: "#3a3a3c", lineHeight: 1.55 }}
+                    style={{ fontSize: 13, color: "var(--label-2)", lineHeight: 1.55 }}
                   >
                     {a}
                   </p>
@@ -320,7 +320,7 @@ function OrgDetail({
               justifyContent: "center",
               gap: 8,
               background: "#1c1c1e",
-              color: "white",
+              color: "var(--surface)",
               borderRadius: 14,
               padding: "13px",
               fontSize: 15,
@@ -348,8 +348,8 @@ function sortByIds(
 
 function ColHeader({ title }: { title: string }) {
   return (
-    <div style={{ padding: "10px 12px 8px", borderBottom: "0.5px solid rgba(60,60,67,0.1)", flexShrink: 0 }}>
-      <h3 style={{ fontSize: 13, fontWeight: 600, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>{title}</h3>
+    <div style={{ padding: "10px 12px 8px", borderBottom: "0.5px solid var(--separator)", flexShrink: 0 }}>
+      <h3 style={{ fontSize: 13, fontWeight: 600, color: "var(--label)", fontFamily: "-apple-system, sans-serif" }}>{title}</h3>
     </div>
   );
 }
@@ -382,7 +382,7 @@ function OrgList({
         <motion.button
           key={org.id}
           type="button"
-          whileTap={{ backgroundColor: "#f2f2f7" }}
+          whileTap={{ opacity: 0.55 }}
           onClick={() => onSelect(org.id)}
           aria-label={`${org.name}, ${org.role}`}
           style={{
@@ -395,10 +395,10 @@ function OrgList({
         >
           <OrgIcon org={org} size={iconSz} />
           <div style={{ flex: 1, minWidth: 0 }}>
-            <p style={{ fontSize: compact ? 12 : 15, fontWeight: selectedId === org.id ? 600 : 400, color: "#1c1c1e", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontFamily: "-apple-system, sans-serif" }}>
+            <p style={{ fontSize: compact ? 12 : 15, fontWeight: selectedId === org.id ? 600 : 400, color: "var(--label)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap", fontFamily: "-apple-system, sans-serif" }}>
               {org.name}
             </p>
-            <p style={{ fontSize: compact ? 10 : 12, color: "#8e8e93" }}>{org.role}</p>
+            <p style={{ fontSize: compact ? 10 : 12, color: "var(--label-4)" }}>{org.role}</p>
           </div>
           <svg width="7" height="11" viewBox="0 0 7 11" fill="none" aria-hidden="true"><path d="M1 1l5 5L1 10" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" /></svg>
         </motion.button>
@@ -453,13 +453,13 @@ export default function FilesApp({ orientation }: Props) {
     return (
       <div
         className="app-window"
-        style={{ background: "#f2f2f7", display: "flex", flexDirection: "row" }}
+        style={{ background: "var(--surface-sunken)", display: "flex", flexDirection: "row" }}
       >
         {/* Col 1 — Sections (always visible, 120px) */}
         <div
           style={{
             width: 120,
-            borderRight: "0.5px solid rgba(60,60,67,0.18)",
+            borderRight: "0.5px solid var(--separator)",
             background: "#f7f7f7",
             display: "flex",
             flexDirection: "column",
@@ -472,7 +472,7 @@ export default function FilesApp({ orientation }: Props) {
               style={{
                 fontSize: 13,
                 fontWeight: 700,
-                color: "#1c1c1e",
+                color: "var(--label)",
                 fontFamily: "-apple-system, sans-serif",
                 letterSpacing: -0.2,
               }}
@@ -508,7 +508,7 @@ export default function FilesApp({ orientation }: Props) {
                   style={{
                     fontSize: 12,
                     fontWeight: topFolder === folder.id ? 600 : 400,
-                    color: "#1c1c1e",
+                    color: "var(--label)",
                     fontFamily: "-apple-system, sans-serif",
                   }}
                 >
@@ -529,8 +529,8 @@ export default function FilesApp({ orientation }: Props) {
               exit={{ width: 0, opacity: 0 }}
               transition={{ type: "spring", stiffness: 380, damping: 32 }}
               style={{
-                borderRight: "0.5px solid rgba(60,60,67,0.18)",
-                background: "white",
+                borderRight: "0.5px solid var(--separator)",
+                background: "var(--surface)",
                 display: "flex",
                 flexDirection: "column",
                 overflow: "hidden",
@@ -599,7 +599,7 @@ export default function FilesApp({ orientation }: Props) {
                 <p
                   style={{
                     fontSize: 12,
-                    color: "#8e8e93",
+                    color: "var(--label-4)",
                     fontFamily: "-apple-system, sans-serif",
                   }}
                 >
@@ -615,7 +615,7 @@ export default function FilesApp({ orientation }: Props) {
 
   // ─── Portrait: stacked push-nav ──────────────────────────────────────────────
   return (
-    <div className="app-window" style={{ background: "#f2f2f7" }}>
+    <div className="app-window" style={{ background: "var(--surface-sunken)" }}>
       <AnimatePresence mode="wait">
         {/* Depth 0 — Sections */}
         {portraitDepth === 0 && (
@@ -634,7 +634,7 @@ export default function FilesApp({ orientation }: Props) {
                 style={{
                   fontSize: 34,
                   fontWeight: 700,
-                  color: "#1c1c1e",
+                  color: "var(--label)",
                   marginBottom: 20,
                   fontFamily: "-apple-system, sans-serif",
                   letterSpacing: -0.5,
@@ -644,7 +644,7 @@ export default function FilesApp({ orientation }: Props) {
               </h1>
               <div
                 style={{
-                  background: "white",
+                  background: "var(--surface)",
                   borderRadius: 12,
                   overflow: "hidden",
                 }}
@@ -652,7 +652,7 @@ export default function FilesApp({ orientation }: Props) {
                 {SECTIONS.map((folder, i) => (
                   <motion.div
                     key={folder.id}
-                    whileTap={{ backgroundColor: "#f2f2f7" }}
+                    whileTap={{ opacity: 0.55 }}
                     onClick={() => handleTopFolder(folder.id)}
                     style={{
                       display: "flex",
@@ -660,7 +660,7 @@ export default function FilesApp({ orientation }: Props) {
                       gap: 14,
                       padding: "14px 16px",
                       borderTop:
-                        i > 0 ? "0.5px solid rgba(60,60,67,0.18)" : "none",
+                        i > 0 ? "0.5px solid var(--separator)" : "none",
                       cursor: "pointer",
                     }}
                   >
@@ -669,14 +669,14 @@ export default function FilesApp({ orientation }: Props) {
                       style={{
                         fontSize: 17,
                         flex: 1,
-                        color: "#1c1c1e",
+                        color: "var(--label)",
                         fontFamily: "-apple-system, sans-serif",
                       }}
                     >
                       {folder.label}
                     </span>
                     <span
-                      style={{ fontSize: 14, color: "#8e8e93", marginRight: 6 }}
+                      style={{ fontSize: 14, color: "var(--label-4)", marginRight: 6 }}
                     >
                       {folder.ids.length}
                     </span>
@@ -740,7 +740,7 @@ export default function FilesApp({ orientation }: Props) {
                 style={{
                   fontSize: 28,
                   fontWeight: 700,
-                  color: "#1c1c1e",
+                  color: "var(--label)",
                   marginBottom: 16,
                   fontFamily: "-apple-system, sans-serif",
                   letterSpacing: -0.4,
@@ -750,7 +750,7 @@ export default function FilesApp({ orientation }: Props) {
               </h1>
               <div
                 style={{
-                  background: "white",
+                  background: "var(--surface)",
                   borderRadius: 12,
                   overflow: "hidden",
                 }}

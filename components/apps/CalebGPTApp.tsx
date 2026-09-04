@@ -139,22 +139,22 @@ export default function CalebGPTApp() {
   };
 
   return (
-    <div className="app-window" style={{ background: "white", display: "flex", flexDirection: "column" }}>
+    <div className="app-window" style={{ background: "var(--surface)", display: "flex", flexDirection: "column" }}>
 
       {/* ── Header ── */}
       <div style={{
         padding: "12px 16px 10px",
         borderBottom: "0.5px solid rgba(0,0,0,0.09)",
         display: "flex", alignItems: "center", justifyContent: "center",
-        flexShrink: 0, background: "white",
+        flexShrink: 0, background: "var(--surface)",
       }}>
         <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <span style={{ fontSize: 16, fontWeight: 600, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>
+          <span style={{ fontSize: 16, fontWeight: 600, color: "var(--label)", fontFamily: "-apple-system, sans-serif" }}>
             CalebGPT
           </span>
           <span style={{
-            fontSize: 11, background: "#f2f2f7", borderRadius: 6,
-            padding: "2px 7px", color: "#636366", fontWeight: 500,
+            fontSize: 11, background: "var(--surface-sunken)", borderRadius: 6,
+            padding: "2px 7px", color: "var(--label-3)", fontWeight: 500,
             fontFamily: "-apple-system, sans-serif",
           }}>
             Sonnet
@@ -177,10 +177,10 @@ export default function CalebGPTApp() {
             <div style={{ width: 60, height: 60, borderRadius: 30, overflow: "hidden", marginBottom: 14, position: "relative" }}>
               <Image src={profile.photo} alt="Caleb" fill style={{ objectFit: "cover" }} />
             </div>
-            <h2 style={{ fontSize: 19, fontWeight: 600, color: "#1c1c1e", marginBottom: 6, fontFamily: "-apple-system, sans-serif" }}>
+            <h2 style={{ fontSize: 19, fontWeight: 600, color: "var(--label)", marginBottom: 6, fontFamily: "-apple-system, sans-serif" }}>
               What do you want to know about Caleb?
             </h2>
-            <p style={{ fontSize: 13, color: "#8e8e93", fontFamily: "-apple-system, sans-serif", lineHeight: 1.5, maxWidth: 240 }}>
+            <p style={{ fontSize: 13, color: "var(--label-4)", fontFamily: "-apple-system, sans-serif", lineHeight: 1.5, maxWidth: 240 }}>
               Ask about his projects, experience, goals, or what he does for fun.
             </p>
           </motion.div>
@@ -198,9 +198,9 @@ export default function CalebGPTApp() {
             {msg.role === "user" ? (
               <div style={{ display: "flex", justifyContent: "flex-end" }}>
                 <div style={{
-                  maxWidth: "75%", background: "#f2f2f7",
+                  maxWidth: "75%", background: "var(--surface-sunken)",
                   borderRadius: "20px 20px 4px 20px",
-                  padding: "10px 14px", fontSize: 15, color: "#1c1c1e",
+                  padding: "10px 14px", fontSize: 15, color: "var(--label)",
                   lineHeight: 1.55, fontFamily: "-apple-system, sans-serif",
                 }}>
                   {msg.content}
@@ -212,7 +212,7 @@ export default function CalebGPTApp() {
                   <Image src={profile.photo} alt="Caleb" fill style={{ objectFit: "cover" }} />
                 </div>
                 <div style={{
-                  flex: 1, fontSize: 15, color: "#1c1c1e", lineHeight: 1.65,
+                  flex: 1, fontSize: 15, color: "var(--label)", lineHeight: 1.65,
                   fontFamily: "-apple-system, sans-serif", paddingTop: 3,
                 }}>
                   {renderMarkdown(msg.content)}
@@ -246,7 +246,7 @@ export default function CalebGPTApp() {
               style={{
                 border: "none",
                 background: "#8a1f1f",
-                color: "white",
+                color: "var(--surface)",
                 borderRadius: 10,
                 padding: "6px 12px",
                 fontSize: 13,
@@ -272,7 +272,7 @@ export default function CalebGPTApp() {
               <div style={{ width: 28, height: 28, borderRadius: 14, overflow: "hidden", flexShrink: 0, position: "relative" }}>
                 <Image src={profile.photo} alt="Caleb" fill style={{ objectFit: "cover" }} />
               </div>
-              <div style={{ padding: "10px 14px", borderRadius: "4px 18px 18px 18px", background: "#f2f2f7", display: "inline-block" }}>
+              <div style={{ padding: "10px 14px", borderRadius: "4px 18px 18px 18px", background: "var(--surface-sunken)", display: "inline-block" }}>
                 <TypingDots />
               </div>
             </motion.div>
@@ -297,8 +297,8 @@ export default function CalebGPTApp() {
                 onClick={() => send(s)}
                 style={{
                   flexShrink: 0, padding: "8px 14px", borderRadius: 20,
-                  border: "1px solid rgba(0,0,0,0.1)", background: "white",
-                  color: "#1c1c1e", fontSize: 13, fontWeight: 500,
+                  border: "1px solid rgba(0,0,0,0.1)", background: "var(--surface)",
+                  color: "var(--label)", fontSize: 13, fontWeight: 500,
                   cursor: "pointer", fontFamily: "-apple-system, sans-serif",
                   boxShadow: "0 1px 4px rgba(0,0,0,0.06)", whiteSpace: "nowrap",
                   transition: "all 0.15s",
@@ -316,12 +316,12 @@ export default function CalebGPTApp() {
         onSubmit={handleSubmit}
         style={{
           padding: "8px 16px 12px", display: "flex", alignItems: "center",
-          gap: 8, flexShrink: 0, borderTop: "0.5px solid rgba(0,0,0,0.08)", background: "white",
+          gap: 8, flexShrink: 0, borderTop: "0.5px solid rgba(0,0,0,0.08)", background: "var(--surface)",
         }}
       >
         <div style={{
           flex: 1, display: "flex", alignItems: "center",
-          background: "#f2f2f7", borderRadius: 26,
+          background: "var(--surface-sunken)", borderRadius: 26,
           padding: "0 6px 0 16px", border: "1px solid rgba(0,0,0,0.06)",
         }}>
           <input
@@ -332,7 +332,7 @@ export default function CalebGPTApp() {
             disabled={loading}
             style={{
               flex: 1, background: "transparent", border: "none", outline: "none",
-              fontSize: 15, color: "#1c1c1e", padding: "11px 0",
+              fontSize: 15, color: "var(--label)", padding: "11px 0",
               fontFamily: "-apple-system, sans-serif",
             }}
           />

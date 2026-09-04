@@ -68,7 +68,7 @@ export default function DynamicIsland() {
               <div>
                 <div
                   style={{
-                    color: "white",
+                    color: "var(--surface)",
                     fontSize: 12,
                     fontWeight: 600,
                     letterSpacing: 0.2,

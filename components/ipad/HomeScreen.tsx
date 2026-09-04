@@ -30,7 +30,7 @@ function LiveCalendarIcon({ size }: { size: number }) {
         height: size,
         borderRadius: size * 0.2255,
         overflow: "hidden",
-        background: "white",
+        background: "var(--surface)",
         display: "flex",
         flexDirection: "column",
         flexShrink: 0,
@@ -72,7 +72,7 @@ function LiveCalendarIcon({ size }: { size: number }) {
           style={{
             fontSize: size * 0.6,
             fontWeight: 100,
-            color: "#1c1c1e",
+            color: "var(--label)",
             fontFamily:
               "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif",
             lineHeight: 1,
@@ -166,7 +166,7 @@ function AppIcon({
               zIndex: 2,
               fontSize: size * 0.4,
               fontWeight: 600,
-              color: "white",
+              color: "var(--surface)",
               fontFamily: "-apple-system, sans-serif",
             }}
           >
@@ -179,7 +179,7 @@ function AppIcon({
         <span
           style={{
             fontSize: 11,
-            color: "white",
+            color: "var(--surface)",
             textAlign: "center",
             fontWeight: 500,
             letterSpacing: -0.1,
@@ -366,7 +366,7 @@ export default function HomeScreen({
                 position: "relative",
                 zIndex: 2,
                 textAlign: "center",
-                color: "white",
+                color: "var(--surface)",
                 fontFamily:
                   "-apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif",
                 display: "flex",

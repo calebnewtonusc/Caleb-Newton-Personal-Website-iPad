@@ -1,3 +1,29 @@
+
+/* ─── Theme tokens ─── */
+:root {
+  --surface: #ffffff;
+  --surface-sunken: #f2f2f7;
+  --label: #1c1c1e;
+  --label-2: #3a3a3c;
+  --label-3: #636366;
+  --label-4: #8e8e93;
+  --separator: rgba(60, 60, 67, 0.22);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface: #1c1c1e;
+    --surface-sunken: #000000;
+    --label: #f5f5f7;
+    --label-2: #d8d8dc;
+    --label-3: #a1a1a6;
+    --label-4: #8e8e93;
+    --separator: rgba(255, 255, 255, 0.16);
+    --ios-bg: #000000;
+    --ios-bg2: #1c1c1e;
+  }
+}
+
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;900&display=swap");
 @import "tailwindcss";
 

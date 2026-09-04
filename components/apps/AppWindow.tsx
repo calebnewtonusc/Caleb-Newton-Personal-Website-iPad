@@ -152,7 +152,7 @@ export default function AppWindow({ appId, onClose, onOpenApp, orientation }: Pr
         inset: 0,
         zIndex: 10,
         overflow: "hidden",
-        background: "#f2f2f7",
+        background: "var(--surface-sunken)",
       }}
       initial={{ scale: 0.08, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}

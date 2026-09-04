@@ -44,7 +44,7 @@ function Avatar({
         style={{
           fontSize: size * 0.36,
           fontWeight: 700,
-          color: "white",
+          color: "var(--surface)",
           fontFamily: "-apple-system, sans-serif",
           letterSpacing: 0.3,
         }}
@@ -117,7 +117,7 @@ function MentorDetail({
             style={{
               fontSize: 22,
               fontWeight: 700,
-              color: "#1c1c1e",
+              color: "var(--label)",
               marginTop: 12,
               fontFamily: "-apple-system, sans-serif",
               letterSpacing: -0.4,
@@ -126,14 +126,14 @@ function MentorDetail({
           >
             {mentor.name}
           </h2>
-          <p style={{ fontSize: 14, color: "#8e8e93", marginTop: 3 }}>
+          <p style={{ fontSize: 14, color: "var(--label-4)", marginTop: 3 }}>
             {mentor.role}
           </p>
         </div>
 
         <div
           style={{
-            background: "white",
+            background: "var(--surface)",
             borderRadius: 14,
             padding: "14px 16px",
             marginBottom: 10,
@@ -143,7 +143,7 @@ function MentorDetail({
           <p
             style={{
               fontSize: 11,
-              color: "#8e8e93",
+              color: "var(--label-4)",
               fontWeight: 600,
               letterSpacing: 0.5,
               marginBottom: 6,
@@ -155,7 +155,7 @@ function MentorDetail({
           <p
             style={{
               fontSize: 15,
-              color: "#3a3a3c",
+              color: "var(--label-2)",
               lineHeight: 1.6,
               fontFamily: "-apple-system, sans-serif",
             }}
@@ -175,7 +175,7 @@ function MentorDetail({
               justifyContent: "center",
               gap: 8,
               background: "#1c1c1e",
-              color: "white",
+              color: "var(--surface)",
               borderRadius: 14,
               padding: "13px",
               fontSize: 15,
@@ -206,7 +206,7 @@ function MentorList({
         <motion.button
           key={m.id}
           type="button"
-          whileTap={{ backgroundColor: "#f2f2f7" }}
+          whileTap={{ opacity: 0.55 }}
           onClick={() => onSelect(m.id)}
           aria-label={`${m.name}, ${m.role}`}
           style={{
@@ -230,7 +230,7 @@ function MentorList({
               style={{
                 fontSize: compact ? 13 : 16,
                 fontWeight: selectedId === m.id ? 600 : 400,
-                color: "#1c1c1e",
+                color: "var(--label)",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
                 whiteSpace: "nowrap",
@@ -239,7 +239,7 @@ function MentorList({
             >
               {m.name}
             </p>
-            <p style={{ fontSize: compact ? 11 : 13, color: "#8e8e93" }}>
+            <p style={{ fontSize: compact ? 11 : 13, color: "var(--label-4)" }}>
               {m.role}
             </p>
           </div>
@@ -263,13 +263,13 @@ export default function MentorsApp({ orientation }: Props) {
     return (
       <div
         className="app-window"
-        style={{ background: "#f2f2f7", display: "flex", flexDirection: "row" }}
+        style={{ background: "var(--surface-sunken)", display: "flex", flexDirection: "row" }}
       >
         <div
           style={{
             width: 230,
-            borderRight: "0.5px solid rgba(60,60,67,0.18)",
-            background: "white",
+            borderRight: "0.5px solid var(--separator)",
+            background: "var(--surface)",
             display: "flex",
             flexDirection: "column",
             overflow: "hidden",
@@ -281,14 +281,14 @@ export default function MentorsApp({ orientation }: Props) {
               style={{
                 fontSize: 20,
                 fontWeight: 700,
-                color: "#1c1c1e",
+                color: "var(--label)",
                 fontFamily: "-apple-system, sans-serif",
                 letterSpacing: -0.3,
               }}
             >
               Mentors
             </h2>
-            <p style={{ fontSize: 12, color: "#8e8e93", marginTop: 2 }}>
+            <p style={{ fontSize: 12, color: "var(--label-4)", marginTop: 2 }}>
               People I owe a lot to
             </p>
           </div>
@@ -342,7 +342,7 @@ export default function MentorsApp({ orientation }: Props) {
                 <p
                   style={{
                     fontSize: 13,
-                    color: "#8e8e93",
+                    color: "var(--label-4)",
                     fontFamily: "-apple-system, sans-serif",
                     lineHeight: 1.6,
                   }}
@@ -360,7 +360,7 @@ export default function MentorsApp({ orientation }: Props) {
   }
 
   return (
-    <div className="app-window" style={{ background: "#f2f2f7" }}>
+    <div className="app-window" style={{ background: "var(--surface-sunken)" }}>
       <AnimatePresence mode="wait">
         {!selected ? (
           <motion.div
@@ -378,7 +378,7 @@ export default function MentorsApp({ orientation }: Props) {
                 style={{
                   fontSize: 34,
                   fontWeight: 700,
-                  color: "#1c1c1e",
+                  color: "var(--label)",
                   fontFamily: "-apple-system, sans-serif",
                   letterSpacing: -0.5,
                 }}
@@ -388,7 +388,7 @@ export default function MentorsApp({ orientation }: Props) {
               <p
                 style={{
                   fontSize: 14,
-                  color: "#8e8e93",
+                  color: "var(--label-4)",
                   marginBottom: 18,
                   marginTop: 4,
                 }}
@@ -397,7 +397,7 @@ export default function MentorsApp({ orientation }: Props) {
               </p>
               <div
                 style={{
-                  background: "white",
+                  background: "var(--surface)",
                   borderRadius: 12,
                   overflow: "hidden",
                 }}

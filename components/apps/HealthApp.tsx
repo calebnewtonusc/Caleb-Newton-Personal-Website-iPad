@@ -87,7 +87,7 @@ function VelocityChart() {
     >
       {[70, 75, 80, 85].map((g) => (
         <g key={g}>
-          <line x1={PADL} x2={W - PADR + 18} y1={y(g)} y2={y(g)} stroke="rgba(60,60,67,0.12)" strokeWidth="1" />
+          <line x1={PADL} x2={W - PADR + 18} y1={y(g)} y2={y(g)} stroke="var(--separator)" strokeWidth="1" />
           <text x={PADL - 6} y={y(g) + 3.5} textAnchor="end" fontSize="9" fill="#8e8e93">{g}</text>
         </g>
       ))}
@@ -140,7 +140,7 @@ function SleepChart() {
       style={{ display: "block" }}
     >
       {ticks.map((t) => (
-        <line key={t} x1={x(t)} x2={x(t)} y1={PADT} y2={PADT + rows.length * ROW} stroke="rgba(60,60,67,0.1)" strokeWidth="1" />
+        <line key={t} x1={x(t)} x2={x(t)} y1={PADT} y2={PADT + rows.length * ROW} stroke="var(--separator)" strokeWidth="1" />
       ))}
       {rows.map((r, i) => (
         <g key={r.label}>
@@ -161,7 +161,7 @@ function SleepChart() {
 
 const sectionLabel: React.CSSProperties = {
   fontSize: 13,
-  color: "#6e6e73",
+  color: "var(--label-3)",
   fontFamily: "-apple-system, sans-serif",
   fontWeight: 500,
   letterSpacing: 0.3,
@@ -186,7 +186,7 @@ function Tile({
   detail: string;
 }) {
   return (
-    <div style={{ background: "white", borderRadius: 12, padding: "13px 15px" }}>
+    <div style={{ background: "var(--surface)", borderRadius: 12, padding: "13px 15px" }}>
       <div
         style={{
           display: "flex",
@@ -228,7 +228,7 @@ function Tile({
         style={{
           fontSize: 22,
           fontWeight: 700,
-          color: "#1c1c1e",
+          color: "var(--label)",
           marginTop: 5,
           letterSpacing: -0.4,
           fontFamily: "-apple-system, sans-serif",
@@ -240,7 +240,7 @@ function Tile({
         <p
           style={{
             fontSize: 12,
-            color: "#8e8e93",
+            color: "var(--label-4)",
             marginTop: 3,
             lineHeight: 1.35,
             fontFamily: "-apple-system, sans-serif",
@@ -266,7 +266,7 @@ export default function HealthApp({ orientation }: Props) {
       className="ios-scroll"
       style={{
         width: isLandscape ? 290 : "100%",
-        borderRight: isLandscape ? "0.5px solid rgba(60,60,67,0.18)" : "none",
+        borderRight: isLandscape ? "0.5px solid var(--separator)" : "none",
         overflowY: "auto",
         padding: "18px 14px 30px",
         flexShrink: 0,
@@ -276,7 +276,7 @@ export default function HealthApp({ orientation }: Props) {
         style={{
           fontSize: 30,
           fontWeight: 700,
-          color: "#1c1c1e",
+          color: "var(--label)",
           letterSpacing: -0.5,
           marginBottom: 14,
           fontFamily: "-apple-system, sans-serif",
@@ -289,7 +289,7 @@ export default function HealthApp({ orientation }: Props) {
       <button
         onClick={() => setSelected(PROFILE)}
         style={{
-          background: "white",
+          background: "var(--surface)",
           borderRadius: 10,
           padding: "14px 16px",
           marginBottom: 8,
@@ -301,7 +301,7 @@ export default function HealthApp({ orientation }: Props) {
           width: "100%",
           textAlign: "left",
           font: "inherit",
-          boxShadow: "0 0.5px 0 rgba(60,60,67,0.18)",
+          boxShadow: "0 0.5px 0 var(--separator)",
         }}
       >
         <div
@@ -327,7 +327,7 @@ export default function HealthApp({ orientation }: Props) {
             style={{
               fontSize: 18,
               fontWeight: 600,
-              color: "#1c1c1e",
+              color: "var(--label)",
               fontFamily: "-apple-system, sans-serif",
             }}
           >
@@ -336,7 +336,7 @@ export default function HealthApp({ orientation }: Props) {
           <p
             style={{
               fontSize: 13,
-              color: "#636366",
+              color: "var(--label-3)",
               marginTop: 1,
               fontFamily: "-apple-system, sans-serif",
             }}
@@ -350,7 +350,7 @@ export default function HealthApp({ orientation }: Props) {
       </button>
 
       <p style={{ ...sectionLabel, marginTop: 18 }}>Health Categories</p>
-      <div style={{ background: "white", borderRadius: 10, overflow: "hidden" }}>
+      <div style={{ background: "var(--surface)", borderRadius: 10, overflow: "hidden" }}>
         {health.categories.map((c, i) => (
           <button
             key={c.id}
@@ -363,7 +363,7 @@ export default function HealthApp({ orientation }: Props) {
               textAlign: "left",
               background: selected === c.id ? "rgba(255,45,85,0.1)" : "none",
               border: "none",
-              borderTop: i === 0 ? "none" : "0.5px solid rgba(60,60,67,0.18)",
+              borderTop: i === 0 ? "none" : "0.5px solid var(--separator)",
               padding: "11px 13px",
               cursor: "pointer",
               font: "inherit",
@@ -385,7 +385,7 @@ export default function HealthApp({ orientation }: Props) {
               {GLYPHS[c.icon]?.()}
             </div>
             <div style={{ minWidth: 0, flex: 1 }}>
-              <p style={{ fontSize: 16, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>
+              <p style={{ fontSize: 16, color: "var(--label)", fontFamily: "-apple-system, sans-serif" }}>
                 {c.name}
               </p>
             </div>
@@ -401,7 +401,7 @@ export default function HealthApp({ orientation }: Props) {
   const profileView = (
     <div className="ios-scroll" style={{ flex: 1, overflowY: "auto", padding: "24px 20px 40px" }}>
       <p style={{ ...sectionLabel, marginTop: 0 }}>Health Details</p>
-      <div style={{ background: "white", borderRadius: 10, overflow: "hidden" }}>
+      <div style={{ background: "var(--surface)", borderRadius: 10, overflow: "hidden" }}>
         {health.details.map((d, i) => (
           <div
             key={d.label}
@@ -411,16 +411,16 @@ export default function HealthApp({ orientation }: Props) {
               justifyContent: "space-between",
               gap: 12,
               padding: "13px 16px",
-              borderTop: i === 0 ? "none" : "0.5px solid rgba(60,60,67,0.18)",
+              borderTop: i === 0 ? "none" : "0.5px solid var(--separator)",
             }}
           >
-            <span style={{ fontSize: 16, color: "#1c1c1e", fontFamily: "-apple-system, sans-serif" }}>
+            <span style={{ fontSize: 16, color: "var(--label)", fontFamily: "-apple-system, sans-serif" }}>
               {d.label}
             </span>
             <span
               style={{
                 fontSize: 15,
-                color: "#636366",
+                color: "var(--label-3)",
                 textAlign: "right",
                 fontFamily: "-apple-system, sans-serif",
               }}
@@ -443,7 +443,7 @@ export default function HealthApp({ orientation }: Props) {
         style={{
           fontSize: 30,
           fontWeight: 700,
-          color: "#1c1c1e",
+          color: "var(--label)",
           letterSpacing: -0.5,
           fontFamily: "-apple-system, sans-serif",
         }}
@@ -453,7 +453,7 @@ export default function HealthApp({ orientation }: Props) {
       <p
         style={{
           fontSize: 15,
-          color: "#8e8e93",
+          color: "var(--label-4)",
           marginTop: 6,
           fontFamily: "-apple-system, sans-serif",
         }}
@@ -463,7 +463,7 @@ export default function HealthApp({ orientation }: Props) {
       <p
         style={{
           fontSize: 17,
-          color: "#3a3a3c",
+          color: "var(--label-2)",
           lineHeight: 1.55,
           marginTop: 10,
           fontFamily: "-apple-system, sans-serif",
@@ -483,7 +483,7 @@ export default function HealthApp({ orientation }: Props) {
               style={{
                 fontSize: 21,
                 fontWeight: 700,
-                color: "#1c1c1e",
+                color: "var(--label)",
                 letterSpacing: -0.3,
                 fontFamily: "-apple-system, sans-serif",
               }}
@@ -494,7 +494,7 @@ export default function HealthApp({ orientation }: Props) {
           <p
             style={{
               fontSize: 16,
-              color: "#3a3a3c",
+              color: "var(--label-2)",
               lineHeight: 1.68,
               marginTop: 10,
               whiteSpace: "pre-line",
@@ -508,7 +508,7 @@ export default function HealthApp({ orientation }: Props) {
 
       <div
         style={{
-          background: "white",
+          background: "var(--surface)",
           borderRadius: 12,
           padding: "18px 20px",
           marginTop: 34,
@@ -518,7 +518,7 @@ export default function HealthApp({ orientation }: Props) {
         <p
           style={{
             fontSize: 16,
-            color: "#1c1c1e",
+            color: "var(--label)",
             lineHeight: 1.6,
             fontFamily: "-apple-system, sans-serif",
           }}
@@ -532,7 +532,7 @@ export default function HealthApp({ orientation }: Props) {
         <p
           style={{
             fontSize: 15,
-            color: "#6e6e73",
+            color: "var(--label-3)",
             lineHeight: 1.6,
             marginTop: 10,
             fontFamily: "-apple-system, sans-serif",
@@ -551,7 +551,7 @@ export default function HealthApp({ orientation }: Props) {
         style={{
           fontSize: 30,
           fontWeight: 700,
-          color: "#1c1c1e",
+          color: "var(--label)",
           letterSpacing: -0.5,
           fontFamily: "-apple-system, sans-serif",
         }}
@@ -561,7 +561,7 @@ export default function HealthApp({ orientation }: Props) {
       {(category.id === "history" || category.id === "sleep") && (
         <div
           style={{
-            background: "white",
+            background: "var(--surface)",
             borderRadius: 12,
             padding: "14px 16px 8px",
             marginTop: 16,
@@ -608,7 +608,7 @@ export default function HealthApp({ orientation }: Props) {
             display: "block",
             width: "100%",
             textAlign: "left",
-            background: "white",
+            background: "var(--surface)",
             border: "none",
             borderRadius: 12,
             padding: "15px 16px",
@@ -620,7 +620,7 @@ export default function HealthApp({ orientation }: Props) {
           <p style={{ fontSize: 13, fontWeight: 600, color: "#5E5CE6", fontFamily: "-apple-system, sans-serif" }}>
             Article
           </p>
-          <p style={{ fontSize: 17, color: "#1c1c1e", marginTop: 4, fontFamily: "-apple-system, sans-serif" }}>
+          <p style={{ fontSize: 17, color: "var(--label)", marginTop: 4, fontFamily: "-apple-system, sans-serif" }}>
             My freshman year at USC
           </p>
         </button>
@@ -643,7 +643,7 @@ export default function HealthApp({ orientation }: Props) {
       <div style={{ maxWidth: 460 }}>
         <div
           style={{
-            background: "white",
+            background: "var(--surface)",
             borderRadius: 14,
             padding: "22px 22px 20px",
             borderLeft: "3px solid #5E5CE6",
@@ -653,7 +653,7 @@ export default function HealthApp({ orientation }: Props) {
             style={{
               fontSize: 22,
               fontWeight: 700,
-              color: "#1c1c1e",
+              color: "var(--label)",
               letterSpacing: -0.4,
               fontFamily: "-apple-system, sans-serif",
             }}
@@ -663,7 +663,7 @@ export default function HealthApp({ orientation }: Props) {
           <p
             style={{
               fontSize: 16,
-              color: "#3a3a3c",
+              color: "var(--label-2)",
               lineHeight: 1.6,
               marginTop: 10,
               fontFamily: "-apple-system, sans-serif",
@@ -680,7 +680,7 @@ export default function HealthApp({ orientation }: Props) {
               onClick={() => setStoryOk(true)}
               style={{
                 background: "#5E5CE6",
-                color: "white",
+                color: "var(--surface)",
                 border: "none",
                 borderRadius: 10,
                 padding: "11px 20px",
@@ -696,7 +696,7 @@ export default function HealthApp({ orientation }: Props) {
               onClick={() => setSelected(PROFILE)}
               style={{
                 background: "rgba(120,120,128,0.12)",
-                color: "#1c1c1e",
+                color: "var(--label)",
                 border: "none",
                 borderRadius: 10,
                 padding: "11px 20px",
@@ -723,7 +723,7 @@ export default function HealthApp({ orientation }: Props) {
         : detail;
 
   return (
-    <div className="app-window" style={{ background: "#f2f2f7" }}>
+    <div className="app-window" style={{ background: "var(--surface-sunken)" }}>
       <div style={{ flex: 1, display: "flex", overflow: "hidden" }}>
         {isLandscape && sidebar}
         {!isLandscape && (

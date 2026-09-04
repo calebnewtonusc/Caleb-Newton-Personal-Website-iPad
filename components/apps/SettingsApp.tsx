@@ -252,7 +252,7 @@ export default function SettingsApp({ orientation }: Props) {
   const section = personalSettings.find((s) => s.icon === selectedSection);
 
   return (
-    <div className="app-window" style={{ background: "#f2f2f7" }}>
+    <div className="app-window" style={{ background: "var(--surface-sunken)" }}>
       <div style={{ flex: 1, display: "flex", overflow: "hidden" }}>
         {/* ── Sidebar ── */}
         <AnimatePresence mode="wait" initial={false}>
@@ -265,7 +265,7 @@ export default function SettingsApp({ orientation }: Props) {
               style={{
                 width: isLandscape ? 320 : "100%",
                 borderRight: isLandscape
-                  ? "0.5px solid rgba(60,60,67,0.18)"
+                  ? "0.5px solid var(--separator)"
                   : "none",
                 display: "flex",
                 flexDirection: "column",
@@ -281,7 +281,7 @@ export default function SettingsApp({ orientation }: Props) {
                   style={{
                     fontSize: 34,
                     fontWeight: 700,
-                    color: "#1c1c1e",
+                    color: "var(--label)",
                     marginBottom: 20,
                     fontFamily: "-apple-system, sans-serif",
                     letterSpacing: -0.5,
@@ -294,7 +294,7 @@ export default function SettingsApp({ orientation }: Props) {
                 <div
                   onClick={() => setSelectedSection(PROFILE_SECTION)}
                   style={{
-                    background: "white",
+                    background: "var(--surface)",
                     borderRadius: 10,
                     padding: "14px 16px",
                     marginBottom: 8,
@@ -302,7 +302,7 @@ export default function SettingsApp({ orientation }: Props) {
                     gap: 14,
                     alignItems: "center",
                     cursor: "pointer",
-                    boxShadow: "0 0.5px 0 rgba(60,60,67,0.18)",
+                    boxShadow: "0 0.5px 0 var(--separator)",
                   }}
                 >
                   <div
@@ -330,7 +330,7 @@ export default function SettingsApp({ orientation }: Props) {
                       style={{
                         fontSize: 20,
                         fontWeight: 600,
-                        color: "#1c1c1e",
+                        color: "var(--label)",
                         fontFamily: "-apple-system, sans-serif",
                       }}
                     >
@@ -357,18 +357,18 @@ export default function SettingsApp({ orientation }: Props) {
                     <div
                       key={gi}
                       style={{
-                        background: "white",
+                        background: "var(--surface)",
                         borderRadius: 10,
                         overflow: "hidden",
                         marginBottom: 8,
-                        boxShadow: "0 0.5px 0 rgba(60,60,67,0.18)",
+                        boxShadow: "0 0.5px 0 var(--separator)",
                       }}
                     >
                       {groupSections.map((sec, i) => (
                         <motion.div
                           key={sec.section}
                           onClick={() => setSelectedSection(sec.icon)}
-                          whileTap={{ backgroundColor: "#ebebeb" }}
+                          whileTap={{ opacity: 0.55 }}
                           style={{
                             display: "flex",
                             alignItems: "center",
@@ -376,20 +376,20 @@ export default function SettingsApp({ orientation }: Props) {
                             gap: 14,
                             borderTop:
                               i > 0
-                                ? "0.5px solid rgba(60,60,67,0.18)"
+                                ? "0.5px solid var(--separator)"
                                 : "none",
                             cursor: "pointer",
                             background:
                               selectedSection === sec.icon
                                 ? "rgba(0,122,255,0.06)"
-                                : "white",
+                                : "var(--surface)",
                           }}
                         >
                           <SectionIcon iconId={sec.icon} />
                           <span
                             style={{
                               fontSize: 17,
-                              color: "#1c1c1e",
+                              color: "var(--label)",
                               flex: 1,
                               fontFamily: "-apple-system, sans-serif",
                             }}
@@ -474,7 +474,7 @@ export default function SettingsApp({ orientation }: Props) {
                   style={{
                     fontSize: 30,
                     fontWeight: 700,
-                    color: "#1c1c1e",
+                    color: "var(--label)",
                     letterSpacing: -0.7,
                     margin: "20px 0 4px 16px",
                     fontFamily: "-apple-system, sans-serif",
@@ -488,7 +488,7 @@ export default function SettingsApp({ orientation }: Props) {
                     <p
                       style={{
                         fontSize: 13,
-                        color: "#6e6e73",
+                        color: "var(--label-3)",
                         letterSpacing: -0.08,
                         margin: "24px 0 7px 16px",
                         textTransform: "uppercase",
@@ -499,7 +499,7 @@ export default function SettingsApp({ orientation }: Props) {
                     </p>
                     <div
                       style={{
-                        background: "white",
+                        background: "var(--surface)",
                         borderRadius: 10,
                         overflow: "hidden",
                       }}
@@ -526,14 +526,14 @@ export default function SettingsApp({ orientation }: Props) {
                                 left: 16,
                                 right: 0,
                                 height: 0.5,
-                                background: "rgba(60,60,67,0.29)",
+                                background: "var(--separator)",
                               }}
                             />
                           )}
                           <span
                             style={{
                               fontSize: 17,
-                              color: "#1c1c1e",
+                              color: "var(--label)",
                               letterSpacing: -0.4,
                               fontFamily: "-apple-system, sans-serif",
                             }}
@@ -547,7 +547,7 @@ export default function SettingsApp({ orientation }: Props) {
                             <span
                               style={{
                                 fontSize: 17,
-                                color: "#8e8e93",
+                                color: "var(--label-4)",
                                 letterSpacing: -0.4,
                                 textAlign: "right",
                                 maxWidth: "58%",
@@ -631,7 +631,7 @@ export default function SettingsApp({ orientation }: Props) {
                         style={{
                           fontSize: 22,
                           fontWeight: 700,
-                          color: "#1c1c1e",
+                          color: "var(--label)",
                           fontFamily: "-apple-system, sans-serif",
                         }}
                       >
@@ -643,7 +643,7 @@ export default function SettingsApp({ orientation }: Props) {
                   {/* Settings rows -iOS grouped style */}
                   <div
                     style={{
-                      background: "white",
+                      background: "var(--surface)",
                       borderRadius: 10,
                       overflow: "hidden",
                       marginBottom: 8,
@@ -658,7 +658,7 @@ export default function SettingsApp({ orientation }: Props) {
                           padding: "12px 16px",
                           gap: 12,
                           borderTop:
-                            i > 0 ? "0.5px solid rgba(60,60,67,0.18)" : "none",
+                            i > 0 ? "0.5px solid var(--separator)" : "none",
                           minHeight: 44,
                         }}
                       >
@@ -666,7 +666,7 @@ export default function SettingsApp({ orientation }: Props) {
                           <p
                             style={{
                               fontSize: 17,
-                              color: "#1c1c1e",
+                              color: "var(--label)",
                               fontFamily: "-apple-system, sans-serif",
                             }}
                           >
@@ -680,7 +680,7 @@ export default function SettingsApp({ orientation }: Props) {
                           <span
                             style={{
                               fontSize: 15,
-                              color: "#8e8e93",
+                              color: "var(--label-4)",
                               fontFamily: "-apple-system, sans-serif",
                               maxWidth: 160,
                               textAlign: "right",
@@ -726,7 +726,7 @@ export default function SettingsApp({ orientation }: Props) {
               <p
                 style={{
                   fontSize: 15,
-                  color: "#8e8e93",
+                  color: "var(--label-4)",
                   fontFamily: "-apple-system, sans-serif",
                 }}
               >

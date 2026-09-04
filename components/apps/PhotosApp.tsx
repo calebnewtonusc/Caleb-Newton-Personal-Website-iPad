@@ -44,7 +44,7 @@ export default function PhotosApp({ orientation }: Props) {
   }, []);
 
   return (
-    <div className="app-window" style={{ background: "#f2f2f7" }}>
+    <div className="app-window" style={{ background: "var(--surface-sunken)" }}>
       <div className="ios-scroll" style={{ flex: 1, overflowY: "auto" }}>
         <AnimatePresence mode="wait">
           {selected === null ? (
@@ -60,10 +60,10 @@ export default function PhotosApp({ orientation }: Props) {
                 animate={{ opacity: 1, y: 0 }}
                 style={{ marginBottom: 20 }}
               >
-                <h1 className="ios-large-title font-poppins" style={{ color: "#1c1c1e", marginBottom: 4 }}>
+                <h1 className="ios-large-title font-poppins" style={{ color: "var(--label)", marginBottom: 4 }}>
                   Photos
                 </h1>
-                <p style={{ fontSize: 15, color: "#636366" }}>Life outside the code</p>
+                <p style={{ fontSize: 15, color: "var(--label-3)" }}>Life outside the code</p>
               </motion.div>
 
               <div
@@ -186,7 +186,7 @@ export default function PhotosApp({ orientation }: Props) {
                     padding: "40px 20px 20px",
                   }}
                 >
-                  <p style={{ color: "white", fontSize: 16, fontWeight: 600, marginBottom: 4 }}>
+                  <p style={{ color: "var(--surface)", fontSize: 16, fontWeight: 600, marginBottom: 4 }}>
                     {photos[selected].caption}
                   </p>
                   <p style={{ color: "rgba(255,255,255,0.7)", fontSize: 13 }}>
@@ -213,7 +213,7 @@ export default function PhotosApp({ orientation }: Props) {
                 >
                   {"\u2190"} Previous
                 </button>
-                <span style={{ fontSize: 13, color: "#8e8e93" }}>
+                <span style={{ fontSize: 13, color: "var(--label-4)" }}>
                   {selected + 1} / {photos.length}
                 </span>
                 <button

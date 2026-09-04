@@ -90,7 +90,7 @@ export default function BibleApp({}: Props) {
           style={{
             fontSize: 26,
             fontWeight: 700,
-            color: "#1c1c1e",
+            color: "var(--label)",
             fontFamily: "Georgia, 'Times New Roman', serif",
             letterSpacing: -0.3,
             lineHeight: 1.1,
@@ -101,7 +101,7 @@ export default function BibleApp({}: Props) {
         <p
           style={{
             fontSize: 16,
-            color: "#636366",
+            color: "var(--label-3)",
             fontFamily: "Georgia, 'Times New Roman', serif",
             marginTop: 2,
           }}
@@ -184,7 +184,7 @@ export default function BibleApp({}: Props) {
             <p
               style={{
                 fontSize: 12,
-                color: "#8e8e93",
+                color: "var(--label-4)",
                 fontFamily: "-apple-system, sans-serif",
                 letterSpacing: 0.3,
               }}

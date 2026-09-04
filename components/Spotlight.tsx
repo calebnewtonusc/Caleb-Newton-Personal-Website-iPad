@@ -234,7 +234,7 @@ export default function Spotlight({
                   outline: "none",
                   background: "transparent",
                   fontSize: 19,
-                  color: "#1c1c1e",
+                  color: "var(--label)",
                   fontFamily: "-apple-system, sans-serif",
                 }}
               />
@@ -272,7 +272,7 @@ export default function Spotlight({
                       font: "inherit",
                       padding: "10px 14px",
                       background: i === active ? "rgba(0,122,255,0.12)" : "transparent",
-                      borderTop: i === 0 ? "none" : "0.5px solid rgba(60,60,67,0.14)",
+                      borderTop: i === 0 ? "none" : "0.5px solid var(--separator)",
                     }}
                   >
                     <span style={{ minWidth: 0 }}>
@@ -280,7 +280,7 @@ export default function Spotlight({
                         style={{
                           display: "block",
                           fontSize: 16,
-                          color: "#1c1c1e",
+                          color: "var(--label)",
                           fontFamily: "-apple-system, sans-serif",
                         }}
                       >
@@ -291,7 +291,7 @@ export default function Spotlight({
                           style={{
                             display: "block",
                             fontSize: 12,
-                            color: "#8e8e93",
+                            color: "var(--label-4)",
                             marginTop: 1,
                             fontFamily: "-apple-system, sans-serif",
                           }}
@@ -303,7 +303,7 @@ export default function Spotlight({
                     <span
                       style={{
                         fontSize: 11,
-                        color: "#8e8e93",
+                        color: "var(--label-4)",
                         flexShrink: 0,
                         fontFamily: "-apple-system, sans-serif",
                       }}
