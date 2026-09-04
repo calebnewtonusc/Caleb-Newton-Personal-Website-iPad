@@ -106,6 +106,21 @@ export default function IPadPage() {
   // Swipe down from the top right corner opens Control Center, like the real thing
   useEffect(() => {
     if (locked) return;
+    const onWheel = (e: WheelEvent) => {
+      if (
+        e.deltaY > 12 &&
+        e.clientX > window.innerWidth * 0.62 &&
+        e.clientY < window.innerHeight * 0.22
+      ) {
+        setControlCenterOpen(true);
+      }
+    };
+    window.addEventListener("wheel", onWheel, { passive: true });
+    return () => window.removeEventListener("wheel", onWheel);
+  }, [locked]);
+
+  useEffect(() => {
+    if (locked) return;
     let sx = 0, sy = 0, corner = false;
     const onStart = (e: TouchEvent) => {
       sx = e.touches[0].clientX;
@@ -772,6 +787,28 @@ export default function IPadPage() {
                   </svg>
                   Search
                 </button>
+              )}
+
+              {/* Control Center opens from the top right corner, where iPadOS puts
+                  it. A trackpad fires no touch events, so this has to be a real
+                  target and not only a swipe. */}
+              {!locked && !screenOff && (
+                <button
+                  onClick={() => setControlCenterOpen(true)}
+                  aria-label="Open Control Center"
+                  title="Control Center"
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    right: 0,
+                    width: 132,
+                    height: 34,
+                    zIndex: 120,
+                    border: "none",
+                    background: "transparent",
+                    cursor: "pointer",
+                  }}
+                />
               )}
 
               {/* Brightness is real: it dims the screen the way the slider says it will */}

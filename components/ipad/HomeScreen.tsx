@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import type { AppId, AppDef } from "@/data/content";
@@ -85,17 +85,148 @@ function LiveCalendarIcon({ size }: { size: number }) {
   );
 }
 
+
+/* Touch and hold an icon, the way iPadOS gives you Quick Actions. */
+const QUICK_ACTIONS: Partial<
+  Record<AppId, { label: string; href?: string; hash?: string }[]>
+> = {
+  health: [
+    { label: "Read my freshman year", hash: "#health" },
+    { label: "History", hash: "#health" },
+  ],
+  work: [
+    {
+      label: "Open my resume",
+      href: "https://docs.google.com/document/d/1BbwPRdFOPsMvyVyIQIpNwfNJPKM25lMFfRvBrvR8Bqs/edit?usp=sharing",
+    },
+  ],
+  contact: [{ label: "Email me", href: "mailto:calebnew@usc.edu" }],
+  settings: [{ label: "What I am about", hash: "#settings" }],
+  files: [{ label: "Current", hash: "#files" }],
+  calebgpt: [{ label: "Ask about Caleb", hash: "#calebgpt" }],
+};
+
+function ContextMenu({
+  app,
+  rect,
+  onClose,
+  onOpen,
+}: {
+  app: AppDef;
+  rect: DOMRect;
+  onClose: () => void;
+  onOpen: () => void;
+}) {
+  const actions = QUICK_ACTIONS[app.id] ?? [];
+  const left = Math.min(rect.left, window.innerWidth - 230);
+  const top = Math.min(rect.bottom + 10, window.innerHeight - 190);
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.14 }}
+      onClick={onClose}
+      style={{
+        position: "fixed",
+        inset: 0,
+        zIndex: 300,
+        background: "rgba(0,0,0,0.28)",
+        backdropFilter: "blur(16px)",
+        WebkitBackdropFilter: "blur(16px)",
+      }}
+    >
+      <motion.div
+        initial={{ scale: 0.86, opacity: 0, y: -6 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.86, opacity: 0, y: -6 }}
+        transition={{ type: "spring", stiffness: 480, damping: 30 }}
+        onClick={(e) => e.stopPropagation()}
+        style={{
+          position: "absolute",
+          left,
+          top,
+          width: 214,
+          borderRadius: 14,
+          overflow: "hidden",
+          background: "rgba(250,250,250,0.86)",
+          backdropFilter: "blur(22px)",
+          WebkitBackdropFilter: "blur(22px)",
+          boxShadow: "0 18px 50px rgba(0,0,0,0.4)",
+          transformOrigin: "top left",
+        }}
+      >
+        <div
+          style={{
+            padding: "9px 14px",
+            fontSize: 12,
+            fontWeight: 600,
+            color: "#6e6e73",
+            fontFamily: "-apple-system, sans-serif",
+          }}
+        >
+          {app.name}
+        </div>
+        <button
+          onClick={() => {
+            onOpen();
+            onClose();
+          }}
+          style={rowStyle(true)}
+        >
+          Open
+        </button>
+        {actions.map((a) => (
+          <button
+            key={a.label}
+            onClick={() => {
+              if (a.href) window.open(a.href, "_blank", "noopener,noreferrer");
+              else if (a.hash) onOpen();
+              onClose();
+            }}
+            style={rowStyle(false)}
+          >
+            {a.label}
+          </button>
+        ))}
+      </motion.div>
+    </motion.div>
+  );
+}
+
+function rowStyle(first: boolean): React.CSSProperties {
+  return {
+    display: "block",
+    width: "100%",
+    textAlign: "left",
+    padding: "11px 14px",
+    fontSize: 15,
+    color: "#1c1c1e",
+    background: "none",
+    border: "none",
+    borderTop: first ? "0.5px solid rgba(60,60,67,0.2)" : "0.5px solid rgba(60,60,67,0.12)",
+    cursor: "pointer",
+    font: "inherit",
+    fontFamily: "-apple-system, sans-serif",
+    minHeight: 44,
+  };
+}
+
 function AppIcon({
   app,
   size,
   onTap,
+  onHold,
   showLabel = true,
 }: {
   app: AppDef;
   size: number;
   onTap: () => void;
+  onHold?: (rect: DOMRect) => void;
   showLabel?: boolean;
 }) {
+  const holdRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const heldRef = useRef(false);
   return (
     <motion.button
       type="button"
@@ -105,7 +236,33 @@ function AppIcon({
       whileTap={{ scale: 0.85 }}
       whileHover={{ scale: 1.08 }}
       transition={{ type: "spring", stiffness: 500, damping: 28 }}
-      onClick={() => onTap()}
+      onContextMenu={(e) => {
+        if (!onHold) return;
+        e.preventDefault();
+        onHold(e.currentTarget.getBoundingClientRect());
+      }}
+      onPointerDown={(e) => {
+        if (!onHold) return;
+        heldRef.current = false;
+        const rect = e.currentTarget.getBoundingClientRect();
+        holdRef.current = setTimeout(() => {
+          heldRef.current = true;
+          onHold(rect);
+        }, 480);
+      }}
+      onPointerUp={() => {
+        if (holdRef.current) clearTimeout(holdRef.current);
+      }}
+      onPointerLeave={() => {
+        if (holdRef.current) clearTimeout(holdRef.current);
+      }}
+      onClick={() => {
+        if (heldRef.current) {
+          heldRef.current = false;
+          return;
+        }
+        onTap();
+      }}
       style={{
         display: "flex",
         flexDirection: "column",
@@ -253,6 +410,10 @@ export default function HomeScreen({
         }
         return result;
       })();
+
+  const [heldApp, setHeldApp] = useState<{ app: AppDef; rect: DOMRect } | null>(
+    null,
+  );
 
   const handleOpen = (app: AppDef) => {
     if (app.external) {
@@ -501,6 +662,7 @@ export default function HomeScreen({
                   app={app}
                   size={iconSize}
                   onTap={() => handleOpen(app)}
+                  onHold={(rect) => setHeldApp({ app, rect })}
                 />
               ),
             )}
@@ -529,6 +691,7 @@ export default function HomeScreen({
                 app={app}
                 size={isLandscape ? 48 : 52}
                 onTap={() => handleOpen(app)}
+                onHold={(rect) => setHeldApp({ app, rect })}
                 showLabel={false}
               />
             ))}
@@ -557,6 +720,16 @@ export default function HomeScreen({
           />
         </div>
       </div>
+      <AnimatePresence>
+        {heldApp && (
+          <ContextMenu
+            app={heldApp.app}
+            rect={heldApp.rect}
+            onClose={() => setHeldApp(null)}
+            onOpen={() => handleOpen(heldApp.app)}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
