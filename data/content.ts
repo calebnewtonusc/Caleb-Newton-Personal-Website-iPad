@@ -11,10 +11,8 @@ export const profile = {
   greeting: "What's up bro! I'm Caleb :)",
   aboutGroups: [
     {
-      title: "The basics",
+      title: "Basics",
       items: [
-        { label: "Autistic", type: "toggle-on", detail: "" },
-        { label: "Follower of Jesus", type: "toggle-on", detail: "" },
         { label: "From", type: "info", detail: "San Marino, California" },
         {
           label: "School",
@@ -22,43 +20,33 @@ export const profile = {
           detail: "USC \u00b7 Jimmy Iovine & Dr. Dre Young Innovation Academy",
         },
         { label: "Year", type: "info", detail: "Sophomore" },
-        { label: "Major", type: "info", detail: "Innovation" },
-        { label: "Minor", type: "info", detail: "Neuroscience" },
-      ],
-    },
-    {
-      title: "Tech bro who hates tech",
-      items: [
-        { label: "Tech bro", type: "toggle-on", detail: "" },
-        { label: "Happy about what tech became", type: "toggle-off", detail: "" },
-        { label: "The attention economy", type: "toggle-off", detail: "" },
-        { label: "Apps on my own phone", type: "toggle-off", detail: "" },
         {
-          label: "Building the opposite of that",
-          type: "toggle-on",
-          detail: "",
+          label: "Major",
+          type: "info",
+          detail: "Machine Learning Engineering, Entrepreneurship & Product Design",
         },
+        { label: "Minor", type: "info", detail: "Neuroscience" },
+        { label: "Autistic", type: "toggle-on", detail: "" },
+        { label: "Follower of Jesus", type: "toggle-on", detail: "" },
       ],
     },
     {
-      title: "The plan",
+      title: "What I am trying to do",
       items: [
-        { label: "Five year plan", type: "toggle-off", detail: "" },
-        { label: "Worried about not having one", type: "toggle-off", detail: "" },
-        { label: "Getting all the way into the world", type: "toggle-on", detail: "" },
-        { label: "Growing in my walk with God", type: "toggle-on", detail: "" },
+        {
+          label: "Goal",
+          type: "info",
+          detail: "Build technology that helps people instead of harvesting their attention",
+        },
+        { label: "Social media on my phone", type: "toggle-off", detail: "" },
+        { label: "A five year plan", type: "toggle-off", detail: "" },
         { label: "Starting companies", type: "info", detail: "Probably" },
         {
-          label: "Rooms of students praying at midnight",
+          label: "Working in ministry",
           type: "info",
           detail: "Also probably",
         },
-        { label: "Picky about which one", type: "toggle-off", detail: "" },
-        {
-          label: "Helping whoever is in front of me",
-          type: "toggle-on",
-          detail: "",
-        },
+        { label: "Open to either", type: "toggle-on", detail: "" },
       ],
     },
   ],
@@ -463,21 +451,21 @@ export const personalSettings = [
     section: "Family",
     icon: "family",
     items: [
+      { label: "Trojan dad", type: "toggle-on", detail: "" },
+      { label: "Bruin mom", type: "toggle-on", detail: "" },
       {
         label: "Siblings",
         type: "info",
         detail: "Two younger sisters and a younger brother",
       },
-      { label: "Heritage", type: "info", detail: "Half Filipino and half White" },
-      { label: "Trojan dad", type: "info", detail: "USC" },
-      { label: "Bruin mom", type: "info", detail: "UCLA" },
       {
-        label: "Sunday night family dinner",
+        label: "At their games and shows",
         type: "toggle-on",
         detail: "",
       },
+      { label: "Heritage", type: "info", detail: "Half Filipino and half White" },
       {
-        label: "At their games and shows",
+        label: "Sunday night family dinner",
         type: "toggle-on",
         detail: "",
       },
