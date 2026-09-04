@@ -8,8 +8,16 @@ export const profile = {
   photo: "/assets/CalebAtBeachUSCHoodie.jpg",
   photoAlt: "/assets/CalebAtUSC.jpg",
   skills: ["Python", "C++", "CUDA", "TypeScript", "Swift", "SQL"],
+  greeting: "Hey, I'm Caleb.",
   paragraph:
     "I have always gotten obsessive about things, and I would rather understand one all the way down than have opinions about ten of them. I am reliably the person in the group chat who actually read the article. I follow Jesus, I think most software this decade got rich by making people worse, and I would like to spend my life doing the opposite of that. I am also nineteen, so I reserve the right to be wrong about a good amount of this.",
+  introFacts: [
+    { label: "Year", value: "Sophomore" },
+    { label: "Studying", value: "Innovation at Iovine and Young, minoring in neuroscience" },
+    { label: "From", value: "San Marino, California" },
+  ],
+  funFacts:
+    "Outside of class you will find me beatboxing, taking board games far too seriously, or in a thrift store.",
   previewSections: ["faith", "family", "screentime", "film"],
   roles: [
     "Autistic Jesus Follower",
@@ -581,7 +589,6 @@ export const personalSettings = [
     icon: "device",
     items: [
       { label: "Personality", type: "info", detail: "ENTJ-A" },
-      { label: "From", type: "info", detail: "San Marino, California" },
       {
         label: "Asking why",
         type: "toggle-on",

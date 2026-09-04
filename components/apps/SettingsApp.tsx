@@ -564,24 +564,26 @@ export default function SettingsApp({ orientation }: Props) {
                   </p>
                 </div>
 
-                {/* About: body copy in a grouped card, the way Settings does it */}
+                {/* The intro: hello, then the paragraph, then the basics */}
                 <p
                   style={{
-                    fontSize: 13,
-                    color: "#6e6e73",
+                    fontSize: 30,
+                    fontWeight: 700,
+                    color: "#1c1c1e",
+                    letterSpacing: -0.7,
+                    margin: "20px 0 0 16px",
                     fontFamily: "-apple-system, sans-serif",
-                    letterSpacing: -0.08,
-                    margin: "22px 0 7px 16px",
-                    textTransform: "uppercase",
                   }}
                 >
-                  About
+                  {profile.greeting}
                 </p>
+
                 <div
                   style={{
                     background: "white",
                     borderRadius: 10,
                     padding: "12px 16px",
+                    marginTop: 12,
                   }}
                 >
                   <p
@@ -596,6 +598,78 @@ export default function SettingsApp({ orientation }: Props) {
                     {profile.paragraph}
                   </p>
                 </div>
+
+                <div
+                  style={{
+                    background: "white",
+                    borderRadius: 10,
+                    overflow: "hidden",
+                    marginTop: 20,
+                  }}
+                >
+                  {profile.introFacts.map((f, i) => (
+                    <div
+                      key={f.label}
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "space-between",
+                        gap: 14,
+                        padding: "11px 16px",
+                        position: "relative",
+                      }}
+                    >
+                      {i > 0 && (
+                        <span
+                          aria-hidden="true"
+                          style={{
+                            position: "absolute",
+                            top: 0,
+                            left: 16,
+                            right: 0,
+                            height: 0.5,
+                            background: "rgba(60,60,67,0.29)",
+                          }}
+                        />
+                      )}
+                      <span
+                        style={{
+                          fontSize: 17,
+                          color: "#1c1c1e",
+                          letterSpacing: -0.4,
+                          flexShrink: 0,
+                          fontFamily: "-apple-system, sans-serif",
+                        }}
+                      >
+                        {f.label}
+                      </span>
+                      <span
+                        style={{
+                          fontSize: 17,
+                          color: "#8e8e93",
+                          letterSpacing: -0.4,
+                          textAlign: "right",
+                          fontFamily: "-apple-system, sans-serif",
+                        }}
+                      >
+                        {f.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                <p
+                  style={{
+                    fontSize: 17,
+                    color: "#3a3a3c",
+                    lineHeight: 1.47,
+                    letterSpacing: -0.4,
+                    margin: "18px 16px 0",
+                    fontFamily: "-apple-system, sans-serif",
+                  }}
+                >
+                  {profile.funFacts}
+                </p>
 
                 {/* Ways into the rest of him */}
                 <p
