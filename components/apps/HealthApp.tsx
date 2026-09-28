@@ -255,7 +255,6 @@ function Tile({
 
 export default function HealthApp({ orientation }: Props) {
   const [selected, setSelected] = useState<string>(PROFILE);
-  const [storyOk, setStoryOk] = useState(false);
   const isLandscape = orientation === "landscape";
   const storyRef = useRef<HTMLDivElement>(null);
 
@@ -458,7 +457,7 @@ export default function HealthApp({ orientation }: Props) {
           fontFamily: "-apple-system, sans-serif",
         }}
       >
-        Depression, a hospitalization, mania, and getting back to steady ground.
+        A medical leave, a steady recovery, and a lot going right.
       </p>
       <p
         style={{
@@ -628,98 +627,11 @@ export default function HealthApp({ orientation }: Props) {
     </div>
   );
 
-  const disclaimer = (
-    <div
-      className="ios-scroll"
-      style={{
-        flex: 1,
-        overflowY: "auto",
-        padding: "20px 20px 40px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      <div style={{ maxWidth: 460 }}>
-        <div
-          style={{
-            background: "var(--surface)",
-            borderRadius: 14,
-            padding: "22px 22px 20px",
-            borderLeft: "3px solid #5E5CE6",
-          }}
-        >
-          <h2
-            style={{
-              fontSize: 22,
-              fontWeight: 700,
-              color: "var(--label)",
-              letterSpacing: -0.4,
-              fontFamily: "-apple-system, sans-serif",
-            }}
-          >
-            Before you read this
-          </h2>
-          <p
-            style={{
-              fontSize: 16,
-              color: "var(--label-2)",
-              lineHeight: 1.6,
-              marginTop: 10,
-              fontFamily: "-apple-system, sans-serif",
-            }}
-          >
-            This one covers depression, a psychiatric hospitalization, and a
-            manic episode during my freshman year. I wrote it down because it
-            happened and because it might be worth something to somebody going
-            through the same thing, not for shock. If now is not the time for
-            it, that is completely fine.
-          </p>
-          <div style={{ display: "flex", gap: 10, marginTop: 18 }}>
-            <button
-              onClick={() => setStoryOk(true)}
-              style={{
-                background: "#5E5CE6",
-                color: "white",
-                border: "none",
-                borderRadius: 10,
-                padding: "11px 20px",
-                fontSize: 16,
-                fontWeight: 600,
-                cursor: "pointer",
-                fontFamily: "-apple-system, sans-serif",
-              }}
-            >
-              Continue
-            </button>
-            <button
-              onClick={() => setSelected(PROFILE)}
-              style={{
-                background: "rgba(120,120,128,0.12)",
-                color: "var(--label)",
-                border: "none",
-                borderRadius: 10,
-                padding: "11px 20px",
-                fontSize: 16,
-                cursor: "pointer",
-                fontFamily: "-apple-system, sans-serif",
-              }}
-            >
-              Not right now
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
   const main =
     selected === PROFILE
       ? profileView
       : selected === STORY
-        ? storyOk
-          ? story
-          : disclaimer
+        ? story
         : detail;
 
   return (
