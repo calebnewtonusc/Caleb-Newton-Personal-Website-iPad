@@ -83,7 +83,7 @@ export default function DynamicIsland() {
                     letterSpacing: 0.1,
                   }}
                 >
-                  Founding GTM Engineer · Amber (PearX W27)
+                  Founding GTM Engineer · Stealth (PearX W27)
                 </div>
               </div>
             </motion.div>

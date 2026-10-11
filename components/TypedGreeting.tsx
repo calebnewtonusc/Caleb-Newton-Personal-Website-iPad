@@ -20,7 +20,7 @@ export default function TypedGreeting({
 
     typedRef.current = new Typed(elRef.current, {
       strings: [
-        "Founding GTM Engineer \u00b7 Amber (PearX W27)",
+        "Founding GTM Engineer \u00b7 Stealth (PearX W27)",
         "Co-President \u00b7 Trojan Tech Solutions",
         "Co-Founder \u00b7 Firm Foundation",
         "USC Iovine and Young Academy",

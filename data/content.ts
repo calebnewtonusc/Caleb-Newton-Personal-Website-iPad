@@ -89,17 +89,17 @@ export const experience = [
   {
     id: "amber-intelligence",
     title: "Founding GTM Engineer",
-    company: "Amber Intelligence",
+    company: "Stealth Startup",
     period: "Jul 2026 - Present",
     year: "2026",
     location: "Remote",
-    logo: "/assets/logos/amber.png",
+    logo: null,
     color: "#F59E0B",
-    website: "https://www.amberintelligence.ai/",
+    website: "",
     description: "Relationships, health & cognitive offloading. (PearX W27)",
     achievements: [
-      "Led Amber's strategic repositioning around user-owned contact data, making it the company's core product differentiation & fundraising thesis; opened 12 VC conversations & sustained 4+ investor & partner meetings weekly.",
-      "Unified 6 siloed data sources into Amber's core relationship graph & integrated it with Claude & Perplexity; built PeopleRank, a 3-stage retrieval engine that ranks relationships even when underlying data is incomplete.",
+      "Led the company's strategic repositioning around user-owned contact data, making it the company's core product differentiation & fundraising thesis; opened 12 VC conversations & sustained 4+ investor & partner meetings weekly.",
+      "Unified 6 siloed data sources into the company's core relationship graph & integrated it with Claude & Perplexity; built PeopleRank, a 3-stage retrieval engine that ranks relationships even when underlying data is incomplete.",
     ],
     skills: [
       "GTM",
@@ -363,7 +363,7 @@ export const health = {
       title: "What's going great",
       color: "#FF9500",
       quote: "I've never known this many people this well.",
-      body: "I stopped asking people what their major is and started asking what they're passionate about, and it changed everything. My week is full of meals with people I actually know now.\n\nI'm Co-President of Trojan Tech Solutions, I'm Founding GTM & Product at Amber, and I just built Amber Circles at Origin Weekend. I'm at the gym every morning at 6, I'm part of a weekly devotional with GenCollege, and I meet with a mentor from church every week. Life is good!",
+      body: "I stopped asking people what their major is and started asking what they're passionate about, and it changed everything. My week is full of meals with people I actually know now.\n\nI'm Co-President of Trojan Tech Solutions, I'm the Founding GTM Engineer at a stealth startup out of PearX. I'm at the gym every morning at 6, I'm part of a weekly devotional with GenCollege, and I meet with a mentor from church every week. Life is good!",
     },
     {
       id: "dad",
@@ -1287,7 +1287,7 @@ export const notifications: NotificationDef[] = [
     id: "gpt-ask",
     app: "calebgpt",
     title: "Ask me anything about Caleb",
-    body: "I have read everything on this iPad. Start with what he actually does at Amber.",
+    body: "I have read everything on this iPad. Start with what he's building in stealth.",
     minutesAgo: 0,
   },
   {
@@ -1370,9 +1370,9 @@ export interface LockNotificationDef {
 
 export const lockNotifications: LockNotificationDef[] = [
   {
-    id: "lock-amber",
+    id: "lock-stealth",
     app: "work",
-    title: "Amber (PearX W27)",
+    title: "Stealth (PearX W27)",
     body: "Founding GTM Engineer. Relationships, health & cognitive offloading.",
     when: "now",
   },
