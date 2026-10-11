@@ -353,32 +353,29 @@ export default function HealthApp({ orientation }: Props) {
       <button
         onClick={() => setSelected(STORY)}
         style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+          gap: 10,
           width: "100%",
           textAlign: "left",
           border: "none",
           cursor: "pointer",
           font: "inherit",
-          marginTop: 10,
-          padding: "14px 16px",
-          borderRadius: 12,
-          color: "white",
-          background:
-            selected === STORY
-              ? "linear-gradient(135deg, #FF2D55 0%, #5E5CE6 100%)"
-              : "linear-gradient(135deg, #FF375F 0%, #7D7AFF 100%)",
-          boxShadow: "0 6px 18px rgba(255,45,85,0.25)",
+          marginTop: 8,
+          padding: "13px 16px",
+          borderRadius: 10,
+          background: selected === STORY ? "rgba(255,45,85,0.1)" : "var(--surface)",
+          boxShadow: "0 0.5px 0 var(--separator)",
           fontFamily: "-apple-system, sans-serif",
         }}
       >
-        <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: 0.6, textTransform: "uppercase", opacity: 0.85 }}>
-          Highlights
+        <span style={{ fontSize: 16, fontWeight: 600, color: "var(--label)" }}>
+          My freshman year
         </span>
-        <span style={{ display: "block", fontSize: 16, fontWeight: 700, marginTop: 4, letterSpacing: -0.2 }}>
-          Freshman year, in my own words
-        </span>
-        <span style={{ display: "block", fontSize: 13, marginTop: 3, opacity: 0.9 }}>
-          The medical leave, the recovery, and what my dad said.
-        </span>
+        <svg aria-hidden="true" width="7" height="12" viewBox="0 0 7 12" fill="none">
+          <path d="M1 1l5 5L1 11" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+        </svg>
       </button>
 
       <p style={{ ...sectionLabel, marginTop: 18 }}>Health Categories</p>
@@ -506,11 +503,7 @@ export default function HealthApp({ orientation }: Props) {
 
       {health.chapters.map((c) => (
         <div key={c.id} id={`ch-${c.id}`} style={{ marginTop: 30, scrollMarginTop: 12 }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
-            <div
-              aria-hidden="true"
-              style={{ width: 4, height: 20, borderRadius: 2, background: c.color }}
-            />
+          <div>
             <h3
               style={{
                 fontSize: 21,
@@ -538,15 +531,7 @@ export default function HealthApp({ orientation }: Props) {
         </div>
       ))}
 
-      <div
-        style={{
-          background: "var(--surface)",
-          borderRadius: 12,
-          padding: "18px 20px",
-          marginTop: 34,
-          borderLeft: "3px solid #FF2D55",
-        }}
-      >
+      <div style={{ marginTop: 40, paddingTop: 18, borderTop: "0.5px solid var(--separator)" }}>
         <p
           style={{
             fontSize: 16,
@@ -555,11 +540,9 @@ export default function HealthApp({ orientation }: Props) {
             fontFamily: "-apple-system, sans-serif",
           }}
         >
-          If you are somewhere in the middle of your own version of this, please
-          talk to somebody today. In the US you can call or text{" "}
-          <strong>988</strong> for the Suicide and Crisis Lifeline, any hour of
-          any day. It is not only for the worst moment. It is for the ones
-          before it too.
+          If you&apos;re in the middle of your own version of this, please talk
+          to somebody today. In the US you can call or text 988, any hour of
+          any day.
         </p>
         <p
           style={{
@@ -570,8 +553,8 @@ export default function HealthApp({ orientation }: Props) {
             fontFamily: "-apple-system, sans-serif",
           }}
         >
-          And if you want to tell somebody who has been there, my email is in
-          the Mail app on this iPad. I answer.
+          And if you wanna talk to someone who&apos;s been there, my email&apos;s
+          in Mail. I&apos;ll write back.
         </p>
       </div>
     </div>
