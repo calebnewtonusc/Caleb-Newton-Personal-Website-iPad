@@ -734,7 +734,7 @@ export const organizations = [
     shortName: "TTS",
     role: "Co-President",
     period: "Aug 2025 - Present",
-    logo: "/assets/logos/tts.jpg",
+    logo: "/assets/logos/tts-helmet.png",
     color: "#990000",
     description:
       "USC's student technology consulting org, rebuilt from zero with a team I'm really proud of.",
