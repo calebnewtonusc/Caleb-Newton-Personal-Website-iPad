@@ -24,9 +24,9 @@ export const profile = {
         {
           label: "Major",
           type: "info",
-          detail: "Machine Learning Engineering, Entrepreneurship & Product Design",
+          detail:
+            "Machine Learning Engineering, Entrepreneurship & Product Design",
         },
-        { label: "Minor", type: "info", detail: "Neuroscience" },
         { label: "Autistic", type: "toggle-on", detail: "" },
         { label: "Jesus follower", type: "toggle-on", detail: "" },
       ],
@@ -88,7 +88,7 @@ export const social = {
 export const experience = [
   {
     id: "amber-intelligence",
-    title: "Founding GTM & Product Lead",
+    title: "Founding GTM Engineer",
     company: "Amber Intelligence",
     period: "Jul 2026 - Present",
     year: "2026",
@@ -96,7 +96,7 @@ export const experience = [
     logo: "/assets/logos/amber.png",
     color: "#F59E0B",
     website: "https://www.amberintelligence.ai/",
-    description: "Relationship & Health AI Startup.",
+    description: "Relationships, health & cognitive offloading. (PearX W27)",
     achievements: [
       "Led Amber's strategic repositioning around user-owned contact data, making it the company's core product differentiation & fundraising thesis; opened 12 VC conversations & sustained 4+ investor & partner meetings weekly.",
       "Unified 6 siloed data sources into Amber's core relationship graph & integrated it with Claude & Perplexity; built PeopleRank, a 3-stage retrieval engine that ranks relationships even when underlying data is incomplete.",
@@ -113,8 +113,42 @@ export const experience = [
     photos: [],
   },
   {
+    id: "firm-foundation",
+    title: "Co-Founder",
+    company: "Firm Foundation",
+    period: "Oct 2026 - Present",
+    year: "2026",
+    location: "Los Angeles, CA",
+    logo: null,
+    color: "#2563EB",
+    website: "https://firmfoundation.tech",
+    description: "AI agency that builds and runs the back end for churches.",
+    achievements: [
+      "Co-founded with Gavin Munroe, 50/50. I own the business side: pricing, contracts & outbound to churches.",
+    ],
+    skills: ["Founding", "GTM", "Pricing", "Outbound", "AI Agents"],
+    photos: [],
+  },
+  {
+    id: "zeutara",
+    title: "Capital Formation Engineer",
+    company: "Zeutara",
+    period: "Sep 2026 - Present",
+    year: "2026",
+    location: "New York, NY (Hybrid)",
+    logo: null,
+    color: "#111827",
+    website: "",
+    description: "Private markets execution architecture.",
+    achievements: [
+      "Own the targeting & outbound copy for five companies raising through the firm, with full creative control.",
+    ],
+    skills: ["Capital Formation", "GTM Engineering", "Targeting", "Outbound"],
+    photos: [],
+  },
+  {
     id: "bma",
-    title: "GTM Engineer",
+    title: "Forward Deployed Engineer",
     company: "Blue Modern Advisory",
     period: "May 2026 - Jul 2026",
     year: "2026",
@@ -122,10 +156,9 @@ export const experience = [
     logo: "/assets/logos/bluemodern.png",
     color: "#0A66C2",
     website: "https://www.bluemodernadvisory.com/",
-    description: "Official Perplexity & Clay Partner Agency.",
+    description: "Official Clay & Perplexity partner agency.",
     achievements: [
-      "Rebuilt the firm's outbound engine across 147,000+ monthly emails, increasing booked meetings 6.3x, generating $350K+ pipeline & 193 opportunities across 8 clients, & cutting costs 66% while leading 4 interns.",
-      "Built the GTM unit-economics model behind a pricing renegotiation that tripled a healthcare client's monthly contract value.",
+      "Ran Clay & Perplexity implementations for clients and rebuilt the firm's outbound engine across 147,000+ monthly emails, generating $350K+ pipeline & 193 opportunities across 8 clients while leading 4 interns.",
       "Owned product for Togari, turning the firm's live GTM workflows into product requirements & directing engineering toward commercializing an internal CRM used by 8+ teammates.",
       "Built the firm's technical recruiting function from scratch as its first intern, sourcing ML engineers & quants nationwide, flying finalists to San Francisco & converting 5 finalists into the firm's entire intern class.",
     ],
@@ -150,7 +183,7 @@ export const experience = [
     logo: "/assets/logos/nalana.jpeg",
     color: "#1a4a2e",
     website: "https://www.nalana.io/",
-    description: "Cursor for Blender.",
+    description: "Cursor for 3D designers.",
     achievements: [
       "Built Nalana's GTM infrastructure across sourcing, enrichment, outbound, CRM & onboarding, reaching 3,200+ prospects, booking 150+ demos, & activating 40 customers for its 3D AI platform.",
     ],
@@ -159,7 +192,7 @@ export const experience = [
   },
   {
     id: "aina",
-    title: "Software Engineer",
+    title: "Volumetric AI Engineer",
     company: "AINA Tech",
     period: "Sep 2025 - Dec 2025",
     year: "2025",
@@ -167,7 +200,7 @@ export const experience = [
     logo: "/assets/icons/aina.png",
     color: "#007AFF",
     website: "https://www.ainatech.ai/",
-    description: "Spatial AI & Volumetric Computing Startup.",
+    description: "Holographic video studio training a 3D LLM.",
     achievements: [
       "Built AlgoRun, replacing manual coordination of 72-100+ hour GPU reconstruction jobs for a 75-camera volumetric capture system & built tooling to manage multi-terabyte datasets across 35+ repositories.",
     ],
@@ -186,7 +219,7 @@ export const experience = [
   },
   {
     id: "caltech",
-    title: "Control Theory Research Assistant",
+    title: "Research Assistant",
     company: "Caltech Electrical Engineering Department",
     period: "Aug 2024 - Jun 2025",
     year: "2025",
@@ -216,7 +249,7 @@ export const education = [
     school: "University of Southern California",
     subtitle: "Jimmy Iovine & Dr. Dre Young Innovation Academy",
     degree:
-      "B.S. Machine Learning Engineering, Entrepreneurship & Design | Minor in Neuroscience",
+      "B.S. Machine Learning Engineering, Entrepreneurship & Product Design",
     period: "May 2029",
     status: "GPA 4.00/4.00",
     logo: "/assets/logos/usc.png",
@@ -244,7 +277,7 @@ export const education = [
       "Baseball Team Captain",
     ],
   },
-{
+  {
     id: "huntington",
     school: "Huntington Middle School",
     subtitle: "",
@@ -314,7 +347,8 @@ export const health = {
       id: "leave",
       title: "I had to take a medical leave",
       color: "#5E5CE6",
-      quote: "Stepping away was the right call, even though it didn't feel like it.",
+      quote:
+        "Stepping away was the right call, even though it didn't feel like it.",
       body: "My health got bad during freshman year, bad enough that I had to take a medical leave from USC. It was the hardest year of my life, and I'm not gonna pretend it wasn't.\n\nBut I got the help I needed, and I had people who didn't leave, my family, my mentors, and brothers who kept showing up. God didn't leave either.",
     },
     {
@@ -335,7 +369,8 @@ export const health = {
       id: "dad",
       title: "What my dad said",
       color: "#FF2D55",
-      quote: "People don't care how much you know, but they know how much you care.",
+      quote:
+        "People don't care how much you know, but they know how much you care.",
       body: "My dad told me that when he dropped me off at USC this fall. I used to think I was worth exactly what I knew. Now I think caring is the grounds to know someone, and that's the whole way I'm trying to live this year.",
     },
   ],
@@ -350,12 +385,14 @@ export const health = {
         {
           label: "Baseball",
           value: "On pace for D1",
-          detail: "I was on pace to pitch Division I as a sophomore, and then my arm gave out. I spent the next year rebuilding my mechanics and never got all of it back. I believe God used that injury to redirect me, and I would not be doing what I am doing now without it. I am grateful for everything pitching taught me, and for everything being a teammate taught me.",
+          detail:
+            "I was on pace to pitch Division I as a sophomore, and then my arm gave out. I spent the next year rebuilding my mechanics and never got all of it back. I believe God used that injury to redirect me, and I would not be doing what I am doing now without it. I am grateful for everything pitching taught me, and for everything being a teammate taught me.",
         },
         {
           label: "Other sports I tried",
           value: "Wrestling, football",
-          detail: "Two years on the wrestling mat, where I won the Grit Award, which tells you roughly how the matches themselves went. One year of football before that.",
+          detail:
+            "Two years on the wrestling mat, where I won the Grit Award, which tells you roughly how the matches themselves went. One year of football before that.",
         },
       ],
     },
@@ -365,9 +402,7 @@ export const health = {
       name: "Mental Wellbeing",
       color: "#5E5CE6",
       blurb: "Medical leave and recovery",
-      items: [
-        { label: "Current state", value: "Grateful", detail: "" },
-      ],
+      items: [{ label: "Current state", value: "Grateful", detail: "" }],
     },
     {
       id: "sleep",
@@ -434,7 +469,11 @@ export const personalSettings = [
         type: "toggle-on",
         detail: "",
       },
-      { label: "Heritage", type: "info", detail: "Half Filipino and half White" },
+      {
+        label: "Heritage",
+        type: "info",
+        detail: "Half Filipino and half White",
+      },
       {
         label: "Sunday night family dinner",
         type: "toggle-on",
@@ -496,7 +535,8 @@ export const personalSettings = [
       {
         label: "Psalm 1:3",
         type: "info",
-        detail: "Like a tree planted by water, whose delight is in the law of the Lord",
+        detail:
+          "Like a tree planted by water, whose delight is in the law of the Lord",
       },
       {
         label: "Genesis 32:26",
@@ -606,7 +646,6 @@ export const personalSettings = [
   },
 ];
 
-
 export const photos = [
   {
     src: "/assets/vinyl_collection.jpg",
@@ -617,7 +656,7 @@ export const photos = [
   },
   {
     src: "/assets/baseball_pitching.jpg",
-    caption: "Pitched in high school -loved the competition and strategy",
+    caption: "Pitched in high school, loved the competition and strategy",
     date: "May 2025",
     location: "San Marino, CA",
     rotation: 2,
@@ -660,7 +699,7 @@ export const photos = [
   {
     src: "/assets/premed_friends.jpg",
     caption:
-      "Premed friends at dinner -one of the few times we're not studying lol",
+      "Premed friends at dinner, one of the few times we're not studying lol",
     date: "Fall 2025",
     location: "Los Angeles, CA",
     rotation: -1,
@@ -670,7 +709,7 @@ export const photos = [
 export const organizations = [
   {
     id: "usctts",
-    name: "Trojan Technology Solutions",
+    name: "Trojan Tech Solutions",
     shortName: "TTS",
     role: "Co-President",
     period: "Aug 2025 - Present",
@@ -680,7 +719,7 @@ export const organizations = [
       "USC technology consulting organization. Rebuilt from dormant into a 30+ member team running AI & strategy engagements for external clients.",
     achievements: [
       "Rebuilt USC's dormant technology consulting organization into a 30+ member team in 3 months, recruiting & leading project teams, winning external clients, & directing AI & strategy engagements for organizations serving 10,000+ people.",
-      "Founded T Combinator, pairing top USC builders with venture-backed startups; secured 7 YC-backed clients for Spring 2027 & built the system for sourcing, scoping & staffing engagements.",
+      "Founded T Combinator, pairing top USC builders with venture-backed startups, & built the system for sourcing, scoping & staffing engagements.",
     ],
     photos: [] as string[],
     link: "https://usctts.com",
@@ -696,7 +735,7 @@ export const organizations = [
     color: "#5856D6",
     description: "Assistive AI & wearable technology, Los Angeles, CA.",
     achievements: [
-      "Co-founded an EMG wearable translating ASL into speech & spoken responses into text; built a 1,900-sample proprietary dataset & gesture-recognition system achieving 99.5% accuracy, winning the Marshall AI Summit & attracting investor interest.",
+      "Co-founded an EMG wearable translating ASL into speech & spoken responses into text; built a 1,900-sample proprietary dataset & gesture-recognition system, winning the Marshall AI Summit & attracting investor interest.",
     ],
     photos: [] as string[],
     link: "",
@@ -1313,5 +1352,42 @@ export const notifications: NotificationDef[] = [
     title: "Thirty minutes, whenever",
     body: "He keeps a Calendly open. Take it if you want to talk about any of this.",
     minutesAgo: 92,
+  },
+];
+
+// ─── Lock Screen ─────────────────────────────────────────────────────────────
+// The first thing anyone sees, before they tap. Same rule as the Notification
+// Center: every line has to be true and sourced, because a stranger reads
+// these before they have any reason to trust the rest.
+
+export interface LockNotificationDef {
+  id: string;
+  app: AppId;
+  title: string;
+  body: string;
+  when: string;
+}
+
+export const lockNotifications: LockNotificationDef[] = [
+  {
+    id: "lock-amber",
+    app: "work",
+    title: "Amber (PearX W27)",
+    body: "Founding GTM Engineer. Relationships, health & cognitive offloading.",
+    when: "now",
+  },
+  {
+    id: "lock-tts",
+    app: "files",
+    title: "Trojan Tech Solutions",
+    body: "Co-President. Took a dormant USC org to 30+ members in 3 months.",
+    when: "12m ago",
+  },
+  {
+    id: "lock-everything-night",
+    app: "photos",
+    title: "Everything Night",
+    body: "This photo. 200+ students from 20+ Christian clubs that had never been in one room.",
+    when: "1h ago",
   },
 ];

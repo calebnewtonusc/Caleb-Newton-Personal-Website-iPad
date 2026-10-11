@@ -83,8 +83,7 @@ export default function DynamicIsland() {
                     letterSpacing: 0.1,
                   }}
                 >
-                  Machine Learning Engineering · Entrepreneurship & Design ·
-                  Neuroscience
+                  Founding GTM Engineer · Amber (PearX W27)
                 </div>
               </div>
             </motion.div>

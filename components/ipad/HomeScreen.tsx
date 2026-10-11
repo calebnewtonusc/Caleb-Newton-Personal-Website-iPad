@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import type { AppId, AppDef } from "@/data/content";
-import { apps, dockApps } from "@/data/content";
+import { apps, dockApps, lockNotifications } from "@/data/content";
 import { useClock } from "../useClock";
 import TypedGreeting from "@/components/TypedGreeting";
 
@@ -578,6 +578,105 @@ export default function HomeScreen({
                   <TypedGreeting fontSize={13} isLandscape={isLandscape} />
                 </div>
               </div>
+            </div>
+
+            {/* Lock screen notifications: the strongest true things, read before the tap */}
+            <div
+              style={{
+                position: "relative",
+                zIndex: 2,
+                width: "100%",
+                maxWidth: isLandscape ? 380 : 340,
+                padding: "0 16px",
+                display: "flex",
+                flexDirection: "column",
+                gap: 8,
+                marginTop: "auto",
+                marginBottom: isLandscape ? 18 : 28,
+                fontFamily:
+                  "-apple-system, BlinkMacSystemFont, 'SF Pro Text', sans-serif",
+              }}
+            >
+              {lockNotifications.map((n, i) => {
+                const app = apps.find((a) => a.id === n.app);
+                return (
+                  <motion.div
+                    key={n.id}
+                    initial={{ opacity: 0, y: 14, scale: 0.97 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{
+                      delay: 0.9 + i * 0.35,
+                      duration: 0.5,
+                      ease: [0.22, 1, 0.36, 1],
+                    }}
+                    style={{
+                      display: "flex",
+                      alignItems: "flex-start",
+                      gap: 10,
+                      padding: "10px 12px",
+                      borderRadius: 18,
+                      background: "rgba(30,30,30,0.42)",
+                      backdropFilter: "blur(28px) saturate(170%)",
+                      WebkitBackdropFilter: "blur(28px) saturate(170%)",
+                      border: "0.5px solid rgba(255,255,255,0.14)",
+                      color: "white",
+                      textAlign: "left",
+                    }}
+                  >
+                    {app?.icon && (
+                      <Image
+                        src={app.icon}
+                        alt=""
+                        width={30}
+                        height={30}
+                        style={{ borderRadius: 7, flexShrink: 0, marginTop: 1 }}
+                      />
+                    )}
+                    <div style={{ flex: 1, minWidth: 0 }}>
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "baseline",
+                          gap: 8,
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontSize: 13,
+                            fontWeight: 600,
+                            letterSpacing: -0.1,
+                            whiteSpace: "nowrap",
+                            overflow: "hidden",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {n.title}
+                        </span>
+                        <span
+                          style={{
+                            fontSize: 11,
+                            color: "rgba(255,255,255,0.55)",
+                            flexShrink: 0,
+                          }}
+                        >
+                          {n.when}
+                        </span>
+                      </div>
+                      <div
+                        style={{
+                          fontSize: 12.5,
+                          lineHeight: 1.35,
+                          color: "rgba(255,255,255,0.86)",
+                          marginTop: 1,
+                        }}
+                      >
+                        {n.body}
+                      </div>
+                    </div>
+                  </motion.div>
+                );
+              })}
             </div>
 
             {/* Tap to unlock */}
