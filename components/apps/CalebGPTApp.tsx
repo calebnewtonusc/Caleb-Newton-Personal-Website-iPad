@@ -152,13 +152,6 @@ export default function CalebGPTApp() {
           <span style={{ fontSize: 16, fontWeight: 600, color: "var(--label)", fontFamily: "-apple-system, sans-serif" }}>
             CalebGPT
           </span>
-          <span style={{
-            fontSize: 11, background: "var(--surface-sunken)", borderRadius: 6,
-            padding: "2px 7px", color: "var(--label-3)", fontWeight: 500,
-            fontFamily: "-apple-system, sans-serif",
-          }}>
-            Sonnet
-          </span>
         </div>
       </div>
 
