@@ -20,10 +20,12 @@ export default function TypedGreeting({
 
     typedRef.current = new Typed(elRef.current, {
       strings: [
+        "Hey, I'm Caleb :)",
         "Founding GTM Engineer \u00b7 Stealth (PearX W27)",
         "Co-President \u00b7 Trojan Tech Solutions",
         "Co-Founder \u00b7 Firm Foundation",
-        "USC Iovine and Young Academy",
+        "Gym at 6, every morning",
+        "Still learning. Say hi",
       ],
       typeSpeed: 42,
       backSpeed: 22,

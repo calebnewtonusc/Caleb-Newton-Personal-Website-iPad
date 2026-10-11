@@ -98,8 +98,8 @@ export const experience = [
     website: "",
     description: "Relationships, health & cognitive offloading. (PearX W27)",
     achievements: [
-      "Led the company's strategic repositioning around user-owned contact data, making it the company's core product differentiation & fundraising thesis; opened 12 VC conversations & sustained 4+ investor & partner meetings weekly.",
-      "Unified 6 siloed data sources into the company's core relationship graph & integrated it with Claude & Perplexity; built PeopleRank, a 3-stage retrieval engine that ranks relationships even when underlying data is incomplete.",
+      "The founders handed me real responsibility long before I'd earned it. I spent the summer working out what made us different, and landed on one idea: your contacts should belong to you. It became the story we raise on.",
+      "Our data lived in six places that didn't talk to each other, so I pulled it into one relationship graph and built PeopleRank to rank relationships even when the data has holes in it.",
     ],
     skills: [
       "GTM",
@@ -124,7 +124,7 @@ export const experience = [
     website: "https://firmfoundation.tech",
     description: "AI agency that builds and runs the back end for churches.",
     achievements: [
-      "Co-founded with Gavin Munroe, 50/50. I own the business side: pricing, contracts & outbound to churches.",
+      "Gavin and I started it together, 50/50, to take the back-end work off churches so they can spend their time on people. He builds, and I handle pricing, contracts and outbound.",
     ],
     skills: ["Founding", "GTM", "Pricing", "Outbound", "AI Agents"],
     photos: [],
@@ -141,7 +141,7 @@ export const experience = [
     website: "",
     description: "Private markets execution architecture.",
     achievements: [
-      "Own the targeting & outbound copy for five companies raising through the firm, with full creative control.",
+      "Five companies are raising through the firm, and I get to own who we reach and what we say to them.",
     ],
     skills: ["Capital Formation", "GTM Engineering", "Targeting", "Outbound"],
     photos: [],
@@ -158,9 +158,9 @@ export const experience = [
     website: "https://www.bluemodernadvisory.com/",
     description: "Official Clay & Perplexity partner agency.",
     achievements: [
-      "Ran Clay & Perplexity implementations for clients and rebuilt the firm's outbound engine across 147,000+ monthly emails, generating $350K+ pipeline & 193 opportunities across 8 clients while leading 4 interns.",
-      "Owned product for Togari, turning the firm's live GTM workflows into product requirements & directing engineering toward commercializing an internal CRM used by 8+ teammates.",
-      "Built the firm's technical recruiting function from scratch as its first intern, sourcing ML engineers & quants nationwide, flying finalists to San Francisco & converting 5 finalists into the firm's entire intern class.",
+      "My first real GTM job. I ran Clay and Perplexity setups for clients and learned outbound at 147,000 emails a month, which turned into $350K+ in pipeline across 8 clients. I led 4 interns while doing it.",
+      "The firm's own workflows were turning into a product called Togari, and I got to write what it should do next for the 8+ teammates using it.",
+      "I was the first intern, so recruiting was mine to build. We flew finalists to San Francisco, and five of them became the whole next intern class.",
     ],
     skills: [
       "GTM Engineering",
@@ -185,7 +185,7 @@ export const experience = [
     website: "https://www.nalana.io/",
     description: "Cursor for 3D designers.",
     achievements: [
-      "Built Nalana's GTM infrastructure across sourcing, enrichment, outbound, CRM & onboarding, reaching 3,200+ prospects, booking 150+ demos, & activating 40 customers for its 3D AI platform.",
+      "Nalana makes 3D designers faster. I built its GTM from finding people to onboarding them: 3,200+ prospects, 150+ demos, 40 customers.",
     ],
     skills: ["GTM", "Enrichment", "Outbound", "CRM", "Onboarding", "3D AI"],
     photos: [],
@@ -202,7 +202,7 @@ export const experience = [
     website: "https://www.ainatech.ai/",
     description: "Holographic video studio training a 3D LLM.",
     achievements: [
-      "Built AlgoRun, replacing manual coordination of 72-100+ hour GPU reconstruction jobs for a 75-camera volumetric capture system & built tooling to manage multi-terabyte datasets across 35+ repositories.",
+      "A studio with 75 cameras captures people in 3D, and every reconstruction ran 72 to 100+ hours, coordinated by hand. I built AlgoRun so nobody had to babysit them.",
     ],
     skills: [
       "Python",
@@ -229,8 +229,8 @@ export const experience = [
     website: "https://www.caltech.edu",
     description: "Control theory research under Ph.D. Taylan Kargin.",
     achievements: [
-      "Built 18 MATLAB/Python simulations across 3 controller configurations to stress-test Caltech research on reliable autonomy under uncertainty & compare controller performance across operating conditions.",
-      "Produced visualizations presented in Kargin's 2025 doctoral thesis defense & to JPL, informed by 4 industry experts.",
+      "Taylan Kargin let a high schooler into his control theory research. I built 18 simulations to stress-test his work on reliable autonomy under uncertainty.",
+      "My plots ended up in his 2025 doctoral defense and in front of JPL.",
     ],
     skills: [
       "Python",
@@ -737,10 +737,10 @@ export const organizations = [
     logo: "/assets/logos/tts.jpg",
     color: "#990000",
     description:
-      "USC technology consulting organization. Rebuilt from dormant into a 30+ member team running AI & strategy engagements for external clients.",
+      "USC's student technology consulting org, rebuilt from zero with a team I'm really proud of.",
     achievements: [
-      "Rebuilt USC's dormant technology consulting organization into a 30+ member team in 3 months, recruiting & leading project teams, winning external clients, & directing AI & strategy engagements for organizations serving 10,000+ people.",
-      "Founded T Combinator, pairing top USC builders with venture-backed startups, & built the system for sourcing, scoping & staffing engagements.",
+      "Matthew Kim handed TTS to Tyler Larsen and me after it sat empty for over a year. Our cabinet of 10 did the real recruiting, each pulling in people from their own major, and we hit 30+ members in 3 months.",
+      "Then we started T Combinator, which pairs USC builders with venture-backed startups in whatever role the startup actually needs.",
     ],
     photos: [] as string[],
     link: "https://usctts.com",
@@ -1351,6 +1351,13 @@ export const notifications: NotificationDef[] = [
     minutesAgo: 47,
   },
   {
+    id: "health-gym",
+    app: "health",
+    title: "Lyons gym, 6 AM",
+    body: "Every morning, with my roommate.",
+    minutesAgo: 34,
+  },
+  {
     id: "bible-verse",
     app: "bible",
     title: "1 Thessalonians 5:17",
@@ -1398,14 +1405,14 @@ export const lockNotifications: LockNotificationDef[] = [
     id: "lock-tts",
     app: "files",
     title: "Trojan Tech Solutions",
-    body: "Co-President. Took a dormant USC org to 30+ members in 3 months.",
+    body: "Tyler and I took it over dormant. Our cabinet of 10 did the real recruiting, and we hit 30+ members in 3 months.",
     when: "12m ago",
   },
   {
     id: "lock-everything-night",
     app: "photos",
     title: "Everything Night",
-    body: "This photo. 200+ students from 20+ Christian clubs that had never been in one room.",
+    body: "This photo. 200+ students from 20+ Christian clubs that had never been in one room. Still the best night I've been part of.",
     when: "1h ago",
   },
 ];

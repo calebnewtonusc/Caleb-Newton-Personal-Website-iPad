@@ -55,9 +55,9 @@ I co-founded Firm Foundation with Gavin Munroe. We build and run the back end fo
 
 I'm a Capital Formation Engineer at Zeutara, running targeting and outbound for five companies raising through the firm.
 
-And I'm Co-President of Trojan Tech Solutions with Tyler Larsen. We took it from dormant to 30+ members in three months.
+And I'm Co-President of Trojan Tech Solutions with Tyler Larsen. We took it over dormant, and our cabinet did the real recruiting. 30+ members in three months.
 
-If any of that overlaps with what you're doing, write me. I mean it.`,
+None of it is mine alone, and I'm learning from everybody on these teams. If any of it overlaps with what you're doing, write me. I mean it.`,
     time: "9:41 AM",
     unread: true,
   },
