@@ -152,7 +152,7 @@ export default function PhotosApp({ orientation }: Props) {
                 </button>
               </div>
 
-              {/* Full photo — always priority since it's the focal element */}
+              {/* Full photo: always priority since it's the focal element */}
               <motion.div
                 initial={{ scale: 0.9, opacity: 0 }}
                 animate={{ scale: 1, opacity: 1 }}
@@ -234,7 +234,7 @@ export default function PhotosApp({ orientation }: Props) {
                 </button>
               </div>
 
-              {/* Filmstrip — 56px slots need tiny images, not full-res */}
+              {/* Filmstrip: 56px slots need tiny images, not full-res */}
               <div
                 style={{
                   padding: "16px 16px 0",

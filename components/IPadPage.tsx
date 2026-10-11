@@ -287,7 +287,7 @@ export default function IPadPage() {
     setMounted(true);
   }, [getOrientation, calcScale, scaleMotionValue]);
 
-  // Window resize — the iPad refits the window. It used to keep whatever
+  // Window resize: the iPad refits the window. It used to keep whatever
   // proportion a corner drag had left it at, which meant one drag locked it to
   // that ratio forever: every later resize scaled a tiny iPad by a tiny amount
   // and it never filled the window again. Resizing the window is the user
@@ -601,7 +601,7 @@ export default function IPadPage() {
     <div className="ipad-viewport">
       <div className="page-bg" aria-hidden="true" />
 
-      {/* Particle background — behind iPad, pointer-events disabled */}
+      {/* Particle background: behind iPad, pointer-events disabled */}
       <div
         aria-hidden="true"
         style={{
@@ -655,7 +655,7 @@ export default function IPadPage() {
         )}
       </AnimatePresence>
 
-      {/* iPad wrapper — scale driven by motion value, 3D drag-to-rotate */}
+      {/* iPad wrapper: scale driven by motion value, 3D drag-to-rotate */}
       <div
         style={{
           perspective: 1200,
@@ -955,7 +955,7 @@ export default function IPadPage() {
               </AnimatePresence>
             </IPadFrame>
 
-            {/* Invisible resize handles — all 4 corners */}
+            {/* Invisible resize handles: all 4 corners */}
             {(["tl", "tr", "bl", "br"] as const).map((corner) => (
               <div
                 key={corner}

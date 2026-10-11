@@ -457,7 +457,7 @@ export default function FilesApp({ orientation }: Props) {
         className="app-window"
         style={{ background: "var(--surface-sunken)", display: "flex", flexDirection: "row" }}
       >
-        {/* Col 1 — Sections (always visible, 120px) */}
+        {/* Col 1: Sections (always visible, 120px) */}
         <div
           style={{
             width: 120,
@@ -521,7 +521,7 @@ export default function FilesApp({ orientation }: Props) {
           </div>
         </div>
 
-        {/* Col 2 — Org list for the selected section */}
+        {/* Col 2: Org list for the selected section */}
         <AnimatePresence>
           {showCol2 && (
             <motion.div
@@ -556,7 +556,7 @@ export default function FilesApp({ orientation }: Props) {
           )}
         </AnimatePresence>
 
-        {/* Col 3 — Detail (flex 1, always) */}
+        {/* Col 3: Detail (flex 1, always) */}
         <div
           style={{
             flex: 1,
@@ -619,7 +619,7 @@ export default function FilesApp({ orientation }: Props) {
   return (
     <div className="app-window" style={{ background: "var(--surface-sunken)" }}>
       <AnimatePresence mode="wait">
-        {/* Depth 0 — Sections */}
+        {/* Depth 0: Sections */}
         {portraitDepth === 0 && (
           <motion.div
             key="p0"
@@ -698,7 +698,7 @@ export default function FilesApp({ orientation }: Props) {
           </motion.div>
         )}
 
-        {/* Depth 1 — Org list for the section */}
+        {/* Depth 1: Org list for the section */}
         {portraitDepth === 1 && (
           <motion.div
             key={`p1-${topFolder}`}
@@ -763,7 +763,7 @@ export default function FilesApp({ orientation }: Props) {
           </motion.div>
         )}
 
-        {/* Depth 2 — Org detail */}
+        {/* Depth 2: Org detail */}
         {portraitDepth === 2 && selectedOrg && (
           <motion.div
             key={`p2-${selectedOrg.id}`}

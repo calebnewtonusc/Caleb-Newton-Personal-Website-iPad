@@ -179,7 +179,7 @@ export default function AppWindow({ appId, origin, onClose, onOpenApp, orientati
         <AppComponent onClose={onClose} orientation={orientation} onOpenApp={onOpenApp} />
       </div>
 
-      {/* Home indicator — centered pill-width hit area only */}
+      {/* Home indicator: centered pill-width hit area only */}
       <div
         ref={pillRef}
         role="button"
