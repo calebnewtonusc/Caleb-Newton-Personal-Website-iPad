@@ -38,6 +38,29 @@ You do not need to polish it before you send it.`,
     time: "Now",
     unread: true,
   },
+  {
+    id: "building",
+    from: "Caleb Newton",
+    fromShort: "CN",
+    subject: "What I'm building right now",
+    preview:
+      "A stealth startup out of PearX, a church AI agency with Gavin, and TTS...",
+    body: `Hey,
+
+Here's what my weeks actually go to right now:
+
+I'm the Founding GTM Engineer at a startup that's still in stealth. It's in PearX W27, and it's about relationships, health and cognitive offloading. That's all I can say yet.
+
+I co-founded Firm Foundation with Gavin Munroe. We build and run the back end for churches, and I own pricing, contracts and outbound.
+
+I'm a Capital Formation Engineer at Zeutara, running targeting and outbound for five companies raising through the firm.
+
+And I'm Co-President of Trojan Tech Solutions with Tyler Larsen. We took it from dormant to 30+ members in three months.
+
+If any of that overlaps with what you're doing, write me. I mean it.`,
+    time: "9:41 AM",
+    unread: true,
+  },
 ];
 
 export default function ContactApp({}: Props) {

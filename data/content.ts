@@ -94,7 +94,7 @@ export const experience = [
     year: "2026",
     location: "Remote",
     logo: null,
-    color: "#F59E0B",
+    color: "#111827",
     website: "",
     description: "Relationships, health & cognitive offloading. (PearX W27)",
     achievements: [
@@ -648,6 +648,27 @@ export const personalSettings = [
 
 export const photos = [
   {
+    src: "/assets/everything_night_crowd.jpg",
+    caption: "Everything Night. 200+ students from 20+ Christian clubs, one room",
+    date: "Senior year",
+    location: "San Gabriel Valley, CA",
+    rotation: 2,
+  },
+  {
+    src: "/assets/everything_night_band.jpg",
+    caption: "Live worship band at Everything Night",
+    date: "Senior year",
+    location: "San Gabriel Valley, CA",
+    rotation: -2,
+  },
+  {
+    src: "/assets/dominican_republic.jpg",
+    caption: "Running baseball clinics in Jarabacoa, Dominican Republic",
+    date: "July 2022",
+    location: "Jarabacoa, Dominican Republic",
+    rotation: 1.5,
+  },
+  {
     src: "/assets/vinyl_collection.jpg",
     caption: "Vinyl collection growing (Stevie to The Strokes)",
     date: "Ongoing",
@@ -1005,7 +1026,7 @@ export const mentors = [
     role: "Spiritual mentor",
     color: "#FF3B30",
     gratitude:
-      "One of the people I am most grateful for, and one of the reasons I did not go through last year alone.",
+      "Walked through last year with me when it would have been easier not to, and I don't take that lightly.",
     link: "",
     linkLabel: "",
   },
@@ -1259,14 +1280,11 @@ export const apps: AppDef[] = [
 
 export const dockApps: AppId[] = [
   "calendar",
-  "projects",
   "linkedin",
   "github",
-  "youtube",
   "substack",
+  "youtube",
   "x",
-  "letterboxd",
-  "rateyourmusic",
 ];
 
 // ─── Notification Center ─────────────────────────────────────────────────────

@@ -408,9 +408,11 @@ function OrgList({
 }
 
 export default function FilesApp({ orientation }: Props) {
-  const [topFolder, setTopFolder] = useState<string | null>(null);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
   const isLandscape = orientation === "landscape";
+  // Two empty panes were the first impression on a wide screen. Open on the
+  // thing he runs right now.
+  const [topFolder, setTopFolder] = useState<string | null>(isLandscape ? "current" : null);
+  const [selectedId, setSelectedId] = useState<string | null>(isLandscape ? "usctts" : null);
 
   const activeSection = SECTIONS.find((s) => s.id === topFolder) ?? null;
   const sectionOrgs = activeSection

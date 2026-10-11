@@ -253,8 +253,8 @@ function MentorList({
 }
 
 export default function MentorsApp({ orientation }: Props) {
-  const [selectedId, setSelectedId] = useState<string | null>(null);
   const isLandscape = orientation === "landscape";
+  const [selectedId, setSelectedId] = useState<string | null>(isLandscape ? "erik-fish" : null);
   const selected = selectedId
     ? (mentors.find((m) => m.id === selectedId) ?? null)
     : null;

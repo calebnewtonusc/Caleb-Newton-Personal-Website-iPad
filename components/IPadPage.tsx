@@ -25,6 +25,21 @@ import ScreenTimeNotice from "./ScreenTimeNotice";
 const IPAD_LANDSCAPE = { w: 900, h: 630 };
 const IPAD_PORTRAIT = { w: 630, h: 900 };
 
+// On a phone the iPad was a 0.57x miniature inside the phone, so 13px text
+// rendered at about 7px. Below 600px wide the screen becomes the whole
+// viewport instead, laid out at an iPhone Pro Max logical width.
+const PHONE_W = 430;
+
+function isPhoneViewport() {
+  return window.innerWidth < 600 && window.innerHeight > window.innerWidth;
+}
+
+function measurePhone() {
+  return isPhoneViewport()
+    ? { w: PHONE_W, h: Math.round((window.innerHeight * PHONE_W) / window.innerWidth) }
+    : null;
+}
+
 export default function IPadPage() {
   const [orientation, setOrientation] = useState<"landscape" | "portrait">(
     "landscape",
@@ -33,6 +48,7 @@ export default function IPadPage() {
   const [locked, setLocked] = useState(true);
   const [screenOff, setScreenOff] = useState(false);
   const [mounted, setMounted] = useState(false);
+  const [phoneSize, setPhoneSize] = useState<{ w: number; h: number } | null>(null);
   const [spotlightOpen, setSpotlightOpen] = useState(false);
   const [controlCenterOpen, setControlCenterOpen] = useState(false);
   const [notifCenterOpen, setNotifCenterOpen] = useState(false);
@@ -229,6 +245,7 @@ export default function IPadPage() {
   }, []);
 
   const calcScale = useCallback((orient: "landscape" | "portrait") => {
+    if (isPhoneViewport()) return window.innerWidth / PHONE_W;
     const ipad = orient === "landscape" ? IPAD_LANDSCAPE : IPAD_PORTRAIT;
     let availW: number;
     if (orient === "landscape") {
@@ -266,6 +283,7 @@ export default function IPadPage() {
     const initScale = calcScale(initial);
     scaleMotionValue.set(initScale);
     prevAutoScaleRef.current = initScale;
+    setPhoneSize(measurePhone());
     setMounted(true);
   }, [getOrientation, calcScale, scaleMotionValue]);
 
@@ -284,6 +302,7 @@ export default function IPadPage() {
         const next = getOrientation();
         const orientChanged = next !== prevOrientRef.current;
         setOrientation(next);
+        setPhoneSize(measurePhone());
 
         // A corner drag in flight owns the scale until the mouse comes up.
         if (!resizeDragRef.current.active) {
@@ -410,6 +429,8 @@ export default function IPadPage() {
       const target = e.target as HTMLElement;
       if (target.closest(".app-window")) return;
       if (lockedRef.current) return;
+      // A phone is held, not turned over on a desk: no 3D tilt.
+      if (isPhoneViewport()) return;
       const touch = e.touches[0];
       ipadDragRef.current = {
         active: true,
@@ -670,7 +691,7 @@ export default function IPadPage() {
         >
           {/* Portrait: "Caleb's" above */}
           <AnimatePresence>
-            {isPortrait && (
+            {isPortrait && !phoneSize && (
               <motion.div
                 key="portrait-label-top"
                 initial={{ opacity: 0, y: -32 }}
@@ -690,6 +711,8 @@ export default function IPadPage() {
             <IPadFrame
               orientation={orientation}
               onPowerPress={handlePowerPress}
+              size={phoneSize ?? undefined}
+              bare={phoneSize !== null}
             >
               <HomeScreen
                 orientation={orientation}
@@ -969,7 +992,7 @@ export default function IPadPage() {
 
           {/* Portrait: "iPad" below */}
           <AnimatePresence>
-            {isPortrait && (
+            {isPortrait && !phoneSize && (
               <motion.div
                 key="portrait-label-bottom"
                 initial={{ opacity: 0, y: 32 }}

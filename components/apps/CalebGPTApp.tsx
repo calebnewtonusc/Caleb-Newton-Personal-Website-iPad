@@ -12,8 +12,8 @@ interface Message {
 
 const SUGGESTIONS = [
   "What are you working on?",
-  "Tell me about your projects",
-  "What's your tech stack?",
+  "What was Everything Night?",
+  "How did TTS go from dormant to 30+?",
   "What do you do for fun?",
   "How can I contact you?",
   "What are your career goals?",

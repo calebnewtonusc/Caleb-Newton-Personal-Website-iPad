@@ -7,21 +7,25 @@ interface Props {
   orientation: "landscape" | "portrait";
   children: ReactNode;
   onPowerPress?: () => void;
+  /** Logical size override. On a phone the screen is the whole viewport. */
+  size?: { w: number; h: number };
+  /** No bezel, buttons or camera: the screen is the device. */
+  bare?: boolean;
 }
 
 // iPad Pro 11" (M4) Space Gray -realistic proportions
 // Portrait:  630 × 900  outer frame
 // Landscape: 900 × 630  outer frame
 
-export default function IPadFrame({ orientation, children, onPowerPress }: Props) {
+export default function IPadFrame({ orientation, children, onPowerPress, size, bare = false }: Props) {
   const isLandscape = orientation === "landscape";
 
-  const outerW = isLandscape ? 900 : 630;
-  const outerH = isLandscape ? 630 : 900;
+  const outerW = size?.w ?? (isLandscape ? 900 : 630);
+  const outerH = size?.h ?? (isLandscape ? 630 : 900);
 
   // Thin bezels matching real iPad Pro 11"
-  const bezelH = isLandscape ? 19 : 22;
-  const bezelV = isLandscape ? 22 : 19;
+  const bezelH = bare ? 0 : isLandscape ? 19 : 22;
+  const bezelV = bare ? 0 : isLandscape ? 22 : 19;
   const screenW = outerW - bezelV * 2;
   const screenH = outerH - bezelH * 2;
 
@@ -41,14 +45,14 @@ export default function IPadFrame({ orientation, children, onPowerPress }: Props
       animate={{
         width: outerW,
         height: outerH,
-        borderRadius: isLandscape ? 30 : 40,
+        borderRadius: bare ? 0 : isLandscape ? 30 : 40,
       }}
       transition={{ type: "spring", stiffness: 260, damping: 28 }}
       style={{
-        background: frameGrad,
+        background: bare ? "#0a0a0c" : frameGrad,
         position: "relative",
         flexShrink: 0,
-        boxShadow: `
+        boxShadow: bare ? "none" : `
           0 0 0 0.5px rgba(0,0,0,0.08) inset,
           0 0 0 1px rgba(0,0,0,0.25),
           0 50px 120px rgba(0,0,0,0.55),
@@ -59,6 +63,7 @@ export default function IPadFrame({ orientation, children, onPowerPress }: Props
         `,
       }}
     >
+      {!bare && (<>
       {/* ── Side / Top Buttons ── */}
       {/* Power button (right side landscape / top-right portrait) */}
       <motion.div
@@ -125,6 +130,8 @@ export default function IPadFrame({ orientation, children, onPowerPress }: Props
         }}
       />
 
+      </>)}
+
       {/* ── Screen Container ── */}
       <motion.div
         animate={{
@@ -132,7 +139,7 @@ export default function IPadFrame({ orientation, children, onPowerPress }: Props
           left: bezelV,
           width: screenW,
           height: screenH,
-          borderRadius: isLandscape ? 18 : 26,
+          borderRadius: bare ? 0 : isLandscape ? 18 : 26,
         }}
         transition={{ type: "spring", stiffness: 260, damping: 28 }}
         style={{
@@ -154,6 +161,7 @@ export default function IPadFrame({ orientation, children, onPowerPress }: Props
         </div>
       </motion.div>
 
+      {!bare && (<>
       {/* ── Frame specular / shine overlay ── */}
       <div
         style={{
@@ -190,6 +198,7 @@ export default function IPadFrame({ orientation, children, onPowerPress }: Props
           boxShadow: "0 0 0 1.5px rgba(255,255,255,0.06), inset 0 0 4px rgba(0,0,0,0.8)",
         }}
       />
+      </>)}
     </motion.div>
   );
 }

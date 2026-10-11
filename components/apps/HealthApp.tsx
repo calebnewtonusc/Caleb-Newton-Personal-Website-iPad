@@ -254,8 +254,10 @@ function Tile({
 }
 
 export default function HealthApp({ orientation }: Props) {
-  const [selected, setSelected] = useState<string>(PROFILE);
   const isLandscape = orientation === "landscape";
+  // Height and weight were the first thing a visitor saw. The story is the
+  // reason this app exists, so a wide screen opens on it.
+  const [selected, setSelected] = useState<string>(isLandscape ? STORY : PROFILE);
   const storyRef = useRef<HTMLDivElement>(null);
 
   const category = health.categories.find((c) => c.id === selected);
@@ -346,6 +348,37 @@ export default function HealthApp({ orientation }: Props) {
         <svg aria-hidden="true" width="7" height="12" viewBox="0 0 7 12" fill="none">
           <path d="M1 1l5 5L1 11" stroke="#c7c7cc" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
+      </button>
+
+      <button
+        onClick={() => setSelected(STORY)}
+        style={{
+          width: "100%",
+          textAlign: "left",
+          border: "none",
+          cursor: "pointer",
+          font: "inherit",
+          marginTop: 10,
+          padding: "14px 16px",
+          borderRadius: 12,
+          color: "white",
+          background:
+            selected === STORY
+              ? "linear-gradient(135deg, #FF2D55 0%, #5E5CE6 100%)"
+              : "linear-gradient(135deg, #FF375F 0%, #7D7AFF 100%)",
+          boxShadow: "0 6px 18px rgba(255,45,85,0.25)",
+          fontFamily: "-apple-system, sans-serif",
+        }}
+      >
+        <span style={{ fontSize: 11, fontWeight: 700, letterSpacing: 0.6, textTransform: "uppercase", opacity: 0.85 }}>
+          Highlights
+        </span>
+        <span style={{ display: "block", fontSize: 16, fontWeight: 700, marginTop: 4, letterSpacing: -0.2 }}>
+          Freshman year, in my own words
+        </span>
+        <span style={{ display: "block", fontSize: 13, marginTop: 3, opacity: 0.9 }}>
+          The medical leave, the recovery, and what my dad said.
+        </span>
       </button>
 
       <p style={{ ...sectionLabel, marginTop: 18 }}>Health Categories</p>
